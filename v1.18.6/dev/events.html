@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Event API &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ConfigSaved" href="../events/configsaved.html" />
+    <link rel="prev" title="GET /rest/svc/report" href="../rest/svc-report-get.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="event-api">
+<span id="id1"></span><h1>Event API<a class="headerlink" href="#event-api" title="Permalink to this headline">¶</a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing provides a simple long polling interface for exposing events from the
+core utility towards a GUI. To receive events, see <a class="reference internal" href="../rest/events-get.html#events-get"><span class="std std-ref">GET /rest/events</span></a>.</p>
+</section>
+<section id="event-structure">
+<h2>Event Structure<a class="headerlink" href="#event-structure" title="Permalink to this headline">¶</a></h2>
+<p>Each event is represented by an object similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;globalID&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DeviceConnected&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-07-13T21:04:33.687836696+02:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;addr&quot;</span><span class="p">:</span> <span class="s2">&quot;172.16.32.25:22000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;NFGKEKE-7Z6RTH7-I3PRZXS-DEJF3UJ-FRWJBFO-VBBTDND-4SGNGVZ-QUQHJAG&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The top level keys <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">globalID</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> are always present,
+though <code class="docutils literal notranslate"><span class="pre">data</span></code> may be <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
+<dl class="simple">
+<dt>id</dt><dd><p>A unique ID for this event on the events API. It always increases by 1: the first
+event generated has id <code class="docutils literal notranslate"><span class="pre">1</span></code>, the next has id <code class="docutils literal notranslate"><span class="pre">2</span></code> etc. If this increases by
+more than 1, then one or more events have been skipped by the events API.</p>
+</dd>
+<dt>globalID</dt><dd><p>A global ID for this event, across the events API, the audit log, and any other
+sources. It may increase by more than 1, but it will always be greater
+than or equal to the id.</p>
+</dd>
+<dt>time</dt><dd><p>The time the event was generated.</p>
+</dd>
+<dt>type</dt><dd><p>Indicates the type of (i.e. reason for) the event and is one of the event
+types below.</p>
+</dd>
+<dt>data</dt><dd><p>An object containing optional extra information; the exact structure is
+determined by the event type.</p>
+</dd>
+</dl>
+</section>
+<section id="event-types">
+<span id="id2"></span><h2>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../events/configsaved.html">ConfigSaved</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/deviceconnected.html">DeviceConnected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicedisconnected.html">DeviceDisconnected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicediscovered.html">DeviceDiscovered</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicepaused.html">DevicePaused</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicerejected.html">DeviceRejected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/deviceresumed.html">DeviceResumed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/downloadprogress.html">DownloadProgress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/failure.html">Failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/foldercompletion.html">FolderCompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/foldererrors.html">FolderErrors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/folderpaused.html">FolderPaused</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/folderrejected.html">FolderRejected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/folderresumed.html">FolderResumed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/folderscanprogress.html">FolderScanProgress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/foldersummary.html">FolderSummary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/itemfinished.html">ItemFinished</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/itemstarted.html">ItemStarted</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/listenaddresseschanged.html">ListenAddressesChanged</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/localchangedetected.html">LocalChangeDetected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/localindexupdated.html">LocalIndexUpdated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/loginattempt.html">LoginAttempt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/pendingdeviceschanged.html">PendingDevicesChanged</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/pendingfolderschanged.html">PendingFoldersChanged</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/remotechangedetected.html">RemoteChangeDetected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/remotedownloadprogress.html">RemoteDownloadProgress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/remoteindexupdated.html">RemoteIndexUpdated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/starting.html">Starting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/startupcomplete.html">StartupComplete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/statechanged.html">StateChanged</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/events.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">REST API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Event API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="../rest/svc-report-get.html" title="previous chapter">GET /rest/svc/report</a></li>
+      <li>Next: <a href="../events/configsaved.html" title="next chapter">ConfigSaved</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
