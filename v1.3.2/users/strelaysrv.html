@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syncthing Relay Server &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom Upgrade Server" href="custom-upgrades.html" />
+    <link rel="prev" title="Syncthing Discovery Server" href="stdiscosrv.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="stdiscosrv.html" title="previous chapter">Syncthing Discovery Server</a></li>
+      <li>Next: <a href="custom-upgrades.html" title="next chapter">Custom Upgrade Server</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://www.syncthing.org/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="syncthing-relay-server">
+<span id="strelaysrv"></span><h1>Syncthing Relay Server<a class="headerlink" href="#syncthing-relay-server" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">strelaysrv</span> <span class="p">[</span><span class="o">-</span><span class="n">debug</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">ext</span><span class="o">-</span><span class="n">address</span><span class="o">=&lt;</span><span class="n">address</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="k">global</span><span class="o">-</span><span class="n">rate</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">/</span><span class="n">s</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">keys</span><span class="o">=&lt;</span><span class="nb">dir</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">listen</span><span class="o">=&lt;</span><span class="n">listen</span> <span class="n">addr</span><span class="o">&gt;</span><span class="p">]</span>
+           <span class="p">[</span><span class="o">-</span><span class="n">message</span><span class="o">-</span><span class="n">timeout</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="o">-</span><span class="n">lease</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="o">-</span><span class="n">renewal</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span>
+           <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="o">-</span><span class="n">timeout</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">network</span><span class="o">-</span><span class="n">timeout</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">session</span><span class="o">-</span><span class="n">rate</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">/</span><span class="n">s</span><span class="o">&gt;</span><span class="p">]</span>
+           <span class="p">[</span><span class="o">-</span><span class="n">ping</span><span class="o">-</span><span class="n">interval</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">pools</span><span class="o">=&lt;</span><span class="n">pool</span> <span class="n">addresses</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">protocol</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">provided</span><span class="o">-</span><span class="n">by</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">]</span>
+           <span class="p">[</span><span class="o">-</span><span class="n">status</span><span class="o">-</span><span class="n">srv</span><span class="o">=&lt;</span><span class="n">listen</span> <span class="n">addr</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing relies on a network of community-contributed relay servers. Anyone
+can run a relay server, and it will automatically join the relay pool and be
+available to Syncthing users. The current list of relays can be found at
+<a class="reference external" href="http://relays.syncthing.net/">http://relays.syncthing.net/</a>.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="std cmdoption">
+<dt id="cmdoption-debug">
+<code class="sig-name descname">-debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable debug output.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-ext-address">
+<code class="sig-name descname">-ext-address</code><code class="sig-prename descclassname">=&lt;address&gt;</code><a class="headerlink" href="#cmdoption-ext-address" title="Permalink to this definition">¶</a></dt>
+<dd><p>An optional address to advertising as being available on. Allows listening
+on an unprivileged port with port forwarding from e.g. 443, and be
+connected to on port 443.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-global-rate">
+<code class="sig-name descname">-global-rate</code><code class="sig-prename descclassname">=&lt;bytes/s&gt;</code><a class="headerlink" href="#cmdoption-global-rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global rate limit, in bytes/s.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-keys">
+<code class="sig-name descname">-keys</code><code class="sig-prename descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory where cert.pem and key.pem is stored (default “.”).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-listen">
+<code class="sig-name descname">-listen</code><code class="sig-prename descclassname">=&lt;listen addr&gt;</code><a class="headerlink" href="#cmdoption-listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Protocol listen address (default “:22067”).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-message-timeout">
+<code class="sig-name descname">-message-timeout</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-message-timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum amount of time we wait for relevant messages to arrive (default 1m0s).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-nat">
+<code class="sig-name descname">-nat</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-nat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use UPnP/NAT-PMP to acquire external port mapping</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-nat-lease">
+<code class="sig-name descname">-nat-lease</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-nat-lease" title="Permalink to this definition">¶</a></dt>
+<dd><p>NAT lease length in minutes (default 60)</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-nat-renewal">
+<code class="sig-name descname">-nat-renewal</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-nat-renewal" title="Permalink to this definition">¶</a></dt>
+<dd><p>NAT renewal frequency in minutes (default 30)</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-nat-timeout">
+<code class="sig-name descname">-nat-timeout</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-nat-timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>NAT discovery timeout in seconds (default 10)</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-network-timeout">
+<code class="sig-name descname">-network-timeout</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-network-timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timeout for network operations between the client and the relay. If no data
+is received between the client and the relay in this period of time, the
+connection is terminated. Furthermore, if no data is sent between either
+clients being relayed within this period of time, the session is also
+terminated. (default 2m0s)</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-per-session-rate">
+<code class="sig-name descname">-per-session-rate</code><code class="sig-prename descclassname">=&lt;bytes/s&gt;</code><a class="headerlink" href="#cmdoption-per-session-rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Per session rate limit, in bytes/s.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-ping-interval">
+<code class="sig-name descname">-ping-interval</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-ping-interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>How often pings are sent (default 1m0s).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-pools">
+<code class="sig-name descname">-pools</code><code class="sig-prename descclassname">=&lt;pool addresses&gt;</code><a class="headerlink" href="#cmdoption-pools" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comma separated list of relay pool addresses to join (default
+“<a class="reference external" href="http://relays.syncthing.net/endpoint">http://relays.syncthing.net/endpoint</a>”). Blank to disable announcement to
+a pool, thereby remaining a private relay.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-protocol">
+<code class="sig-name descname">-protocol</code><code class="sig-prename descclassname">=&lt;string&gt;</code><a class="headerlink" href="#cmdoption-protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Protocol used for listening. ‘tcp’ for IPv4 and IPv6, ‘tcp4’ for IPv4, ‘tcp6’ for IPv6 (default “tcp”).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-provided-by">
+<code class="sig-name descname">-provided-by</code><code class="sig-prename descclassname">=&lt;string&gt;</code><a class="headerlink" href="#cmdoption-provided-by" title="Permalink to this definition">¶</a></dt>
+<dd><p>An optional description about who provides the relay.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-status-srv">
+<code class="sig-name descname">-status-srv</code><code class="sig-prename descclassname">=&lt;listen addr&gt;</code><a class="headerlink" href="#cmdoption-status-srv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listen address for status service (blank to disable) (default “:22070”).
+Status service is used by the relay pool server UI for displaying stats (data transfered, number of clients, etc.)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="setting-up">
+<h2>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h2>
+<p>Primarily, you need to decide on a directory to store the TLS key and
+certificate and a listen port. The default listen port of 22067 works, but for
+optimal compatibility a well known port for encrypted traffic such as 443 is
+recommended. This may require additional setup to work without running
+as root or a privileged user, see <a class="reference internal" href="#running-on-port-443-as-an-unprivileged-user">Running on port 443 as an unprivileged user</a>
+below. In principle something similar to this should work on a Linux/Unix
+system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo useradd relaysrv
+$ sudo mkdir /etc/relaysrv
+$ sudo chown relaysrv /etc/relaysrv
+$ sudo -u relaysrv /usr/local/bin/relaysrv -keys /etc/relaysrv
+</pre></div>
+</div>
+<p>This creates a user <code class="docutils literal notranslate"><span class="pre">relaysrv</span></code> and a directory <code class="docutils literal notranslate"><span class="pre">/etc/relaysrv</span></code> to store
+the keys. The keys are generated on first startup. The relay will join the
+global relay pool, unless a <code class="docutils literal notranslate"><span class="pre">-pools=&quot;&quot;</span></code> argument is given.</p>
+<p>To make the relay server start automatically at boot, use the recommended
+procedure for your operating system.</p>
+<div class="section" id="client-configuration">
+<h3>Client configuration<a class="headerlink" href="#client-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing can be configured to use specific relay servers (exclusively of the public pool) by adding the required servers to the Sync Protocol Listen Address field, under Actions and Settings. The format is as follows:</p>
+<blockquote>
+<div><p>relay://&lt;host name|IP&gt;[:port]/?id=&lt;relay device ID&gt;</p>
+</div></blockquote>
+<p>For example:</p>
+<blockquote>
+<div><p>relay://private-relay-1.example.com:443/?id=ITZRNXE-YNROGBZ-HXTH5P7-VK5NYE5-QHRQGE2-7JQ6VNJ-KZUEDIU-5PPR5AM</p>
+</div></blockquote>
+<p>The relay’s device ID is output on start-up.</p>
+</div>
+<div class="section" id="running-on-port-443-as-an-unprivileged-user">
+<h3>Running on port 443 as an unprivileged user<a class="headerlink" href="#running-on-port-443-as-an-unprivileged-user" title="Permalink to this headline">¶</a></h3>
+<p>It is recommended that you run the relay on port 443 (or another port which is
+commonly allowed through corporate firewalls), in order to maximise the chances
+that people are able to connect. However, binding to ports below 1024 requires
+root privileges, and running a relay as root is not recommended. Thankfully
+there are a couple of approaches available to you.</p>
+<p>One option is to run the relay on port 22067, and use an <code class="docutils literal notranslate"><span class="pre">iptables</span></code> rule
+to forward traffic from port 443 to port 22067, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span> <span class="o">-</span><span class="n">t</span> <span class="n">nat</span> <span class="o">-</span><span class="n">A</span> <span class="n">PREROUTING</span> <span class="o">-</span><span class="n">i</span> <span class="n">eth0</span> <span class="o">-</span><span class="n">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">443</span> <span class="o">-</span><span class="n">j</span> <span class="n">REDIRECT</span> <span class="o">--</span><span class="n">to</span><span class="o">-</span><span class="n">port</span> <span class="mi">22067</span>
+</pre></div>
+</div>
+<p>Or, if you’re using <code class="docutils literal notranslate"><span class="pre">ufw</span></code>, add the following to <code class="docutils literal notranslate"><span class="pre">/etc/ufw/before.rules</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">nat</span>
+<span class="p">:</span><span class="n">PREROUTING</span> <span class="n">ACCEPT</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">:</span><span class="n">POSTROUTING</span> <span class="n">ACCEPT</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="o">-</span><span class="n">A</span> <span class="n">PREROUTING</span> <span class="o">-</span><span class="n">i</span> <span class="n">eth0</span> <span class="o">-</span><span class="n">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">443</span> <span class="o">-</span><span class="n">j</span> <span class="n">REDIRECT</span> <span class="o">--</span><span class="n">to</span><span class="o">-</span><span class="n">port</span> <span class="mi">22067</span>
+
+<span class="n">COMMIT</span>
+</pre></div>
+</div>
+<p>You will need to start <code class="docutils literal notranslate"><span class="pre">relaysrv</span></code> with <code class="docutils literal notranslate"><span class="pre">-ext-address</span> <span class="pre">&quot;:443&quot;</span></code>. This tells
+<code class="docutils literal notranslate"><span class="pre">relaysrv</span></code> that it can be contacted on port 443, even though it is listening
+on port 22067. You will also need to let both port 443 and 22067 through your
+firewall.</p>
+<p>Another option is <a class="reference external" href="https://wiki.apache.org/httpd/NonRootPortBinding">described here</a>,
+although your mileage may vary.</p>
+</div>
+</div>
+<div class="section" id="firewall-considerations">
+<h2>Firewall Considerations<a class="headerlink" href="#firewall-considerations" title="Permalink to this headline">¶</a></h2>
+<p>The relay server listens on two ports by default.  One for data connections and the other
+for providing public statistics at <a class="reference external" href="http://relays.syncthing.net/">http://relays.syncthing.net/</a>.  The firewall, such as
+<code class="docutils literal notranslate"><span class="pre">iptables</span></code>, must permit incoming TCP connections to the following ports:</p>
+<ul class="simple">
+<li><p>Data port:  <code class="docutils literal notranslate"><span class="pre">22067/tcp</span></code> overridden with <code class="docutils literal notranslate"><span class="pre">-listen</span></code> and advertised with <code class="docutils literal notranslate"><span class="pre">-ext-address</span></code></p></li>
+<li><p>Status port: <code class="docutils literal notranslate"><span class="pre">22070/tcp</span></code> overridden with <code class="docutils literal notranslate"><span class="pre">-status-srv</span></code></p></li>
+</ul>
+<p>Runtime <code class="docutils literal notranslate"><span class="pre">iptables</span></code> rules to allow access to the default ports:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span> <span class="o">-</span><span class="n">I</span> <span class="n">INPUT</span> <span class="o">-</span><span class="n">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">22067</span> <span class="o">-</span><span class="n">j</span> <span class="n">ACCEPT</span>
+<span class="n">iptables</span> <span class="o">-</span><span class="n">I</span> <span class="n">INPUT</span> <span class="o">-</span><span class="n">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">22070</span> <span class="o">-</span><span class="n">j</span> <span class="n">ACCEPT</span>
+</pre></div>
+</div>
+<p>Please consult Linux distribution documentation to persist firewall rules.</p>
+</div>
+<div class="section" id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><em class="manpage">syncthing-relay(7)</em>, <em class="manpage">syncthing-faq(7)</em>,
+<em class="manpage">syncthing-networking(7)</em></p>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/master/users/strelaysrv.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

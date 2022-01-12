@@ -1,0 +1,1200 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Relay Protocol v1 &mdash; Syncthing v0.12 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v0.12 documentation" href="../index.html"/>
+        <link rel="prev" title="Local Discovery Protocol v3" href="localdisco-v3.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> Syncthing
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting-started.html#syncthing">Syncthing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#configuring">Configuring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/gui.html">An intro to the GUI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/gui.html#folder-view">Folder View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/gui.html#device-view">Device View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/project-presentation.html">Project Presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing">Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing-android">syncthing-android</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing-inotify">syncthing-inotify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing-gtk">Syncthing-GTK</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">For Users</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#exit-codes">Exit Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#development-settings">Development Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/config.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#config-file-format">Config File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#configuration-element">Configuration Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#folder-element">Folder Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#device-element">Device Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#gui-element">GUI Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#options-element">Options Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html#syncing-configuration-files">Syncing Configuration files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/faq.html#general">General</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#what-is-syncthing">What is Syncthing?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#is-it-syncthing-syncthing-or-syncthing">Is it “syncthing”, “Syncthing” or “SyncThing”?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#how-does-syncthing-differ-from-bittorrent-sync">How does Syncthing differ from BitTorrent Sync?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/faq.html#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#what-things-are-synced">What things are synced?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#is-synchronization-fast">Is synchronization fast?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#should-i-keep-my-device-ids-secret">Should I keep my device IDs secret?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#what-if-there-is-a-conflict">What if there is a conflict?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#how-to-configure-multiple-users-on-a-single-machine">How to configure multiple users on a single machine?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#is-syncthing-my-ideal-backup-application">Is Syncthing my ideal backup application?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#why-is-there-no-ios-client">Why is there no iOS client?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#why-does-it-use-so-much-cpu">Why does it use so much CPU?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#how-can-i-exclude-files-with-brackets-in-the-name">How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#why-is-the-setup-more-complicated-than-btsync">Why is the setup more complicated than BTSync?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#how-do-i-access-the-web-gui-from-another-computer">How do I access the web GUI from another computer?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#why-do-i-see-syncthing-twice-in-task-manager">Why do I see Syncthing twice in task manager?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#where-do-syncthing-logs-go-to">Where do Syncthing logs go to?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#how-do-i-upgrade-syncthing">How do I upgrade Syncthing?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/faq.html#where-do-i-find-the-latest-release">Where do I find the latest release?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/firewall.html">Firewall Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html#port-forwards">Port Forwards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html#local-firewall">Local Firewall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html#remote-web-gui">Remote Web GUI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/firewall.html#tunneling-via-ssh">Tunneling via SSH</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/advanced.html">Advanced Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/advanced.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/advanced.html#per-folder-settings">Per Folder Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/folder-autonormalize.html">autoNormalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/folder-autonormalize.html#background">Background</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/folder-ignoredelete.html">ignoreDelete</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/folder-ignoredelete.html#example-scenario">Example Scenario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/autostart.html">Starting Syncthing Automatically</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html#windows">Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#task-scheduler">Task Scheduler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#third-party-tools">Third-party Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#start-on-login">Start on Login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#run-independent-of-user-login">Run independent of user login</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html#mac-os-x">Mac OS X</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#using-homebrew">Using homebrew</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#without-homebrew">Without homebrew</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html#linux">Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#on-ubuntu-like-systems">On Ubuntu-like systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#using-supervisord">Using Supervisord</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/autostart.html#using-systemd">Using systemd</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../users/autostart.html#how-to-set-up-a-system-service">How to set up a system service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/autostart.html#how-to-set-up-a-user-service">How to set up a user service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/autostart.html#checking-the-service-status">Checking the service status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/autostart.html#using-the-journal">Using the journal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/autostart.html#permissions">Permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/autostart.html#debugging">Debugging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/contrib.html">Community Contributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html#gui-wrappers">GUI Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#cross-platform">Cross-platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#android">Android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#os-x">OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#kindle-touch">Kindle Touch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html#packages-and-bundlings">Packages and Bundlings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#debian-ubuntu">Debian / Ubuntu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#archlinux">ArchLinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#arkos">arkOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#docker">Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#gentoo">Gentoo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#freebsd">FreeBSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#opensuse">OpenSUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#synology-nas">Synology NAS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#qnap-nas">QNAP NAS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html#integrations">Integrations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#rest-api-bindings">REST API Bindings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#ports">Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/contrib.html#configuration-management">Configuration management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html#older-possibly-unmaintained">Older, Possibly Unmaintained</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/custom-upgrades.html">Custom Upgrade Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/custom-upgrades.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/custom-upgrades.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/discosrv.html">Running a Discovery Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/discosrv.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/discosrv.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/discosrv.html#configuring">Configuring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/discosrv.html#certificates">Certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/discosrv.html#pointing-syncthing-at-your-discovery-server">Pointing Syncthing at Your Discovery Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/foldermaster.html">Folder Master</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/ignoring.html">Ignoring Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html#patterns">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html#effects-on-in-sync-status">Effects on “In Sync” Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/relaying.html">Relaying</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/relaying.html#security">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/relaying.html#running-your-own-relay">Running Your Own Relay</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/reverseproxy.html">Reverse Proxy Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/reverseproxy.html#server-configuration">Server Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/reverseproxy.html#apache">Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/reverseproxy.html#nginx">Nginx</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/reverseproxy.html#folder-configuration">Folder Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/reverseproxy.html#id2">Apache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/security.html">Security Principles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html#information-leakage">Information Leakage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/security.html#global-discovery">Global Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/security.html#local-discovery">Local Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/security.html#upgrade-checks">Upgrade Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/security.html#usage-reporting">Usage Reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/security.html#sync-connections-bep">Sync Connections (BEP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../users/security.html#web-gui">Web GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html#in-short">In Short</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html#protecting-your-syncthing-keys-and-identity">Protecting your Syncthing keys and identity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../users/versioning.html">File Versioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html#trash-can-file-versioning">Trash Can File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html#simple-file-versioning">Simple File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html#staggered-file-versioning">Staggered File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html#external-file-versioning">External File Versioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../users/versioning.html#example-for-unixes">Example for Unixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#contributing-to-the-syncthing-core">Contributing to the Syncthing Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/intro.html#source-code-layout">Source Code Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/intro.html#why-are-you-being-so-hard-on-my-pull-request">Why are you being so hard on my pull request?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/building.html">Building Syncthing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#branches-and-tags">Branches and Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-unix">Building (Unix)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-windows">Building (Windows)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#subcommands-and-options">Subcommands and Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-without-git">Building without Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-with-docker">Building with Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/contributing.html">Contribution Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#authorship">Authorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#team-membership">Team Membership</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#code-review">Code Review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#coding-style">Coding Style</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/contributing.html#general">General</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/contributing.html#go-specific">Go Specific</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#commits">Commits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#branches">Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#tags">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#licensing">Licensing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/debugging.html">Debugging Syncthing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#sttrace">STTRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stprofiler">STPROFILER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stguiassets">STGUIASSETS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stcpuprofile">STCPUPROFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stheapprofile">STHEAPPROFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stblockprofile">STBLOCKPROFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stperfstats">STPERFSTATS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stnoupgrade">STNOUPGRADE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#gomaxprocs">GOMAXPROCS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#gogc">GOGC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/device-ids.html">Understanding Device IDs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#keys">Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#id1">Device IDs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/device-ids.html#connection-establishment">Connection Establishment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#an-aside-about-collisions">An Aside About Collisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#problems-and-vulnerabilities">Problems and Vulnerabilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/device-ids.html#discovery-spoofing">Discovery Spoofing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/device-ids.html#long-device-ids-are-painful">Long Device IDs are Painful</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/events.html">Event API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html#event-structure">Event Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html#events">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../events/configsaved.html">ConfigSaved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/deviceconnected.html">DeviceConnected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/devicedisconnected.html">DeviceDisconnected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/devicediscovered.html">DeviceDiscovered</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/devicerejected.html">DeviceRejected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/downloadprogress.html">DownloadProgress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/foldercompletion.html">FolderCompletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/foldererrors.html">FolderErrors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/folderrejected.html">FolderRejected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/foldersummary.html">FolderSummary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/itemfinished.html">ItemFinished</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/itemstarted.html">ItemStarted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/localindexupdated.html">LocalIndexUpdated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/ping.html">Ping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/remoteindexupdated.html">RemoteIndexUpdated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/starting.html">Starting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/startupcomplete.html">StartupComplete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/statechanged.html">StateChanged</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/infrastructure.html">Syncthing Infrastructure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#github">GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#main-documenatation-websites">Main &amp; Documenatation Websites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#forum-website">Forum Website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#global-discovery-servers">Global Discovery Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#relay-pool-server">Relay Pool Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#relay-servers">Relay Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#usage-reporting-server">Usage Reporting Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#build-servers-core-and-android">Build Servers, Core and Android</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#apt-server">APT Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#signing-server">Signing Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/issues.html">Issue Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#labels">Labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#milestone">Milestone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#assignee">Assignee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#locking">Locking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/jenkins.html">Interacting with Jenkins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-creation.html">Creating a Release</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html#process">Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-schedule.html">Release Schedule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#patch-releases">Patch Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#minor-releases">Minor Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#major-releases">Major Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-signing.html">Release Signing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html#checksum-files">Checksum Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html#binary-signing">Binary Signing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/release-signing.html#creating-and-verifying-binary-signatures-manually">Creating and Verifying Binary Signatures Manually</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/rest.html">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#api-key">API Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#system-endpoints">System Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-config-get.html">GET /rest/system/config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-config-insync-get.html">GET /rest/system/config/insync</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-config-post.html">POST /rest/system/config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-connections-get.html">GET /rest/system/connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-debug-get.html">GET /rest/system/debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-debug-post.html">POST /rest/system/debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-discovery-get.html">GET /rest/system/discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-discovery-post.html">POST /rest/system/discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-error-clear-post.html">POST /rest/system/error/clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-error-get.html">GET /rest/system/error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-error-post.html">POST /rest/system/error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-log-get.html">GET /rest/system/log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-ping-get.html">GET /rest/system/ping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-ping-post.html">POST /rest/system/ping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-reset-post.html">POST /rest/system/reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-restart-post.html">POST /rest/system/restart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-shutdown-post.html">POST /rest/system/shutdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-status-get.html">GET /rest/system/status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-upgrade-get.html">GET /rest/system/upgrade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-upgrade-post.html">POST /rest/system/upgrade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-version-get.html">GET /rest/system/version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#database-endpoints">Database Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-browse-get.html">GET /rest/db/browse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-completion-get.html">GET /rest/db/completion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-file-get.html">GET /rest/db/file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-ignores-get.html">GET /rest/db/ignores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-ignores-post.html">POST /rest/db/ignores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-need-get.html">GET /rest/db/need</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-prio-post.html">POST /rest/db/prio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-scan-post.html">POST /rest/db/scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-status-get.html">GET /rest/db/status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#statistics-endpoints">Statistics Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/stats-device-get.html">GET /rest/stats/device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/stats-folder-get.html">GET /rest/stats/folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#misc-services-endpoints">Misc Services Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/svc-deviceid-get.html">GET /rest/svc/deviceid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/svc-lang-get.html">GET /rest/svc/lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/svc-report-get.html">GET /rest/svc/report</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Specifications</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bep-v1.html">Block Exchange Protocol v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#introduction-and-definitions">Introduction and Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#transport-and-authentication">Transport and Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#messages">Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#cluster-config-type-0">Cluster Config (Type = 0)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#graphical-representation">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#fields-clusterconfigmessage">Fields (ClusterConfigMessage)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#fields-folder-structure">Fields (Folder Structure)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#fields-device-structure">Fields (Device Structure)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#xdr">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#index-type-1-and-index-update-type-6">Index (Type = 1) and Index Update (Type = 6)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id1">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#fields-index-message">Fields (Index Message)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#fields-fileinfo-structure">Fields (FileInfo Structure)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id2">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#request-type-2">Request (Type = 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id3">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#fields">Fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id4">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#response-type-3">Response (Type = 3)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id5">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id6">Fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id7">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#ping-type-4">Ping (Type = 4)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#close-type-7">Close (Type = 7)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id8">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bep-v1.html#id9">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#sharing-modes">Sharing Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#trusted">Trusted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bep-v1.html#read-only">Read Only</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#message-limits">Message Limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#example-exchange">Example Exchange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html#examples-of-strong-cipher-suites">Examples of Strong Cipher Suites</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="globaldisco-v3.html">Global Discovery v3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="globaldisco-v3.html#announcements">Announcements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="globaldisco-v3.html#queries">Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="localdisco-v3.html">Local Discovery Protocol v3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="localdisco-v3.html#mode-of-operation">Mode of Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localdisco-v3.html#device-id">Device ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localdisco-v3.html#announcement-packet">Announcement packet</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Relay Protocol v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-relay">What is a relay?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operation-modes">Operation modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identifying-the-connection-mode">Identifying the connection mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#protocol-mode">Protocol mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#permanent-protocol-submode">Permanent protocol submode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#temporary-protocol-submode">Temporary protocol submode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-exchange">Example Exchange</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#session-mode">Session mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Example Exchange</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#messages">Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#header-structure">Header structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ping-message-type-0">Ping message (Type = 0)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pong-message-type-1">Pong message (Type = 1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joinrelayrequest-message-type-2">JoinRelayRequest message (Type = 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joinsessionrequest-message-type-3">JoinSessionRequest message (Type = 3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#response-message-type-4">Response message (Type = 4)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connectrequest-message-type-5">ConnectRequest message (Type = 5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sessioninvitation-message-type-6">SessionInvitation message (Type = 6)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-syncthing-uses-relays-and-general-security">How syncthing uses relays, and general security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples-of-strong-cipher-suites">Examples of Strong Cipher Suites</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Syncthing</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Relay Protocol v1</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="https://github.com/syncthing/docs/blob/master/specs/relay-v1.rst" class="fa fa-github"> Edit on GitHub</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="relay-protocol-v1">
+<span id="relay-v1"></span><h1>Relay Protocol v1<a class="headerlink" href="#relay-protocol-v1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-a-relay">
+<h2>What is a relay?<a class="headerlink" href="#what-is-a-relay" title="Permalink to this headline">¶</a></h2>
+<p>Relay is a service which relays data between two <em>devices</em> which are not able to
+connect to each other directly otherwise. This is usually due to both devices
+being behind a NAT and neither side being able to open a port which would
+be directly accessible from the internet.</p>
+<p>A relay was designed to relay BEP protocol, hence the reliance on device ID’s
+in the protocol spec, but at the same time it is general enough that could be
+reused by other protocols or applications, as the data transferred between two
+devices which use a relay is completely obscure and does not affect the
+relaying.</p>
+</div>
+<div class="section" id="operation-modes">
+<h2>Operation modes<a class="headerlink" href="#operation-modes" title="Permalink to this headline">¶</a></h2>
+<p>Relay listens on a single TCP socket, but has two different connection modes,
+where a connection mode is a predefined set of messages which the relay and
+the device are expecting to exchange.</p>
+<p>The first mode is the <cite>protocol</cite> mode which allows a client to interact
+with the relay, for example join the relay, or request to connect to a device,
+given it is available on the relay. Similarly to BEP, protocol mode requires
+the device to connect via TLS using a strong suite of ciphers (same as BEP),
+which allows the relay to verify and derive the identity (Device ID) of the
+device.</p>
+<p>The second mode is the <cite>session</cite> mode which after a few initial messages
+connects two devices directly to each other via the relay, and is a plain-text
+protocol, which for every byte written by one device, sends the same set of
+bytes to the other device and vica versa.</p>
+</div>
+<div class="section" id="identifying-the-connection-mode">
+<h2>Identifying the connection mode<a class="headerlink" href="#identifying-the-connection-mode" title="Permalink to this headline">¶</a></h2>
+<p>Because both connection modes operate over the same single socket, a method
+of detecting the connection mode is required.</p>
+<p>When a new client connects to the relay, the relay checks the first byte
+that the client has sent, and if that matches 0x16, that implies to us that
+the connection is a protocol mode connection, due to 0x16 being the first byte
+in the TLS handshake, and only protocol mode connections use TLS.</p>
+<p>If the first byte is not 0x16, then we assume that the connection is a session
+mode connection.</p>
+</div>
+<div class="section" id="protocol-mode">
+<h2>Protocol mode<a class="headerlink" href="#protocol-mode" title="Permalink to this headline">¶</a></h2>
+<p>Protocol mode uses TLS and protocol name defined by the TLS header should be
+<cite>bep-relay</cite>.</p>
+<p>Protocol mode has two submodes:
+1. Permanent protocol submode - Joining the relay, and waiting for messages from
+the relay asking to connect to some device which is interested in having a
+session with you.
+2. Temporary protocol submode - Only used to request a session with a device
+which is connected to the relay using the permanent protocol submode.</p>
+<div class="section" id="permanent-protocol-submode">
+<h3>Permanent protocol submode<a class="headerlink" href="#permanent-protocol-submode" title="Permalink to this headline">¶</a></h3>
+<p>A permanent protocol submode begins with the client sending a JoinRelayRequest
+message, which the relay responds to with either a ResponseSuccess or
+ResponseAlreadyConnected message if a client with the same device ID already
+exists.</p>
+<p>After the client has joined, no more messages are exchanged apart from
+Ping/Pong messages for general connection keep alive checking.</p>
+<p>From this point onwards, the client stand-by’s and waits for SessionInvitation
+messages from the relay, which implies that some other device is trying to
+connect with you. SessionInvitation message contains the unique session key
+which then can be used to establish a connection in session mode.</p>
+<p>If the client fails to send a JoinRelayRequest message within the first ping
+interval, the connection is terminated.
+If the client fails to send a message (even if its a ping message) every minute
+(by default), the connection is terminated.</p>
+</div>
+<div class="section" id="temporary-protocol-submode">
+<h3>Temporary protocol submode<a class="headerlink" href="#temporary-protocol-submode" title="Permalink to this headline">¶</a></h3>
+<p>A temporary protocol submode begins with ConnectRequest message, to which the
+relay responds with either ResponseNotFound if the device the client it is after
+is not available, or with a SessionInvitation, which contains the unique session
+key which then can be used to establish a connection in session mode.</p>
+<p>The connection is terminated immediately after that.</p>
+</div>
+<div class="section" id="example-exchange">
+<h3>Example Exchange<a class="headerlink" href="#example-exchange" title="Permalink to this headline">¶</a></h3>
+<p>Client A - Permanent protocol submode
+Client B - Temporary protocol submode</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 33%" />
+<col style="width: 32%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Client (A)</p></th>
+<th class="head"><p>Relay</p></th>
+<th class="head"><p>Client (B)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>JoinRelayRequest-&gt;</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td></td>
+<td><p>&lt;-ResponseSuccess</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Ping-&gt;</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td></td>
+<td><p>&lt;-Pong</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;-ConnectRequest(A)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td></td>
+<td><p>SessionInvitation(A)-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td></td>
+<td><p>&lt;-SessionInvitation(B)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td></td>
+<td></td>
+<td><p>(Disconnects)</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>Ping-&gt;</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td></td>
+<td><p>&lt;-Pong</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>Ping-&gt;</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td></td>
+<td><p>&lt;-Pong</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="session-mode">
+<h2>Session mode<a class="headerlink" href="#session-mode" title="Permalink to this headline">¶</a></h2>
+<p>The first and only message the client sends in the session mode is the
+SessionInvitation message which contains the session key identifying which
+session you are trying to join. The relay responds with one of the following
+Response messages:</p>
+<ol class="arabic simple">
+<li><p>ResponseNotFound - Session key is invalid</p></li>
+<li><p>ResponseAlreadyConnected - Session is full (both sides already connected)</p></li>
+<li><p>ResponseSuccess - You have successfully joined the session</p></li>
+</ol>
+<p>After the successful response, all the bytes written and received will be
+relayed between the two devices in the session directly.</p>
+<div class="section" id="id1">
+<h3>Example Exchange<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Client A - Permanent protocol mode
+Client B - Temporary protocol mode</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 33%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Client (A)</p></th>
+<th class="head"><p>Relay</p></th>
+<th class="head"><p>Client (B)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>SessionInvitation(A)-&gt;</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td></td>
+<td><p>&lt;-ResponseSuccess</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Data-&gt;</p></td>
+<td><p>(Buffers data)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Data-&gt;</p></td>
+<td><p>(Buffers data)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td></td>
+<td></td>
+<td><p>&lt;-SessionInvitation(B)</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td></td>
+<td><p>ResponseSuccess-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td></td>
+<td><p>Relays data -&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td></td>
+<td><p>Relays data -&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td></td>
+<td><p>&lt;-Relays data</p></td>
+<td><p>&lt;-Data</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h2>
+<p>All messages are preceeded by a header message. Header message contains the
+magic value 0x9E79BC40, message type integer, and message length.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some messages have no content, apart from the implied header which allows
+us to identify what type of message it is.</p>
+</div>
+<div class="section" id="header-structure">
+<h3>Header structure<a class="headerlink" href="#header-structure" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                             <span class="n">Magic</span>                             <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                         <span class="n">Message</span> <span class="n">Type</span>                          <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                        <span class="n">Message</span> <span class="n">Length</span>                         <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">Header</span> <span class="p">{</span>
+        <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">Magic</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">MessageType</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">MessageLength</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ping-message-type-0">
+<h3>Ping message (Type = 0)<a class="headerlink" href="#ping-message-type-0" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">Ping</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pong-message-type-1">
+<h3>Pong message (Type = 1)<a class="headerlink" href="#pong-message-type-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">Pong</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="joinrelayrequest-message-type-2">
+<h3>JoinRelayRequest message (Type = 2)<a class="headerlink" href="#joinrelayrequest-message-type-2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">JoinRelayRequest</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="joinsessionrequest-message-type-3">
+<h3>JoinSessionRequest message (Type = 3)<a class="headerlink" href="#joinsessionrequest-message-type-3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                         <span class="n">Length</span> <span class="n">of</span> <span class="n">Key</span>                         <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">/</span>                                                               <span class="o">/</span>
+\                     <span class="n">Key</span> <span class="p">(</span><span class="n">variable</span> <span class="n">length</span><span class="p">)</span>                     \
+<span class="o">/</span>                                                               <span class="o">/</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">JoinSessionRequest</span> <span class="p">{</span>
+        <span class="n">opaque</span> <span class="n">Key</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>: Key</dt><dd><p>This is a unique random session key generated by the relay server. It is
+used to identify which session you are trying to connect to.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="response-message-type-4">
+<h3>Response message (Type = 4)<a class="headerlink" href="#response-message-type-4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                             <span class="n">Code</span>                              <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                       <span class="n">Length</span> <span class="n">of</span> <span class="n">Message</span>                       <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">/</span>                                                               <span class="o">/</span>
+\                   <span class="n">Message</span> <span class="p">(</span><span class="n">variable</span> <span class="n">length</span><span class="p">)</span>                   \
+<span class="o">/</span>                                                               <span class="o">/</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="nb">int</span> <span class="n">Code</span><span class="p">;</span>
+        <span class="n">string</span> <span class="n">Message</span><span class="o">&lt;&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>: Code</dt><dd><p>An integer representing the status code.</p>
+</dd>
+<dt>: Message</dt><dd><p>Message associated with the code.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="connectrequest-message-type-5">
+<h3>ConnectRequest message (Type = 5)<a class="headerlink" href="#connectrequest-message-type-5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                         <span class="n">Length</span> <span class="n">of</span> <span class="n">ID</span>                          <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">/</span>                                                               <span class="o">/</span>
+\                     <span class="n">ID</span> <span class="p">(</span><span class="n">variable</span> <span class="n">length</span><span class="p">)</span>                      \
+<span class="o">/</span>                                                               <span class="o">/</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">ConnectRequest</span> <span class="p">{</span>
+        <span class="n">opaque</span> <span class="n">ID</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>: ID</dt><dd><p>Device ID to which the client would like to connect.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="sessioninvitation-message-type-6">
+<h3>SessionInvitation message (Type = 6)<a class="headerlink" href="#sessioninvitation-message-type-6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
+ <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                        <span class="n">Length</span> <span class="n">of</span> <span class="n">From</span>                         <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">/</span>                                                               <span class="o">/</span>
+\                    <span class="n">From</span> <span class="p">(</span><span class="n">variable</span> <span class="n">length</span><span class="p">)</span>                     \
+<span class="o">/</span>                                                               <span class="o">/</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                         <span class="n">Length</span> <span class="n">of</span> <span class="n">Key</span>                         <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">/</span>                                                               <span class="o">/</span>
+\                     <span class="n">Key</span> <span class="p">(</span><span class="n">variable</span> <span class="n">length</span><span class="p">)</span>                     \
+<span class="o">/</span>                                                               <span class="o">/</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                       <span class="n">Length</span> <span class="n">of</span> <span class="n">Address</span>                       <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">/</span>                                                               <span class="o">/</span>
+\                   <span class="n">Address</span> <span class="p">(</span><span class="n">variable</span> <span class="n">length</span><span class="p">)</span>                   \
+<span class="o">/</span>                                                               <span class="o">/</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>            <span class="mh">0x0000</span>             <span class="o">|</span>             <span class="n">Port</span>              <span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+<span class="o">|</span>                  <span class="n">Server</span> <span class="n">Socket</span> <span class="p">(</span><span class="n">V</span><span class="o">=</span><span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>                   <span class="o">|</span><span class="n">V</span><span class="o">|</span>
+<span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
+
+
+<span class="n">struct</span> <span class="n">SessionInvitation</span> <span class="p">{</span>
+        <span class="n">opaque</span> <span class="n">From</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">opaque</span> <span class="n">Key</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">opaque</span> <span class="n">Address</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">Port</span><span class="p">;</span>
+        <span class="nb">bool</span> <span class="n">ServerSocket</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>: From</dt><dd><p>Device ID identifying who you will be connecting with.</p>
+</dd>
+<dt>: Key</dt><dd><p>A unique random session key generated by the relay server. It is used to
+identify which session you are trying to connect to.</p>
+</dd>
+<dt>: Address</dt><dd><p>An optional IP address on which the relay server is expecting you to
+connect, in order to start a connection in session mode.
+Empty/all zero IP should be replaced with the relay’s public IP address that
+was used when establishing the protocol mode connection.</p>
+</dd>
+<dt>: Port</dt><dd><p>An optional port on which the relay server is expecting you to connect,
+in order to start a connection in session mode.</p>
+</dd>
+<dt>: Server Socket</dt><dd><p>Because both sides connecting to the relay use the client side of the socket,
+and some protocols behave differently depending if the connection starts on
+the server side or the client side, this boolean indicates which side of the
+connection this client should assume it’s getting. The value is inverted in
+the invitation which is sent to the other device, so that there is always
+one client socket, and one server socket.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="how-syncthing-uses-relays-and-general-security">
+<h2>How syncthing uses relays, and general security<a class="headerlink" href="#how-syncthing-uses-relays-and-general-security" title="Permalink to this headline">¶</a></h2>
+<p>In the case of Syncthing and BEP, when two devices connect via relay, they
+start their standard TLS connection encapsulated within the relay’s plain-text
+session connection, effectively upgrading the plain-text connection to a TLS
+connection.</p>
+<p>Even though the relay could be used for man-in-the-middle attack, using TLS
+at the application/BEP level ensures that all the traffic is safely encrypted,
+and is completely meaningless to the relay. Furthermore, the secure suite of
+ciphers used by BEP provides forward secrecy, meaning that even if the relay
+did capture all the traffic, and even if the attacker did get their hands on the
+device keys, they would still not be able to recover/decrypt any traffic which
+was transported via the relay.</p>
+<p>After establishing a relay session, syncthing looks at the SessionInvitation
+message, and depending which side it has received, wraps the raw socket in
+either a TLS client socket or a TLS server socket depending on the ServerSocket
+boolean value in the SessionInvitation, and starts the TLS handshake.</p>
+<p>From that point onwards it functions exactly the same way as if syncthing was
+establishing a direct connection with the other device over the internet,
+performing device ID validation, and full TLS encryption, and provides the same
+security properties as it would provide when connecting over the internet.</p>
+</div>
+<div class="section" id="examples-of-strong-cipher-suites">
+<h2>Examples of Strong Cipher Suites<a class="headerlink" href="#examples-of-strong-cipher-suites" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 40%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x009F</p></td>
+<td><p>DHE-RSA-AES256-GCM-SHA384</p></td>
+<td><p>TLSv1.2 DH RSA AESGCM(256) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x006B</p></td>
+<td><p>DHE-RSA-AES256-SHA256</p></td>
+<td><p>TLSv1.2 DH RSA AES(256) SHA256</p></td>
+</tr>
+<tr class="row-even"><td><p>0xC030</p></td>
+<td><p>ECDHE-RSA-AES256-GCM-SHA384</p></td>
+<td><p>TLSv1.2 ECDH RSA AESGCM(256) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0xC028</p></td>
+<td><p>ECDHE-RSA-AES256-SHA384</p></td>
+<td><p>TLSv1.2 ECDH RSA AES(256) SHA384</p></td>
+</tr>
+<tr class="row-even"><td><p>0x009E</p></td>
+<td><p>DHE-RSA-AES128-GCM-SHA256</p></td>
+<td><p>TLSv1.2 DH RSA AESGCM(128) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x0067</p></td>
+<td><p>DHE-RSA-AES128-SHA256</p></td>
+<td><p>TLSv1.2 DH RSA AES(128) SHA256</p></td>
+</tr>
+<tr class="row-even"><td><p>0xC02F</p></td>
+<td><p>ECDHE-RSA-AES128-GCM-SHA256</p></td>
+<td><p>TLSv1.2 ECDH RSA AESGCM(128) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0xC027</p></td>
+<td><p>ECDHE-RSA-AES128-SHA256</p></td>
+<td><p>TLSv1.2 ECDH RSA AES(128) SHA256</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="localdisco-v3.html" class="btn btn-neutral" title="Local Discovery Protocol v3" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+      Last updated on Jan 12, 2022.
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v0.12',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

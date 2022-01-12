@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.8. The GUI Listen Address &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.9. Understanding Synchronization" href="syncing.html"/>
+        <link rel="prev" title="2.7. Introducer Configuration" href="introducer.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.8. The GUI Listen Address</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#port-numbers">2.8.1. Port Numbers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.8. </span>The GUI Listen Address</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/guilisten.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-gui-listen-address">
+<span id="gui-listen"></span><h1><span class="section-number">2.8. </span>The GUI Listen Address<a class="headerlink" href="#the-gui-listen-address" title="Permalink to this headline">¶</a></h1>
+<p>The GUI (and, together with it, the REST API) listens on a single TCP port
+for HTTP and HTTPS connections. By default this address is <code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> part means “localhost” which means it only listens for
+connections from the same computer Syncthing is running on. This is a
+reasonably safe default as it means you need to be logged in on the computer
+to access the GUI - it cannot be accessed from the network.</p>
+<p>To allow access from the network, change the listen address to
+<code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code>, where “0.0.0.0” means roughly “anywhere”. You should then
+also set a username and a strong password for authentication and check the
+option to use HTTPS. You are otherwise, potentially, opening up your
+Syncthing installation for the world.</p>
+<div class="section" id="port-numbers">
+<h2><span class="section-number">2.8.1. </span>Port Numbers<a class="headerlink" href="#port-numbers" title="Permalink to this headline">¶</a></h2>
+<p>The default port number is 8384. It’s traditional for custom HTTP services
+to live somewhere in the 8xxx-series and it’s an unusual enough port that
+it’s usually free. Syncthing will however choose another, random, port if
+port 8384 is taken by something else at the time of installation. The port
+used is always displayed on the console when starting up.</p>
+<p>You can change the port number to something else if you prefer, keeping in
+mind the following restrictions:</p>
+<ul class="simple">
+<li><p>You can use port numbers in the unprivileged range, 1024 to 65535.</p></li>
+<li><p>The port should not already be used by something else.</p></li>
+</ul>
+<p>Note that changing the port number is a somewhat dangerous operation. If the
+port number you select is unusable for whatever reason, Syncthing will not
+be able to present its GUI and you will need to locate and manually edit the
+configuration file to rectify the situation. Changing the port number on a
+remote Syncthing installation is not recommended, unless you have other
+means of access as well.</p>
+<p>To use a port number lower than 1024, you will need to:</p>
+<ul class="simple">
+<li><p>Ensure that Syncthing has the required privilege to open the port. How to
+accomplish this depends on your operating system - please refer to the
+relevant operation system documentation. Keep in mind that Syncthing should
+not, in general, run as a privileged user (<code class="docutils literal notranslate"><span class="pre">root</span></code>, <code class="docutils literal notranslate"><span class="pre">SYSTEM</span></code>, etc).</p></li>
+<li><p>Use the advanced config editor or edit the configuration file to set the
+port number.</p></li>
+</ul>
+<p>We do not recommend using a port number lower than 1024.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="syncing.html" class="btn btn-neutral float-right" title="2.9. Understanding Synchronization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introducer.html" class="btn btn-neutral" title="2.7. Introducer Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

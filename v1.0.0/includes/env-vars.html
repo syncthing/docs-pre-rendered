@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>&lt;no title&gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/includes/env-vars.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <dl>
+<dt>STTRACE</dt><dd><p>Used to increase the debugging verbosity in specific or all facilities,
+generally mapping to a Go package. Enabling any of these also enables
+microsecond timestamps, file names plus line numbers. Enter a
+comma-separated string of facilities to trace. <code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">-help</span></code> always
+outputs an up-to-date list. The valid facility strings are:</p>
+<dl class="simple">
+<dt>Main and operational facilities:</dt><dd><dl class="simple">
+<dt>config</dt><dd><p>Configuration loading and saving.</p>
+</dd>
+<dt>db</dt><dd><p>The database layer.</p>
+</dd>
+<dt>main</dt><dd><p>Main package.</p>
+</dd>
+<dt>model</dt><dd><p>The root hub; the largest chunk of the system. File pulling, index
+transmission and requests for chunks.</p>
+</dd>
+<dt>scanner</dt><dd><p>File change detection and hashing.</p>
+</dd>
+<dt>versioner</dt><dd><p>File versioning.</p>
+</dd>
+</dl>
+</dd>
+<dt>Networking facilities:</dt><dd><dl class="simple">
+<dt>beacon</dt><dd><p>Multicast and broadcast UDP discovery packets: Selected interfaces
+and addresses.</p>
+</dd>
+<dt>connections</dt><dd><p>Connection handling.</p>
+</dd>
+<dt>dialer</dt><dd><p>Dialing connections.</p>
+</dd>
+<dt>discover</dt><dd><p>Remote device discovery requests, replies and registration of
+devices.</p>
+</dd>
+<dt>nat</dt><dd><p>NAT discovery and port mapping.</p>
+</dd>
+<dt>pmp</dt><dd><p>NAT-PMP discovery and port mapping.</p>
+</dd>
+<dt>protocol</dt><dd><p>The BEP protocol.</p>
+</dd>
+<dt>relay</dt><dd><p>Relay interaction (<code class="docutils literal notranslate"><span class="pre">strelaysrv</span></code>).</p>
+</dd>
+<dt>upnp</dt><dd><p>UPnP discovery and port mapping.</p>
+</dd>
+</dl>
+</dd>
+<dt>Other facilities:</dt><dd><dl class="simple">
+<dt>fs</dt><dd><p>Filesystem access.</p>
+</dd>
+<dt>events</dt><dd><p>Event generation and logging.</p>
+</dd>
+<dt>http</dt><dd><p>REST API.</p>
+</dd>
+<dt>sha256</dt><dd><p>SHA256 hashing package (this facility currently unused).</p>
+</dd>
+<dt>stats</dt><dd><p>Persistent device and folder statistics.</p>
+</dd>
+<dt>sync</dt><dd><p>Mutexes. Used for debugging race conditions and deadlocks.</p>
+</dd>
+<dt>upgrade</dt><dd><p>Binary upgrades.</p>
+</dd>
+<dt>walkfs</dt><dd><p>Filesystem access while walking.</p>
+</dd>
+<dt>all</dt><dd><p>All of the above.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>STBLOCKPROFILE</dt><dd><p>Write block profiles to <code class="docutils literal notranslate"><span class="pre">block-$pid-$timestamp.pprof</span></code> every 20 seconds.</p>
+</dd>
+<dt>STCPUPROFILE</dt><dd><p>Write a CPU profile to <code class="docutils literal notranslate"><span class="pre">cpu-$pid.pprof</span></code> on exit.</p>
+</dd>
+<dt>STDEADLOCKTIMEOUT</dt><dd><p>Used for debugging internal deadlocks; sets debug sensitivity. Use only
+under direction of a developer.</p>
+</dd>
+<dt>STDEADLOCKTHRESHOLD</dt><dd><p>Used for debugging internal deadlocks; sets debug sensitivity. Use only
+under direction of a developer.</p>
+</dd>
+<dt>STGUIASSETS</dt><dd><p>Directory to load GUI assets from. Overrides compiled in assets. Useful for
+developing webgui, commonly use <code class="docutils literal notranslate"><span class="pre">STGUIASSETS=gui</span> <span class="pre">bin/syncthing</span></code>.</p>
+</dd>
+<dt>STHASHING</dt><dd><p>Specify which hashing package to use. Defaults to automatic based on
+performance. Specify “minio” (compatibility) or “standard” for the default
+Go implementation.</p>
+</dd>
+<dt>STHEAPPROFILE</dt><dd><p>Write heap profiles to <code class="docutils literal notranslate"><span class="pre">heap-$pid-$timestamp.pprof</span></code> each time heap usage
+increases.</p>
+</dd>
+<dt>STNODEFAULTFOLDER</dt><dd><p>Don’t create a default folder when starting for the first time. This
+variable will be ignored anytime after the first run.</p>
+</dd>
+<dt>STNORESTART</dt><dd><p>Equivalent to the <code class="docutils literal notranslate"><span class="pre">-no-restart</span></code> flag. Disable the Syncthing monitor
+process which handles restarts for some configuration changes, upgrades,
+crashes and also log file writing (stdout is still written).</p>
+</dd>
+<dt>STNOUPGRADE</dt><dd><p>Disable automatic upgrades.</p>
+</dd>
+<dt>STPROFILER</dt><dd><p>Set to a listen address such as “127.0.0.1:9090” to start the profiler with
+HTTP access, which then can be reached at
+<a class="reference external" href="http://localhost:9090/debug/pprof">http://localhost:9090/debug/pprof</a>. See <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">tool</span> <span class="pre">pprof</span></code> for more
+information.</p>
+</dd>
+<dt>STPERFSTATS</dt><dd><p>Write running performance statistics to <code class="docutils literal notranslate"><span class="pre">perf-$pid.csv</span></code>. Not supported on
+Windows.</p>
+</dd>
+<dt>STRECHECKDBEVERY</dt><dd><p>Time before folder statistics (file, dir, … counts) are recalculated from
+scratch. The given duration must be parseable by GO’s time.ParseDuration. If
+missing or not parseable, the default value of 1 month is used. To force
+recalculation on every startup, set it to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd>
+<dt>GOMAXPROCS</dt><dd><p>Set the maximum number of CPU cores to use. Defaults to all available CPU
+cores.</p>
+</dd>
+<dt>GOGC</dt><dd><p>Percentage of heap growth at which to trigger GC. Default is 100. Lower
+numbers keep peak memory usage down, at the price of CPU usage
+(i.e. performance).</p>
+</dd>
+</dl>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.9. Understanding Synchronization &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.10. Firewall Setup" href="firewall.html"/>
+        <link rel="prev" title="2.8. The GUI Listen Address" href="guilisten.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.9. Understanding Synchronization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#blocks">2.9.1. Blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scanning">2.9.2. Scanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2.9.3. Syncing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#temporary-files">2.9.4. Temporary Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.9. </span>Understanding Synchronization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/syncing.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="understanding-synchronization">
+<span id="syncing"></span><h1><span class="section-number">2.9. </span>Understanding Synchronization<a class="headerlink" href="#understanding-synchronization" title="Permalink to this headline">¶</a></h1>
+<p>This article describes the mechanisms Syncthing uses to bring files in sync
+on a high level.</p>
+<div class="section" id="blocks">
+<h2><span class="section-number">2.9.1. </span>Blocks<a class="headerlink" href="#blocks" title="Permalink to this headline">¶</a></h2>
+<p>Files are divided into <em>blocks</em>. The blocks are currently fixed size, 128
+KiB, except the last one in the file which may be smaller. Each file is
+sliced into a number of these blocks, and the SHA256 hash of each block is
+computed. This results in a <em>block list</em> containing the offset, size and
+hash of all blocks in the file.</p>
+<p>To update a file, Syncthing compares the block list of the current version
+of the file to the block list of the desired version of the file. It then
+tries to find a source for each block that differs. This might be locally,
+if another file already has a block with the same hash, or it may be from
+another device in the cluster. In the first case the block is simply copied
+on disk, in the second case it is requested over the network from the other
+device.</p>
+<p>When a block is copied or received from another device, its SHA256 hash is
+computed and compared with the expected value. If it matches the block is
+written to a temporary copy of the file, otherwise it is discarded and
+Syncthing tries to find another source for the block.</p>
+</div>
+<div class="section" id="scanning">
+<h2><span class="section-number">2.9.2. </span>Scanning<a class="headerlink" href="#scanning" title="Permalink to this headline">¶</a></h2>
+<p>There are two methods how Syncthing detects changes: By regular full scans and
+by notifications received from the filesystem (“watcher”). By default the
+watcher is enabled and full scans are done once per hour. This behaviour can be
+changed by folder. Increasing the full scan interval uses less resources and is
+useful for example on large folders that change infrequently. To make sure that
+not all folders are rescanned at the same time, the actual scan interval is a
+random time between 3/4 and 5/4 of the given scan interval. Even with watcher
+enabled it is advised to keep regular full scans enabled, as it is possible that
+some changes aren’t picked up by it.</p>
+<p>During a rescan (regardless whether full or from watcher) the existing files are
+checked for changes to their modification time, size or permission bits. The
+file is “rehashed” if a change is detected based on those attributes, that is a
+new block list is calculated for the file. It is not possible to know which
+parts of a file have changed without reading the file and computing new SHA256
+hashes for each block.</p>
+<p>The watcher does not immediately schedule a scan when a change is detected. It
+accumulates changes for 10s (adjustable by <a class="reference internal" href="config.html#fswatcherdelays"><span class="std std-ref">fsWatcherDelayS</span></a>) and deleted files
+are further delayed for 1min. Therefore it is expected that you experience a
+slight delay between making the change and it appearing on another device.</p>
+<p>Changes that were detected and hashed are transmitted to the other devices
+after each rescan.</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">2.9.3. </span>Syncing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing keeps track of several versions of each file - the version that it
+currently has on disk, called the <em>local</em> version, the versions announced by
+all other connected devices, and the “best” (usually the most recent)
+version of the file. This version is called the <em>global</em> version and is the
+one that each device strives to be up to date with.</p>
+<p>This information is kept in the <em>index database</em>, which is stored in the
+configuration directory and called <code class="docutils literal notranslate"><span class="pre">index-vx.y.z.db</span></code> (for some version
+x.y.z which may not be exactly the version of Syncthing you’re running).</p>
+<p>When new index data is received from other devices Syncthing recalculates
+which version for each file should be the global version, and compares this
+to the current local version. When the two differ, Syncthing needs to
+synchronize the file. The block lists are compared to build a list of needed
+blocks, which are then requested from the network or copied locally, as
+described above.</p>
+</div>
+<div class="section" id="temporary-files">
+<span id="id2"></span><h2><span class="section-number">2.9.4. </span>Temporary Files<a class="headerlink" href="#temporary-files" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing never writes directly to a destination file. Instead all changes
+are made to a temporary copy which is then moved in place over the old
+version. If an error occurs during the copying or syncing, such as a
+necessary block not being available, the temporary file is kept around for
+up to a day. This is to avoid needlessly requesting data over the network.</p>
+<p>The temporary files are named <code class="docutils literal notranslate"><span class="pre">.syncthing.original-filename.ext.tmp</span></code> or,
+on Windows, <code class="docutils literal notranslate"><span class="pre">~syncthing~original-filename.ext.tmp</span></code> where
+<code class="docutils literal notranslate"><span class="pre">original-filename.ext</span></code> is the destination filename. The temporary file is
+normally hidden. If the temporary file name would be too long due to the
+addition of the prefix and extra extension, a hash of the original file name
+is used instead of the actual original file name.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="firewall.html" class="btn btn-neutral float-right" title="2.10. Firewall Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guilisten.html" class="btn btn-neutral" title="2.8. The GUI Listen Address" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

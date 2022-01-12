@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.3. Local Discovery Protocol v4 &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="4. Specifications" href="index.html"/>
+        <link rel="next" title="4.4. Relay Protocol v1" href="relay-v1.html"/>
+        <link rel="prev" title="4.2. Global Discovery v3" href="globaldisco-v3.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Specifications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html">4.1. Block Exchange Protocol v1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="globaldisco-v3.html">4.2. Global Discovery v3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. Local Discovery Protocol v4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mode-of-operation">4.3.1. Mode of Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-id">4.3.2. Device ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#announcement-packet">4.3.3. Announcement packet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relay-v1.html">4.4. Relay Protocol v1</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">4. </span>Specifications</a> &raquo;</li>
+        
+      <li><span class="section-number">4.3. </span>Local Discovery Protocol v4</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/specs/localdisco-v4.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="local-discovery-protocol-v4">
+<span id="localdisco-v4"></span><h1><span class="section-number">4.3. </span>Local Discovery Protocol v4<a class="headerlink" href="#local-discovery-protocol-v4" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="mode-of-operation">
+<h2><span class="section-number">4.3.1. </span>Mode of Operation<a class="headerlink" href="#mode-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>Each participating device periodically sends an Announcement packet. It also
+keeps a table of the announcements it has seen. There is no way to solicit a
+reply; the only message type is Announcement.</p>
+<p>On multihomed hosts the announcement packets should be sent on each interface
+on which Syncthing will accept connections.</p>
+<p>The announcement packet is sent over UDP.</p>
+<p>For IPv4, the Announcement packet is broadcast either to the link-specific
+broadcast address, or to the generic link-local broadcast address
+<code class="docutils literal notranslate"><span class="pre">255.255.255.255</span></code>, with destination port 21027.</p>
+<p>For IPv6, the Announcement packet is multicast to the transient link-local
+multicast address <code class="docutils literal notranslate"><span class="pre">ff12::8384</span></code>, with destination port 21027.</p>
+<p>It is recommended that local discovery Announcement packets be sent on a 30
+to 60 second interval, possibly with immediate transmissions when a
+previously unknown device is discovered or a device has restarted (see the
+<code class="docutils literal notranslate"><span class="pre">instance_id</span></code> field).</p>
+</div>
+<div class="section" id="device-id">
+<h2><span class="section-number">4.3.2. </span>Device ID<a class="headerlink" href="#device-id" title="Permalink to this headline">¶</a></h2>
+<p>The device ID is the SHA-256 (32 bytes) of the device X.509 certificate. See
+<a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a> in the Syncthing documentation.</p>
+</div>
+<div class="section" id="announcement-packet">
+<h2><span class="section-number">4.3.3. </span>Announcement packet<a class="headerlink" href="#announcement-packet" title="Permalink to this headline">¶</a></h2>
+<p>The Announcement packet has the following structure:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             Magic                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+/                                                               /
+\                       Announce Message                        \
+/                                                               /
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre></div>
+</div>
+<p>There is no explicit length field as the length is given by the length of
+the discovery announcement packet itself.</p>
+<p>The Magic field is a 32 bit word representing 0x2EA7D90B in network (big
+endian) byte order. It identifies the packet as being a Syncthing discovery
+protocol packet.</p>
+<p>The Announce Message contents are in protocol buffer format using the
+following schema:</p>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Announce</span> <span class="p">{</span>
+    <span class="kt">bytes</span>           <span class="na">id</span>          <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">repeated</span> <span class="kt">string</span> <span class="na">addresses</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">int64</span>           <span class="na">instance_id</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">id</span></code> field contains the Device ID of the sending device.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">addresses</span></code> field contains a list of addresses where the device can be
+contacted. Direct connections will typically have the <code class="docutils literal notranslate"><span class="pre">tcp://</span></code> scheme.
+Relay connections will typically use the <code class="docutils literal notranslate"><span class="pre">relay://</span></code> scheme.</p>
+<p>When interpreting addresses with an unspecified address, e.g.,
+<code class="docutils literal notranslate"><span class="pre">tcp://0.0.0.0:22000</span></code> or <code class="docutils literal notranslate"><span class="pre">tcp://:42424</span></code>, the source address of the
+discovery announcement is to be used.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">instance_id</span></code> field is set to a randomly generated ID at client
+startup. Other devices on the network can detect a change in instance ID
+between two announces and conclude that the announcing device has restarted.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="relay-v1.html" class="btn btn-neutral float-right" title="4.4. Relay Protocol v1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="globaldisco-v3.html" class="btn btn-neutral" title="4.2. Global Discovery v3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

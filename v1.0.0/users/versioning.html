@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.14. File Versioning &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.15. Syncthing Discovery Server" href="stdiscosrv.html"/>
+        <link rel="prev" title="2.13. Ignoring Files" href="ignoring.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.14. File Versioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trash-can-file-versioning">2.14.1. Trash Can File Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simple-file-versioning">2.14.2. Simple File Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#staggered-file-versioning">2.14.3. Staggered File Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-file-versioning">2.14.4. External File Versioning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-for-unixes">Example for Unixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-for-windows">Example for Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.14. </span>File Versioning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/versioning.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="file-versioning">
+<span id="versioning"></span><h1><span class="section-number">2.14. </span>File Versioning<a class="headerlink" href="#file-versioning" title="Permalink to this headline">¶</a></h1>
+<p>Syncthing supports archiving the old version of a file when it is deleted or
+replaced with a newer version from the cluster. This is called “file
+versioning” and uses one of the available <em>versioning strategies</em> described
+below. File versioning is configured per folder, on a per-device basis, and
+defaults to “no file versioning”, i.e. no old copies of files are kept.</p>
+<div class="section" id="trash-can-file-versioning">
+<h2><span class="section-number">2.14.1. </span>Trash Can File Versioning<a class="headerlink" href="#trash-can-file-versioning" title="Permalink to this headline">¶</a></h2>
+<p>This versioning strategy emulates the common “trash can” approach. When a file
+is deleted or replaced due to a change on a remote device, it is a moved to
+the trash can in the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder. If a file with the same name was
+already in the trash can it is replaced.</p>
+<p>A configuration option is available to clean the trash can from files older
+than a specified number of days. If this is set to a positive number of days,
+files will be removed when they have been in the trash can that long. Setting
+this to zero prevents any files from being removed from the trash can
+automatically.</p>
+</div>
+<div class="section" id="simple-file-versioning">
+<h2><span class="section-number">2.14.2. </span>Simple File Versioning<a class="headerlink" href="#simple-file-versioning" title="Permalink to this headline">¶</a></h2>
+<p>With “Simple File Versioning” files are moved to the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder
+(inside your shared folder) when replaced or deleted on a remote device. This
+option also takes a value in an input titled “Keep Versions” which tells
+Syncthing how many old versions of the file it should keep. For example, if
+you set this value to 5, if a file is replaced 5 times on a remote device, you
+will see 5 time-stamped versions on that file in the “.stversions” folder on
+the other devices sharing the same folder.</p>
+</div>
+<div class="section" id="staggered-file-versioning">
+<h2><span class="section-number">2.14.3. </span>Staggered File Versioning<a class="headerlink" href="#staggered-file-versioning" title="Permalink to this headline">¶</a></h2>
+<p>With “Staggered File Versioning” files are also moved to a different folder
+when replaced or deleted on a remote device (just like “Simple File
+Versioning”), however, versions are automatically deleted if they are older
+than the maximum age or exceed the number of files allowed in an interval.</p>
+<p>With this versioning method it’s possible to specify where the versions are
+stored, with the default being the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder inside the normal
+folder path. If you set a custom version path, please ensure that it’s on the
+same partition or filesystem as the regular folder path, as moving files there
+may otherwise fail. You can use an absolute path (this is recommended) or a
+relative path. Relative paths are interpreted relative to Syncthing’s current
+or startup directory.</p>
+<p>The following intervals are used and they each have a maximum number of files
+that will be kept for each.</p>
+<dl class="simple">
+<dt>1 Hour</dt><dd><p>For the first hour, the most recent version is kept every 30 seconds.</p>
+</dd>
+<dt>1 Day</dt><dd><p>For the first day, the most recent version is kept every hour.</p>
+</dd>
+<dt>30 Days</dt><dd><p>For the first 30 days, the most recent version is kept every day.</p>
+</dd>
+<dt>Until Maximum Age</dt><dd><p>Until maximum age, the most recent version is kept every week.</p>
+</dd>
+<dt>Maximum Age</dt><dd><p>The maximum time to keep a version in days. For example, to keep replaced or
+deleted files in the “.stversions” folder for an entire year, use 365. If
+only for 10 days, use 10.
+<strong>Note: Set to 0 to keep versions forever.</strong></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="external-file-versioning">
+<h2><span class="section-number">2.14.4. </span>External File Versioning<a class="headerlink" href="#external-file-versioning" title="Permalink to this headline">¶</a></h2>
+<p>This versioning method delegates the decision on what to do to an external
+command (program or script).
+Just prior to a file being replaced, the command will be run.
+The command should be specified as an absolute path, and can use the following templated arguments:</p>
+<dl class="simple">
+<dt>%FOLDER_PATH%</dt><dd><p>Path to the folder</p>
+</dd>
+<dt>%FILE_PATH%</dt><dd><p>Path to the file within the folder</p>
+</dd>
+</dl>
+<div class="section" id="example-for-unixes">
+<h3>Example for Unixes<a class="headerlink" href="#example-for-unixes" title="Permalink to this headline">¶</a></h3>
+<p>Lets say I want to keep the latest version of each file as they are replaced
+or removed; essentially I want a “trash can”-like behavior. For this, I create
+the following script and store it as <code class="docutils literal notranslate"><span class="pre">/Users/jb/bin/onlylatest.sh</span></code> (i.e. the
+<code class="docutils literal notranslate"><span class="pre">bin</span></code> directory in my home directory):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">set</span> -eu
+
+<span class="c1"># Where I want my versions stored</span>
+<span class="nv">versionspath</span><span class="o">=</span>~/.trashcan
+
+<span class="c1"># The parameters we get from Syncthing</span>
+<span class="nv">folderpath</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nv">filepath</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+
+<span class="c1"># First ensure the dir where we need to store the file exists</span>
+<span class="nv">outpath</span><span class="o">=</span><span class="sb">`</span>dirname <span class="s2">&quot;</span><span class="nv">$versionspath</span><span class="s2">/</span><span class="nv">$filepath</span><span class="s2">&quot;</span><span class="sb">`</span>
+mkdir -p <span class="s2">&quot;</span><span class="nv">$outpath</span><span class="s2">&quot;</span>
+<span class="c1"># Then move the file there</span>
+mv -f <span class="s2">&quot;</span><span class="nv">$folderpath</span><span class="s2">/</span><span class="nv">$filepath</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$versionspath</span><span class="s2">/</span><span class="nv">$filepath</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>I must ensure that the script has execute permissions (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">755</span>
+<span class="pre">onlylatest.sh</span></code>), then configure Syncthing with command <code class="docutils literal notranslate"><span class="pre">/Users/jb/bin/onlylatest.sh</span> <span class="pre">%FOLDER_PATH%</span> <span class="pre">%FILE_PATH%</span></code></p>
+<p>Lets assume I have a folder “default” in ~/Sync, and that within that folder
+there is a file <code class="docutils literal notranslate"><span class="pre">docs/letter.txt</span></code> that is being replaced or deleted. The
+script will be called as if I ran this from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ /Users/jb/bin/onlylatest.sh /Users/jb/Sync docs/letter.txt
+</pre></div>
+</div>
+<p>The script will then move the file in question to
+<code class="docutils literal notranslate"><span class="pre">~/.trashcan/docs/letter.txt</span></code>, replacing any previous version of that letter
+that may already have been there.</p>
+</div>
+<div class="section" id="example-for-windows">
+<h3>Example for Windows<a class="headerlink" href="#example-for-windows" title="Permalink to this headline">¶</a></h3>
+<p>On Windows we can use a batch script to perform the same “trash can”-like
+behavior as mentioned above. I created the following script and saved it as
+<code class="docutils literal notranslate"><span class="pre">C:\Users\mfrnd\Scripts\onlylatest.bat</span></code>.</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">echo</span> off
+
+<span class="p">:</span><span class="c1">: We need command extensions for mkdir to create intermediate folders in one go</span>
+<span class="k">setlocal</span> EnableExtensions
+
+<span class="p">:</span><span class="c1">: Where I want my versions stored</span>
+<span class="k">set</span> <span class="nv">VERSIONS_PATH</span><span class="p">=</span><span class="nv">%USERPROFILE%</span>\.trashcan
+
+<span class="p">:</span><span class="c1">: The parameters we get from Syncthing, &#39;~&#39; removes quotes if any</span>
+<span class="k">set</span> <span class="nv">FOLDER_PATH</span><span class="p">=</span><span class="nv">%~1</span>
+<span class="k">set</span> <span class="nv">FILE_PATH</span><span class="p">=</span><span class="nv">%~2</span>
+
+<span class="p">:</span><span class="c1">: First ensure the dir where we need to store the file exists</span>
+<span class="k">for</span> <span class="se">%%</span>F <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%VERSIONS_PATH%</span><span class="s2">\</span><span class="nv">%FILE_PATH%</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">OUTPUT_PATH</span><span class="p">=</span><span class="se">%%</span>~dpF
+<span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&quot;</span><span class="nv">%OUTPUT_PATH%</span><span class="s2">&quot;</span> <span class="k">mkdir</span> <span class="s2">&quot;</span><span class="nv">%OUTPUT_PATH%</span><span class="s2">&quot;</span> <span class="p">||</span> <span class="k">exit</span> /B
+
+<span class="p">:</span><span class="c1">: Finally move the file, overwrite existing file if any</span>
+<span class="k">move</span> /Y <span class="s2">&quot;</span><span class="nv">%FOLDER_PATH%</span><span class="s2">\</span><span class="nv">%FILE_PATH%</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">%VERSIONS_PATH%</span><span class="s2">\</span><span class="nv">%FILE_PATH%</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Finally, I set <code class="docutils literal notranslate"><span class="pre">C:\Users\mfrnd\Scripts\onlylatest.bat</span> <span class="pre">%FOLDER_PATH%</span> <span class="pre">%FILE_PATH%</span></code> as command name in
+Syncthing.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="stdiscosrv.html" class="btn btn-neutral float-right" title="2.15. Syncthing Discovery Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ignoring.html" class="btn btn-neutral" title="2.13. Ignoring Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

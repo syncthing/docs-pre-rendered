@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.11. Relaying &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.12. Using Proxies" href="proxying.html"/>
+        <link rel="prev" title="2.10. Firewall Setup" href="firewall.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.11. Relaying</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-clients">2.11.1. Configuring clients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security">2.11.2. Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-your-own-relay">2.11.3. Running Your Own Relay</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.11. </span>Relaying</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/relaying.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="relaying">
+<span id="id1"></span><h1><span class="section-number">2.11. </span>Relaying<a class="headerlink" href="#relaying" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.12.0.</span></p>
+</div>
+<p>Syncthing can bounce traffic via a <em>relay</em> when it’s not possible to establish
+a direct connection between two devices. There are a number of public relays
+available for this purpose. The advantage is that it makes a connection
+possible where it would otherwise not be; the downside is that the transfer rate
+is much lower than a direct connection would allow.</p>
+<p>Relaying is enabled by default but will only be used if two devices are unable
+to communicate directly with each other. When connected via a relay, Syncthing
+will periodically retry a direct connection and, if one is established, stop
+communicating via the relay.</p>
+<div class="section" id="configuring-clients">
+<h2><span class="section-number">2.11.1. </span>Configuring clients<a class="headerlink" href="#configuring-clients" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing can be configured to use specific relay servers (exclusively of the public pool) by adding the required servers to the Sync Protocol Listen Address field, under Actions and Settings. The format is as follows:</p>
+<blockquote>
+<div><p>relay://&lt;host name|IP&gt;[:port]/?id=&lt;relay device ID&gt;</p>
+</div></blockquote>
+<p>For example:</p>
+<blockquote>
+<div><p>relay://private-relay-1.example.com:443/?id=ITZRNXE-YNROGBZ-HXTH5P7-VK5NYE5-QHRQGE2-7JQ6VNJ-KZUEDIU-5PPR5AM</p>
+</div></blockquote>
+<p>The relay’s device ID is output on start-up.</p>
+</div>
+<div class="section" id="security">
+<h2><span class="section-number">2.11.2. </span>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<p>The connection between two devices is still end to end encrypted, the relay
+only retransmits the encrypted data much like a router. However, a device must
+register with a relay in order to be reachable over that relay, so the relay
+knows your IP and device ID. In that respect it is similar to a discovery
+server. The relay operator can see the amount of traffic flowing between
+devices.</p>
+</div>
+<div class="section" id="running-your-own-relay">
+<h2><span class="section-number">2.11.3. </span>Running Your Own Relay<a class="headerlink" href="#running-your-own-relay" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="strelaysrv.html#strelaysrv"><span class="std std-ref">Syncthing Relay Server</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="proxying.html" class="btn btn-neutral float-right" title="2.12. Using Proxies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="firewall.html" class="btn btn-neutral" title="2.10. Firewall Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

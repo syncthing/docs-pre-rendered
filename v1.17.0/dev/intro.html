@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syncthing Development &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working on the Web GUI" href="web.html" />
+    <link rel="prev" title="Development" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="syncthing-development">
+<h1>Syncthing Development<a class="headerlink" href="#syncthing-development" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="controlling-syncthing-from-external-applications">
+<h2>Controlling Syncthing from External Applications<a class="headerlink" href="#controlling-syncthing-from-external-applications" title="Permalink to this headline">¶</a></h2>
+<p>People all over the world have developed a number of <a class="reference internal" href="../users/contrib.html#contributions"><span class="std std-ref">useful applications</span></a> that build around the Syncthing core, such as tray
+notifications and Android support. These are made possible using two APIs:</p>
+<ul class="simple">
+<li><p>A long polling interface for exposing events from
+the core utility to an external party. This <a class="reference internal" href="events.html#event-api"><span class="std std-ref">Event API</span></a> is useful for being
+notified of when changes to files, network connections or sync status occur.</p></li>
+<li><p>A <a class="reference internal" href="rest.html#rest-api"><span class="std std-ref">REST API</span></a> for controlling the operation of Syncthing and directly
+querying for current status.</p></li>
+</ul>
+<p>If this covers what you need to do, there is no need to delve deeper. However,
+if you would like to add functionality to Syncthing itself, or correct a bug
+or two in there, please read on.</p>
+</div>
+<div class="section" id="contributing-to-the-syncthing-core">
+<h2>Contributing to the Syncthing Core<a class="headerlink" href="#contributing-to-the-syncthing-core" title="Permalink to this headline">¶</a></h2>
+<p>First of all, follow <a class="reference internal" href="building.html#building"><span class="std std-ref">Building Syncthing</span></a> to get your workspace set up correctly.
+Syncthing is written mainly in <a class="reference external" href="https://golang.org">Go</a> which has some
+fairly specific opinions on the required directory layout. If you’re new to
+Go, don’t fear – it’s a small language and easy to learn. There’s a <a class="reference external" href="https://dave.cheney.net/resources-for-new-go-programmers">wealth
+of resources</a> on
+the web to help you get up to speed, and many people joining the project have
+done so with it being their first contact with Go.</p>
+<p>When you are ready to start hacking, take a quick glance at the <a class="reference internal" href="contributing.html#contribution-guidelines"><span class="std std-ref">Contribution Guidelines</span></a>
+to know what to expect and to make the process smoother. The main take away is
+to keep the code clean, base it on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, and we’ll sort out
+the rest once you file a pull request.</p>
+<div class="section" id="source-code-layout">
+<h3>Source Code Layout<a class="headerlink" href="#source-code-layout" title="Permalink to this headline">¶</a></h3>
+<p>In the source repository you’ll find a tree of various packages and
+directories. There is some Go code at the top level, but it’s basically scripts
+for the build system. The actual code lives in the <code class="docutils literal notranslate"><span class="pre">cmd/syncthing</span></code> and
+<code class="docutils literal notranslate"><span class="pre">lib</span></code> directories. The web GUI lives in <code class="docutils literal notranslate"><span class="pre">gui</span></code>. The rest is as follows.</p>
+<dl>
+<dt>assets/</dt><dd><p>Various graphical assets – the logo.</p>
+</dd>
+<dt>cmd/</dt><dd><p>Commands either built as end products or used by the build process itself.</p>
+<dl class="simple">
+<dt>genassets/</dt><dd><p>Generates asset files that are compiled into <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> as part of the build process (build utility).</p>
+</dd>
+<dt>stcompdirs/</dt><dd><p>Compares two directories (debugging utility).</p>
+</dd>
+<dt>stevents/</dt><dd><p>Displays event trace from a remote <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> using the API (debugging utility).</p>
+</dd>
+<dt>stfileinfo/</dt><dd><p>Shows information about a file, in the same manner <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> would see it (debugging utility).</p>
+</dd>
+<dt>stfinddevice/</dt><dd><p>Looks up a device on a global discovery server (debugging utility).</p>
+</dd>
+<dt>stindex/</dt><dd><p>Prints index (database) contents (debugging utility).</p>
+</dd>
+<dt>syncthing/</dt><dd><p>Synchronizes files between devices…</p>
+</dd>
+<dt>todos/</dt><dd><p>Converts line endings from Unix to DOS standard (build utility).</p>
+</dd>
+<dt>transifexdl/</dt><dd><p>Downloads translations from Transifex (build utility).</p>
+</dd>
+<dt>translate/</dt><dd><p>Generates translation source for Transifex based on the HTML source (build utility).</p>
+</dd>
+</dl>
+</dd>
+<dt>etc/</dt><dd><p>Startup scripts and integration files. Included as-is in the release packages.</p>
+</dd>
+<dt>gui/</dt><dd><p>The web GUI source. Gets compiled into the <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> binary by way of <code class="docutils literal notranslate"><span class="pre">genassets</span></code> and the build process.</p>
+</dd>
+<dt>lib/</dt><dd><p>Contains all packages that make up the parts of <code class="docutils literal notranslate"><span class="pre">syncthing</span></code>.</p>
+<dl class="simple">
+<dt>auto/</dt><dd><p>Auto generated asset data, created by <code class="docutils literal notranslate"><span class="pre">genassets</span></code> based on the contents of the <code class="docutils literal notranslate"><span class="pre">gui</span></code> directory.</p>
+</dd>
+<dt>beacon/</dt><dd><p>Multicast and broadcast UDP beacons. Used by the local discovery system.</p>
+</dd>
+<dt>config/</dt><dd><p>Parses, validates and saves configuration files.</p>
+</dd>
+<dt>db/</dt><dd><p>Stores and processes file index information in a database on disk.</p>
+</dd>
+<dt>discover/</dt><dd><p>The local and global device discovery – maps device IDs to IP and port tuples.</p>
+</dd>
+<dt>events/</dt><dd><p>The event subsystem, handles emitting of and subscribing to events across the other packages.</p>
+</dd>
+<dt>fnmatch/</dt><dd><p>Matches strings to glob patterns, used by the ignore package.</p>
+</dd>
+<dt>ignore/</dt><dd><p>Parses the <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file and matches it against file paths.</p>
+</dd>
+<dt>model/</dt><dd><p>Ties together many parts of <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> and handles the main logic of synchronizing files with other devices.</p>
+</dd>
+<dt>osutil/</dt><dd><p>Abstracts away certain OS specific quirks.</p>
+</dd>
+<dt>rc/</dt><dd><p>Remote controls a Syncthing process over the REST API.</p>
+</dd>
+<dt>protocol/</dt><dd><p>Implementation of the BEP protocol.</p>
+</dd>
+<dt>scanner/</dt><dd><p>Looks for changes to files and hashes them as appropriate.</p>
+</dd>
+<dt>stats/</dt><dd><p>Records statistics about devices and folders.</p>
+</dd>
+<dt>symlinks/</dt><dd><p>Handles symlinks in a platform independent manner.</p>
+</dd>
+<dt>sync/</dt><dd><p>Provides optional debugging on top of the regular Mutex / RWMutex primitives.</p>
+</dd>
+<dt>upgrade/</dt><dd><p>Downloads and performs upgrade of the running binary.</p>
+</dd>
+<dt>upnp/</dt><dd><p>Discovers UPnP devices and sets up port mappings for incoming connections.</p>
+</dd>
+<dt>versioner/</dt><dd><p>Provides file versioning algorithms; simple, staggered and external.</p>
+</dd>
+</dl>
+</dd>
+<dt>man/</dt><dd><p>Manual pages, generated from the documentation.</p>
+</dd>
+<dt>pkg/</dt><dd><p>Compiled packages, generated by the build process.</p>
+</dd>
+<dt>protocol/</dt><dd><p>Legacy location of the protocol package.</p>
+</dd>
+<dt>script/</dt><dd><p>Various utility scripts for auto generating stuff and so on.</p>
+</dd>
+<dt>test/</dt><dd><p>The integration test suite.</p>
+</dd>
+<dt>vendor/</dt><dd><p>Locally vendored copies of external dependencies.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="why-are-you-being-so-hard-on-my-pull-request">
+<h3>Why are you being so hard on my pull request?<a class="headerlink" href="#why-are-you-being-so-hard-on-my-pull-request" title="Permalink to this headline">¶</a></h3>
+<p>A pull request looks a little different depending on whether you’re on the
+“contributor” or “maintainer” side. The contributor says:</p>
+<blockquote>
+<div><p>I implemented a new feature in your project for you!</p>
+</div></blockquote>
+<p>However, the maintainer hears:</p>
+<blockquote>
+<div><p>I wrote some code. I’d like you to test, support, document and
+maintain it for me forever.</p>
+</div></blockquote>
+<p>The maintainer will want to make sure that the code is something we feel
+comfortable taking that responsibility for. That means well tested, clear
+implementation, fits into the overall architecture, etc.</p>
+<p>But perhaps the existing code doesn’t fulfill this to start with; is it then
+fair to expect it from a change in a pull request? For example asking for a
+test or documentation, where there is none before. Well, the existing code has
+some advantage just by being legacy;</p>
+<ul class="simple">
+<li><p>Perhaps there isn’t a test, but we know this code works because it’s
+been running in production for a long time without complaints. Then
+it’s fair to expect tests from code replacing it.</p></li>
+<li><p>Perhaps there isn’t a test, and your code fixes a bug with the code.
+That just highlights that there <em>should have been</em> a test to start
+with, and this is the optimal time to add one.</p></li>
+<li><p>Perhaps how the code works (or what exactly it does) isn’t clear to the
+reviewer. A test will clarify and lock this down, and also prevent us
+from <em>inadvertently breaking it later</em>.</p></li>
+</ul>
+<p>Another thing that the maintainer might be hard about is whether the
+code actually solves the <em>entire</em> problem, or at least enough of it to
+stand on its own. This will be more relevant to new features than
+bugfixes and includes questions like;</p>
+<ul class="simple">
+<li><p>Is the feature general enough to be used by other users? If not, do
+we really need it or can it be implemented as part of something more
+general?</p></li>
+<li><p>Is the feature completely implemented? That is, if a new feature is
+added it should be available in the GUI, emit relevant trace
+information to enable debugging, be correctly saved in the
+configuration, etc. If components of this are missing, that’s work
+the maintainer will have to do after accepting the pull request.</p></li>
+</ul>
+<p>All in all, a great pull request creates less work for the maintainer,
+not more.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/intro.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Development</a></li>
+      <li>Next: <a href="web.html" title="next chapter">Working on the Web GUI</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>useLargeBlocks &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2.5. Advanced Configuration" href="../users/advanced.html"/>
+        <link rel="next" title="allowedNetworks" href="device-allowednetworks.html"/>
+        <link rel="prev" title="ignoreDelete" href="folder-ignoredelete.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../users/index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html">2.4. Configuration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../users/advanced.html">2.5. Advanced Configuration</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../users/advanced.html#per-folder-settings">2.5.1. Per Folder Settings</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="folder-autonormalize.html">autoNormalize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="folder-ignoredelete.html">ignoreDelete</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">useLargeBlocks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../users/advanced.html#per-device-settings">2.5.2. Per Device Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../users/foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../users/index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+          <li><a href="../users/advanced.html"><span class="section-number">2.5. </span>Advanced Configuration</a> &raquo;</li>
+        
+      <li>useLargeBlocks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/advanced/folder-uselargeblocks.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uselargeblocks">
+<h1>useLargeBlocks<a class="headerlink" href="#uselargeblocks" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">useLargeBlocks</span></code> is an advanced folder setting that affects the handling
+of blocks for files larger than 256 MiB. When enabled, the file will be
+indexed and transferred using blocks larger than the standard 128 KiB. This
+results in a smaller block list and thus lower overhead. The larger block
+sizes are powers of two from from 128 KiB up to 16 MiB. Syncthing will
+attempt to select a block size to keep the number of blocks in a file
+between 1000 and 2000, using the largest and smallest block size accordingly
+at either extreme.</p>
+<div class="section" id="compatibility">
+<h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<p>Large blocks can be enabled in Syncthing version 0.14.48 and newer.</p>
+<p>Syncthing version 0.14.46 and newer will accept and handle files with large
+blocks, regardless of whether large blocks are enabled on that device.</p>
+<p>Syncthing version 0.14.45 and older will initially appear to accept files
+scanned with large blocks, but will later panic during some internal file
+operations. Do not enable large blocks in clusters with devices still on
+v0.14.45 or older.</p>
+<p>When large blocks are <em>not</em> enabled, local changes to any given file are
+indexed in standard (small) blocks - regardless of whether other devices are
+using large blocks for the same folder.</p>
+<p>When two devices do not agree on the desired block size for a file, the
+entire file must be transferred instead of only the changed blocks. To avoid
+frequent block size changes for files straddling a threshold boundary there
+is a certain elasticity or hysteresis built in to the system. The block size
+of an existing file is only changed when the difference in block size
+exceeds one level, i.e., from 256 KiB to 1 MiB, but not from 256 KiB to 512
+KiB.</p>
+<p>At some point in the future, <cite>useLargeBlocks</cite> will start defaulting to
+<cite>true</cite>. At some further point in the future, the setting will be removed and
+large blocks will be the only mode of operation.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="device-allowednetworks.html" class="btn btn-neutral float-right" title="allowedNetworks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="folder-ignoredelete.html" class="btn btn-neutral" title="ignoreDelete" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

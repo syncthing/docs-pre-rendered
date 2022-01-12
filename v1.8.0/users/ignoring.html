@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ignoring Files &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="File Versioning" href="versioning.html" />
+    <link rel="prev" title="SSH Tunneling" href="tunneling.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="ignoring-files">
+<span id="id1"></span><h1>Ignoring Files<a class="headerlink" href="#ignoring-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">stignore</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>If some files should not be synchronized to (or from) other devices, a file called
+<code class="docutils literal notranslate"><span class="pre">.stignore</span></code> can be created containing file patterns to ignore. The
+<code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file must be placed in the root of the folder. The
+<code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file itself will never be synced to other devices, although it can
+<code class="docutils literal notranslate"><span class="pre">#include</span></code> files that <em>are</em> synchronized between devices. All patterns are
+relative to the folder root.
+The contents of the <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file must be UTF-8 encoded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that ignored files can block removal of an otherwise empty directory.
+See below for the (?d) prefix to allow deletion of ignored files.</p>
+</div>
+</div>
+<div class="section" id="patterns">
+<h2>Patterns<a class="headerlink" href="#patterns" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file contains a list of file or path patterns. The
+<em>first</em> pattern that matches will decide the fate of a given file.</p>
+<ul class="simple">
+<li><p>Regular file names match themselves, i.e. the pattern <code class="docutils literal notranslate"><span class="pre">foo</span></code> matches
+the files <code class="docutils literal notranslate"><span class="pre">foo</span></code>, <code class="docutils literal notranslate"><span class="pre">subdir/foo</span></code> as well as any directory named
+<code class="docutils literal notranslate"><span class="pre">foo</span></code>. Spaces are treated as regular characters.</p></li>
+<li><p><strong>Asterisk</strong> (<code class="docutils literal notranslate"><span class="pre">*</span></code>) matches zero or more characters in a filename, but does not
+match the directory separator. <code class="docutils literal notranslate"><span class="pre">te*ne</span></code> matches <code class="docutils literal notranslate"><span class="pre">telephone</span></code>,
+<code class="docutils literal notranslate"><span class="pre">subdir/telephone</span></code> but not <code class="docutils literal notranslate"><span class="pre">tele/phone</span></code>.</p></li>
+<li><p><strong>Double asterisk</strong> (<code class="docutils literal notranslate"><span class="pre">**</span></code>) matches as above, but also directory separators.
+<code class="docutils literal notranslate"><span class="pre">te**ne</span></code> matches <code class="docutils literal notranslate"><span class="pre">telephone</span></code>, <code class="docutils literal notranslate"><span class="pre">subdir/telephone</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tele/sub/dir/phone</span></code>.</p></li>
+<li><p><strong>Question mark</strong> (<code class="docutils literal notranslate"><span class="pre">?</span></code>) matches a single character that is not the directory
+separator. <code class="docutils literal notranslate"><span class="pre">te??st</span></code> matches <code class="docutils literal notranslate"><span class="pre">tebest</span></code> but not <code class="docutils literal notranslate"><span class="pre">teb/st</span></code> or
+<code class="docutils literal notranslate"><span class="pre">test</span></code>.</p></li>
+<li><p><strong>Square brackets</strong> (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) denote a character range: <code class="docutils literal notranslate"><span class="pre">[a-z]</span></code> matches
+any lower case character.</p></li>
+<li><p><strong>Curly brackets</strong> (<code class="docutils literal notranslate"><span class="pre">{}</span></code>) denote a set of comma separated alternatives:
+<code class="docutils literal notranslate"><span class="pre">{banana,pineapple}</span></code> matches either <code class="docutils literal notranslate"><span class="pre">banana</span></code> or <code class="docutils literal notranslate"><span class="pre">pineapple</span></code>.</p></li>
+<li><p><strong>Backslash</strong> (<code class="docutils literal notranslate"><span class="pre">\</span></code>) “escapes” a special character so that it loses its
+special meaning. For example, <code class="docutils literal notranslate"><span class="pre">\{banana\}</span></code> matches <code class="docutils literal notranslate"><span class="pre">{banana}</span></code> exactly
+and does not denote a set of alternatives as above. <em>Escaped characters
+are not supported on Windows.</em></p></li>
+<li><p>A pattern beginning with <code class="docutils literal notranslate"><span class="pre">/</span></code> matches in the root of the folder only.
+<code class="docutils literal notranslate"><span class="pre">/foo</span></code> matches <code class="docutils literal notranslate"><span class="pre">foo</span></code> but not <code class="docutils literal notranslate"><span class="pre">subdir/foo</span></code>.</p></li>
+<li><p>A pattern beginning with <code class="docutils literal notranslate"><span class="pre">#include</span></code> results in loading patterns
+from the named file. It is an error for a file to not exist or be
+included more than once. Note that while this can be used to include
+patterns from a file in a subdirectory, the patterns themselves are
+still relative to the folder <em>root</em>. Example:
+<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">more-patterns.txt</span></code>.</p></li>
+<li><p>A pattern beginning with a <code class="docutils literal notranslate"><span class="pre">!</span></code> prefix negates the pattern: matching files
+are <em>included</em> (that is, <em>not</em> ignored). This can be used to override
+more general patterns that follow.</p></li>
+<li><p>A pattern beginning with a <code class="docutils literal notranslate"><span class="pre">(?i)</span></code> prefix enables case-insensitive pattern
+matching. <code class="docutils literal notranslate"><span class="pre">(?i)test</span></code> matches <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">TEST</span></code> and <code class="docutils literal notranslate"><span class="pre">tEsT</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">(?i)</span></code> prefix can be combined with other patterns, for example the
+pattern <code class="docutils literal notranslate"><span class="pre">(?i)!picture*.png</span></code> indicates that <code class="docutils literal notranslate"><span class="pre">Picture1.PNG</span></code> should
+be synchronized. On Mac OS and Windows, patterns are always case-insensitive.</p></li>
+<li><p>A pattern beginning with a <code class="docutils literal notranslate"><span class="pre">(?d)</span></code> prefix enables removal of these files if
+they are preventing directory deletion. This prefix should be used by any OS
+generated files which you are happy to be removed.</p></li>
+<li><p>A line beginning with <code class="docutils literal notranslate"><span class="pre">//</span></code> is a comment and has no effect.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prefixes can be specified in any order (e.g. “(?d)(?i)”), but cannot be in a
+single pair of parentheses (not “<span class="strike">(?di)</span>”).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Include patterns (that begin with <code class="docutils literal notranslate"><span class="pre">!</span></code>) cause Syncthing to traverse and
+<a class="reference internal" href="syncing.html#scanning"><span class="std std-ref">watch</span></a> the entire directory tree regardless of other
+ignore patterns.</p>
+<p>Top-level include patterns are treated as special cases and will not force Syncthing to
+scan the entire directory tree. For example: <code class="docutils literal notranslate"><span class="pre">!/foo</span></code> is a top-level include
+pattern, while <code class="docutils literal notranslate"><span class="pre">!/foo/bar</span></code> is not.</p>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Given a directory layout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">DS_Store</span>
+<span class="n">foo</span>
+<span class="n">foofoo</span>
+<span class="n">bar</span><span class="o">/</span>
+    <span class="n">baz</span>
+    <span class="n">quux</span>
+    <span class="n">quuz</span>
+<span class="n">bar2</span><span class="o">/</span>
+    <span class="n">baz</span>
+    <span class="n">frobble</span>
+<span class="n">My</span> <span class="n">Pictures</span><span class="o">/</span>
+    <span class="n">Img15</span><span class="o">.</span><span class="n">PNG</span>
+</pre></div>
+</div>
+<p>and an <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file with the contents:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(?d).DS_Store
+!frobble
+!quuz
+foo
+*2
+qu*
+(?i)my pictures
+</pre></div>
+</div>
+<p>all files and directories called “foo”, ending in a “2” or starting with
+“qu” will be ignored. The end result becomes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">DS_Store</span>     <span class="c1"># ignored, will be deleted if gets in the way of parent directory removal</span>
+<span class="n">foo</span>           <span class="c1"># ignored, matches &quot;foo&quot;</span>
+<span class="n">foofoo</span>        <span class="c1"># synced, does not match &quot;foo&quot; but would match &quot;foo*&quot; or &quot;*foo&quot;</span>
+<span class="n">bar</span><span class="o">/</span>          <span class="c1"># synced</span>
+    <span class="n">baz</span>       <span class="c1"># synced</span>
+    <span class="n">quux</span>      <span class="c1"># ignored, matches &quot;qu*&quot;</span>
+    <span class="n">quuz</span>      <span class="c1"># synced, matches &quot;qu*&quot; but is excluded by the preceding &quot;!quuz&quot;</span>
+<span class="n">bar2</span><span class="o">/</span>         <span class="c1"># synced, despite matching &quot;*2&quot; due to child frobble</span>
+    <span class="n">baz</span>       <span class="c1"># ignored, due to parent being ignored</span>
+    <span class="n">frobble</span>   <span class="c1"># synced, due to &quot;!frobble&quot;</span>
+<span class="n">My</span> <span class="n">Pictures</span><span class="o">/</span>  <span class="c1"># ignored, matched case insensitive &quot;(?i)my pictures&quot; pattern</span>
+    <span class="n">Img15</span><span class="o">.</span><span class="n">PNG</span> <span class="c1"># ignored, due to parent being ignored</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that directory patterns ending with a slash
+<code class="docutils literal notranslate"><span class="pre">some/directory/</span></code> matches the content of the directory, but not the
+directory itself. If you want the pattern to match the directory and its
+content, make sure it does not have a <code class="docutils literal notranslate"><span class="pre">/</span></code> at the end of the pattern.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/ignoring.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="tunneling.html" title="previous chapter">SSH Tunneling</a></li>
+      <li>Next: <a href="versioning.html" title="next chapter">File Versioning</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.6. Folder Types &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.7. Introducer Configuration" href="introducer.html"/>
+        <link rel="prev" title="allowedNetworks" href="../advanced/device-allowednetworks.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.6. Folder Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#send-receive-folder">2.6.1. Send &amp; Receive Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#send-only-folder">2.6.2. Send Only Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#receive-only-folder">2.6.3. Receive Only Folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.6. </span>Folder Types</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/foldertypes.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="folder-types">
+<span id="id1"></span><h1><span class="section-number">2.6. </span>Folder Types<a class="headerlink" href="#folder-types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="send-receive-folder">
+<h2><span class="section-number">2.6.1. </span>Send &amp; Receive Folder<a class="headerlink" href="#send-receive-folder" title="Permalink to this headline">¶</a></h2>
+<p>This is the standard folder type. Under this setting, a folder will both send
+changes to and receive changes from remote devices.</p>
+</div>
+<div class="section" id="send-only-folder">
+<span id="folder-sendonly"></span><h2><span class="section-number">2.6.2. </span>Send Only Folder<a class="headerlink" href="#send-only-folder" title="Permalink to this headline">¶</a></h2>
+<p>A folder can be set in “send only mode” among the folder settings.</p>
+<img alt="../_images/foldersendonly.png" src="../_images/foldersendonly.png" />
+<p>The intention is for this to be used on devices where a “master copy” of
+files are kept - where the files are not expected to be changed on other
+devices or where such changes would be undesirable.</p>
+<p>In send only mode, all changes from other devices in the cluster are
+ignored. Changes are still <em>received</em> so the folder may become “out of
+sync”, but no changes will be applied.</p>
+<p>When a send only folder becomes out of sync, a red “Override Changes”
+button is shown at the bottom of the folder details.</p>
+<img alt="../_images/override.png" src="../_images/override.png" />
+<p>Clicking this button will enforce this host’s current state on the
+rest of the cluster. Any changes made to files will be overwritten by
+the version on this host, any files that don’t exist on this host will
+be deleted, and so on.</p>
+</div>
+<div class="section" id="receive-only-folder">
+<span id="folder-recvonly"></span><h2><span class="section-number">2.6.3. </span>Receive Only Folder<a class="headerlink" href="#receive-only-folder" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.14.50.</span></p>
+</div>
+<p>The receive only folder is the logical opposite of the send only folder. In
+this mode, all changes from the cluster are applied, as they are in the
+default send-receive mode. Local changes are however not distributed to
+other devices. This mode is useful for replication targets, backup
+destinations, or other cases where no local modifications are expected or
+allowed.</p>
+<p>Much like a send-receive folder, any local modifications are preserved and
+do not cause the folder to become “out of sync”. The device will however
+look out of sync on <em>other</em> devices, as it does no longer have the
+latest/expected version of the modified file.</p>
+<p>When local changes have been detected Syncthing will show a red “Revert
+Changes” button on the folder. Activating this will cause the local
+modifications to be undone - added files will be deleted, modified or
+deleted files will be re-synced from the cluster.</p>
+<p>In normal operation, a locally modified file that is subsequently modified
+by the cluster will cause a sync conflict. The conflict will be resolved
+with the cluster version as the winner. Being a receive-only folder, the
+sync conflict copy will not be sent to the cluster - and will be deleted if
+“Revert Changes” is used.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introducer.html" class="btn btn-neutral float-right" title="2.7. Introducer Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../advanced/device-allowednetworks.html" class="btn btn-neutral" title="allowedNetworks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

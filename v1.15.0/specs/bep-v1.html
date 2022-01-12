@@ -1,0 +1,1039 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Block Exchange Protocol v1 &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Global Discovery v3" href="globaldisco-v3.html" />
+    <link rel="prev" title="Specifications" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="block-exchange-protocol-v1">
+<span id="bep-v1"></span><h1>Block Exchange Protocol v1<a class="headerlink" href="#block-exchange-protocol-v1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction-and-definitions">
+<h2>Introduction and Definitions<a class="headerlink" href="#introduction-and-definitions" title="Permalink to this headline">¶</a></h2>
+<p>The Block Exchange Protocol (BEP) is used between two or more <em>devices</em> thus
+forming a <em>cluster</em>. Each device has one or more <em>folders</em> of files
+described by the <em>local model</em>, containing metadata and block hashes. The
+local model is sent to the other devices in the cluster. The union of all
+files in the local models, with files selected for highest change version,
+forms the <em>global model</em>. Each device strives to get its folders in sync
+with the global model by requesting missing or outdated blocks from the
+other devices in the cluster.</p>
+<p>File data is described and transferred in units of <em>blocks</em>, each being from
+128 KiB (131072 bytes) to 16 MiB in size, in steps of powers of two. The
+block size may vary between files but is constant in any given file, except
+for the last block which may be smaller.</p>
+<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
+“SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
+document are to be interpreted as described in [RFC 2119](<a class="reference external" href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>).</p>
+</div>
+<div class="section" id="transport-and-authentication">
+<h2>Transport and Authentication<a class="headerlink" href="#transport-and-authentication" title="Permalink to this headline">¶</a></h2>
+<p>BEP is deployed as the highest level in a protocol stack, with the lower
+level protocols providing encryption and authentication.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+</span>
+<span class="o">|</span>   <span class="n">Block</span> <span class="n">Exchange</span> <span class="n">Protocol</span>   <span class="o">|</span>
+<span class="o">|-----------------------------|</span>
+<span class="o">|</span> <span class="n">Encryption</span> <span class="o">&amp;</span> <span class="n">Auth</span> <span class="p">(</span><span class="n">TLS</span> <span class="mf">1.2</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">|-----------------------------|</span>
+<span class="o">|</span>      <span class="n">Reliable</span> <span class="n">Transport</span>     <span class="o">|</span>
+<span class="o">|-----------------------------|</span>
+<span class="n">v</span>             <span class="o">...</span>             <span class="n">v</span>
+</pre></div>
+</div>
+<p>The encryption and authentication layer SHALL use TLS 1.2 or a higher
+revision. A strong cipher suite SHALL be used, with “strong cipher
+suite” being defined as being without known weaknesses and providing
+Perfect Forward Secrecy (PFS). Examples of strong cipher suites are
+given at the end of this document. This is not to be taken as an
+exhaustive list of allowed cipher suites but represents best practices
+at the time of writing.</p>
+<p>The exact nature of the authentication is up to the application, however
+it SHALL be based on the TLS certificate presented at the start of the
+connection. Possibilities include certificates signed by a common
+trusted CA, preshared certificates, preshared certificate fingerprints
+or certificate pinning combined with some out of band first
+verification. The reference implementation uses preshared certificate
+fingerprints (SHA-256) referred to as “Device IDs”.</p>
+<p>There is no required order or synchronization among BEP messages except
+as noted per message type - any message type may be sent at any time and
+the sender need not await a response to one message before sending
+another.</p>
+<p>The underlying transport protocol MUST guarantee reliable packet delivery.</p>
+<p>In this document, in diagrams and text, “bit 0” refers to the <em>most
+significant</em> bit of a word; “bit 15” is thus the least significant bit of a
+16 bit word (int16) and “bit 31” is the least significant bit of a 32 bit
+word (int32). Non protocol buffer integers are always represented in network
+byte order (i.e., big endian) and are signed unless stated otherwise, but
+when describing message lengths negative values do not make sense and the
+most significant bit MUST be zero.</p>
+<p>The protocol buffer schemas in this document are in <code class="docutils literal notranslate"><span class="pre">proto3</span></code> syntax. This
+means, among other things, that all fields are optional and will assume
+their default value when missing. This does not necessarily mean that a
+message is <em>valid</em> with all fields empty - for example, an index entry for a
+file that does not have a name is not useful and MAY be rejected by the
+implementation. However the folder label is for human consumption only so an
+empty label should be accepted - the implementation will have to choose some
+way to represent the folder, perhaps by using the ID in it’s place or
+automatically generating a label.</p>
+</div>
+<div class="section" id="pre-authentication-messages">
+<h2>Pre-authentication messages<a class="headerlink" href="#pre-authentication-messages" title="Permalink to this headline">¶</a></h2>
+<p>AFTER establishing a connection, but BEFORE performing any authentication,
+devices MUST exchange Hello messages.</p>
+<p>Hello messages are used to carry additional information about the peer,
+which might be of interest to the user even if the peer is not permitted to
+communicate due to failing authentication. Note that the certificate based
+authentication may be considered part of the TLS handshake that precedes the
+Hello message exchange, but even in the case that a connection is rejected a
+Hello message must be sent before the connection is terminated.</p>
+<p>Hello messages MUST be prefixed with an int32 containing the magic number
+<strong>0x2EA7D90B</strong>, followed by an int16 representing the size of the message,
+followed by the contents of the Hello message itself.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|             Magic             |
+|           (32 bits)           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|             Length            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+/                               /
+\             Hello             \
+/                               /
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre></div>
+</div>
+<p>The Hello message itself is in protocol buffer format with the following schema:</p>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Hello</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="na">device_name</span>    <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="na">client_name</span>    <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="na">client_version</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="fields-hello-message">
+<h3>Fields (Hello message)<a class="headerlink" href="#fields-hello-message" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>device_name</strong> is a human readable (configured or auto detected) device
+name or host name, for the remote device.</p>
+<p>The <strong>client_name</strong> and <strong>client_version</strong> identifies the implementation. The
+values SHOULD  be simple strings identifying the implementation name, as a
+user would expect to see it, and the version string in the same manner. An
+example client name is “syncthing” and an example client version is “v0.7.2”.
+The client version field SHOULD follow the patterns laid out in the <a class="reference external" href="http://semver.org/">Semantic
+Versioning</a> standard.</p>
+<p>Immediately after exchanging Hello messages, the connection MUST be dropped
+if the remote device does not pass authentication.</p>
+</div>
+</div>
+<div class="section" id="post-authentication-messages">
+<h2>Post-authentication Messages<a class="headerlink" href="#post-authentication-messages" title="Permalink to this headline">¶</a></h2>
+<p>Every message post authentication is made up of several parts:</p>
+<ul class="simple">
+<li><p>A header length word</p></li>
+<li><p>A <strong>Header</strong></p></li>
+<li><p>A message length word</p></li>
+<li><p>A <strong>Message</strong></p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 0                   1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|         Header Length         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+/                               /
+\            Header             \
+/                               /
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|         Message Length        |
+|           (32 bits)           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+/                               /
+\            Message            \
+/                               /
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre></div>
+</div>
+<p>The header length word is 16 bits. It indicates the length of the following
+<strong>Header</strong> message. The Header is in protocol buffer format. The Header
+describes the type and compression status of the following message.</p>
+<p>The message is preceded by the 32 bit message length word and is one of the
+concrete BEP messages described below, identified by the <strong>type</strong> field of
+the Header.</p>
+<p>As always, the length words are in network byte order (big endian).</p>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Header</span> <span class="p">{</span>
+    <span class="n">MessageType</span>        <span class="na">type</span>        <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">MessageCompression</span> <span class="na">compression</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="n">MessageType</span> <span class="p">{</span>
+    <span class="na">CLUSTER_CONFIG</span>    <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">INDEX</span>             <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="na">INDEX_UPDATE</span>      <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="na">REQUEST</span>           <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="na">RESPONSE</span>          <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="na">DOWNLOAD_PROGRESS</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="na">PING</span>              <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="na">CLOSE</span>             <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="n">MessageCompression</span> <span class="p">{</span>
+    <span class="na">NONE</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">LZ4</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When the <strong>compression</strong> field is <strong>NONE</strong>, the message is directly in
+protocol buffer format.</p>
+<p>When the compression field is <strong>LZ4</strong>, the message consists of a 32 bit
+integer describing the uncompressed message length followed by a single LZ4
+block. After decompressing the LZ4 block it should be interpreted as a
+protocol buffer message just as in the uncompressed case.</p>
+</div>
+<div class="section" id="message-subtypes">
+<h2>Message Subtypes<a class="headerlink" href="#message-subtypes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cluster-config">
+<span id="id1"></span><h3>Cluster Config<a class="headerlink" href="#cluster-config" title="Permalink to this headline">¶</a></h3>
+<p>This informational message provides information about the cluster
+configuration as it pertains to the current connection. A Cluster Config
+message MUST be the first post authentication message sent on a BEP
+connection. Additional Cluster Config messages MUST NOT be sent after the
+initial exchange.</p>
+<div class="section" id="protocol-buffer-schema">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#protocol-buffer-schema" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">ClusterConfig</span> <span class="p">{</span>
+    <span class="k">repeated</span> <span class="n">Folder</span> <span class="na">folders</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">Folder</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="na">id</span>                   <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="na">label</span>                <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">bool</span>   <span class="na">read_only</span>            <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">bool</span>   <span class="na">ignore_permissions</span>   <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">bool</span>   <span class="na">ignore_delete</span>        <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">bool</span>   <span class="na">disable_temp_indexes</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="kt">bool</span>   <span class="na">paused</span>               <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+
+    <span class="k">repeated</span> <span class="n">Device</span> <span class="na">devices</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">Device</span> <span class="p">{</span>
+    <span class="kt">bytes</span>           <span class="na">id</span>                         <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">string</span>          <span class="na">name</span>                       <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">repeated</span> <span class="kt">string</span> <span class="na">addresses</span>                  <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">Compression</span>     <span class="na">compression</span>                <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">string</span>          <span class="na">cert_name</span>                  <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">int64</span>           <span class="na">max_sequence</span>               <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="kt">bool</span>            <span class="na">introducer</span>                 <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+    <span class="kt">uint64</span>          <span class="na">index_id</span>                   <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+    <span class="kt">bool</span>            <span class="na">skip_introduction_removals</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="kt">bytes</span>           <span class="na">encryption_password_token</span>  <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="n">Compression</span> <span class="p">{</span>
+    <span class="na">METADATA</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">NEVER</span>    <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="na">ALWAYS</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fields-cluster-config-message">
+<h4>Fields (Cluster Config Message)<a class="headerlink" href="#fields-cluster-config-message" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>folders</strong> field contains the list of folders that will be synchronized
+over the current connection.</p>
+</div>
+<div class="section" id="fields-folder-message">
+<h4>Fields (Folder Message)<a class="headerlink" href="#fields-folder-message" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>id</strong> field contains the folder ID, which is the unique identifier of
+the folder.</p>
+<p>The <strong>label</strong> field contains the folder label, the human readable name of
+the folder.</p>
+<p>The <strong>read only</strong> field is set for folders that the device will accept no
+updates from the network for.</p>
+<p>The <strong>ignore permissions</strong> field is set for folders that the device will not
+accept or announce file permissions for.</p>
+<p>The <strong>ignore delete</strong> field is set for folders that the device will ignore
+deletes for.</p>
+<p>The <strong>disable temp indexes</strong> field is set for folders that will not dispatch
+and do not wish to receive progress updates about partially downloaded files
+via Download Progress messages.</p>
+<p>The <strong>paused</strong> field is set for folders that are currently paused.</p>
+<p>The <strong>devices</strong> field is a list of devices participating in sharing this
+folder.</p>
+</div>
+<div class="section" id="fields-device-message">
+<h4>Fields (Device Message)<a class="headerlink" href="#fields-device-message" title="Permalink to this headline">¶</a></h4>
+<p>The device <strong>id</strong> field is a 32 byte number that uniquely identifies the
+device. For instance, the reference implementation uses the SHA-256 of the
+device X.509 certificate.</p>
+<p>The <strong>name</strong> field is a human readable name assigned to the described device
+by the sending device. It MAY be empty and it need not be unique.</p>
+<p>The list of <strong>addresses</strong> is that used by the sending device to connect to
+the described device.</p>
+<p>The <strong>compression</strong> field indicates the compression mode in use for this
+device and folder. The following values are valid:</p>
+<dl class="field-list simple">
+<dt class="field-odd">0</dt>
+<dd class="field-odd"><p>Compress metadata. This enables compression of metadata messages such as Index.</p>
+</dd>
+<dt class="field-even">1</dt>
+<dd class="field-even"><p>Compression disabled. No compression is used on any message.</p>
+</dd>
+<dt class="field-odd">2</dt>
+<dd class="field-odd"><p>Compress always. Metadata messages as well as Response messages are compressed.</p>
+</dd>
+</dl>
+<p>The <strong>cert name</strong> field indicates the expected certificate name for this
+device. It is commonly blank, indicating to use the implementation default.</p>
+<p>The <strong>max sequence</strong> field contains the highest sequence number of the files
+in the index. See <a class="reference internal" href="#deltaidx"><span class="std std-ref">Delta Index Exchange</span></a> for the usage of this field.</p>
+<p>The <strong>introducer</strong> field is set for devices that are trusted as cluster
+introducers.</p>
+<p>The <strong>index id</strong> field contains the unique identifier for the current set of
+index data. See <a class="reference internal" href="#deltaidx"><span class="std std-ref">Delta Index Exchange</span></a> for the usage of this field.</p>
+<p>The <strong>skip introduction removals</strong> field signifies if the remote device has
+opted to ignore introduction removals for the given device. This setting is
+copied across as we are being introduced to a new device.</p>
+<p>The <strong>enc pw token</strong> field contains a token derived from the password, that is
+used to encrypt data sent to this device. If the device is the same as the
+device sending the message, it signifies that the device itself has encrypted
+data that was encrypted with the given token. It is empty or missing if there is
+no encryption. See <span class="xref std std-ref">untrusted</span> for details on the encryption scheme.</p>
+</div>
+</div>
+<div class="section" id="index-and-index-update">
+<h3>Index and Index Update<a class="headerlink" href="#index-and-index-update" title="Permalink to this headline">¶</a></h3>
+<p>The Index and Index Update messages define the contents of the senders
+folder. An Index message represents the full contents of the folder and
+thus supersedes any previous index. An Index Update amends an existing
+index with new information, not affecting any entries not included in
+the message. An Index Update MAY NOT be sent unless preceded by an
+Index, unless a non-zero Max Sequence has been announced for the
+given folder by the peer device.</p>
+<p>The Index and Index Update messages are currently identical in format,
+although this is not guaranteed to be the case in the future.</p>
+<div class="section" id="id2">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Index</span> <span class="p">{</span>
+    <span class="kt">string</span>            <span class="na">folder</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">repeated</span> <span class="n">FileInfo</span> <span class="na">files</span>  <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">IndexUpdate</span> <span class="p">{</span>
+    <span class="kt">string</span>            <span class="na">folder</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">repeated</span> <span class="n">FileInfo</span> <span class="na">files</span>  <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">FileInfo</span> <span class="p">{</span>
+    <span class="kt">string</span>       <span class="na">name</span>           <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">FileInfoType</span> <span class="na">type</span>           <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">int64</span>        <span class="na">size</span>           <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">uint32</span>       <span class="na">permissions</span>    <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">int64</span>        <span class="na">modified_s</span>     <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">int32</span>        <span class="na">modified_ns</span>    <span class="o">=</span> <span class="mi">11</span><span class="p">;</span>
+    <span class="kt">uint64</span>       <span class="na">modified_by</span>    <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="kt">bool</span>         <span class="na">deleted</span>        <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="kt">bool</span>         <span class="na">invalid</span>        <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+    <span class="kt">bool</span>         <span class="na">no_permissions</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+    <span class="n">Vector</span>       <span class="na">version</span>        <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="kt">int64</span>        <span class="na">sequence</span>       <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="kt">int32</span>        <span class="na">block_size</span>     <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+
+    <span class="k">repeated</span> <span class="n">BlockInfo</span> <span class="na">Blocks</span>         <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+    <span class="kt">string</span>             <span class="na">symlink_target</span> <span class="o">=</span> <span class="mi">17</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="n">FileInfoType</span> <span class="p">{</span>
+    <span class="na">FILE</span>              <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">DIRECTORY</span>         <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="na">SYMLINK_FILE</span>      <span class="o">=</span> <span class="mi">2</span> <span class="p">[</span><span class="na">deprecated</span> <span class="o">=</span> <span class="kc">true</span><span class="p">];</span>
+    <span class="na">SYMLINK_DIRECTORY</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">[</span><span class="na">deprecated</span> <span class="o">=</span> <span class="kc">true</span><span class="p">];</span>
+    <span class="na">SYMLINK</span>           <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">BlockInfo</span> <span class="p">{</span>
+    <span class="kt">int64</span> <span class="na">offset</span>     <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int32</span> <span class="na">size</span>       <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">bytes</span> <span class="na">hash</span>       <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">uint32</span> <span class="na">weak_hash</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">Vector</span> <span class="p">{</span>
+    <span class="k">repeated</span> <span class="n">Counter</span> <span class="na">counters</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">Counter</span> <span class="p">{</span>
+    <span class="kt">uint64</span> <span class="na">id</span>    <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">uint64</span> <span class="na">value</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fields-index-message">
+<h4>Fields (Index Message)<a class="headerlink" href="#fields-index-message" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>folder</strong> field identifies the folder that the index message pertains to.</p>
+<p>The <strong>files</strong> field is a list of files making up the index information.</p>
+</div>
+<div class="section" id="fields-fileinfo-message">
+<h4>Fields (FileInfo Message)<a class="headerlink" href="#fields-fileinfo-message" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>name</strong> is the file name path relative to the folder root. Like all
+strings in BEP, the Name is always in UTF-8 NFC regardless of operating
+system or file system specific conventions. The name field uses the slash
+character (“/”) as path separator, regardless of the implementation’s
+operating system conventions. The combination of folder and name uniquely
+identifies each file in a cluster.</p>
+<p>The <strong>type</strong> field contains the type of the described item. The type is one
+of <strong>file (0)</strong>, <strong>directory (1)</strong>, or <strong>symlink (4)</strong>.</p>
+<p>The <strong>size</strong> field contains the size of the file, in bytes. For directories
+and symlinks the size is zero.</p>
+<p>The <strong>permissions</strong> field holds the common Unix permission bits. An
+implementation MAY ignore or interpret these as is suitable on the host
+operating system.</p>
+<p>The <strong>modified_s</strong> time is expressed as the number of seconds since the Unix
+Epoch (1970-01-01 00:00:00 UTC). The <strong>modified_ns</strong> field holds the
+nanosecond part of the modification time.</p>
+<p>The <strong>modified_by</strong> field holds the short id of the client that last made
+any modification to the file whether add, change or delete.  This will be
+overwritten every time a change is made to the file by the last client to do
+so and so does not hold history.</p>
+<p>The <strong>deleted</strong> field is set when the file has been deleted. The block list
+SHALL be of length zero and the modification time indicates the time of
+deletion or, if the time of deletion is not reliably determinable, the last
+known modification time.</p>
+<p>The <strong>invalid</strong> field is set when the file is invalid and unavailable for
+synchronization. A peer MAY set this bit to indicate that it can temporarily
+not serve data for the file.</p>
+<p>The <strong>no permissions</strong> field is set when there is no permission information
+for the file. This is the case when it originates on a file system which
+does not support permissions. Changes to only permission bits SHOULD be
+disregarded on files with this bit set. The permissions bits MUST be set to
+the octal value 0666.</p>
+<p>The <strong>version</strong> field is a version vector describing the updates performed
+to a file by all members in the cluster. Each counter in the version vector
+is an ID-Value tuple. The ID is the first 64 bits of the device ID. The
+Value is a simple incrementing counter, starting at zero. The combination of
+Folder, Name and Version uniquely identifies the contents of a file at a
+given point in time.</p>
+<p>The <strong>sequence</strong> field is the value of a device local monotonic clock at the
+time of last local database update to a file. The clock ticks on every local
+database update, thus forming a sequence number over database updates.</p>
+<p>The <strong>block_size</strong> field is the size, in bytes, of each individual block in
+the block list (except, possibly, the last block). If this field is missing
+or zero, the block size is assumed to be 128 KiB (131072 bytes). Valid
+values of this field are the powers of two from 128 KiB through 16 MiB. See
+also <a class="reference internal" href="#blocksize"><span class="std std-ref">Selection of Block Size</span></a>.</p>
+<p>The <strong>blocks</strong> list contains the size and hash for each block in the file.
+Each block represents a <strong>block_size</strong>-sized slice of the file, except for
+the last block which may represent a smaller amount of data. The block list
+is empty for directories and symlinks.</p>
+<p>The <strong>symlink_target</strong> field contains the symlink target, for entries of
+symlink type. It is empty for all other entry types.</p>
+</div>
+</div>
+<div class="section" id="request">
+<h3>Request<a class="headerlink" href="#request" title="Permalink to this headline">¶</a></h3>
+<p>The Request message expresses the desire to receive a data block
+corresponding to a part of a certain file in the peer’s folder.</p>
+<div class="section" id="id3">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Request</span> <span class="p">{</span>
+    <span class="kt">int32</span>  <span class="na">id</span>             <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="na">folder</span>         <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="na">name</span>           <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">int64</span>  <span class="na">offset</span>         <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">int32</span>  <span class="na">size</span>           <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">bytes</span>  <span class="na">hash</span>           <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="kt">bool</span>   <span class="na">from_temporary</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fields">
+<h4>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>id</strong> is the request identifier. It will be matched in the
+corresponding <strong>Response</strong> message. Each outstanding request must have a
+unique ID.</p>
+<p>The <strong>folder</strong> and <strong>name</strong> fields are as documented for the Index message.
+The <strong>offset</strong> and <strong>size</strong> fields specify the region of the file to be
+transferred. This SHOULD equate to exactly one block as seen in an Index
+message.</p>
+<p>The <em>hash</em> field MAY be set to the expected hash value of the block. If set,
+the other device SHOULD ensure that the transmitted block matches the
+requested hash. The other device MAY reuse a block from a different file and
+offset having the same size and hash, if one exists.</p>
+<p>The <strong>from temporary</strong> field is set to indicate that the read should be
+performed from the temporary file (converting name to it’s temporary form)
+and falling back to the non temporary file if any error occurs. Knowledge of
+contents of temporary files comes from DownloadProgress messages.</p>
+</div>
+</div>
+<div class="section" id="response">
+<h3>Response<a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h3>
+<p>The Response message is sent in response to a Request message.</p>
+<div class="section" id="id4">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Response</span> <span class="p">{</span>
+    <span class="kt">int32</span>     <span class="na">id</span>   <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">bytes</span>     <span class="na">data</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">ErrorCode</span> <span class="na">code</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="n">ErrorCode</span> <span class="p">{</span>
+    <span class="na">NO_ERROR</span>     <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">GENERIC</span>      <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="na">NO_SUCH_FILE</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="na">INVALID_FILE</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>Fields<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>id</strong> field is the request identifier. It must match the ID of the
+<strong>Request</strong> that is being responded to.</p>
+<p>The <strong>data</strong> field contains either the requested data block or is empty if
+the requested block is not available.</p>
+<p>The <strong>code</strong> field contains an error code describing the reason a Request
+could not be fulfilled, in the case where zero length data was returned. The
+following values are defined:</p>
+<dl class="field-list simple">
+<dt class="field-odd">0</dt>
+<dd class="field-odd"><p>No Error (data should be present)</p>
+</dd>
+<dt class="field-even">1</dt>
+<dd class="field-even"><p>Generic Error</p>
+</dd>
+<dt class="field-odd">2</dt>
+<dd class="field-odd"><p>No Such File (the requested file does not exist, or the offset is
+outside the acceptable range for the file)</p>
+</dd>
+<dt class="field-even">3</dt>
+<dd class="field-even"><p>Invalid (file exists but has invalid bit set or is otherwise
+unavailable)</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="downloadprogress">
+<h3>DownloadProgress<a class="headerlink" href="#downloadprogress" title="Permalink to this headline">¶</a></h3>
+<p>The DownloadProgress message is used to notify remote devices about partial
+availability of files. By default, these messages are sent every 5 seconds,
+and only in the cases where progress or state changes have been detected.
+Each DownloadProgress message is addressed to a specific folder and MUST
+contain zero or more FileDownloadProgressUpdate messages.</p>
+<div class="section" id="id6">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">DownloadProgress</span> <span class="p">{</span>
+    <span class="kt">string</span>                              <span class="na">folder</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">repeated</span> <span class="n">FileDownloadProgressUpdate</span> <span class="na">updates</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">FileDownloadProgressUpdate</span> <span class="p">{</span>
+    <span class="n">FileDownloadProgressUpdateType</span> <span class="na">update_type</span>   <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">string</span>                         <span class="na">name</span>          <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">Vector</span>                         <span class="na">version</span>       <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="k">repeated</span> <span class="kt">int32</span>                 <span class="na">block_indexes</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="n">FileDownloadProgressUpdateType</span> <span class="p">{</span>
+    <span class="na">APPEND</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">FORGET</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fields-downloadprogress-message">
+<h4>Fields (DownloadProgress Message)<a class="headerlink" href="#fields-downloadprogress-message" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>folder</strong> field represents the ID of the folder for which the update is
+being provided.</p>
+<p>The <strong>updates</strong> field is a list of progress update messages.</p>
+</div>
+<div class="section" id="fields-filedownloadprogressupdate-message">
+<h4>Fields (FileDownloadProgressUpdate Message)<a class="headerlink" href="#fields-filedownloadprogressupdate-message" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>update type</strong> indicates whether the update is of type <strong>append (0)</strong>
+(new blocks are available) or <strong>forget (1)</strong> (the file transfer has
+completed or failed).</p>
+<p>The <strong>name</strong> field defines the file name from the global index for which
+this update is being sent.</p>
+<p>The <strong>version</strong> message defines the version of the file for which this
+update is being sent.</p>
+<p>The <strong>block indexes</strong> field is a list of positive integers, where each
+integer represents the index of the block in the FileInfo message Blocks
+array that has become available for download.</p>
+<p>For example an integer with value 3 represents that the data defined in the
+fourth BlockInfo message of the FileInfo message of that file is now
+available. Please note that matching should be done on <strong>name</strong> AND
+<strong>version</strong>. Furthermore, each update received is incremental, for example
+the initial update message might contain indexes 0, 1, 2, an update 5
+seconds later might contain indexes 3, 4, 5 which should be appended to the
+original list, which implies that blocks 0-5 are currently available.</p>
+<p>Block indexes MAY be added in any order. An implementation MUST NOT assume
+that block indexes are added in any specific order.</p>
+<p>The <strong>forget</strong> field being set implies that previously advertised file is no
+longer available, therefore the list of block indexes should be truncated.</p>
+<p>Messages with the <strong>forget</strong> field set MUST NOT have any block indexes.</p>
+<p>Any update message which is being sent for a different <strong>version</strong> of the
+same file name must be preceded with an update message for the old version
+of that file with the <strong>forget</strong> field set.</p>
+<p>As a safeguard on the receiving side, the value of <strong>version</strong> changing
+between update messages implies that the file has changed and that any
+indexes previously advertised are no longer available. The list of available
+block indexes MUST be replaced (rather than appended) with the indexes
+specified in this message.</p>
+</div>
+</div>
+<div class="section" id="ping">
+<h3>Ping<a class="headerlink" href="#ping" title="Permalink to this headline">¶</a></h3>
+<p>The Ping message is used to determine that a connection is alive, and to
+keep connections alive through state tracking network elements such as
+firewalls and NAT gateways. A Ping message is sent every 90 seconds, if no
+other message has been sent in the preceding 90 seconds.</p>
+<div class="section" id="id7">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Ping</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="close">
+<h3>Close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
+<p>The Close message MAY be sent to indicate that the connection will be torn
+down due to an error condition. A Close message MUST NOT be followed by
+further messages.</p>
+<div class="section" id="id8">
+<h4>Protocol Buffer Schema<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Close</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="na">reason</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>Fields<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>reason</strong> field contains a human readable description of the error
+condition.</p>
+</div>
+</div>
+</div>
+<div class="section" id="sharing-modes">
+<h2>Sharing Modes<a class="headerlink" href="#sharing-modes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="trusted">
+<h3>Trusted<a class="headerlink" href="#trusted" title="Permalink to this headline">¶</a></h3>
+<p>Trusted mode is the default sharing mode. Updates are exchanged in both
+directions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------------+</span>     <span class="n">Updates</span>      <span class="o">/---------</span>\
+<span class="o">|</span>            <span class="o">|</span>  <span class="o">-----------&gt;</span>   <span class="o">/</span>           \
+<span class="o">|</span>   <span class="n">Device</span>   <span class="o">|</span>                 <span class="o">|</span>  <span class="n">Cluster</span>  <span class="o">|</span>
+<span class="o">|</span>            <span class="o">|</span>  <span class="o">&lt;-----------</span>   \           <span class="o">/</span>
+<span class="o">+------------+</span>     <span class="n">Updates</span>      \<span class="o">---------/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="send-only">
+<h3>Send Only<a class="headerlink" href="#send-only" title="Permalink to this headline">¶</a></h3>
+<p>In send only mode, a device does not apply any updates from the cluster, but
+publishes changes of its local folder to the cluster as usual.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------------+</span>     <span class="n">Updates</span>      <span class="o">/---------</span>\
+<span class="o">|</span>            <span class="o">|</span>  <span class="o">-----------&gt;</span>   <span class="o">/</span>           \
+<span class="o">|</span>   <span class="n">Device</span>   <span class="o">|</span>                 <span class="o">|</span>  <span class="n">Cluster</span>  <span class="o">|</span>
+<span class="o">|</span>            <span class="o">|</span>                 \           <span class="o">/</span>
+<span class="o">+------------+</span>                  \<span class="o">---------/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="receive-only">
+<h3>Receive Only<a class="headerlink" href="#receive-only" title="Permalink to this headline">¶</a></h3>
+<p>In receive only mode, a device does not send any updates to the cluster, but
+accepts changes to its local folder from the cluster as usual.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------------+</span>     <span class="n">Updates</span>      <span class="o">/---------</span>\
+<span class="o">|</span>            <span class="o">|</span>  <span class="o">&lt;-----------</span>   <span class="o">/</span>           \
+<span class="o">|</span>   <span class="n">Device</span>   <span class="o">|</span>                 <span class="o">|</span>  <span class="n">Cluster</span>  <span class="o">|</span>
+<span class="o">|</span>            <span class="o">|</span>                 \           <span class="o">/</span>
+<span class="o">+------------+</span>                  \<span class="o">---------/</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delta-index-exchange">
+<span id="deltaidx"></span><h2>Delta Index Exchange<a class="headerlink" href="#delta-index-exchange" title="Permalink to this headline">¶</a></h2>
+<p>Index data must be exchanged whenever two devices connect so that one knows
+the files available on the other. In the most basic case this happens by way
+of sending an <code class="docutils literal notranslate"><span class="pre">Index</span></code> message followed by one or more <code class="docutils literal notranslate"><span class="pre">Index</span> <span class="pre">Update</span></code>
+messages. Any previous index data known for a remote device is removed and
+replaced with the new index data received in an <code class="docutils literal notranslate"><span class="pre">Index</span></code> message, while the
+contents of an <code class="docutils literal notranslate"><span class="pre">Index</span> <span class="pre">Update</span></code> message is simply added to the existing
+index data.</p>
+<p>For situations with large indexes or frequent reconnects this can be quite
+inefficient. A mechanism can then be used to retain index data between
+connections and only transmit any changes since that data on connection
+start. This is called “delta indexes”. To enable this mechanism the
+<strong>sequence</strong> and <strong>index ID</strong> fields are used.</p>
+<dl class="simple">
+<dt>Sequence:</dt><dd><p>Each index item (i.e., file, directory or symlink) has a sequence number
+field. It contains the value of a counter at the time the index item was
+updated. The counter increments by one for each change. That is, as files
+are scanned and added to the index they get assigned sequence numbers
+1, 2, 3 and so on. The next file to be changed or detected gets sequence
+number 4, and future updates continue in the same fashion.</p>
+</dd>
+<dt>Index ID:</dt><dd><p>Each folder has an Index ID. This is a 64 bit random identifier set at
+index creation time.</p>
+</dd>
+</dl>
+<p>Given the above, we know that the tuple {index ID, maximum sequence number}
+uniquely identifies a point in time of a given index. Any further changes
+will increase the sequence number of some item, and thus the maximum
+sequence number for the index itself. Should the index be reset or removed
+(i.e., the sequence number reset to zero), a new index ID must be generated.</p>
+<p>By letting a device know the {index ID, maximum sequence number} we have for
+their index data, that device can arrange to only transmit <code class="docutils literal notranslate"><span class="pre">Index</span> <span class="pre">Update</span></code>
+messages for items with a higher sequence number. This is the delta index
+mechanism.</p>
+<p>The index ID and maximum sequence number known for each device is
+transmitted in the <code class="docutils literal notranslate"><span class="pre">Cluster</span> <span class="pre">Config</span></code> message at connection start.</p>
+<p>For this mechanism to be reliable it is essential that outgoing index
+information is ordered by increasing sequence number. Devices announcing a
+non-zero index ID in the <code class="docutils literal notranslate"><span class="pre">Cluster</span> <span class="pre">Config</span></code> message MUST send all index data
+ordered by increasing sequence number. Devices not intending to participate
+in delta index exchange MUST send a zero index ID or, equivalently, not send
+the <code class="docutils literal notranslate"><span class="pre">index_id</span></code> attribute at all.</p>
+</div>
+<div class="section" id="message-limits">
+<h2>Message Limits<a class="headerlink" href="#message-limits" title="Permalink to this headline">¶</a></h2>
+<p>An implementation MAY impose reasonable limits on the length of messages and
+message fields to aid robustness in the face of corruption or broken
+implementations. An implementation should strive to keep messages short
+and to the point, favouring more and smaller messages over fewer and larger.
+For example, favour a smaller Index message followed by one or more Index
+Update messages rather than sending a very large Index message.</p>
+<p>The Syncthing implementation imposes a hard limit of 500,000,000 bytes on
+all messages. Attempting to send or receive a larger message will result in
+a connection close. This size was chosen to accommodate Index messages
+containing a large block list. It’s intended that the limit may be further
+reduced in a future protocol update supporting variable block sizes (and
+thus shorter block lists for large files).</p>
+</div>
+<div class="section" id="selection-of-block-size">
+<span id="blocksize"></span><h2>Selection of Block Size<a class="headerlink" href="#selection-of-block-size" title="Permalink to this headline">¶</a></h2>
+<p>The desired block size for any given file is the smallest block size that
+results in fewer than 2000 blocks, or the maximum block size for larger
+files. This rule results in the following table of block sizes per file
+size:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 59%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File Size</p></th>
+<th class="head"><p>Block Size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 - 250 MiB</p></td>
+<td><p>128 KiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>250 MiB - 500 MiB</p></td>
+<td><p>256 KiB</p></td>
+</tr>
+<tr class="row-even"><td><p>500 MiB - 1 GiB</p></td>
+<td><p>512 KiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>1 GiB - 2 GiB</p></td>
+<td><p>1 MiB</p></td>
+</tr>
+<tr class="row-even"><td><p>2 GiB - 4 GiB</p></td>
+<td><p>2 MiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>4 GiB - 8 GiB</p></td>
+<td><p>4 MiB</p></td>
+</tr>
+<tr class="row-even"><td><p>8 GiB - 16 GiB</p></td>
+<td><p>8 MiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>16 GiB - up</p></td>
+<td><p>16 MiB</p></td>
+</tr>
+</tbody>
+</table>
+<p>An implementation MAY deviate from the block size rule when there is good
+reason to do so. For example, if a file has been indexed at a certain block
+size and grows beyond 2000 blocks it may be retained at the current block
+size for practical reasons. When there is no overriding reason to the
+contrary, such as when indexing a new file for the first time, the block
+size rule above SHOULD be followed.</p>
+<p>An implementation MUST therefore accept files with a block size differing
+from the above rule. This does not mean that arbitrary block sizes are
+allowed. The block size used MUST be exactly one of the power-of-two block
+sizes listed in the table above.</p>
+</div>
+<div class="section" id="example-exchange">
+<h2>Example Exchange<a class="headerlink" href="#example-exchange" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 48%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>ClusterConfiguration-&gt;</p></td>
+<td><p>&lt;-ClusterConfiguration</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Index-&gt;</p></td>
+<td><p>&lt;-Index</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>IndexUpdate-&gt;</p></td>
+<td><p>&lt;-IndexUpdate</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>IndexUpdate-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Request-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Request-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Request-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>Request-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td></td>
+<td><p>&lt;-Response</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td></td>
+<td><p>&lt;-Response</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td></td>
+<td><p>&lt;-Response</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td></td>
+<td><p>&lt;-Response</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>Index Update-&gt;</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>14</p></td>
+<td></td>
+<td><p>&lt;-Ping</p></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>Ping-&gt;</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The connection is established and at 1. both peers send ClusterConfiguration
+messages and then Index records. The Index records are received and both
+peers recompute their knowledge of the data in the cluster. In this example,
+peer A has four missing or outdated blocks. At 5 through 8 peer A sends
+requests for these blocks. The requests are received by peer B, who
+retrieves the data from the folder and transmits Response records (9 through
+12). Device A updates their folder contents and transmits an Index Update
+message (13). Both peers enter idle state after 13. At some later time 14,
+the ping timer on device B expires and a Ping message is sent. The same
+process occurs for device A at 15.</p>
+</div>
+<div class="section" id="examples-of-strong-cipher-suites">
+<h2>Examples of Strong Cipher Suites<a class="headerlink" href="#examples-of-strong-cipher-suites" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 40%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x009F</p></td>
+<td><p>DHE-RSA-AES256-GCM-SHA384</p></td>
+<td><p>TLSv1.2 DH RSA AESGCM(256) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x006B</p></td>
+<td><p>DHE-RSA-AES256-SHA256</p></td>
+<td><p>TLSv1.2 DH RSA AES(256) SHA256</p></td>
+</tr>
+<tr class="row-even"><td><p>0xC030</p></td>
+<td><p>ECDHE-RSA-AES256-GCM-SHA384</p></td>
+<td><p>TLSv1.2 ECDH RSA AESGCM(256) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0xC028</p></td>
+<td><p>ECDHE-RSA-AES256-SHA384</p></td>
+<td><p>TLSv1.2 ECDH RSA AES(256) SHA384</p></td>
+</tr>
+<tr class="row-even"><td><p>0x009E</p></td>
+<td><p>DHE-RSA-AES128-GCM-SHA256</p></td>
+<td><p>TLSv1.2 DH RSA AESGCM(128) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x0067</p></td>
+<td><p>DHE-RSA-AES128-SHA256</p></td>
+<td><p>TLSv1.2 DH RSA AES(128) SHA256</p></td>
+</tr>
+<tr class="row-even"><td><p>0xC02F</p></td>
+<td><p>ECDHE-RSA-AES128-GCM-SHA256</p></td>
+<td><p>TLSv1.2 ECDH RSA AESGCM(128) AEAD</p></td>
+</tr>
+<tr class="row-odd"><td><p>0xC027</p></td>
+<td><p>ECDHE-RSA-AES128-SHA256</p></td>
+<td><p>TLSv1.2 ECDH RSA AES(128) SHA256</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/specs/bep-v1.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Specifications</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Block Exchange Protocol v1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="globaldisco-v3.html">Global Discovery v3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localdisco-v4.html">Local Discovery Protocol v4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relay-v1.html">Relay Protocol v1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted Device Encryption</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Specifications</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Specifications</a></li>
+      <li>Next: <a href="globaldisco-v3.html" title="next chapter">Global Discovery v3</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

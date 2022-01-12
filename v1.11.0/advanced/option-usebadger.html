@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Environment variable USE_BADGER &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="autoNormalize" href="folder-autonormalize.html" />
+    <link rel="prev" title="maxFolderConcurrency" href="option-max-concurrency.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="environment-variable-use-badger">
+<h1>Environment variable USE_BADGER<a class="headerlink" href="#environment-variable-use-badger" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.7.0.</span></p>
+</div>
+<p>Syncthing traditionally uses the LevelDB database (<a class="reference external" href="https://github.com/syndtr/goleveldb">syndtr/goleveldb</a>). While this has served us well for
+many years we are looking at potential alternatives. One of these is the
+Badger database (<a class="reference external" href="https://github.com/dgraph-io/goleveldb">dgraph-io/goleveldb</a>). Syncthing currently supports
+either with identical functionality. The default remains LevelDB but setting
+the environment variable <code class="docutils literal notranslate"><span class="pre">USE_BADGER=1</span></code> causes Syncthing to instead use
+Badger.</p>
+<p>In order to support experimentation Syncthing performs automatic conversion
+between the database formats without data loss. That is, if there is an
+existing LevelDB database and <code class="docutils literal notranslate"><span class="pre">USE_BADGER</span></code> is set, the LevelDB database is
+converted to a Badger database and archived. Similarly, if <code class="docutils literal notranslate"><span class="pre">USE_BADGER</span></code> is
+not set and there is no LevelDB database but there is a Badger database, the
+conversion is made in the opposite direction. If there is no existing
+database at all a new one will be created of the correct type.</p>
+<div class="section" id="migration-process">
+<h2>Migration Process<a class="headerlink" href="#migration-process" title="Permalink to this headline">¶</a></h2>
+<p>To migrate to Badger, start Syncthing with the environment variable
+<code class="docutils literal notranslate"><span class="pre">USE_BADGER</span></code> set to <code class="docutils literal notranslate"><span class="pre">1</span></code> or any other non-empty value. The current
+LevelDB database will be migrated to Badger format and archived.</p>
+<p>To revert the migration, start Syncthing without the environment variable
+set. The current Badger database will be migrated back into LevelDB format.
+If you’re migrating back due to some Badger related disaster (Syncthing
+can’t even migrate it back), the simply rename the
+<code class="docutils literal notranslate"><span class="pre">index-v0.14.0.db.migrated.20200529135506</span></code> (or similar) back to
+<code class="docutils literal notranslate"><span class="pre">index-v0.14.0.db</span></code> and start Syncthing without <code class="docutils literal notranslate"><span class="pre">USE_BADGER</span></code> set.</p>
+</div>
+<div class="section" id="directory-names">
+<h2>Directory Names<a class="headerlink" href="#directory-names" title="Permalink to this headline">¶</a></h2>
+<p>The following names are used for the various databases, always inside the
+Syncthing database dir (set with <code class="docutils literal notranslate"><span class="pre">-home</span></code> or <code class="docutils literal notranslate"><span class="pre">--data</span></code>):</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">index-v0.14.0.db</span></code></dt><dd><p>A current, active LevelDB database.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">indexdb.badger</span></code></dt><dd><p>A current, active Badger database.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">index-v0.14.0.db.migrated.20200529135506</span></code></dt><dd><p>An archived, migrated LevelDB database after switching to Badger (date stamp will differ).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">indexdb.badger.migrated.20200529135506</span></code></dt><dd><p>An archived, migrated Badger database after switching to LevelDB (date stamp will differ).</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="considerations">
+<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this headline">¶</a></h2>
+<p>We have limited experience with how Badger behaves in various situations.
+We’re interested in both stability and performance data. As such, please
+have usage reporting and/or (at the very least) <a class="reference internal" href="../users/crashrep.html#crashrep"><span class="std std-ref">Automatic Crash Reporting</span></a> enabled so
+that we might hear of any serious issues.</p>
+<p>Currently the <a class="reference internal" href="option-database-tuning.html#option-databasetuning"><span class="std std-ref">databaseTuning</span></a> option has no effect on Badger.
+It’s possible that we might implement the tuning options in Badger as well
+after gathering more data on how it behaves.</p>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/advanced/option-usebadger.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../users/index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html">Configuration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../users/advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../users/index.html">Usage</a><ul>
+  <li><a href="../users/advanced.html">Advanced Configuration</a><ul>
+      <li>Previous: <a href="option-max-concurrency.html" title="previous chapter">maxFolderConcurrency</a></li>
+      <li>Next: <a href="folder-autonormalize.html" title="next chapter">autoNormalize</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Channels &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Syncthing Configuration" href="config.html" />
+    <link rel="prev" title="FAQ" href="faq.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="release-channels">
+<span id="id1"></span><h1>Release Channels<a class="headerlink" href="#release-channels" title="Permalink to this headline">¶</a></h1>
+<p>There are two different release channels that can be selected. The <em>stable</em>
+channel is the more stable one, while <em>candidate</em> releases are closer to
+development. Candidate releases get promoted to stable after a certain
+period of testing.</p>
+<p>There are a few trade-offs between the two:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 35%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Stable</p></th>
+<th class="head"><p>Candidate</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Stability</strong></p></td>
+<td><p>More Stable</p></td>
+<td><p>More Experimental</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Features &amp; Fixes</strong></p></td>
+<td><p>One month behind</p></td>
+<td><p>Latest</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Auto Upgrades</strong></p></td>
+<td><p>Optional</p></td>
+<td><p>Mandatory <a class="footnote-reference brackets" href="#id4" id="id2">1</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Anon. Usage Reporting</strong></p></td>
+<td><p>Optional</p></td>
+<td><p>Mandatory</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Support</strong></p></td>
+<td><p>Fully supported</p></td>
+<td><p>Fully supported <a class="footnote-reference brackets" href="#id5" id="id3">2</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>Run the candidate channel if you are technically savvy and enjoy new
+features. Run the stable channel if you want to minimize the amount of
+surprises you might run into.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Auto upgrades are not enabled in builds delivered via APT or Snap.</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Yes, there is intentionally no difference here.</p>
+</dd>
+</dl>
+<div class="section" id="schedule">
+<h2>Schedule<a class="headerlink" href="#schedule" title="Permalink to this headline">¶</a></h2>
+<p>Barring blocking issues, stable versions are released <em>on the first Tuesday
+of the month</em>. A new candidate releases is made <em>on the second Tuesday of the
+month</em>.</p>
+</div>
+<div class="section" id="how-to-choose">
+<h2>How to Choose<a class="headerlink" href="#how-to-choose" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="built-in-github">
+<h3>Built-in / GitHub<a class="headerlink" href="#built-in-github" title="Permalink to this headline">¶</a></h3>
+<p>For releases obtained from Syncthing.net or GitHub, with built-in upgrade
+functionality, the choice is made in the “Settings” dialog. Set the
+“Automatic upgrade” drop down to either “Stable releases only” or “Stable
+releases and release candidates”.</p>
+</div>
+<div class="section" id="apt-debian">
+<h3>APT (Debian)<a class="headerlink" href="#apt-debian" title="Permalink to this headline">¶</a></h3>
+<p>The choice between stable and candidate is done in the APT source
+configuration. Please see <a class="reference external" href="https://apt.syncthing.net/">our APT instructions</a>.</p>
+</div>
+<div class="section" id="snap">
+<h3>Snap<a class="headerlink" href="#snap" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">snap</span></code> tool can be told to install the candidate channel, but defaults
+to the stable channel. See the Snap documentation for detail.</p>
+</div>
+<div class="section" id="some-other-distribution-channel">
+<h3>Some Other Distribution Channel<a class="headerlink" href="#some-other-distribution-channel" title="Permalink to this headline">¶</a></h3>
+<p>If you are getting packages from your Linux distribution, NAS vendor, etc.,
+then you should be getting the <em>stable</em> channel. If you get a release
+candidate you should complain to your distributor or vendor and refer them
+to this page.</p>
+</div>
+</div>
+<div class="section" id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-s-the-relationship-between-candidate-and-release-exactly">
+<h3>What’s the relationship between candidate and release exactly?<a class="headerlink" href="#what-s-the-relationship-between-candidate-and-release-exactly" title="Permalink to this headline">¶</a></h3>
+<p>Every new feature and bugfix begins its life in the development branch,
+<code class="docutils literal notranslate"><span class="pre">master</span></code>. Once a month the current <code class="docutils literal notranslate"><span class="pre">master</span></code> becomes a <em>release
+candidate</em>. This version is identified by “-rc” in it’s name, for example
+<code class="docutils literal notranslate"><span class="pre">v1.5.0-rc.1</span></code>.</p>
+<p>Those running the candidate channel will update to this release candidate.
+For the next three weeks it is tested “in the wild”. Any new, serious issues
+that are discovered are fixed, and new release candidates <code class="docutils literal notranslate"><span class="pre">v1.5.0-rc.2</span></code> etc
+are created as needed. These release candidates do not include any new
+features or non-essential bugfixes added to <code class="docutils literal notranslate"><span class="pre">master</span></code> in the meantime.</p>
+<p>Stable releases are given version numbers without any suffix - <code class="docutils literal notranslate"><span class="pre">v1.5.0</span></code>.
+Unless any serious issues were discovered, this release is exactly identical
+to the “-rc.1” release candidate three weeks prior.</p>
+<p>The cycle then restarts one week later with a new release candidate based on
+the current <code class="docutils literal notranslate"><span class="pre">master</span></code> branch.</p>
+</div>
+<div class="section" id="which-bugfixes-trigger-a-new-release-candidate">
+<h3>Which bugfixes trigger a new release candidate?<a class="headerlink" href="#which-bugfixes-trigger-a-new-release-candidate" title="Permalink to this headline">¶</a></h3>
+<p>Those that fix a regression since the last release. Lets say the current
+release is <code class="docutils literal notranslate"><span class="pre">v1.5.0</span></code>. We release <code class="docutils literal notranslate"><span class="pre">v1.5.1-rc.1</span></code> and discover a new problem that
+is not present in <code class="docutils literal notranslate"><span class="pre">v1.5.0</span></code>. This gets fixed and we release a new <code class="docutils literal notranslate"><span class="pre">v1.5.1-rc.2</span></code>
+candidate. However, if we discover and fix a problem that’s been present
+since <code class="docutils literal notranslate"><span class="pre">v1.4.0</span></code>, this fix will instead be incorporated in the next regular
+cycle.</p>
+</div>
+<div class="section" id="what-s-the-difference-between-the-latest-candidate-and-the-following-stable-release">
+<h3>What’s the difference between the latest candidate and the following stable release?<a class="headerlink" href="#what-s-the-difference-between-the-latest-candidate-and-the-following-stable-release" title="Permalink to this headline">¶</a></h3>
+<p>Nothing. If we release <code class="docutils literal notranslate"><span class="pre">v1.5.1-rc.1</span></code> and no serious problems are discovered
+during the next twelve days, this is the exact software that will become
+<code class="docutils literal notranslate"><span class="pre">v1.5.1</span></code> for general consumption. Since the version number is different it
+requires a rebuild and the release signatures / hashes are different. If you
+are on the candidate channel, your Syncthing will “upgrade” from
+<code class="docutils literal notranslate"><span class="pre">v1.5.1-rc.1</span></code> to <code class="docutils literal notranslate"><span class="pre">v1.5.1</span></code> when we make the release. This is normal.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/master/users/releases.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="faq.html" title="previous chapter">FAQ</a></li>
+      <li>Next: <a href="config.html" title="next chapter">Syncthing Configuration</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

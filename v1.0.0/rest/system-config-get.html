@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GET /rest/system/config &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="3.10. REST API" href="../dev/rest.html"/>
+        <link rel="next" title="GET /rest/system/config/insync" href="system-config-insync-get.html"/>
+        <link rel="prev" title="GET /rest/system/browse" href="system-browse-get.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">3. Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">3.2. Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">3.3. Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">3.4. Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">3.5. Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">3.6. Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">3.7. Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">3.8. Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">3.9. Release Signing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/rest.html">3.10. REST API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#api-key">3.10.1. API Key</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dev/rest.html#system-endpoints">3.10.2. System Endpoints</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="system-browse-get.html">GET /rest/system/browse</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">GET /rest/system/config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-config-insync-get.html">GET /rest/system/config/insync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-config-post.html">POST /rest/system/config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-connections-get.html">GET /rest/system/connections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-debug-get.html">GET /rest/system/debug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-debug-post.html">POST /rest/system/debug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-discovery-get.html">GET /rest/system/discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-discovery-post.html">POST /rest/system/discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-error-clear-post.html">POST /rest/system/error/clear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-error-get.html">GET /rest/system/error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-error-post.html">POST /rest/system/error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-log-get.html">GET /rest/system/log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-pause-post.html">POST /rest/system/pause</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-ping-get.html">GET /rest/system/ping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-ping-post.html">POST /rest/system/ping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-reset-post.html">POST /rest/system/reset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-restart-post.html">POST /rest/system/restart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-resume-post.html">POST /rest/system/resume</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-shutdown-post.html">POST /rest/system/shutdown</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-status-get.html">GET /rest/system/status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-upgrade-get.html">GET /rest/system/upgrade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-upgrade-post.html">POST /rest/system/upgrade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-version-get.html">GET /rest/system/version</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#database-endpoints">3.10.3. Database Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#event-endpoints">3.10.4. Event Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#statistics-endpoints">3.10.5. Statistics Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#misc-services-endpoints">3.10.6. Misc Services Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html">3.11. Event API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../dev/index.html"><span class="section-number">3. </span>Development</a> &raquo;</li>
+        
+          <li><a href="../dev/rest.html"><span class="section-number">3.10. </span>REST API</a> &raquo;</li>
+        
+      <li>GET /rest/system/config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/rest/system-config-get.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="get-rest-system-config">
+<h1>GET /rest/system/config<a class="headerlink" href="#get-rest-system-config" title="Permalink to this headline">¶</a></h1>
+<p>Returns the current configuration.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+    <span class="o">{</span>
+      <span class="s2">&quot;version&quot;</span>: <span class="m">15</span>,
+      <span class="s2">&quot;folders&quot;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">&quot;id&quot;</span>: <span class="s2">&quot;GXWxf-3zgnU&quot;</span>,
+          <span class="s2">&quot;label&quot;</span>: <span class="s2">&quot;MyFolder&quot;</span>,
+          <span class="s2">&quot;path&quot;</span>: <span class="s2">&quot;...&quot;</span>,
+          <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;sendreceive&quot;</span>,
+          <span class="s2">&quot;devices&quot;</span>: <span class="o">[</span>
+            <span class="o">{</span>
+              <span class="s2">&quot;deviceID&quot;</span>: <span class="s2">&quot;...&quot;</span>
+            <span class="o">}</span>
+          <span class="o">]</span>,
+          <span class="s2">&quot;rescanIntervalS&quot;</span>: <span class="m">60</span>,
+          <span class="s2">&quot;ignorePerms&quot;</span>: false,
+          <span class="s2">&quot;autoNormalize&quot;</span>: true,
+          <span class="s2">&quot;minDiskFreePct&quot;</span>: <span class="m">1</span>,
+          <span class="s2">&quot;versioning&quot;</span>: <span class="o">{</span>
+            <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;simple&quot;</span>,
+            <span class="s2">&quot;params&quot;</span>: <span class="o">{</span>
+              <span class="s2">&quot;keep&quot;</span>: <span class="s2">&quot;5&quot;</span>
+            <span class="o">}</span>
+          <span class="o">}</span>,
+          <span class="s2">&quot;copiers&quot;</span>: <span class="m">0</span>,
+          <span class="s2">&quot;pullers&quot;</span>: <span class="m">0</span>,
+          <span class="s2">&quot;hashers&quot;</span>: <span class="m">0</span>,
+          <span class="s2">&quot;order&quot;</span>: <span class="s2">&quot;random&quot;</span>,
+          <span class="s2">&quot;ignoreDelete&quot;</span>: false,
+          <span class="s2">&quot;scanProgressIntervalS&quot;</span>: <span class="m">0</span>,
+          <span class="s2">&quot;pullerSleepS&quot;</span>: <span class="m">0</span>,
+          <span class="s2">&quot;pullerPauseS&quot;</span>: <span class="m">0</span>,
+          <span class="s2">&quot;maxConflicts&quot;</span>: <span class="m">10</span>,
+          <span class="s2">&quot;disableSparseFiles&quot;</span>: false,
+          <span class="s2">&quot;disableTempIndexes&quot;</span>: false,
+          <span class="s2">&quot;fsync&quot;</span>: false,
+          <span class="s2">&quot;invalid&quot;</span>: <span class="s2">&quot;&quot;</span>
+        <span class="o">}</span>
+      <span class="o">]</span>,
+      <span class="s2">&quot;devices&quot;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">&quot;deviceID&quot;</span>: <span class="s2">&quot;...&quot;</span>,
+          <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;Laptop&quot;</span>,
+          <span class="s2">&quot;addresses&quot;</span>: <span class="o">[</span>
+            <span class="s2">&quot;dynamic&quot;</span>,
+            <span class="s2">&quot;tcp://192.168.1.2:22000&quot;</span>
+          <span class="o">]</span>,
+          <span class="s2">&quot;compression&quot;</span>: <span class="s2">&quot;metadata&quot;</span>,
+          <span class="s2">&quot;certName&quot;</span>: <span class="s2">&quot;&quot;</span>,
+          <span class="s2">&quot;introducer&quot;</span>: <span class="nb">false</span>
+        <span class="o">}</span>
+      <span class="o">]</span>,
+      <span class="s2">&quot;gui&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;enabled&quot;</span>: true,
+        <span class="s2">&quot;address&quot;</span>: <span class="s2">&quot;127.0.0.1:8384&quot;</span>,
+        <span class="s2">&quot;user&quot;</span>: <span class="s2">&quot;Username&quot;</span>,
+        <span class="s2">&quot;password&quot;</span>: <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">a</span><span class="nv">$10$ZFws69T4FlvWwsqeIwL</span><span class="s2">.TOo5zOYqsa/.TxlUnsGYS.j3JvjFTmxo6&quot;</span>,
+        <span class="s2">&quot;useTLS&quot;</span>: false,
+        <span class="s2">&quot;apiKey&quot;</span>: <span class="s2">&quot;pGahcht56664QU5eoFQW6szbEG6Ec2Cr&quot;</span>,
+        <span class="s2">&quot;insecureAdminAccess&quot;</span>: false,
+        <span class="s2">&quot;theme&quot;</span>: <span class="s2">&quot;default&quot;</span>
+      <span class="o">}</span>,
+      <span class="s2">&quot;options&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;listenAddresses&quot;</span>: <span class="o">[</span>
+          <span class="s2">&quot;default&quot;</span>
+        <span class="o">]</span>,
+        <span class="s2">&quot;globalAnnounceServers&quot;</span>: <span class="o">[</span>
+          <span class="s2">&quot;default&quot;</span>
+        <span class="o">]</span>,
+        <span class="s2">&quot;globalAnnounceEnabled&quot;</span>: true,
+        <span class="s2">&quot;localAnnounceEnabled&quot;</span>: true,
+        <span class="s2">&quot;localAnnouncePort&quot;</span>: <span class="m">21027</span>,
+        <span class="s2">&quot;localAnnounceMCAddr&quot;</span>: <span class="s2">&quot;[ff12::8384]:21027&quot;</span>,
+        <span class="s2">&quot;maxSendKbps&quot;</span>: <span class="m">0</span>,
+        <span class="s2">&quot;maxRecvKbps&quot;</span>: <span class="m">0</span>,
+        <span class="s2">&quot;reconnectionIntervalS&quot;</span>: <span class="m">60</span>,
+        <span class="s2">&quot;relaysEnabled&quot;</span>: true,
+        <span class="s2">&quot;relayReconnectIntervalM&quot;</span>: <span class="m">10</span>,
+        <span class="s2">&quot;startBrowser&quot;</span>: false,
+        <span class="s2">&quot;natEnabled&quot;</span>: true,
+        <span class="s2">&quot;natLeaseMinutes&quot;</span>: <span class="m">60</span>,
+        <span class="s2">&quot;natRenewalMinutes&quot;</span>: <span class="m">30</span>,
+        <span class="s2">&quot;natTimeoutSeconds&quot;</span>: <span class="m">10</span>,
+        <span class="s2">&quot;urAccepted&quot;</span>: -1,
+        <span class="s2">&quot;urUniqueId&quot;</span>: <span class="s2">&quot;&quot;</span>,
+        <span class="s2">&quot;urURL&quot;</span>: <span class="s2">&quot;https://data.syncthing.net/newdata&quot;</span>,
+        <span class="s2">&quot;urPostInsecurely&quot;</span>: false,
+        <span class="s2">&quot;urInitialDelayS&quot;</span>: <span class="m">1800</span>,
+        <span class="s2">&quot;restartOnWakeup&quot;</span>: true,
+        <span class="s2">&quot;autoUpgradeIntervalH&quot;</span>: <span class="m">12</span>,
+        <span class="s2">&quot;keepTemporariesH&quot;</span>: <span class="m">24</span>,
+        <span class="s2">&quot;cacheIgnoredFiles&quot;</span>: false,
+        <span class="s2">&quot;progressUpdateIntervalS&quot;</span>: <span class="m">5</span>,
+        <span class="s2">&quot;limitBandwidthInLan&quot;</span>: false,
+        <span class="s2">&quot;minHomeDiskFreePct&quot;</span>: <span class="m">1</span>,
+        <span class="s2">&quot;releasesURL&quot;</span>: <span class="s2">&quot;https://upgrades.syncthing.net/meta.json&quot;</span>,
+        <span class="s2">&quot;alwaysLocalNets&quot;</span>: <span class="o">[]</span>,
+        <span class="s2">&quot;overwriteRemoteDeviceNamesOnConnect&quot;</span>: false,
+        <span class="s2">&quot;tempIndexMinBlocks&quot;</span>: <span class="m">10</span>
+      <span class="o">}</span>,
+      <span class="s2">&quot;ignoredDevices&quot;</span>: <span class="o">[]</span>,
+      <span class="s2">&quot;ignoredFolders&quot;</span>: <span class="o">[]</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="system-config-insync-get.html" class="btn btn-neutral float-right" title="GET /rest/system/config/insync" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="system-browse-get.html" class="btn btn-neutral" title="GET /rest/system/browse" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

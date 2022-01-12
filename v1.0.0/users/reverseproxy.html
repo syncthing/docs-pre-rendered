@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.21. Reverse Proxy Setup &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.22. Security Principles" href="security.html"/>
+        <link rel="prev" title="2.20. Profiling" href="profiling.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">2.12. Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.21. Reverse Proxy Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#server-configuration">2.21.1. Server Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apache">Apache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nginx">Nginx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#caddy">Caddy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#folder-configuration">2.21.2. Folder Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Apache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.21. </span>Reverse Proxy Setup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/reverseproxy.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reverse-proxy-setup">
+<span id="id1"></span><h1><span class="section-number">2.21. </span>Reverse Proxy Setup<a class="headerlink" href="#reverse-proxy-setup" title="Permalink to this headline">¶</a></h1>
+<p>A reverse proxy allows you to “pass” requests through your web server to another
+site or program. The reverse proxy will make it look like Syncthing’s GUI is a
+page within your existing site.</p>
+<p>This is especially useful if:</p>
+<ul class="simple">
+<li><p>You need to access the GUI on port 80 or 443 but you already host a website
+on the same device.</p></li>
+<li><p>You want to share SSL certificates with an existing site.</p></li>
+<li><p>You want to share authentication with an existing setup.</p></li>
+</ul>
+<div class="section" id="server-configuration">
+<h2><span class="section-number">2.21.1. </span>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h2>
+<p>If you have access to your web server’s configuration use the following
+examples to pass the location <code class="docutils literal notranslate"><span class="pre">/syncthing</span></code> on your web server to Syncthing’s
+GUI hosted on <code class="docutils literal notranslate"><span class="pre">localhost:8384</span></code>.</p>
+<div class="section" id="apache">
+<h3>Apache<a class="headerlink" href="#apache" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">ProxyPass</span> <span class="sx">/syncthing/</span> http://localhost:8384/
+<span class="nt">&lt;Location</span> <span class="s">/syncthing/</span><span class="nt">&gt;</span>
+    <span class="nb">ProxyPassReverse</span> http://localhost:8384/
+    <span class="nb">Require</span> <span class="k">all</span> granted
+<span class="nt">&lt;/Location&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nginx">
+<h3>Nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/syncthing/</span> <span class="p">{</span>
+  <span class="kn">proxy_set_header</span>        <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+  <span class="kn">proxy_set_header</span>        <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+  <span class="kn">proxy_set_header</span>        <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+  <span class="kn">proxy_set_header</span>        <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
+
+  <span class="kn">proxy_pass</span>              <span class="s">http://localhost:8384/</span><span class="p">;</span>
+
+  <span class="kn">proxy_read_timeout</span>      <span class="s">600s</span><span class="p">;</span>
+  <span class="kn">proxy_send_timeout</span>      <span class="s">600s</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="caddy">
+<h3>Caddy<a class="headerlink" href="#caddy" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>proxy /syncthing localhost:8384 {
+    transparent
+}
+
+timeouts {
+    read none
+    write none
+    header none
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="folder-configuration">
+<h2><span class="section-number">2.21.2. </span>Folder Configuration<a class="headerlink" href="#folder-configuration" title="Permalink to this headline">¶</a></h2>
+<p>If you don’t have access to your web server configuration files you might try
+the following technique.</p>
+<div class="section" id="id2">
+<h3>Apache<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Add the configuration below to a <code class="docutils literal notranslate"><span class="pre">.htaccess</span></code> file in the folder of your
+webroot which should redirect to the WebUI, <code class="docutils literal notranslate"><span class="pre">/syncthing</span></code> to produce the same
+behaviour as above</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">RewriteEngine</span> <span class="k">On</span>
+<span class="nb">RewriteCond</span> %{HTTPS} !=on
+<span class="nb">RewriteCond</span> %{ENV:HTTPS} !=on
+<span class="nb">RewriteRule</span> .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+<span class="nb">RewriteRule</span> ^(.*) http://localhost:8384/$1 [P]
+</pre></div>
+</div>
+<p>This method also redirects to HTTPS to prevent opening the GUI unencrypted.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="security.html" class="btn btn-neutral float-right" title="2.22. Security Principles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="profiling.html" class="btn btn-neutral" title="2.20. Profiling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

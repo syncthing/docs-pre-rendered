@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Starting &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="3.11. Event API" href="../dev/events.html"/>
+        <link rel="next" title="StartupComplete" href="startupcomplete.html"/>
+        <link rel="prev" title="RemoteIndexUpdated" href="remoteindexupdated.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">3. Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">3.2. Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">3.3. Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">3.4. Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">3.5. Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">3.6. Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">3.7. Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">3.8. Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">3.9. Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html">3.10. REST API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/events.html">3.11. Event API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dev/events.html#description">3.11.1. Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/events.html#event-structure">3.11.2. Event Structure</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dev/events.html#event-types">3.11.3. Event Types</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="configsaved.html">ConfigSaved</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deviceconnected.html">DeviceConnected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="devicedisconnected.html">DeviceDisconnected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="devicediscovered.html">DeviceDiscovered</a></li>
+<li class="toctree-l4"><a class="reference internal" href="devicepaused.html">DevicePaused</a></li>
+<li class="toctree-l4"><a class="reference internal" href="devicerejected.html">DeviceRejected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deviceresumed.html">DeviceResumed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="downloadprogress.html">DownloadProgress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="foldercompletion.html">FolderCompletion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="foldererrors.html">FolderErrors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="folderrejected.html">FolderRejected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="folderscanprogress.html">Folder Scan Progress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="foldersummary.html">FolderSummary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="itemfinished.html">ItemFinished</a></li>
+<li class="toctree-l4"><a class="reference internal" href="itemstarted.html">ItemStarted</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listenaddresseschanged.html">Listen Addresses Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="localchangedetected.html">LocalChangeDetected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="localindexupdated.html">LocalIndexUpdated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loginattempt.html">Login Attempt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remotechangedetected.html">RemoteChangeDetected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remotedownloadprogress.html">Remote Download Progress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remoteindexupdated.html">RemoteIndexUpdated</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Starting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="startupcomplete.html">StartupComplete</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statechanged.html">StateChanged</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../dev/index.html"><span class="section-number">3. </span>Development</a> &raquo;</li>
+        
+          <li><a href="../dev/events.html"><span class="section-number">3.11. </span>Event API</a> &raquo;</li>
+        
+      <li>Starting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/events/starting.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="starting">
+<h1>Starting<a class="headerlink" href="#starting" title="Permalink to this headline">¶</a></h1>
+<p>Emitted exactly once, when Syncthing starts, before parsing
+configuration etc.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;globalID&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Starting&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-07-17T13:13:32.044470055+02:00&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;home&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/jb/.config/syncthing&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="startupcomplete.html" class="btn btn-neutral float-right" title="StartupComplete" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="remoteindexupdated.html" class="btn btn-neutral" title="RemoteIndexUpdated" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

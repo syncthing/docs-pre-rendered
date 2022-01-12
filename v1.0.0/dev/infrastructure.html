@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3.6. Syncthing Infrastructure &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="3. Development" href="index.html"/>
+        <link rel="next" title="3.7. Issue Management" href="issues.html"/>
+        <link rel="prev" title="3.5. Understanding Device IDs" href="device-ids.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">3.2. Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">3.3. Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">3.4. Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">3.5. Understanding Device IDs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.6. Syncthing Infrastructure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#github">3.6.1. GitHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#main-documentation-websites">3.6.2. Main &amp; Documentation Websites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forum-website">3.6.3. Forum Website</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-discovery-servers">3.6.4. Global Discovery Servers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relay-pool-server">3.6.5. Relay Pool Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relay-servers">3.6.6. Relay Servers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-reporting-server">3.6.7. Usage Reporting Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-servers">3.6.8. Build Servers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signing-server">3.6.9. Signing Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring">3.6.10. Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">3.7. Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">3.8. Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">3.9. Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">3.10. REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">3.11. Event API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">3. </span>Development</a> &raquo;</li>
+        
+      <li><span class="section-number">3.6. </span>Syncthing Infrastructure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/dev/infrastructure.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="syncthing-infrastructure">
+<h1><span class="section-number">3.6. </span>Syncthing Infrastructure<a class="headerlink" href="#syncthing-infrastructure" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of the infrastructure that powers the Syncthing project.
+Unless otherwise noted, the default is that it’s a VM hosted by <a class="reference external" href="https://github.com/calmh">&#64;calmh</a>.</p>
+<div class="section" id="github">
+<h2><span class="section-number">3.6.1. </span>GitHub<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
+<p>All repos, issue trackers and binary releases are hosted at <a class="reference external" href="https://github.com/syncthing">GitHub</a>.</p>
+</div>
+<div class="section" id="main-documentation-websites">
+<h2><span class="section-number">3.6.2. </span>Main &amp; Documentation Websites<a class="headerlink" href="#main-documentation-websites" title="Permalink to this headline">¶</a></h2>
+<p>Static HTML, served by Caddy.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://syncthing.net/">syncthing.net</a></p></li>
+<li><p><a class="reference external" href="https://apt.syncthing.net">apt.syncthing.net</a> (Debian packages)</p></li>
+<li><p><a class="reference external" href="https://docs.syncthing.net/">docs.syncthing.net</a> (Sphinx for site generation)</p></li>
+<li><p><a class="reference external" href="https://upgrades.syncthing.net/meta.json">upgrades.syncthing.net</a> (upgrade metadata)</p></li>
+</ul>
+</div>
+<div class="section" id="forum-website">
+<h2><span class="section-number">3.6.3. </span>Forum Website<a class="headerlink" href="#forum-website" title="Permalink to this headline">¶</a></h2>
+<p>Powered by Discourse.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://forum.syncthing.net/">forum.syncthing.net</a></p></li>
+</ul>
+</div>
+<div class="section" id="global-discovery-servers">
+<h2><span class="section-number">3.6.4. </span>Global Discovery Servers<a class="headerlink" href="#global-discovery-servers" title="Permalink to this headline">¶</a></h2>
+<p>Runs the <code class="docutils literal notranslate"><span class="pre">stdiscosrv</span></code> instances that serve global discovery requests. The
+discovery setup is a load balanced cluster and the members can change
+without prior notice. As of the time of writing they are all hosted at
+DigitalOcean.</p>
+<ul class="simple">
+<li><p>discovery.syncthing.net (multiple A and AAAA records, for queries)</p></li>
+<li><p>discovery-v4.syncthing.net (multiple A records, for IPv4 announces)</p></li>
+<li><p>discovery-v6.syncthing.net (multiple AAAA records, for IPv6 announces)</p></li>
+</ul>
+</div>
+<div class="section" id="relay-pool-server">
+<h2><span class="section-number">3.6.5. </span>Relay Pool Server<a class="headerlink" href="#relay-pool-server" title="Permalink to this headline">¶</a></h2>
+<p>Runs the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/master/cmd/strelaypoolsrv">strelaypoolsrv</a>
+daemon to handle dynamic registration and announcement of relays.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://relays.syncthing.net">relays.syncthing.net</a></p></li>
+</ul>
+</div>
+<div class="section" id="relay-servers">
+<h2><span class="section-number">3.6.6. </span>Relay Servers<a class="headerlink" href="#relay-servers" title="Permalink to this headline">¶</a></h2>
+<p>Hosted by friendly people on the internet.</p>
+</div>
+<div class="section" id="usage-reporting-server">
+<h2><span class="section-number">3.6.7. </span>Usage Reporting Server<a class="headerlink" href="#usage-reporting-server" title="Permalink to this headline">¶</a></h2>
+<p>Runs the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/master/cmd/ursrv">ursrv</a>
+daemon with PostgreSQL and Nginx.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://data.syncthing.net/">data.syncthing.net</a></p></li>
+</ul>
+</div>
+<div class="section" id="build-servers">
+<h2><span class="section-number">3.6.8. </span>Build Servers<a class="headerlink" href="#build-servers" title="Permalink to this headline">¶</a></h2>
+<p>Runs TeamCity and does the core builds.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://build.syncthing.net/">build.syncthing.net</a></p></li>
+</ul>
+<p>There are various build agents; Linux, Windows, and Mac. These are currently
+provided by <a href="#id1"><span class="problematic" id="id2">:users:`calmh`</span></a> or Kastelo.</p>
+</div>
+<div class="section" id="signing-server">
+<h2><span class="section-number">3.6.9. </span>Signing Server<a class="headerlink" href="#signing-server" title="Permalink to this headline">¶</a></h2>
+<p>Signs and uploads the release bundles to GitHub.</p>
+<ul class="simple">
+<li><p>secure.syncthing.net</p></li>
+</ul>
+</div>
+<div class="section" id="monitoring">
+<h2><span class="section-number">3.6.10. </span>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>The infrastructure is monitored and its status is publicly accessible on the following urls:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://status.syncthing.net">status.syncthing.net</a> (Apex Ping)</p></li>
+<li><p><a class="reference external" href="https://monitor.syncthing.net">monitor.syncthing.net</a> (Grafana)</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="issues.html" class="btn btn-neutral float-right" title="3.7. Issue Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="device-ids.html" class="btn btn-neutral" title="3.5. Understanding Device IDs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

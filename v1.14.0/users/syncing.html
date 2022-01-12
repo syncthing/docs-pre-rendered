@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Understanding Synchronization &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Firewall Setup" href="firewall.html" />
+    <link rel="prev" title="LDAP Authentication" href="ldap.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="understanding-synchronization">
+<span id="syncing"></span><h1>Understanding Synchronization<a class="headerlink" href="#understanding-synchronization" title="Permalink to this headline">¶</a></h1>
+<p>This article describes the mechanisms Syncthing uses to bring files in sync
+on a high level.</p>
+<div class="section" id="blocks">
+<h2>Blocks<a class="headerlink" href="#blocks" title="Permalink to this headline">¶</a></h2>
+<p>Files are divided into <em>blocks</em>. The blocks making up a file are all the
+same size (except the last one in the file which may be smaller). The block
+size is dependent on the file size and varies from 128 KiB up to 16 MiB.
+Each file is sliced into a number of these blocks, and the SHA256 hash of
+each block is computed. This results in a <em>block list</em> containing the
+offset, size and hash of all blocks in the file.</p>
+<p>To update a file, Syncthing compares the block list of the current version
+of the file to the block list of the desired version of the file. It then
+tries to find a source for each block that differs. This might be locally,
+if another file already has a block with the same hash, or it may be from
+another device in the cluster. In the first case the block is simply copied
+on disk, in the second case it is requested over the network from the other
+device.</p>
+<p>When a block is copied or received from another device, its SHA256 hash is
+computed and compared with the expected value. If it matches the block is
+written to a temporary copy of the file, otherwise it is discarded and
+Syncthing tries to find another source for the block.</p>
+</div>
+<div class="section" id="scanning">
+<span id="id1"></span><h2>Scanning<a class="headerlink" href="#scanning" title="Permalink to this headline">¶</a></h2>
+<p>There are two methods how Syncthing detects changes: By regular full scans and
+by notifications received from the filesystem (“watcher”). By default the
+watcher is enabled and full scans are done once per hour. This behaviour can be
+changed by folder. Increasing the full scan interval uses less resources and is
+useful for example on large folders that change infrequently. To make sure that
+not all folders are rescanned at the same time, the actual scan interval is a
+random time between 3/4 and 5/4 of the given scan interval. Even with watcher
+enabled it is advised to keep regular full scans enabled, as it is possible that
+some changes aren’t picked up by it.</p>
+<p>During a rescan (regardless whether full or from watcher) the existing files are
+checked for changes to their modification time, size or permission bits. The
+file is “rehashed” if a change is detected based on those attributes, that is a
+new block list is calculated for the file. It is not possible to know which
+parts of a file have changed without reading the file and computing new SHA256
+hashes for each block.</p>
+<p>The watcher does not immediately schedule a scan when a change is detected. It
+accumulates changes for 10s (adjustable by <a class="reference internal" href="config.html#fswatcherdelays"><span class="std std-ref">fsWatcherDelayS</span></a>) and deleted files
+are further delayed for 1min. Therefore it is expected that you experience a
+slight delay between making the change and it appearing on another device.</p>
+<p>Changes that were detected and hashed are transmitted to the other devices
+after each rescan.</p>
+</div>
+<div class="section" id="id2">
+<h2>Syncing<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing keeps track of several versions of each file - the version that it
+currently has on disk, called the <em>local</em> version, the versions announced by
+all other connected devices, and the “best” (usually the most recent)
+version of the file. This version is called the <em>global</em> version and is the
+one that each device strives to be up to date with.</p>
+<p>This information is kept in the <em>index database</em>, which is stored in the
+configuration directory and called <code class="docutils literal notranslate"><span class="pre">index-vx.y.z.db</span></code> (for some version
+x.y.z which may not be exactly the version of Syncthing you’re running).</p>
+<p>When new index data is received from other devices Syncthing recalculates
+which version for each file should be the global version, and compares this
+to the current local version. When the two differ, Syncthing needs to
+synchronize the file. The block lists are compared to build a list of needed
+blocks, which are then requested from the network or copied locally, as
+described above.</p>
+</div>
+<div class="section" id="conflicting-changes">
+<span id="conflict-handling"></span><h2>Conflicting Changes<a class="headerlink" href="#conflicting-changes" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing does recognize conflicts.  When a file has been modified on two
+devices simultaneously and the content actually differs, one of the files will
+be renamed to <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;.sync-conflict-&lt;date&gt;-&lt;time&gt;-&lt;modifiedBy&gt;.&lt;ext&gt;</span></code>.
+The file with the older modification time will be marked as the conflicting file
+and thus be renamed.  If the modification times are equal, the file originating
+from the device which has the larger value of the first 63 bits for its device
+ID will be marked as the conflicting file.  If the conflict is between a
+modification and a deletion of the file, the modified file always wins and is
+resurrected without renaming on the device where it was deleted.</p>
+<p>Beware that the <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;.sync-conflict-&lt;date&gt;-&lt;time&gt;-&lt;modifiedBy&gt;.&lt;ext&gt;</span></code>
+files are treated as normal files after they are created, so they are propagated
+between devices.  We do this because the conflict is detected and resolved on
+one device, creating the <code class="docutils literal notranslate"><span class="pre">sync-conflict</span></code> file, but it’s just as much of a
+conflict everywhere else and we don’t know which of the conflicting files is the
+“best” from the user point of view.</p>
+</div>
+<div class="section" id="case-sensitivity-in-file-names">
+<span id="case-sensitivity"></span><h2>Case Sensitivity in File Names<a class="headerlink" href="#case-sensitivity-in-file-names" title="Permalink to this headline">¶</a></h2>
+<p>In principle, Syncthing works with <em>case-sensitive</em> paths, meaning
+that <code class="docutils literal notranslate"><span class="pre">file.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">FILE.txt</span></code> denote two independent things.
+Consequently, it never considers both as if they were somehow related
+for synchronizing their contents.  Some operating systems
+(e.g. Windows, Mac and Android to an extent) assume the opposite,
+treating them as the same file (or directory) and can never have both
+names simultaneously.</p>
+<p>Thus, if a remote device shares a file which would clash with an
+existing local file, it cannot be synchronized to such a system and
+will be reported as a case conflict by Syncthing.  Similarly, if two
+remote devices share differing case variants to your local device,
+only one of them will be pulled, and the other one marked with an
+appropriate error message.  Which one “wins” is currently not
+predictable.</p>
+<p>In order to resolve such a case conflict situation, you need to decide
+on a consistent file name and <strong>manually</strong> enforce that across all
+involved, case-insensitive devices.</p>
+<p>This cautious behavior tries to save you from possible data loss
+caused by different files overwriting each other’s contents.  That
+could have happened before version 1.9.0, where the same file would
+erroneously be accessed under two case-differing file names.</p>
+<p>All this does not concern the folder root path, but only relative
+paths within each shared folder.</p>
+</div>
+<div class="section" id="temporary-files">
+<span id="id3"></span><h2>Temporary Files<a class="headerlink" href="#temporary-files" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing never writes directly to a destination file. Instead all changes
+are made to a temporary copy which is then moved in place over the old
+version. If an error occurs during the copying or syncing, such as a
+necessary block not being available, the temporary file is kept around for
+up to a day. This is to avoid needlessly requesting data over the network.</p>
+<p>The temporary files are named <code class="docutils literal notranslate"><span class="pre">.syncthing.original-filename.ext.tmp</span></code> or,
+on Windows, <code class="docutils literal notranslate"><span class="pre">~syncthing~original-filename.ext.tmp</span></code> where
+<code class="docutils literal notranslate"><span class="pre">original-filename.ext</span></code> is the destination filename. The temporary file is
+normally hidden. If the temporary file name would be too long due to the
+addition of the prefix and extra extension, a hash of the original file name
+is used instead of the actual original file name.</p>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/syncing.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="ldap.html" title="previous chapter">LDAP Authentication</a></li>
+      <li>Next: <a href="firewall.html" title="next chapter">Firewall Setup</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

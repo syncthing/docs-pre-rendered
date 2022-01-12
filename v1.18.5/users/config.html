@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syncthing Configuration &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced Configuration" href="advanced.html" />
+    <link rel="prev" title="Versions &amp; Releases" href="releases.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="syncthing-configuration">
+<span id="config"></span><h1>Syncthing Configuration<a class="headerlink" href="#syncthing-configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$HOME/.config/syncthing
+$HOME/Library/Application Support/Syncthing
+%LOCALAPPDATA%\Syncthing
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.5.0: </span>Database and config can now be set separately. Previously the database was
+always located in the same directory as the config.</p>
+</div>
+<p>Syncthing uses a single directory to store configuration and crypto keys.
+Syncthing also has a database, which is often stored in this directory too.
+The config location defaults to <code class="docutils literal notranslate"><span class="pre">$HOME/.config/syncthing</span></code>
+(Unix-like), <code class="docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/Syncthing</span></code> (Mac),
+or <code class="docutils literal notranslate"><span class="pre">%LOCALAPPDATA%\Syncthing</span></code> (Windows). It can be changed at runtime
+using the <code class="docutils literal notranslate"><span class="pre">--config</span></code> flag. In this directory the following files are
+located:</p>
+<dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">config.xml</span></code></dt><dd><p>The configuration file, in XML format.</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">cert.pem</span></code>, <code class="file docutils literal notranslate"><span class="pre">key.pem</span></code></dt><dd><p>The device’s ECDSA public and private key. These form the basis for the
+device ID. The key must be kept private.</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">https-cert.pem</span></code>, <code class="file docutils literal notranslate"><span class="pre">https-key.pem</span></code></dt><dd><p>The certificate and key for HTTPS GUI connections. These may be replaced
+with a custom certificate for HTTPS as desired.</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">csrftokens.txt</span></code></dt><dd><p>A list of recently issued CSRF tokens (for protection against browser cross
+site request forgery).</p>
+</dd>
+</dl>
+<p>The database is stored either in the same directory as the config (usually the
+default), but may also be located in one of the following directories (Unix-like
+platforms only):</p>
+<ul class="simple">
+<li><p>If a database exists in the old default location, that location is
+still used.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">$XDG_DATA_HOME</span></code> is set, use <code class="docutils literal notranslate"><span class="pre">$XDG_DATA_HOME/syncthing</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">~/.local/share/syncthing</span></code> exists, use that location.</p></li>
+<li><p>Use the old default location (same as config).</p></li>
+</ul>
+<p>The location of the database can be changed using the <code class="docutils literal notranslate"><span class="pre">--data</span></code> flag. The
+<code class="docutils literal notranslate"><span class="pre">--home</span></code> flag sets both config and database locations at the same time.
+The database contains the following files:</p>
+<dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">index-</span><em><span class="pre">*</span></em><span class="pre">.db</span></code></dt><dd><p>A directory holding the database with metadata and hashes of the files
+currently on disk and available from peers.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="config-file-format">
+<h2>Config File Format<a class="headerlink" href="#config-file-format" title="Permalink to this headline">¶</a></h2>
+<p>The following shows an example of a default configuration file (IDs will differ):</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The config examples are present for illustration. Do <strong>not</strong> copy them
+entirely to use as your config. They are likely out-of-date and the values
+may no longer correspond to the defaults.</p>
+</div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration</span> <span class="na">version=</span><span class="s">&quot;30&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;folder</span> <span class="na">id=</span><span class="s">&quot;default&quot;</span> <span class="na">label=</span><span class="s">&quot;Default Folder&quot;</span> <span class="na">path=</span><span class="s">&quot;/Users/jb/Sync/&quot;</span> <span class="na">type=</span><span class="s">&quot;sendreceive&quot;</span> <span class="na">rescanIntervalS=</span><span class="s">&quot;3600&quot;</span> <span class="na">fsWatcherEnabled=</span><span class="s">&quot;true&quot;</span> <span class="na">fsWatcherDelayS=</span><span class="s">&quot;10&quot;</span> <span class="na">ignorePerms=</span><span class="s">&quot;false&quot;</span> <span class="na">autoNormalize=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;filesystemType&gt;</span>basic<span class="nt">&lt;/filesystemType&gt;</span>
+        <span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;3LT2GA5-CQI4XJM-WTZ264P-MLOGMHL-MCRLDNT-MZV4RD3-KA745CL-OGAERQZ&quot;</span><span class="nt">&gt;&lt;/device&gt;</span>
+        <span class="nt">&lt;minDiskFree</span> <span class="na">unit=</span><span class="s">&quot;%&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/minDiskFree&gt;</span>
+        <span class="nt">&lt;versioning&gt;&lt;/versioning&gt;</span>
+        <span class="nt">&lt;copiers&gt;</span>0<span class="nt">&lt;/copiers&gt;</span>
+        <span class="nt">&lt;pullerMaxPendingKiB&gt;</span>0<span class="nt">&lt;/pullerMaxPendingKiB&gt;</span>
+        <span class="nt">&lt;hashers&gt;</span>0<span class="nt">&lt;/hashers&gt;</span>
+        <span class="nt">&lt;order&gt;</span>random<span class="nt">&lt;/order&gt;</span>
+        <span class="nt">&lt;ignoreDelete&gt;</span>false<span class="nt">&lt;/ignoreDelete&gt;</span>
+        <span class="nt">&lt;scanProgressIntervalS&gt;</span>0<span class="nt">&lt;/scanProgressIntervalS&gt;</span>
+        <span class="nt">&lt;pullerPauseS&gt;</span>0<span class="nt">&lt;/pullerPauseS&gt;</span>
+        <span class="nt">&lt;maxConflicts&gt;</span>-1<span class="nt">&lt;/maxConflicts&gt;</span>
+        <span class="nt">&lt;disableSparseFiles&gt;</span>false<span class="nt">&lt;/disableSparseFiles&gt;</span>
+        <span class="nt">&lt;disableTempIndexes&gt;</span>false<span class="nt">&lt;/disableTempIndexes&gt;</span>
+        <span class="nt">&lt;paused&gt;</span>false<span class="nt">&lt;/paused&gt;</span>
+        <span class="nt">&lt;weakHashThresholdPct&gt;</span>25<span class="nt">&lt;/weakHashThresholdPct&gt;</span>
+        <span class="nt">&lt;markerName&gt;</span>.stfolder<span class="nt">&lt;/markerName&gt;</span>
+        <span class="nt">&lt;copyOwnershipFromParent&gt;</span>false<span class="nt">&lt;/copyOwnershipFromParent&gt;</span>
+        <span class="nt">&lt;modTimeWindowS&gt;</span>0<span class="nt">&lt;/modTimeWindowS&gt;</span>
+        <span class="nt">&lt;maxConcurrentWrites&gt;</span>2<span class="nt">&lt;/maxConcurrentWrites&gt;</span>
+        <span class="nt">&lt;disableFsync&gt;</span>false<span class="nt">&lt;/disableFsync&gt;</span>
+        <span class="nt">&lt;blockPullOrder&gt;</span>standard<span class="nt">&lt;/blockPullOrder&gt;</span>
+        <span class="nt">&lt;copyRangeMethod&gt;</span>standard<span class="nt">&lt;/copyRangeMethod&gt;</span>
+    <span class="nt">&lt;/folder&gt;</span>
+    <span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;3LT2GA5-CQI4XJM-WTZ264P-MLOGMHL-MCRLDNT-MZV4RD3-KA745CL-OGAERQZ&quot;</span> <span class="na">name=</span><span class="s">&quot;syno&quot;</span> <span class="na">compression=</span><span class="s">&quot;metadata&quot;</span> <span class="na">introducer=</span><span class="s">&quot;false&quot;</span> <span class="na">skipIntroductionRemovals=</span><span class="s">&quot;false&quot;</span> <span class="na">introducedBy=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;address&gt;</span>dynamic<span class="nt">&lt;/address&gt;</span>
+        <span class="nt">&lt;paused&gt;</span>false<span class="nt">&lt;/paused&gt;</span>
+        <span class="nt">&lt;autoAcceptFolders&gt;</span>false<span class="nt">&lt;/autoAcceptFolders&gt;</span>
+        <span class="nt">&lt;maxSendKbps&gt;</span>0<span class="nt">&lt;/maxSendKbps&gt;</span>
+        <span class="nt">&lt;maxRecvKbps&gt;</span>0<span class="nt">&lt;/maxRecvKbps&gt;</span>
+        <span class="nt">&lt;maxRequestKiB&gt;</span>0<span class="nt">&lt;/maxRequestKiB&gt;</span>
+        <span class="nt">&lt;remoteGUIPort&gt;</span>0<span class="nt">&lt;/remoteGUIPort&gt;</span>
+    <span class="nt">&lt;/device&gt;</span>
+    <span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span> <span class="na">debugging=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;address&gt;</span>127.0.0.1:8384<span class="nt">&lt;/address&gt;</span>
+        <span class="nt">&lt;apikey&gt;</span>k1dnz1Dd0rzTBjjFFh7CXPnrF12C49B1<span class="nt">&lt;/apikey&gt;</span>
+        <span class="nt">&lt;theme&gt;</span>default<span class="nt">&lt;/theme&gt;</span>
+    <span class="nt">&lt;/gui&gt;</span>
+    <span class="nt">&lt;ldap&gt;&lt;/ldap&gt;</span>
+    <span class="nt">&lt;options&gt;</span>
+        <span class="nt">&lt;listenAddress&gt;</span>default<span class="nt">&lt;/listenAddress&gt;</span>
+        <span class="nt">&lt;globalAnnounceServer&gt;</span>default<span class="nt">&lt;/globalAnnounceServer&gt;</span>
+        <span class="nt">&lt;globalAnnounceEnabled&gt;</span>true<span class="nt">&lt;/globalAnnounceEnabled&gt;</span>
+        <span class="nt">&lt;localAnnounceEnabled&gt;</span>true<span class="nt">&lt;/localAnnounceEnabled&gt;</span>
+        <span class="nt">&lt;localAnnouncePort&gt;</span>21027<span class="nt">&lt;/localAnnouncePort&gt;</span>
+        <span class="nt">&lt;localAnnounceMCAddr&gt;</span>[ff12::8384]:21027<span class="nt">&lt;/localAnnounceMCAddr&gt;</span>
+        <span class="nt">&lt;maxSendKbps&gt;</span>0<span class="nt">&lt;/maxSendKbps&gt;</span>
+        <span class="nt">&lt;maxRecvKbps&gt;</span>0<span class="nt">&lt;/maxRecvKbps&gt;</span>
+        <span class="nt">&lt;reconnectionIntervalS&gt;</span>60<span class="nt">&lt;/reconnectionIntervalS&gt;</span>
+        <span class="nt">&lt;relaysEnabled&gt;</span>true<span class="nt">&lt;/relaysEnabled&gt;</span>
+        <span class="nt">&lt;relayReconnectIntervalM&gt;</span>10<span class="nt">&lt;/relayReconnectIntervalM&gt;</span>
+        <span class="nt">&lt;startBrowser&gt;</span>true<span class="nt">&lt;/startBrowser&gt;</span>
+        <span class="nt">&lt;natEnabled&gt;</span>true<span class="nt">&lt;/natEnabled&gt;</span>
+        <span class="nt">&lt;natLeaseMinutes&gt;</span>60<span class="nt">&lt;/natLeaseMinutes&gt;</span>
+        <span class="nt">&lt;natRenewalMinutes&gt;</span>30<span class="nt">&lt;/natRenewalMinutes&gt;</span>
+        <span class="nt">&lt;natTimeoutSeconds&gt;</span>10<span class="nt">&lt;/natTimeoutSeconds&gt;</span>
+        <span class="nt">&lt;urAccepted&gt;</span>0<span class="nt">&lt;/urAccepted&gt;</span>
+        <span class="nt">&lt;urSeen&gt;</span>0<span class="nt">&lt;/urSeen&gt;</span>
+        <span class="nt">&lt;urUniqueID&gt;&lt;/urUniqueID&gt;</span>
+        <span class="nt">&lt;urURL&gt;</span>https://data.syncthing.net/newdata<span class="nt">&lt;/urURL&gt;</span>
+        <span class="nt">&lt;urPostInsecurely&gt;</span>false<span class="nt">&lt;/urPostInsecurely&gt;</span>
+        <span class="nt">&lt;urInitialDelayS&gt;</span>1800<span class="nt">&lt;/urInitialDelayS&gt;</span>
+        <span class="nt">&lt;restartOnWakeup&gt;</span>true<span class="nt">&lt;/restartOnWakeup&gt;</span>
+        <span class="nt">&lt;autoUpgradeIntervalH&gt;</span>12<span class="nt">&lt;/autoUpgradeIntervalH&gt;</span>
+        <span class="nt">&lt;upgradeToPreReleases&gt;</span>false<span class="nt">&lt;/upgradeToPreReleases&gt;</span>
+        <span class="nt">&lt;keepTemporariesH&gt;</span>24<span class="nt">&lt;/keepTemporariesH&gt;</span>
+        <span class="nt">&lt;cacheIgnoredFiles&gt;</span>false<span class="nt">&lt;/cacheIgnoredFiles&gt;</span>
+        <span class="nt">&lt;progressUpdateIntervalS&gt;</span>5<span class="nt">&lt;/progressUpdateIntervalS&gt;</span>
+        <span class="nt">&lt;limitBandwidthInLan&gt;</span>false<span class="nt">&lt;/limitBandwidthInLan&gt;</span>
+        <span class="nt">&lt;minHomeDiskFree</span> <span class="na">unit=</span><span class="s">&quot;%&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/minHomeDiskFree&gt;</span>
+        <span class="nt">&lt;releasesURL&gt;</span>https://upgrades.syncthing.net/meta.json<span class="nt">&lt;/releasesURL&gt;</span>
+        <span class="nt">&lt;overwriteRemoteDeviceNamesOnConnect&gt;</span>false<span class="nt">&lt;/overwriteRemoteDeviceNamesOnConnect&gt;</span>
+        <span class="nt">&lt;tempIndexMinBlocks&gt;</span>10<span class="nt">&lt;/tempIndexMinBlocks&gt;</span>
+        <span class="nt">&lt;trafficClass&gt;</span>0<span class="nt">&lt;/trafficClass&gt;</span>
+        <span class="nt">&lt;defaultFolderPath&gt;</span>~<span class="nt">&lt;/defaultFolderPath&gt;</span>
+        <span class="nt">&lt;setLowPriority&gt;</span>true<span class="nt">&lt;/setLowPriority&gt;</span>
+        <span class="nt">&lt;maxFolderConcurrency&gt;</span>0<span class="nt">&lt;/maxFolderConcurrency&gt;</span>
+        <span class="nt">&lt;crashReportingURL&gt;</span>https://crash.syncthing.net/newcrash<span class="nt">&lt;/crashReportingURL&gt;</span>
+        <span class="nt">&lt;crashReportingEnabled&gt;</span>true<span class="nt">&lt;/crashReportingEnabled&gt;</span>
+        <span class="nt">&lt;stunKeepaliveStartS&gt;</span>180<span class="nt">&lt;/stunKeepaliveStartS&gt;</span>
+        <span class="nt">&lt;stunKeepaliveMinS&gt;</span>20<span class="nt">&lt;/stunKeepaliveMinS&gt;</span>
+        <span class="nt">&lt;stunServer&gt;</span>default<span class="nt">&lt;/stunServer&gt;</span>
+        <span class="nt">&lt;databaseTuning&gt;</span>auto<span class="nt">&lt;/databaseTuning&gt;</span>
+        <span class="nt">&lt;maxConcurrentIncomingRequestKiB&gt;</span>0<span class="nt">&lt;/maxConcurrentIncomingRequestKiB&gt;</span>
+    <span class="nt">&lt;/options&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-element">
+<h2>Configuration Element<a class="headerlink" href="#configuration-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration</span> <span class="na">version=</span><span class="s">&quot;30&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;folder&gt;&lt;/folder&gt;</span>
+    <span class="nt">&lt;device&gt;&lt;/device&gt;</span>
+    <span class="nt">&lt;gui&gt;&lt;/gui&gt;</span>
+    <span class="nt">&lt;ldap&gt;&lt;/ldap&gt;</span>
+    <span class="nt">&lt;options&gt;&lt;/options&gt;</span>
+    <span class="nt">&lt;ignoredDevice&gt;</span>5SYI2FS-LW6YAXI-JJDYETS-NDBBPIO-256MWBO-XDPXWVG-24QPUM4-PDW4UQU<span class="nt">&lt;/ignoredDevice&gt;</span>
+    <span class="nt">&lt;ignoredFolder&gt;</span>bd7q3-zskm5<span class="nt">&lt;/ignoredFolder&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+<p>This is the root element. It has one attribute:</p>
+<dl class="simple">
+<dt>version</dt><dd><p>The config version. Increments whenever a change is made that requires
+migration from previous formats.</p>
+</dd>
+</dl>
+<p>It contains the elements described in the following sections and these two
+additional child elements:</p>
+<dl class="simple">
+<dt>ignoredDevice</dt><dd><p>Contains the ID of the device that should be ignored. Connection attempts
+from this device are logged to the console but never displayed in the web
+GUI.</p>
+</dd>
+<dt>ignoredFolder</dt><dd><p>Contains the ID of the folder that should be ignored. This folder will
+always be skipped when advertised from a remote device, i.e. this will be
+logged, but there will be no dialog shown in the web GUI.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="folder-element">
+<h2>Folder Element<a class="headerlink" href="#folder-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;folder</span> <span class="na">id=</span><span class="s">&quot;default&quot;</span> <span class="na">label=</span><span class="s">&quot;Default Folder&quot;</span> <span class="na">path=</span><span class="s">&quot;/Users/jb/Sync/&quot;</span> <span class="na">type=</span><span class="s">&quot;sendreceive&quot;</span> <span class="na">rescanIntervalS=</span><span class="s">&quot;3600&quot;</span> <span class="na">fsWatcherEnabled=</span><span class="s">&quot;true&quot;</span> <span class="na">fsWatcherDelayS=</span><span class="s">&quot;10&quot;</span> <span class="na">ignorePerms=</span><span class="s">&quot;false&quot;</span> <span class="na">autoNormalize=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;filesystemType&gt;</span>basic<span class="nt">&lt;/filesystemType&gt;</span>
+    <span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;3LT2GA5-CQI4XJM-WTZ264P-MLOGMHL-MCRLDNT-MZV4RD3-KA745CL-OGAERQZ&quot;</span><span class="nt">&gt;&lt;/device&gt;</span>
+    <span class="nt">&lt;minDiskFree</span> <span class="na">unit=</span><span class="s">&quot;%&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/minDiskFree&gt;</span>
+    <span class="nt">&lt;versioning&gt;&lt;/versioning&gt;</span>
+    <span class="nt">&lt;copiers&gt;</span>0<span class="nt">&lt;/copiers&gt;</span>
+    <span class="nt">&lt;pullerMaxPendingKiB&gt;</span>0<span class="nt">&lt;/pullerMaxPendingKiB&gt;</span>
+    <span class="nt">&lt;hashers&gt;</span>0<span class="nt">&lt;/hashers&gt;</span>
+    <span class="nt">&lt;order&gt;</span>random<span class="nt">&lt;/order&gt;</span>
+    <span class="nt">&lt;ignoreDelete&gt;</span>false<span class="nt">&lt;/ignoreDelete&gt;</span>
+    <span class="nt">&lt;scanProgressIntervalS&gt;</span>0<span class="nt">&lt;/scanProgressIntervalS&gt;</span>
+    <span class="nt">&lt;pullerPauseS&gt;</span>0<span class="nt">&lt;/pullerPauseS&gt;</span>
+    <span class="nt">&lt;maxConflicts&gt;</span>-1<span class="nt">&lt;/maxConflicts&gt;</span>
+    <span class="nt">&lt;disableSparseFiles&gt;</span>false<span class="nt">&lt;/disableSparseFiles&gt;</span>
+    <span class="nt">&lt;disableTempIndexes&gt;</span>false<span class="nt">&lt;/disableTempIndexes&gt;</span>
+    <span class="nt">&lt;paused&gt;</span>false<span class="nt">&lt;/paused&gt;</span>
+    <span class="nt">&lt;weakHashThresholdPct&gt;</span>25<span class="nt">&lt;/weakHashThresholdPct&gt;</span>
+    <span class="nt">&lt;markerName&gt;</span>.stfolder<span class="nt">&lt;/markerName&gt;</span>
+    <span class="nt">&lt;copyOwnershipFromParent&gt;</span>false<span class="nt">&lt;/copyOwnershipFromParent&gt;</span>
+    <span class="nt">&lt;modTimeWindowS&gt;</span>0<span class="nt">&lt;/modTimeWindowS&gt;</span>
+    <span class="nt">&lt;maxConcurrentWrites&gt;</span>2<span class="nt">&lt;/maxConcurrentWrites&gt;</span>
+    <span class="nt">&lt;disableFsync&gt;</span>false<span class="nt">&lt;/disableFsync&gt;</span>
+    <span class="nt">&lt;blockPullOrder&gt;</span>standard<span class="nt">&lt;/blockPullOrder&gt;</span>
+    <span class="nt">&lt;copyRangeMethod&gt;</span>standard<span class="nt">&lt;/copyRangeMethod&gt;</span>
+<span class="nt">&lt;/folder&gt;</span>
+</pre></div>
+</div>
+<p>One or more <code class="docutils literal notranslate"><span class="pre">folder</span></code> elements must be present in the file. Each element
+describes one folder. The following attributes may be set on the <code class="docutils literal notranslate"><span class="pre">folder</span></code>
+element:</p>
+<dl>
+<dt>id</dt><dd><p>The folder ID, which must be unique. (mandatory)</p>
+</dd>
+<dt>label</dt><dd><p>The label of a folder is a human readable and descriptive local name. May
+be different on each device, empty, and/or identical to other folder
+labels. (optional)</p>
+</dd>
+<dt>path</dt><dd><p>The path to the directory where the folder is stored on this
+device; not sent to other devices. (mandatory)</p>
+</dd>
+<dt>type</dt><dd><p>Controls how the folder is handled by Syncthing. Possible values are:</p>
+<dl class="simple">
+<dt>sendreceive</dt><dd><p>The folder is in default mode. Sending local and accepting remote changes.
+Note that this type was previously called “readwrite” which is deprecated
+but still accepted in incoming configs.</p>
+</dd>
+<dt>sendonly</dt><dd><p>The folder is in “send only” mode – it will not be modified by
+Syncthing on this device.
+Note that this type was previously called “readonly” which is deprecated
+but still accepted in incoming configs.</p>
+</dd>
+<dt>receiveonly</dt><dd><p>The folder is in “receive only” mode – it will not propagate
+changes to other devices.</p>
+</dd>
+</dl>
+</dd>
+<dt>rescanIntervalS</dt><dd><p>The rescan interval, in seconds. Can be set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable when external
+plugins are used to trigger rescans.</p>
+</dd>
+<dt>fsWatcherEnabled</dt><dd><p>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, this detects changes to files in the folder and scans them.</p>
+</dd>
+</dl>
+<dl class="simple" id="fswatcherdelays">
+<dt>fsWatcherDelayS</dt><dd><p>The duration during which changes detected are accumulated, before a scan is
+scheduled (only takes effect if <code class="docutils literal notranslate"><span class="pre">fsWatcherEnabled</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+</dd>
+<dt>ignorePerms</dt><dd><p>True if the folder should ignore permissions.</p>
+</dd>
+<dt>autoNormalize</dt><dd><p>Automatically correct UTF-8 normalization errors found in file names.</p>
+</dd>
+</dl>
+<p>The following child elements may exist:</p>
+<dl class="simple">
+<dt>device</dt><dd><p>These must have the <code class="docutils literal notranslate"><span class="pre">id</span></code> attribute and can have an <code class="docutils literal notranslate"><span class="pre">introducedBy</span></code> attribute,
+identifying the device that introduced us to share this folder with the given device.
+If the original introducer unshares this folder with this device, our device will follow
+and unshare the folder (subject to skipIntroductionRemovals being false on the introducer device).
+All mentioned devices are those that will be sharing the folder in question.
+Each mentioned device must have a separate <code class="docutils literal notranslate"><span class="pre">device</span></code> element later in the file.
+It is customary that the local device ID is included in all folders.
+Syncthing will currently add this automatically if it is not present in
+the configuration file.</p>
+</dd>
+<dt>minDiskFree</dt><dd><p>The minimum required free space that should be available on the disk this folder
+resides. The folder will be stopped when the value drops below the threshold. Accepted units are
+<code class="docutils literal notranslate"><span class="pre">%</span></code>, <code class="docutils literal notranslate"><span class="pre">kB</span></code>, <code class="docutils literal notranslate"><span class="pre">MB</span></code>, <code class="docutils literal notranslate"><span class="pre">GB</span></code> and <code class="docutils literal notranslate"><span class="pre">TB</span></code>. Set to zero to disable.</p>
+</dd>
+<dt>versioning</dt><dd><p>Specifies a versioning configuration.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="versioning.html#versioning"><span class="std std-ref">File Versioning</span></a></p>
+</div>
+<dl>
+<dt>copiers, pullers, hashers</dt><dd><p>The number of copier, puller and hasher routines to use, or <code class="docutils literal notranslate"><span class="pre">0</span></code> for the
+system determined optimums. These are low level performance options for
+advanced users only; do not change unless requested to or you’ve actually
+read and understood the code yourself. :)</p>
+</dd>
+<dt>order</dt><dd><p>The order in which needed files should be pulled from the cluster.
+The possibles values are:</p>
+<dl class="simple">
+<dt>random</dt><dd><p>Pull files in random order. This optimizes for balancing resources among
+the devices in a cluster.</p>
+</dd>
+<dt>alphabetic</dt><dd><p>Pull files ordered by file name alphabetically.</p>
+</dd>
+<dt>smallestFirst, largestFirst</dt><dd><p>Pull files ordered by file size; smallest and largest first respectively.</p>
+</dd>
+<dt>oldestFirst, newestFirst</dt><dd><p>Pull files ordered by modification time; oldest and newest first
+respectively.</p>
+</dd>
+</dl>
+<p>Note that the scanned files are sent in batches and the sorting is applied
+only to the already discovered files. This means the sync might start with
+a 1 GB file even if there is 1 KB file available on the source device until
+the 1 KB becomes known to the pulling device.</p>
+</dd>
+<dt>ignoreDelete</dt><dd><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Enabling this is highly discouraged - use at your own risk. You have been warned.</p>
+</div>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, this device will pretend not to see instructions to
+delete files from other devices.</p>
+</dd>
+<dt>scanProgressIntervalS</dt><dd><p>The interval in seconds with which scan progress information is sent to the GUI. Setting to <code class="docutils literal notranslate"><span class="pre">0</span></code>
+will cause Syncthing to use the default value of two.</p>
+</dd>
+<dt>pullerPauseS</dt><dd><p>Tweak for rate limiting the puller when it retries pulling files. Don’t
+change this unless you know what you’re doing.</p>
+</dd>
+<dt>maxConflicts</dt><dd><p>The maximum number of conflict copies to keep around for any given file.
+The default, <code class="docutils literal notranslate"><span class="pre">-1</span></code>, means an unlimited number. Setting this to <code class="docutils literal notranslate"><span class="pre">0</span></code> disables
+conflict copies altogether.</p>
+</dd>
+<dt>disableSparseFiles</dt><dd><p>By default, blocks containing all zeros are not written, causing files
+to be sparse on filesystems that support this feature. When set to <code class="docutils literal notranslate"><span class="pre">true</span></code>,
+sparse files will not be created.</p>
+</dd>
+<dt>disableTempIndexes</dt><dd><p>By default, devices exchange information about blocks available in
+transfers that are still in progress, which allows other devices to
+download parts of files that are not yet fully downloaded on your own
+device, essentially making transfers more torrent like. When set to
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, such information is not exchanged for this folder.</p>
+</dd>
+<dt>paused</dt><dd><p>True if this folder is (temporarily) suspended.</p>
+</dd>
+<dt>weakHashThresholdPct</dt><dd><p>Use weak hash if more than the given percentage of the file has changed. Set
+to <code class="docutils literal notranslate"><span class="pre">-1</span></code> to always use weak hash. Default is <code class="docutils literal notranslate"><span class="pre">25</span></code>.</p>
+</dd>
+<dt>markerName</dt><dd><p>Name of a directory or file in the folder root to be used as
+<a class="reference internal" href="faq.html#marker-faq"><span class="std std-ref">How do I serve a folder from a read only filesystem?</span></a>. Default is <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code>.</p>
+</dd>
+<dt>copyOwnershipFromParent</dt><dd><p>On Unix systems, tries to copy file/folder ownership from the parent directory (the directory it’s located in).
+Requires running Syncthing as a privileged user, or granting it additional capabilities (e.g. CAP_CHOWN on Linux).</p>
+</dd>
+<dt>modTimeWindowS</dt><dd><p>Allowed modification timestamp difference when comparing files for
+equivalence. To be used on file systems which have unstable
+modification timestamps that might change after being recorded
+during the last write operation. Default is <code class="docutils literal notranslate"><span class="pre">2</span></code> on Android when the
+folder is located on a FAT partition, and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p>
+</dd>
+<dt>maxConcurrentWrites</dt><dd><p>Maximum number of concurrent write operations while syncing. Increasing this might increase or
+decrease disk performance, depending on the underlying storage. Default is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+</dd>
+</dl>
+<p>disableFsync</p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a known insecure option - use at your own risk.</p>
+</div>
+<p>Disables committing file operations to disk before recording them in the database.
+Disabling fsync can lead to data corruption.</p>
+</div></blockquote>
+<dl>
+<dt>blockPullOrder</dt><dd><p>Order in which the blocks of a file are downloaded. This option controls how quickly different parts of the
+file spread between the connected devices, at the cost of causing strain on the storage.</p>
+<p>Available options:</p>
+<dl class="simple">
+<dt>standard (default):</dt><dd><p>The blocks of a file are split into N equal continuous sequences, where N is the number of connected
+devices. Each device starts downloading its own sequence, after which it picks other devices
+sequences at random. Provides acceptable data distribution and minimal spinning disk strain.</p>
+</dd>
+<dt>random:</dt><dd><p>The blocks of a file are downloaded in a random order. Provides great data distribution, but very taxing on
+spinning disk drives.</p>
+</dd>
+<dt>inOrder:</dt><dd><p>The blocks of a file are downloaded sequentially, from start to finish. Spinning disk drive friendly, but provides
+no improvements to data distribution.</p>
+</dd>
+</dl>
+</dd>
+<dt>copyRangeMethod</dt><dd><p>Provides a choice of method for copying data between files. This can be used to optimise copies on network
+filesystems, improve speed of large copies or clone the data using copy-on-write functionality if the underlying
+filesystem supports it.</p>
+<p>See <a class="reference internal" href="../advanced/folder-copyrangemethod.html#folder-copyrangemethod"><span class="std std-ref">copyRangeMethod</span></a> for details.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="device-element">
+<h2>Device Element<a class="headerlink" href="#device-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;5SYI2FS-LW6YAXI-JJDYETS-NDBBPIO-256MWBO-XDPXWVG-24QPUM4-PDW4UQU&quot;</span> <span class="na">name=</span><span class="s">&quot;syno&quot;</span> <span class="na">compression=</span><span class="s">&quot;metadata&quot;</span> <span class="na">introducer=</span><span class="s">&quot;false&quot;</span> <span class="na">skipIntroductionRemovals=</span><span class="s">&quot;false&quot;</span> <span class="na">introducedBy=</span><span class="s">&quot;2CYF2WQ-AKZO2QZ-JAKWLYD-AGHMQUM-BGXUOIS-GYILW34-HJG3DUK-LRRYQAR&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;address&gt;</span>dynamic<span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;paused&gt;</span>false<span class="nt">&lt;/paused&gt;</span>
+    <span class="nt">&lt;autoAcceptFolders&gt;</span>false<span class="nt">&lt;/autoAcceptFolders&gt;</span>
+    <span class="nt">&lt;maxSendKbps&gt;</span>0<span class="nt">&lt;/maxSendKbps&gt;</span>
+    <span class="nt">&lt;maxRecvKbps&gt;</span>0<span class="nt">&lt;/maxRecvKbps&gt;</span>
+    <span class="nt">&lt;maxRequestKiB&gt;</span>0<span class="nt">&lt;/maxRequestKiB&gt;</span>
+    <span class="nt">&lt;remoteGUIPort&gt;</span>0<span class="nt">&lt;/remoteGUIPort&gt;</span>
+<span class="nt">&lt;/device&gt;</span>
+<span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;2CYF2WQ-AKZO2QZ-JAKWLYD-AGHMQUM-BGXUOIS-GYILW34-HJG3DUK-LRRYQAR&quot;</span> <span class="na">name=</span><span class="s">&quot;syno local&quot;</span> <span class="na">compression=</span><span class="s">&quot;metadata&quot;</span> <span class="na">introducer=</span><span class="s">&quot;false&quot;</span> <span class="na">skipIntroductionRemovals=</span><span class="s">&quot;false&quot;</span> <span class="na">introducedBy=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;address&gt;</span>tcp://192.0.2.1:22001<span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;paused&gt;</span>true<span class="nt">&lt;/paused&gt;</span>
+    <span class="nt">&lt;allowedNetwork&gt;</span>192.168.0.0/16<span class="nt">&lt;/allowedNetwork&gt;</span>
+    <span class="nt">&lt;autoAcceptFolders&gt;</span>false<span class="nt">&lt;/autoAcceptFolders&gt;</span>
+    <span class="nt">&lt;maxSendKbps&gt;</span>100<span class="nt">&lt;/maxSendKbps&gt;</span>
+    <span class="nt">&lt;maxRecvKbps&gt;</span>100<span class="nt">&lt;/maxRecvKbps&gt;</span>
+    <span class="nt">&lt;maxRequestKiB&gt;</span>65536<span class="nt">&lt;/maxRequestKiB&gt;</span>
+    <span class="nt">&lt;remoteGUIPort&gt;</span>8384<span class="nt">&lt;/remoteGUIPort&gt;</span>
+<span class="nt">&lt;/device&gt;</span>
+</pre></div>
+</div>
+<p>One or more <code class="docutils literal notranslate"><span class="pre">device</span></code> elements must be present in the file. Each element
+describes a device participating in the cluster. It is customary to include a
+<code class="docutils literal notranslate"><span class="pre">device</span></code> element for the local device; Syncthing will currently add one if
+it is not present. The following attributes may be set on the <code class="docutils literal notranslate"><span class="pre">device</span></code>
+element:</p>
+<dl>
+<dt>id</dt><dd><p>The <a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">device ID</span></a>. (mandatory)</p>
+</dd>
+<dt>name</dt><dd><p>A friendly name for the device. (optional)</p>
+</dd>
+<dt>compression</dt><dd><p>Whether to use protocol compression when sending messages to this device.
+The possible values are:</p>
+<dl class="simple">
+<dt>metadata</dt><dd><p>Compress metadata packets, such as index information. Metadata is
+usually very compression friendly so this is a good default.</p>
+</dd>
+<dt>always</dt><dd><p>Compress all packets, including file data. This is recommended if the
+folders contents are mainly compressible data such as documents or
+text files.</p>
+</dd>
+<dt>never</dt><dd><p>Disable all compression.</p>
+</dd>
+</dl>
+</dd>
+<dt>introducer</dt><dd><p>Set to true if this device should be trusted as an introducer, i.e. we
+should copy their list of devices per folder when connecting.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="introducer.html#introducer"><span class="std std-ref">Introducer Configuration</span></a></p>
+</div>
+<dl class="simple">
+<dt>skipIntroductionRemovals</dt><dd><p>Set to true if you wish to follow only introductions and not de-introductions.
+For example, if this is set, we would not remove a device that we were introduced
+to even if the original introducer is no longer listing the remote device as known.</p>
+</dd>
+<dt>introducedBy</dt><dd><p>Defines which device has introduced us to this device. Used only for following de-introductions.</p>
+</dd>
+<dt>certName</dt><dd><p>The device certificate’s common name, if it is not the default “syncthing”.</p>
+</dd>
+</dl>
+<p>From the following child elements at least one <code class="docutils literal notranslate"><span class="pre">address</span></code> child must exist.</p>
+<dl>
+<dt>address</dt><dd><p>Contains an address or host name to use when attempting to connect to this device.
+Entries other than <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> need a protocol specific prefix. For the TCP protocol
+the prefixes <code class="docutils literal notranslate"><span class="pre">tcp://</span></code> (dual-stack), <code class="docutils literal notranslate"><span class="pre">tcp4://</span></code> (IPv4 only) or <code class="docutils literal notranslate"><span class="pre">tcp6://</span></code> (IPv6 only) can be used.
+The prefixes for the QUIC protocol are analogous: <code class="docutils literal notranslate"><span class="pre">quic://</span></code>, <code class="docutils literal notranslate"><span class="pre">quic4://</span></code> and <code class="docutils literal notranslate"><span class="pre">quic6://</span></code>
+Note that IP addresses need not use IPv4 or IPv6 prefixes; these are optional. Accepted formats are:</p>
+<dl class="simple">
+<dt>IPv4 address (<code class="docutils literal notranslate"><span class="pre">tcp://192.0.2.42</span></code>)</dt><dd><p>The default port (22000) is used.</p>
+</dd>
+<dt>IPv4 address and port (<code class="docutils literal notranslate"><span class="pre">tcp://192.0.2.42:12345</span></code>)</dt><dd><p>The address and port is used as given.</p>
+</dd>
+<dt>IPv6 address (<code class="docutils literal notranslate"><span class="pre">tcp://[2001:db8::23:42]</span></code>)</dt><dd><p>The default port (22000) is used. The address must be enclosed in
+square brackets.</p>
+</dd>
+<dt>IPv6 address and port (<code class="docutils literal notranslate"><span class="pre">tcp://[2001:db8::23:42]:12345</span></code>)</dt><dd><p>The address and port is used as given. The address must be enclosed in
+square brackets.</p>
+</dd>
+<dt>Host name (<code class="docutils literal notranslate"><span class="pre">tcp6://fileserver</span></code>)</dt><dd><p>The host name will be used on the default port (22000) and connections
+will be attempted only via IPv6.</p>
+</dd>
+<dt>Host name and port (<code class="docutils literal notranslate"><span class="pre">tcp://fileserver:12345</span></code>)</dt><dd><p>The host name will be used on the given port and connections will be
+attempted via both IPv4 and IPv6, depending on name resolution.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></dt><dd><p>The word <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> (without any prefix) means to use local and
+global discovery to find the device.</p>
+</dd>
+</dl>
+<p>You can set multiple addresses <em>and</em> combine it with the <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> keyword
+for example:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;address&gt;</span>tcp://192.0.2.1:22001<span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;address&gt;</span>quic://192.0.1.254:22000<span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;address&gt;</span>dynamic<span class="nt">&lt;/address&gt;</span>
+<span class="nt">&lt;/device&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>paused</dt><dd><p>True if synchronization with this devices is (temporarily) suspended.</p>
+</dd>
+<dt>allowedNetwork</dt><dd><p>If given, this restricts connections to this device to only this network
+(see <a class="reference internal" href="../advanced/device-allowednetworks.html#allowed-networks"><span class="std std-ref">allowedNetworks</span></a>).</p>
+</dd>
+<dt>maxSendKbps</dt><dd><p>Maximum send rate to use for this device. Unit is kibibytes/second, despite
+the config name looking like kilobits/second.</p>
+</dd>
+<dt>maxRecvKbps</dt><dd><p>Maximum receive rate to use for this device. Unit is kibibytes/second,
+despite the config name looking like kilobits/second.</p>
+</dd>
+<dt>maxRequestKiB</dt><dd><p>Maximum amount of data to have outstanding in requests towards this device.
+Unit is kibibytes.</p>
+</dd>
+<dt>remoteGUIPort</dt><dd><p>If set to a positive integer, the GUI will display an HTTP link to the IP
+address which is currently used for synchronization.  Only the TCP port is
+exchanged for the value specified here.  Note that any port forwarding or
+firewall settings need to be done manually and the link will probably not
+work for link-local IPv6 addresses because of modern browser limitations.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="gui-element">
+<h2>GUI Element<a class="headerlink" href="#gui-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span> <span class="na">debugging=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;address&gt;</span>127.0.0.1:8384<span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;apikey&gt;</span>l7jSbCqPD95JYZ0g8vi4ZLAMg3ulnN1b<span class="nt">&lt;/apikey&gt;</span>
+    <span class="nt">&lt;theme&gt;</span>default<span class="nt">&lt;/theme&gt;</span>
+<span class="nt">&lt;/gui&gt;</span>
+</pre></div>
+</div>
+<p>There must be exactly one <code class="docutils literal notranslate"><span class="pre">gui</span></code> element. The GUI configuration is also used
+by the <a class="reference internal" href="../dev/rest.html#rest-api"><span class="std std-ref">REST API</span></a> and the <a class="reference internal" href="../dev/events.html#event-api"><span class="std std-ref">Event API</span></a>. The following attributes may
+be set on the <code class="docutils literal notranslate"><span class="pre">gui</span></code> element:</p>
+<dl class="simple">
+<dt>enabled</dt><dd><p>If not <code class="docutils literal notranslate"><span class="pre">true</span></code>, the GUI and API will not be started.</p>
+</dd>
+<dt>tls</dt><dd><p>If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, TLS (HTTPS) will be enforced. Non-HTTPS requests will
+be redirected to HTTPS. When set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, TLS connections are
+still possible but not required.</p>
+</dd>
+<dt>debugging</dt><dd><p>This enables <a class="reference internal" href="profiling.html#profiling"><span class="std std-ref">Profiling</span></a> and additional debugging endpoints in the <a class="reference internal" href="../dev/rest.html#rest-api"><span class="std std-ref">REST API</span></a>.</p>
+</dd>
+</dl>
+<p>The following child elements may be present:</p>
+<dl>
+<dt>address</dt><dd><p>Set the listen address. Exactly one address element must be present. Allowed address formats are:</p>
+<dl class="simple">
+<dt>IPv4 address and port (<code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code>)</dt><dd><p>The address and port are used as given.</p>
+</dd>
+<dt>IPv6 address and port (<code class="docutils literal notranslate"><span class="pre">[::1]:8384</span></code>)</dt><dd><p>The address and port are used as given. The address must be enclosed in
+square brackets.</p>
+</dd>
+<dt>Wildcard and port (<code class="docutils literal notranslate"><span class="pre">0.0.0.0:12345</span></code>, <code class="docutils literal notranslate"><span class="pre">[::]:12345</span></code>, <code class="docutils literal notranslate"><span class="pre">:12345</span></code>)</dt><dd><p>These are equivalent and will result in Syncthing listening on all
+interfaces via both IPv4 and IPv6.</p>
+</dd>
+<dt>UNIX socket location (<code class="docutils literal notranslate"><span class="pre">/var/run/st.sock</span></code>)</dt><dd><p>If the address is an absolute path it is interpreted as the path to a UNIX socket.</p>
+</dd>
+</dl>
+</dd>
+<dt>unixSocketPermissions</dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">address</span></code> is set to a UNIX socket location, set this to an octal value
+to override the default permissions of the socket.</p>
+</dd>
+<dt>user</dt><dd><p>Set to require authentication.</p>
+</dd>
+<dt>password</dt><dd><p>Contains the bcrypt hash of the real password.</p>
+</dd>
+<dt>apikey</dt><dd><p>If set, this is the API key that enables usage of the REST interface.</p>
+</dd>
+<dt>insecureAdminAccess</dt><dd><p>If true, this allows access to the web GUI from outside (i.e. not localhost)
+without authorization. A warning will displayed about this setting on startup.</p>
+</dd>
+<dt>theme</dt><dd><p>The name of the theme to use.</p>
+</dd>
+<dt>authMode</dt><dd><p>Authentication mode to use. If not present, the authentication mode (static)
+is controlled by the presence of user/password fields for backward compatibility.</p>
+<dl class="simple">
+<dt>static</dt><dd><p>Authentication using user and password.</p>
+</dd>
+<dt>ldap</dt><dd><p>LDAP authentication. Requires ldap top level config section to be present.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="ldap-element">
+<h2>LDAP Element<a class="headerlink" href="#ldap-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ldap&gt;</span>
+    <span class="nt">&lt;address&gt;</span>localhost:389<span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;bindDN&gt;</span>cn=%s,ou=users,dc=syncthing,dc=net<span class="nt">&lt;/bindDN&gt;</span>
+    <span class="nt">&lt;transport&gt;</span>nontls<span class="nt">&lt;/transport&gt;</span>
+    <span class="nt">&lt;insecureSkipVerify&gt;</span>false<span class="nt">&lt;/insecureSkipVerify&gt;</span>
+<span class="nt">&lt;/ldap&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ldap</span></code> element contains LDAP configuration options.</p>
+<dl class="simple">
+<dt>address</dt><dd><p>LDAP server address (server:port).</p>
+</dd>
+<dt>bindDN</dt><dd><p>BindDN for user authentication.
+Special <code class="docutils literal notranslate"><span class="pre">%s</span></code> variable should be used to pass username to LDAP.</p>
+</dd>
+</dl>
+<p>transport</p>
+<blockquote>
+<div><dl class="simple">
+<dt>nontls</dt><dd><p>Non secure connection.</p>
+</dd>
+<dt>tls</dt><dd><p>TLS secured connection.</p>
+</dd>
+<dt>starttls</dt><dd><p>StartTLS connection mode.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>insecureSkipVerify</dt><dd><p>Skip verification (<code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="options-element">
+<h2>Options Element<a class="headerlink" href="#options-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;options&gt;</span>
+    <span class="nt">&lt;listenAddress&gt;</span>default<span class="nt">&lt;/listenAddress&gt;</span>
+    <span class="nt">&lt;globalAnnounceServer&gt;</span>default<span class="nt">&lt;/globalAnnounceServer&gt;</span>
+    <span class="nt">&lt;globalAnnounceEnabled&gt;</span>true<span class="nt">&lt;/globalAnnounceEnabled&gt;</span>
+    <span class="nt">&lt;localAnnounceEnabled&gt;</span>true<span class="nt">&lt;/localAnnounceEnabled&gt;</span>
+    <span class="nt">&lt;localAnnouncePort&gt;</span>21027<span class="nt">&lt;/localAnnouncePort&gt;</span>
+    <span class="nt">&lt;localAnnounceMCAddr&gt;</span>[ff12::8384]:21027<span class="nt">&lt;/localAnnounceMCAddr&gt;</span>
+    <span class="nt">&lt;maxSendKbps&gt;</span>0<span class="nt">&lt;/maxSendKbps&gt;</span>
+    <span class="nt">&lt;maxRecvKbps&gt;</span>0<span class="nt">&lt;/maxRecvKbps&gt;</span>
+    <span class="nt">&lt;reconnectionIntervalS&gt;</span>60<span class="nt">&lt;/reconnectionIntervalS&gt;</span>
+    <span class="nt">&lt;relaysEnabled&gt;</span>true<span class="nt">&lt;/relaysEnabled&gt;</span>
+    <span class="nt">&lt;relayReconnectIntervalM&gt;</span>10<span class="nt">&lt;/relayReconnectIntervalM&gt;</span>
+    <span class="nt">&lt;startBrowser&gt;</span>true<span class="nt">&lt;/startBrowser&gt;</span>
+    <span class="nt">&lt;natEnabled&gt;</span>true<span class="nt">&lt;/natEnabled&gt;</span>
+    <span class="nt">&lt;natLeaseMinutes&gt;</span>60<span class="nt">&lt;/natLeaseMinutes&gt;</span>
+    <span class="nt">&lt;natRenewalMinutes&gt;</span>30<span class="nt">&lt;/natRenewalMinutes&gt;</span>
+    <span class="nt">&lt;natTimeoutSeconds&gt;</span>10<span class="nt">&lt;/natTimeoutSeconds&gt;</span>
+    <span class="nt">&lt;urAccepted&gt;</span>0<span class="nt">&lt;/urAccepted&gt;</span>
+    <span class="nt">&lt;urSeen&gt;</span>0<span class="nt">&lt;/urSeen&gt;</span>
+    <span class="nt">&lt;urUniqueID&gt;&lt;/urUniqueID&gt;</span>
+    <span class="nt">&lt;urURL&gt;</span>https://data.syncthing.net/newdata<span class="nt">&lt;/urURL&gt;</span>
+    <span class="nt">&lt;urPostInsecurely&gt;</span>false<span class="nt">&lt;/urPostInsecurely&gt;</span>
+    <span class="nt">&lt;urInitialDelayS&gt;</span>1800<span class="nt">&lt;/urInitialDelayS&gt;</span>
+    <span class="nt">&lt;restartOnWakeup&gt;</span>true<span class="nt">&lt;/restartOnWakeup&gt;</span>
+    <span class="nt">&lt;autoUpgradeIntervalH&gt;</span>12<span class="nt">&lt;/autoUpgradeIntervalH&gt;</span>
+    <span class="nt">&lt;upgradeToPreReleases&gt;</span>false<span class="nt">&lt;/upgradeToPreReleases&gt;</span>
+    <span class="nt">&lt;keepTemporariesH&gt;</span>24<span class="nt">&lt;/keepTemporariesH&gt;</span>
+    <span class="nt">&lt;cacheIgnoredFiles&gt;</span>false<span class="nt">&lt;/cacheIgnoredFiles&gt;</span>
+    <span class="nt">&lt;progressUpdateIntervalS&gt;</span>5<span class="nt">&lt;/progressUpdateIntervalS&gt;</span>
+    <span class="nt">&lt;limitBandwidthInLan&gt;</span>false<span class="nt">&lt;/limitBandwidthInLan&gt;</span>
+    <span class="nt">&lt;minHomeDiskFree</span> <span class="na">unit=</span><span class="s">&quot;%&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/minHomeDiskFree&gt;</span>
+    <span class="nt">&lt;releasesURL&gt;</span>https://upgrades.syncthing.net/meta.json<span class="nt">&lt;/releasesURL&gt;</span>
+    <span class="nt">&lt;overwriteRemoteDeviceNamesOnConnect&gt;</span>false<span class="nt">&lt;/overwriteRemoteDeviceNamesOnConnect&gt;</span>
+    <span class="nt">&lt;tempIndexMinBlocks&gt;</span>10<span class="nt">&lt;/tempIndexMinBlocks&gt;</span>
+    <span class="nt">&lt;trafficClass&gt;</span>0<span class="nt">&lt;/trafficClass&gt;</span>
+    <span class="nt">&lt;defaultFolderPath&gt;</span>~<span class="nt">&lt;/defaultFolderPath&gt;</span>
+    <span class="nt">&lt;setLowPriority&gt;</span>true<span class="nt">&lt;/setLowPriority&gt;</span>
+    <span class="nt">&lt;maxFolderConcurrency&gt;</span>0<span class="nt">&lt;/maxFolderConcurrency&gt;</span>
+    <span class="nt">&lt;crashReportingURL&gt;</span>https://crash.syncthing.net/newcrash<span class="nt">&lt;/crashReportingURL&gt;</span>
+    <span class="nt">&lt;crashReportingEnabled&gt;</span>true<span class="nt">&lt;/crashReportingEnabled&gt;</span>
+    <span class="nt">&lt;stunKeepaliveStartS&gt;</span>180<span class="nt">&lt;/stunKeepaliveStartS&gt;</span>
+    <span class="nt">&lt;stunKeepaliveMinS&gt;</span>20<span class="nt">&lt;/stunKeepaliveMinS&gt;</span>
+    <span class="nt">&lt;stunServer&gt;</span>default<span class="nt">&lt;/stunServer&gt;</span>
+    <span class="nt">&lt;databaseTuning&gt;</span>auto<span class="nt">&lt;/databaseTuning&gt;</span>
+    <span class="nt">&lt;maxConcurrentIncomingRequestKiB&gt;</span>0<span class="nt">&lt;/maxConcurrentIncomingRequestKiB&gt;</span>
+<span class="nt">&lt;/options&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">options</span></code> element contains all other global configuration options.</p>
+<dl class="simple">
+<dt>listenAddress</dt><dd><p>The listen address for incoming sync connections. See
+<a class="reference internal" href="#listen-addresses"><span class="std std-ref">Listen Addresses</span></a> for the allowed syntax.</p>
+</dd>
+<dt>globalAnnounceServer</dt><dd><p>A URI to a global announce (discovery) server, or the word <code class="docutils literal notranslate"><span class="pre">default</span></code> to
+include the default servers. Any number of globalAnnounceServer elements
+may be present. The syntax for non-default entries is that of an HTTP or
+HTTPS URL. A number of options may be added as query options to the URL:
+<code class="docutils literal notranslate"><span class="pre">insecure</span></code> to prevent certificate validation (required for HTTP URLs)
+and <code class="docutils literal notranslate"><span class="pre">id=&lt;device</span> <span class="pre">ID&gt;</span></code> to perform certificate pinning. The device ID to
+use is printed by the discovery server on startup.</p>
+</dd>
+<dt>globalAnnounceEnabled</dt><dd><p>Whether to announce this device to the global announce (discovery) server,
+and also use it to look up other devices.</p>
+</dd>
+<dt>localAnnounceEnabled</dt><dd><p>Whether to send announcements to the local LAN, also use such
+announcements to find other devices.</p>
+</dd>
+<dt>localAnnouncePort</dt><dd><p>The port on which to listen and send IPv4 broadcast announcements to.</p>
+</dd>
+<dt>localAnnounceMCAddr</dt><dd><p>The group address and port to join and send IPv6 multicast announcements on.</p>
+</dd>
+<dt>maxSendKbps</dt><dd><p>Outgoing data rate limit, in kibibytes per second.</p>
+</dd>
+<dt>maxRecvKbps</dt><dd><p>Incoming data rate limits, in kibibytes per second.</p>
+</dd>
+<dt>reconnectionIntervalS</dt><dd><p>The number of seconds to wait between each attempt to connect to currently
+unconnected devices.</p>
+</dd>
+<dt>relaysEnabled</dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, relays will be connected to and potentially used for device to device connections.</p>
+</dd>
+<dt>relayReconnectIntervalM</dt><dd><p>Sets the interval, in minutes, between relay reconnect attempts.</p>
+</dd>
+<dt>startBrowser</dt><dd><p>Whether to attempt to start a browser to show the GUI when Syncthing starts.</p>
+</dd>
+<dt>natEnabled</dt><dd><p>Whether to attempt to perform a UPnP and NAT-PMP port mapping for
+incoming sync connections.</p>
+</dd>
+<dt>natLeaseMinutes</dt><dd><p>Request a lease for this many minutes; zero to request a permanent lease.</p>
+</dd>
+<dt>natRenewalMinutes</dt><dd><p>Attempt to renew the lease after this many minutes.</p>
+</dd>
+<dt>natTimeoutSeconds</dt><dd><p>When scanning for UPnP devices, wait this long for responses.</p>
+</dd>
+<dt>urAccepted</dt><dd><p>Whether the user has accepted to submit anonymous usage data. The default,
+<code class="docutils literal notranslate"><span class="pre">0</span></code>, mean the user has not made a choice, and Syncthing will ask at some
+point in the future. <code class="docutils literal notranslate"><span class="pre">-1</span></code> means no, a number above zero means that that
+version of usage reporting has been accepted.</p>
+</dd>
+<dt>urSeen</dt><dd><p>The highest usage reporting version that has already been shown in the web GUI.</p>
+</dd>
+<dt>urUniqueID</dt><dd><p>The unique ID sent together with the usage report. Generated when usage
+reporting is enabled.</p>
+</dd>
+<dt>urURL</dt><dd><p>The URL to post usage report data to, when enabled.</p>
+</dd>
+<dt>urPostInsecurely</dt><dd><p>When true, the UR URL can be http instead of https, or have a self-signed
+certificate. The default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd>
+<dt>urInitialDelayS</dt><dd><p>The time to wait from startup for the first usage report to be sent. Allows
+the system to stabilize before reporting statistics.</p>
+</dd>
+<dt>restartOnWakeup</dt><dd><p>Whether to perform a restart of Syncthing when it is detected that we are
+waking from sleep mode (i.e. an unfolding laptop).</p>
+</dd>
+<dt>autoUpgradeIntervalH</dt><dd><p>Check for a newer version after this many hours. Set to <code class="docutils literal notranslate"><span class="pre">0</span></code> to disable
+automatic upgrades.</p>
+</dd>
+<dt>upgradeToPreReleases</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code>, automatic upgrades include release candidates (see
+<a class="reference internal" href="releases.html#releases"><span class="std std-ref">Versions &amp; Releases</span></a>).</p>
+</dd>
+<dt>keepTemporariesH</dt><dd><p>Keep temporary failed transfers for this many hours. While the temporaries
+are kept, the data they contain need not be transferred again.</p>
+</dd>
+<dt>cacheIgnoredFiles</dt><dd><p>Whether to cache the results of ignore pattern evaluation. Performance
+at the price of memory. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code> as the cost for evaluating
+ignores is usually not significant.</p>
+</dd>
+<dt>progressUpdateIntervalS</dt><dd><p>How often in seconds the progress of ongoing downloads is made available to
+the GUI.</p>
+</dd>
+<dt>limitBandwidthInLan</dt><dd><p>Whether to apply bandwidth limits to devices in the same broadcast domain
+as the local device.</p>
+</dd>
+<dt>minHomeDiskFree</dt><dd><p>The minimum required free space that should be available on the
+partition holding the configuration and index. Accepted units are <code class="docutils literal notranslate"><span class="pre">%</span></code>, <code class="docutils literal notranslate"><span class="pre">kB</span></code>,
+<code class="docutils literal notranslate"><span class="pre">MB</span></code>, <code class="docutils literal notranslate"><span class="pre">GB</span></code> and <code class="docutils literal notranslate"><span class="pre">TB</span></code>.</p>
+</dd>
+<dt>releasesURL</dt><dd><p>The URL from which release information is loaded, for automatic upgrades.</p>
+</dd>
+<dt>alwaysLocalNet</dt><dd><p>Network that should be considered as local given in CIDR notation.</p>
+</dd>
+<dt>overwriteRemoteDeviceNamesOnConnect</dt><dd><p>If set, device names will always be overwritten with the name given by
+remote on each connection. By default, the name that the remote device
+announces will only be adopted when a name has not already been set.</p>
+</dd>
+<dt>tempIndexMinBlocks</dt><dd><p>When exchanging index information for incomplete transfers, only take
+into account files that have at least this many blocks.</p>
+</dd>
+<dt>unackedNotificationID</dt><dd><p>ID of a notification to be displayed in the web GUI. Will be removed once
+the user acknowledged it (e.g. an transition notice on an upgrade).</p>
+</dd>
+<dt>trafficClass</dt><dd><p>Specify a type of service (TOS)/traffic class of outgoing packets.</p>
+</dd>
+<dt>stunServer</dt><dd><p>Server to be used for STUN, given as ip:port. The keyword <code class="docutils literal notranslate"><span class="pre">default</span></code> gets
+expanded to
+<code class="docutils literal notranslate"><span class="pre">stun.callwithus.com:3478</span></code>, <code class="docutils literal notranslate"><span class="pre">stun.counterpath.com:3478</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stun.counterpath.net:3478</span></code>, <code class="docutils literal notranslate"><span class="pre">stun.ekiga.net:3478</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stun.ideasip.com:3478</span></code>, <code class="docutils literal notranslate"><span class="pre">stun.internetcalls.com:3478</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stun.schlund.de:3478</span></code>, <code class="docutils literal notranslate"><span class="pre">stun.sipgate.net:10000</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stun.sipgate.net:3478</span></code>, <code class="docutils literal notranslate"><span class="pre">stun.voip.aebc.com:3478</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stun.voiparound.com:3478</span></code>, <code class="docutils literal notranslate"><span class="pre">stun.voipbuster.com:3478</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stun.voipstunt.com:3478</span></code> and <code class="docutils literal notranslate"><span class="pre">stun.xten.com:3478</span></code> (this is the default).</p>
+</dd>
+<dt>stunKeepaliveSeconds</dt><dd><p>Interval in seconds between contacting a STUN server to
+maintain NAT mapping. Default is <code class="docutils literal notranslate"><span class="pre">24</span></code> and you can set it to <code class="docutils literal notranslate"><span class="pre">0</span></code> to
+disable contacting STUN servers.</p>
+</dd>
+<dt>defaultFolderPath</dt><dd><p>The UI will propose to create new folders at this path. This can be disabled by
+setting this to an empty string.</p>
+</dd>
+</dl>
+<dl class="simple" id="set-low-priority">
+<dt>setLowPriority</dt><dd><p>Syncthing will attempt to lower its process priority at startup.
+Specifically: on Linux, set itself to a separate process group, set the
+niceness level of that process group to nine and the I/O priority to
+best effort level five; on other Unixes, set the process niceness level
+to nine; on Windows, set the process priority class to below normal. To
+disable this behavior, for example to control process priority yourself
+as part of launching Syncthing, set this option to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</dd>
+</dl>
+<div class="section" id="listen-addresses">
+<span id="id1"></span><h3>Listen Addresses<a class="headerlink" href="#listen-addresses" title="Permalink to this headline">¶</a></h3>
+<p>The following address types are accepted in sync protocol listen addresses.
+If you want Syncthing to listen on multiple addresses, you can either: add
+multiple <code class="docutils literal notranslate"><span class="pre">&lt;listenAddress&gt;</span></code> tags in the configuration file or enter several
+addresses separated by commas in the GUI.</p>
+<dl>
+<dt>Default listen addresses (<code class="docutils literal notranslate"><span class="pre">default</span></code>)</dt><dd><p>This is equivalent to <code class="docutils literal notranslate"><span class="pre">tcp://0.0.0.0:22000</span></code>, <code class="docutils literal notranslate"><span class="pre">quic://0.0.0.0:22000</span></code>
+and <code class="docutils literal notranslate"><span class="pre">dynamic+https://relays.syncthing.net/endpoint</span></code>.</p>
+</dd>
+<dt>TCP wildcard and port (<code class="docutils literal notranslate"><span class="pre">tcp://0.0.0.0:22000</span></code>, <code class="docutils literal notranslate"><span class="pre">tcp://:22000</span></code>)</dt><dd><p>These are equivalent and will result in Syncthing listening on all
+interfaces, IPv4 and IPv6, on the specified port.</p>
+</dd>
+<dt>TCP IPv4 wildcard and port (<code class="docutils literal notranslate"><span class="pre">tcp4://0.0.0.0:22000</span></code>, <code class="docutils literal notranslate"><span class="pre">tcp4://:22000</span></code>)</dt><dd><p>These are equivalent and will result in Syncthing listening on all
+interfaces via IPv4 only.</p>
+</dd>
+<dt>TCP IPv4 address and port (<code class="docutils literal notranslate"><span class="pre">tcp4://192.0.2.1:22000</span></code>)</dt><dd><p>This results in Syncthing listening on the specified address and port, IPv4
+only.</p>
+</dd>
+<dt>TCP IPv6 wildcard and port (<code class="docutils literal notranslate"><span class="pre">tcp6://[::]:22000</span></code>, <code class="docutils literal notranslate"><span class="pre">tcp6://:22000</span></code>)</dt><dd><p>These are equivalent and will result in Syncthing listening on all
+interfaces via IPv6 only.</p>
+</dd>
+<dt>TCP IPv6 address and port (<code class="docutils literal notranslate"><span class="pre">tcp6://[2001:db8::42]:22000</span></code>)</dt><dd><p>This results in Syncthing listening on the specified address and port, IPv6
+only.</p>
+</dd>
+<dt>QUIC address and port (e.g. <code class="docutils literal notranslate"><span class="pre">quic://0.0.0.0:22000</span></code>)</dt><dd><p>Syntax is the same as for TCP, also <code class="docutils literal notranslate"><span class="pre">quic4</span></code> and <code class="docutils literal notranslate"><span class="pre">quic6</span></code> can be used.</p>
+</dd>
+<dt>Static relay address (<code class="docutils literal notranslate"><span class="pre">relay://192.0.2.42:22067?id=abcd123...</span></code>)</dt><dd><p>Syncthing will connect to and listen for incoming connections via the
+specified relay address.</p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Document available URL parameters.</p>
+</div>
+</dd>
+<dt>Dynamic relay pool (<code class="docutils literal notranslate"><span class="pre">dynamic+https://192.0.2.42/relays</span></code>)</dt><dd><p>Syncthing will fetch the specified HTTPS URL, parse it for a JSON payload
+describing relays, select a relay from the available ones and listen via
+that as if specified as a static relay above.</p>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>Document available URL parameters.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="syncing-configuration-files">
+<h2>Syncing Configuration Files<a class="headerlink" href="#syncing-configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>Syncing configuration files between devices (such that multiple devices are
+using the same configuration files) can cause issues. This is easy to do
+accidentally if you sync your home folder between devices. A common symptom
+of syncing configuration files is two devices ending up with the same Device ID.</p>
+<p>If you want to use Syncthing to backup your configuration files, it is recommended
+that the files you are backing up are in a <a class="reference internal" href="foldertypes.html#folder-sendonly"><span class="std std-ref">Send Only Folder</span></a> to prevent other
+devices from overwriting the per device configuration. The folder on the remote
+device(s) should not be used as configuration for the remote devices.</p>
+<p>If you’d like to sync your home folder in non-send only mode, you may add the
+folder that stores the configuration files to the <a class="reference internal" href="ignoring.html#ignoring-files"><span class="std std-ref">ignore list</span></a>.
+If you’d also like to backup your configuration files, add another folder in
+send only mode for just the configuration folder.</p>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/config.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="releases.html" title="previous chapter">Versions &amp; Releases</a></li>
+      <li>Next: <a href="advanced.html" title="next chapter">Advanced Configuration</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

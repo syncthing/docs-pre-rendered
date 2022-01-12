@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Syncthing &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQ" href="faq.html" />
+    <link rel="prev" title="Usage" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="syncthing">
+<span id="id1"></span><h1>Syncthing<a class="headerlink" href="#syncthing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">syncthing</span> <span class="p">[</span><span class="o">-</span><span class="n">audit</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">auditfile</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">|-|--&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">browser</span><span class="o">-</span><span class="n">only</span><span class="p">]</span> <span class="p">[</span><span class="n">device</span><span class="o">-</span><span class="nb">id</span><span class="p">]</span>
+          <span class="p">[</span><span class="o">-</span><span class="n">generate</span><span class="o">=&lt;</span><span class="nb">dir</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">gui</span><span class="o">-</span><span class="n">address</span><span class="o">=&lt;</span><span class="n">address</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">gui</span><span class="o">-</span><span class="n">apikey</span><span class="o">=&lt;</span><span class="n">key</span><span class="o">&gt;</span><span class="p">]</span>
+          <span class="p">[</span><span class="o">-</span><span class="n">home</span><span class="o">=&lt;</span><span class="nb">dir</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">logfile</span><span class="o">=&lt;</span><span class="n">filename</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">logflags</span><span class="o">=&lt;</span><span class="n">flags</span><span class="o">&gt;</span><span class="p">]</span>
+          <span class="p">[</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">console</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">restart</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">paths</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">paused</span><span class="p">]</span>
+          <span class="p">[</span><span class="o">-</span><span class="n">reset</span><span class="o">-</span><span class="n">database</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">reset</span><span class="o">-</span><span class="n">deltas</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">unpaused</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">upgrade</span><span class="p">]</span>
+          <span class="p">[</span><span class="o">-</span><span class="n">upgrade</span><span class="o">-</span><span class="n">check</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">upgrade</span><span class="o">-</span><span class="n">to</span><span class="o">=&lt;</span><span class="n">url</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">verbose</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">version</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing lets you synchronize your files bidirectionally across multiple
+devices. This means the creation, modification or deletion of files on one
+machine will automatically be replicated to your other devices. We believe your
+data is your data alone and you deserve to choose where it is stored. Therefore
+Syncthing does not upload your data to the cloud but exchanges your data across
+your machines as soon as they are online at the same time.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="std cmdoption">
+<dt id="cmdoption-audit">
+<code class="sig-name descname">-audit</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-audit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write events to timestamped file <code class="docutils literal notranslate"><span class="pre">audit-YYYYMMDD-HHMMSS.log</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-auditfile">
+<code class="sig-name descname">-auditfile</code><code class="sig-prename descclassname">=&lt;file|-|--&gt;</code><a class="headerlink" href="#cmdoption-auditfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use specified file or stream (<code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code> for stdout, <code class="docutils literal notranslate"><span class="pre">&quot;--&quot;</span></code> for stderr) for audit events, rather than the timestamped default file name.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-browser-only">
+<code class="sig-name descname">-browser-only</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-browser-only" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the web UI in a browser for an already running Syncthing instance.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-device-id">
+<code class="sig-name descname">-device-id</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-device-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print device ID to command line.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-generate">
+<code class="sig-name descname">-generate</code><code class="sig-prename descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate key and config in specified dir, then exit.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-gui-address">
+<code class="sig-name descname">-gui-address</code><code class="sig-prename descclassname">=&lt;address&gt;</code><a class="headerlink" href="#cmdoption-gui-address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override GUI listen address. Set this to an address (<code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code>)
+or file path (<code class="docutils literal notranslate"><span class="pre">/var/run/st.sock</span></code>, for UNIX sockets).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-home">
+<code class="sig-name descname">-home</code><code class="sig-prename descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-home" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set configuration directory. The default configuration directory is
+<code class="docutils literal notranslate"><span class="pre">$HOME/.config/syncthing</span></code> (Unix-like), <code class="docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/Syncthing</span></code> (Mac) and <code class="docutils literal notranslate"><span class="pre">%LOCALAPPDATA%\Syncthing</span></code> (Windows).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-logfile">
+<code class="sig-name descname">-logfile</code><code class="sig-prename descclassname">=&lt;filename&gt;</code><a class="headerlink" href="#cmdoption-logfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set destination filename for logging (use <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code> for stdout, which is the default option).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-logflags">
+<code class="sig-name descname">-logflags</code><code class="sig-prename descclassname">=&lt;flags&gt;</code><a class="headerlink" href="#cmdoption-logflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select information in log line prefix. The <code class="docutils literal notranslate"><span class="pre">-logflags</span></code> value is a sum of
+the following:</p>
+<ul class="simple">
+<li><p>1: Date</p></li>
+<li><p>2: Time</p></li>
+<li><p>4: Microsecond time</p></li>
+<li><p>8: Long filename</p></li>
+<li><p>16: Short filename</p></li>
+</ul>
+<p>To prefix each log line with date and time, set <code class="docutils literal notranslate"><span class="pre">-logflags=3</span></code> (1 + 2 from
+above). The value 0 is used to disable all of the above. The default is to
+show time only (2).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-no-browser">
+<code class="sig-name descname">-no-browser</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-browser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not start a browser.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-no-console">
+<code class="sig-name descname">-no-console</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide the console window. (On Windows only)</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-no-restart">
+<code class="sig-name descname">-no-restart</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable the Syncthing monitor process which handles restarts for some configuration changes, upgrades, crashes and also log file writing (stdout is still written).</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-paths">
+<code class="sig-name descname">-paths</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the paths used for configuration, keys, database, GUI overrides, default sync folder and the log file.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-paused">
+<code class="sig-name descname">-paused</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-paused" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start with all devices and folders paused.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-reset-database">
+<code class="sig-name descname">-reset-database</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-reset-database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the database, forcing a full rescan and resync. Create <cite>.stfolder</cite>
+folders in each sync folder if they do not already exist. <strong>Caution</strong>:
+Ensure that all sync folders which are mountpoints are already mounted.
+Inconsistent versions may result if the mountpoint is later mounted and
+contains older versions.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-reset-deltas">
+<code class="sig-name descname">-reset-deltas</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-reset-deltas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset delta index IDs, forcing a full index exchange.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-unpaused">
+<code class="sig-name descname">-unpaused</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-unpaused" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start with all devices and folders unpaused.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-upgrade">
+<code class="sig-name descname">-upgrade</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-upgrade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform upgrade.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-upgrade-check">
+<code class="sig-name descname">-upgrade-check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-upgrade-check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for available upgrade.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-upgrade-to">
+<code class="sig-name descname">-upgrade-to</code><code class="sig-prename descclassname">=&lt;url&gt;</code><a class="headerlink" href="#cmdoption-upgrade-to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force upgrade directly from specified URL.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-verbose">
+<code class="sig-name descname">-verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print verbose log output.</p>
+</dd></dl>
+
+<dl class="std cmdoption">
+<dt id="cmdoption-version">
+<code class="sig-name descname">-version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="exit-codes">
+<h2>Exit Codes<a class="headerlink" href="#exit-codes" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>0</dt><dd><p>Success / Shutdown</p>
+</dd>
+<dt>1</dt><dd><p>Error</p>
+</dd>
+<dt>2</dt><dd><p>Upgrade not available</p>
+</dd>
+<dt>3</dt><dd><p>Restarting</p>
+</dd>
+<dt>4</dt><dd><p>Upgrading</p>
+</dd>
+</dl>
+<p>Some of these exit codes are only returned when running without a monitor
+process (with environment variable <code class="docutils literal notranslate"><span class="pre">STNORESTART</span></code> set). Exit codes over 125 are
+usually returned by the shell/binary loader/default signal handler. Exit codes
+over 128+N on Unix usually represent the signal which caused the process to
+exit. For example, <code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">+</span> <span class="pre">9</span> <span class="pre">(SIGKILL)</span> <span class="pre">=</span> <span class="pre">137</span></code>.</p>
+</div>
+<div class="section" id="proxies">
+<h2>Proxies<a class="headerlink" href="#proxies" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing can use a SOCKS, HTTP, or HTTPS proxy to talk to the outside
+world. The proxy is used for outgoing connections only - it is not possible
+to accept incoming connections through the proxy. The proxy is configured
+through the environment variable <code class="docutils literal notranslate"><span class="pre">all_proxy</span></code>. Somewhat unusually, this
+variable must be named in lower case - it is not “<span class="strike">ALL_PROXY</span>”. For
+example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export all_proxy=socks://192.0.2.42:8081
+</pre></div>
+</div>
+</div>
+<div class="section" id="development-settings">
+<h2>Development Settings<a class="headerlink" href="#development-settings" title="Permalink to this headline">¶</a></h2>
+<p>The following environment variables modify Syncthing’s behavior in ways that
+are mostly useful for developers. Use with care.
+If you start Syncthing from within service managers like systemd or supervisor,
+path expansion may not be supported.</p>
+<dl>
+<dt>STTRACE</dt><dd><p>Used to increase the debugging verbosity in specific or all facilities,
+generally mapping to a Go package. Enabling any of these also enables
+microsecond timestamps, file names plus line numbers. Enter a
+comma-separated string of facilities to trace. <code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">-help</span></code> always
+outputs an up-to-date list. The valid facility strings are:</p>
+<dl class="simple">
+<dt>Main and operational facilities:</dt><dd><dl class="simple">
+<dt>config</dt><dd><p>Configuration loading and saving.</p>
+</dd>
+<dt>db</dt><dd><p>The database layer.</p>
+</dd>
+<dt>main</dt><dd><p>Main package.</p>
+</dd>
+<dt>model</dt><dd><p>The root hub; the largest chunk of the system. File pulling, index
+transmission and requests for chunks.</p>
+</dd>
+<dt>scanner</dt><dd><p>File change detection and hashing.</p>
+</dd>
+<dt>versioner</dt><dd><p>File versioning.</p>
+</dd>
+</dl>
+</dd>
+<dt>Networking facilities:</dt><dd><dl class="simple">
+<dt>beacon</dt><dd><p>Multicast and broadcast UDP discovery packets: Selected interfaces
+and addresses.</p>
+</dd>
+<dt>connections</dt><dd><p>Connection handling.</p>
+</dd>
+<dt>dialer</dt><dd><p>Dialing connections.</p>
+</dd>
+<dt>discover</dt><dd><p>Remote device discovery requests, replies and registration of
+devices.</p>
+</dd>
+<dt>nat</dt><dd><p>NAT discovery and port mapping.</p>
+</dd>
+<dt>pmp</dt><dd><p>NAT-PMP discovery and port mapping.</p>
+</dd>
+<dt>protocol</dt><dd><p>The BEP protocol.</p>
+</dd>
+<dt>relay</dt><dd><p>Relay interaction (<code class="docutils literal notranslate"><span class="pre">strelaysrv</span></code>).</p>
+</dd>
+<dt>upnp</dt><dd><p>UPnP discovery and port mapping.</p>
+</dd>
+</dl>
+</dd>
+<dt>Other facilities:</dt><dd><dl class="simple">
+<dt>fs</dt><dd><p>Filesystem access.</p>
+</dd>
+<dt>events</dt><dd><p>Event generation and logging.</p>
+</dd>
+<dt>http</dt><dd><p>REST API.</p>
+</dd>
+<dt>sha256</dt><dd><p>SHA256 hashing package (this facility currently unused).</p>
+</dd>
+<dt>stats</dt><dd><p>Persistent device and folder statistics.</p>
+</dd>
+<dt>sync</dt><dd><p>Mutexes. Used for debugging race conditions and deadlocks.</p>
+</dd>
+<dt>upgrade</dt><dd><p>Binary upgrades.</p>
+</dd>
+<dt>walkfs</dt><dd><p>Filesystem access while walking.</p>
+</dd>
+<dt>all</dt><dd><p>All of the above.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>STBLOCKPROFILE</dt><dd><p>Write block profiles to <code class="docutils literal notranslate"><span class="pre">block-$pid-$timestamp.pprof</span></code> every 20 seconds.</p>
+</dd>
+<dt>STCPUPROFILE</dt><dd><p>Write a CPU profile to <code class="docutils literal notranslate"><span class="pre">cpu-$pid.pprof</span></code> on exit.</p>
+</dd>
+<dt>STDEADLOCKTIMEOUT</dt><dd><p>Used for debugging internal deadlocks; sets debug sensitivity. Use only
+under direction of a developer.</p>
+</dd>
+<dt>STDEADLOCKTHRESHOLD</dt><dd><p>Used for debugging internal deadlocks; sets debug sensitivity. Use only
+under direction of a developer.</p>
+</dd>
+<dt>STGUIASSETS</dt><dd><p>Directory to load GUI assets from. Overrides compiled in assets. Useful for
+developing webgui, commonly use <code class="docutils literal notranslate"><span class="pre">STGUIASSETS=gui</span> <span class="pre">bin/syncthing</span></code>.</p>
+</dd>
+<dt>STHASHING</dt><dd><p>Specify which hashing package to use. Defaults to automatic based on
+performance. Specify “minio” (compatibility) or “standard” for the default
+Go implementation.</p>
+</dd>
+<dt>STHEAPPROFILE</dt><dd><p>Write heap profiles to <code class="docutils literal notranslate"><span class="pre">heap-$pid-$timestamp.pprof</span></code> each time heap usage
+increases.</p>
+</dd>
+<dt>STNODEFAULTFOLDER</dt><dd><p>Don’t create a default folder when starting for the first time. This
+variable will be ignored anytime after the first run.</p>
+</dd>
+<dt>STNORESTART</dt><dd><p>Equivalent to the <code class="docutils literal notranslate"><span class="pre">-no-restart</span></code> flag. Disable the Syncthing monitor
+process which handles restarts for some configuration changes, upgrades,
+crashes and also log file writing (stdout is still written).</p>
+</dd>
+<dt>STNOUPGRADE</dt><dd><p>Disable automatic upgrades.</p>
+</dd>
+<dt>STPROFILER</dt><dd><p>Set to a listen address such as “127.0.0.1:9090” to start the profiler with
+HTTP access, which then can be reached at
+<a class="reference external" href="http://localhost:9090/debug/pprof">http://localhost:9090/debug/pprof</a>. See <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">tool</span> <span class="pre">pprof</span></code> for more
+information.</p>
+</dd>
+<dt>STPERFSTATS</dt><dd><p>Write running performance statistics to <code class="docutils literal notranslate"><span class="pre">perf-$pid.csv</span></code>. Not supported on
+Windows.</p>
+</dd>
+<dt>STRECHECKDBEVERY</dt><dd><p>Time before folder statistics (file, dir, … counts) are recalculated from
+scratch. The given duration must be parseable by GO’s time.ParseDuration. If
+missing or not parseable, the default value of 1 month is used. To force
+recalculation on every startup, set it to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</dd>
+<dt>GOMAXPROCS</dt><dd><p>Set the maximum number of CPU cores to use. Defaults to all available CPU
+cores.</p>
+</dd>
+<dt>GOGC</dt><dd><p>Percentage of heap growth at which to trigger GC. Default is 100. Lower
+numbers keep peak memory usage down, at the price of CPU usage
+(i.e. performance).</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><em class="manpage">syncthing-config(5)</em>, <em class="manpage">syncthing-stignore(5)</em>,
+<em class="manpage">syncthing-device-ids(7)</em>, <em class="manpage">syncthing-security(7)</em>,
+<em class="manpage">syncthing-networking(7)</em>, <em class="manpage">syncthing-versioning(7)</em>,
+<em class="manpage">syncthing-faq(7)</em></p>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/master/users/syncthing.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Usage</a></li>
+      <li>Next: <a href="faq.html" title="next chapter">FAQ</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

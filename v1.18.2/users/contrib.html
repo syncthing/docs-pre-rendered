@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Contributions &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Profiling" href="profiling.html" />
+    <link rel="prev" title="Starting Syncthing Automatically" href="autostart.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="community-contributions">
+<span id="contributions"></span><h1>Community Contributions<a class="headerlink" href="#community-contributions" title="Permalink to this headline">¶</a></h1>
+<p>This page lists integrations, addons and packagings of Syncthing created by
+the community. Like all documentation pages, it’s wiki editable so please do
+edit and add your own.</p>
+<div class="section" id="gui-wrappers">
+<h2>GUI Wrappers<a class="headerlink" href="#gui-wrappers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cross-platform">
+<span id="contrib-all"></span><h3>Cross-platform<a class="headerlink" href="#cross-platform" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Martchus/syncthingtray">syncthingtray</a></p></li>
+</ul>
+</div>
+<div class="section" id="android">
+<h3>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/syncthing/syncthing-android">syncthing-android</a></p>
+<p>A wrapper app for the Syncthing binary.</p>
+</li>
+<li><p><a class="reference external" href="https://github.com/catfriend1/syncthing-android">Syncthing-Fork</a></p>
+<p>An alternative wrapper app for the Syncthing binary with extended
+functionality.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="windows">
+<span id="contrib-windows"></span><h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/canton7/SyncTrayzor">SyncTrayzor</a></p>
+<p>Windows host for Syncthing.  Installer, auto-start, built-in browser, tray
+icon, and more.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="macos">
+<h3>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/syncthing/syncthing-macos">syncthing-macos</a></p>
+<p>syncthing-macos is a native macOS Syncthing tray application bundle.
+It hosts and wraps Syncthing, making it behave more like a native macOS application and less like a command-line utility with a web browser interface.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://extensions.gnome.org/extension/989/syncthing-icon/">Syncthing Icon</a></p>
+<p>A GNOME Shell extension displaying a Syncthing status icon in the top bar.</p>
+</li>
+<li><p><a class="reference external" href="https://extensions.gnome.org/extension/1070/syncthing-indicator/">Syncthing Indicator</a></p>
+<p>A GNOME Shell indicator for starting, monitoring and controlling the Syncthing daemon using SystemD.</p>
+</li>
+<li><p><a class="reference external" href="https://github.com/serl/syncthing-quick-status">syncthing-quick-status</a></p>
+<p>Small bash application with minimal dependencies, for a simple colorful representation of the current status.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="packages-and-bundlings">
+<h2>Packages and Bundlings<a class="headerlink" href="#packages-and-bundlings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Cross-platform<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Webi: <a class="reference external" href="https://webinstall.dev/syncthing">syncthing</a></p>
+<p>Mac, Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -sS https://webinstall.dev/syncthing | bash
+</pre></div>
+</div>
+<p>Windows 10</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">curl</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">A</span> <span class="n">MS</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">webinstall</span><span class="o">.</span><span class="n">dev</span><span class="o">/</span><span class="n">syncthing</span> <span class="o">|</span> <span class="n">powershell</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="debian-ubuntu">
+<h3>Debian / Ubuntu<a class="headerlink" href="#debian-ubuntu" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Official packages: <a class="reference external" href="https://apt.syncthing.net/">https://apt.syncthing.net/</a></p></li>
+<li><p>Debian packages: <a class="reference external" href="https://packages.debian.org/search?keywords=syncthing">syncthing</a>, <a class="reference external" href="https://packages.debian.org/search?keywords=syncthing-discosrv">syncthing-discosrv</a> and <a class="reference external" href="https://packages.debian.org/search?keywords=syncthing-relaysrv">syncthing-relaysrv</a></p></li>
+</ul>
+</div>
+<div class="section" id="fedora-centos">
+<h3>Fedora / CentOS<a class="headerlink" href="#fedora-centos" title="Permalink to this headline">¶</a></h3>
+<p>For Fedora Syncthing is now in the official repo : <a class="reference external" href="https://src.fedoraproject.org/rpms/syncthing">https://src.fedoraproject.org/rpms/syncthing</a></p>
+<p>Unofficial <a class="reference external" href="https://copr.fedorainfracloud.org/coprs/daftaupe/syncthing/">RPM repo of Syncthing</a> (<a class="reference external" href="https://gitlab.com/daftaupe/syncthing-rpm">sources</a>)</p>
+</div>
+<div class="section" id="archlinux">
+<h3>ArchLinux<a class="headerlink" href="#archlinux" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Official Community Repository: <a class="reference external" href="https://www.archlinux.org/packages/?name=syncthing">syncthing</a></p></li>
+<li><p>Arch User Repository: <a class="reference external" href="https://aur.archlinux.org/packages/syncthing-discosrv">syncthing-discosrv</a> and <a class="reference external" href="https://aur.archlinux.org/packages/syncthingtray">syncthingtray</a></p></li>
+</ul>
+</div>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.linuxserver.io/images/docker-syncthing">docker-syncthing</a> from <a class="reference external" href="https://www.linuxserver.io">LinuxServer</a></p></li>
+<li><p>Dockerfiles for <a class="reference external" href="https://github.com/firecat53/dockerfiles/tree/main/syncthing">Syncthing</a> and <a class="reference external" href="https://github.com/firecat53/dockerfiles/tree/main/syncthing_discovery">Syncthing Discovery Server</a>.
+Latest binary releases used for both.</p></li>
+<li><p><a class="reference external" href="https://github.com/joeybaker/docker-syncthing">docker-syncthing</a>
+A fully baked docker container that allows custom config and will keep your
+settings and data past docker image restarts.</p></li>
+<li><p><a class="reference external" href="https://github.com/djtm/syncthing-docker-scratch">syncthing-docker-scratch</a>
+Builds docker containers from scratch base and/or runs the containers in
+docker or rkt.</p></li>
+<li><p><a class="reference external" href="https://github.com/funkyfuture/docker-rpi-syncthing">rpi-syncthing</a>
+Configurable image for the Raspberry Pi.</p></li>
+<li><p><a class="reference external" href="https://github.com/bestlibre/hassio-addons/tree/master/syncthing">syncthing for hassio</a>
+A docker based addon for <a class="reference external" href="https://www.home-assistant.io/hassio/">hassio</a></p></li>
+</ul>
+</div>
+<div class="section" id="gentoo">
+<h3>Gentoo<a class="headerlink" href="#gentoo" title="Permalink to this headline">¶</a></h3>
+<p>Official net-p2p package: <a class="reference external" href="https://packages.gentoo.org/packages/net-p2p/syncthing">syncthing</a></p>
+</div>
+<div class="section" id="freebsd">
+<h3>FreeBSD<a class="headerlink" href="#freebsd" title="Permalink to this headline">¶</a></h3>
+<p>FreshPorts: <a class="reference external" href="https://www.freshports.org/net/syncthing">syncthing</a></p>
+</div>
+<div class="section" id="id3">
+<h3>macOS<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>MacPorts: <a class="reference external" href="https://ports.macports.org/port/syncthing/summary">syncthing</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo port install syncthing
+</pre></div>
+</div>
+</div>
+<div class="section" id="openbsd">
+<h3>OpenBSD<a class="headerlink" href="#openbsd" title="Permalink to this headline">¶</a></h3>
+<p>Official ports: <a class="reference external" href="https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/net/syncthing">syncthing</a> and <a class="reference external" href="https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/net/qsyncthingtray">QSyncthingTray</a></p>
+</div>
+<div class="section" id="opensuse">
+<h3>OpenSUSE<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h3>
+<p>Official packages: <a class="reference external" href="https://software.opensuse.org/package/syncthing">syncthing</a> and <a class="reference external" href="https://software.opensuse.org/package/syncthingtray">syncthingtray</a></p>
+</div>
+<div class="section" id="synology-nas-dsm">
+<h3>Synology NAS (DSM)<a class="headerlink" href="#synology-nas-dsm" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Synocommunity: add <code class="docutils literal notranslate"><span class="pre">http://packages.synocommunity.com/</span></code> to the Package
+Center in DSM or view the <a class="reference external" href="https://synocommunity.com/packages">browsable repository</a>. Numerous CPU architectures are
+supported. SPK’s may be older versions, however you can execute a Syncthing
+version upgrade via the web GUI after installation.</p></li>
+<li><p>Kastelo maintains <a class="reference external" href="https://docs.kastelo.net/synology/">Synology packages</a>
+in a custom package source. Packages auto upgrade via the Synology package
+manager.</p></li>
+</ul>
+</div>
+<div class="section" id="qnap-nas-qts">
+<h3>QNAP NAS (QTS)<a class="headerlink" href="#qnap-nas-qts" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://qnapclub.eu/en/qpkg/692">Syncthing QPKG</a> (Qnap
+Package) available for ALL models x86, x86_64, Arm (all including new models).</p>
+</div>
+<div class="section" id="rockstor">
+<h3>RockStor<a class="headerlink" href="#rockstor" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://rockstor.com/docs/docker-based-rock-ons/syncthing.html">Docker container</a> and <a class="reference external" href="https://github.com/rockstor/rockon-registry/blob/master/syncthing.json">registry entry</a></p>
+</div>
+<div class="section" id="clearos-wikisuite">
+<h3>ClearOS / WikiSuite<a class="headerlink" href="#clearos-wikisuite" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing is part of <a class="reference external" href="http://wikisuite.org/">WikiSuite</a>, and thus packaged for <a class="reference external" href="http://wikisuite.org/How-to-install-Syncthing-on-ClearOS">ClearOS</a>.</p>
+</div>
+<div class="section" id="cloudron">
+<h3>Cloudron<a class="headerlink" href="#cloudron" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing is available as a 1-click install on <a class="reference external" href="https://cloudron.io">Cloudron</a>. For those unaware,
+Cloudron makes it easy to run apps on your server and keep them up-to-date and secure.</p>
+<a class="reference external image-reference" href="https://cloudron.io/button.html?app=net.syncthing.cloudronapp2"><img alt="https://cloudron.io/img/button.svg" src="https://cloudron.io/img/button.svg" /></a>
+<p>There is a <a class="reference external" href="https://my-demo.cloudron.me">demo available</a> (username: cloudron password: cloudron)</p>
+<p>The Cloudron package is developed <a class="reference external" href="https://git.cloudron.io/cloudron/syncthing-app">here</a>.</p>
+</div>
+<div class="section" id="wd-my-cloud-nas">
+<h3>WD My Cloud NAS<a class="headerlink" href="#wd-my-cloud-nas" title="Permalink to this headline">¶</a></h3>
+<p>Packages for OS3 available on <a class="reference external" href="https://wdcommunity.com">WDCommunity</a>.</p>
+</div>
+</div>
+<div class="section" id="integrations">
+<h2>Integrations<a class="headerlink" href="#integrations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rest-api-bindings">
+<h3>REST API Bindings<a class="headerlink" href="#rest-api-bindings" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Python: <a class="reference external" href="https://github.com/blakev/python-syncthing">https://github.com/blakev/python-syncthing</a> (<a class="reference external" href="https://pypi.python.org/pypi/syncthing">https://pypi.python.org/pypi/syncthing</a>)</p></li>
+<li><p>PHP: <a class="reference external" href="https://github.com/terzinnorbert/syncthing-rest">https://github.com/terzinnorbert/syncthing-rest</a></p></li>
+</ul>
+</div>
+<div class="section" id="ports">
+<h3>Ports<a class="headerlink" href="#ports" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Swift: <a class="reference external" href="https://source.ind.ie/project/pulse-swift/tree/master">pulse-swift</a></p>
+<p>Currently still in development and is “not yet usable by any standard”. Only the Block Exchange Protocol layer and the Connection layer are completed.</p>
+</li>
+<li><p>Java: <a class="reference external" href="https://github.com/davide-imbriaco/a-sync">a-sync</a></p>
+<p>This implements the BEP, discovery and relay protocols providing a command
+line utility to access a Syncthing network, a service to proxy the relay
+protocol over http and a client library for the BEP protocol.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="configuration-management">
+<h3>Configuration management<a class="headerlink" href="#configuration-management" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/whefter/puppet-syncthing">puppet-syncthing</a></p></li>
+<li><p><a class="reference external" href="https://github.com/le9i0nx/ansible-syncthing">ansible-syncthing</a></p></li>
+<li><p>Command line interface: <a class="reference external" href="https://github.com/classicsc/syncthingmanager">syncthingmanager</a></p></li>
+</ul>
+</div>
+<div class="section" id="monitoring">
+<h3>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gitlab.com/daftaupe/munin-syncthing">munin-syncthing</a></p></li>
+</ul>
+</div>
+<div class="section" id="resolving-conflicts">
+<h3>Resolving conflicts<a class="headerlink" href="#resolving-conflicts" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://github.com/dschrempf/syncthing-resolve-conflicts">syncthing-resolve-conflicts</a></p>
+<p>A small bash script that handles synchronization conflicts in text
+files that may pop up when using Syncthing.  It is inspired by the
+<cite>pacdiff</cite> utility from Arch Linux.  A diff utility can be used to
+merge the files and keep them up to date.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="older-possibly-unmaintained">
+<h2>Older, Possibly Unmaintained<a class="headerlink" href="#older-possibly-unmaintained" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These projects have not been updated in quite a while. They may still be
+usable, or they may be in disrepair. If you are the maintainer of one of
+these and you have revived the project, please update this page
+accordingly.</p>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/kozec/syncthing-gtk">Syncthing-GTK</a></p></li>
+<li><p><a class="reference external" href="https://github.com/syncthing/syncthing-lite">https://github.com/syncthing/syncthing-lite</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sieren/QSyncthingTray">https://github.com/sieren/QSyncthingTray</a></p></li>
+<li><p><a class="reference external" href="https://github.com/akissa/pysyncthing">https://github.com/akissa/pysyncthing</a></p></li>
+<li><p><a class="reference external" href="https://github.com/retgoat/syncthing-ruby">https://github.com/retgoat/syncthing-ruby</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sodacode/Windows-Syncthing-Installer">https://github.com/sodacode/Windows-Syncthing-Installer</a></p></li>
+<li><p><a class="reference external" href="https://github.com/gutenye/syncthing-kindle">https://github.com/gutenye/syncthing-kindle</a></p></li>
+<li><p><a class="reference external" href="https://github.com/m0ppers/syncthing-bar">https://github.com/m0ppers/syncthing-bar</a> (OSX 10.10 only)</p></li>
+<li><p><a class="reference external" href="https://github.com/graboluk/stiko">https://github.com/graboluk/stiko</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ALinuxNinja/salt-syncthing">https://github.com/ALinuxNinja/salt-syncthing</a></p></li>
+<li><p><a class="reference external" href="https://www.asustor.com/apps/app_detail?id=552">https://www.asustor.com/apps/app_detail?id=552</a></p></li>
+<li><p><a class="reference external" href="https://susestudio.com/a/qkdvwb/syncthing">https://susestudio.com/a/qkdvwb/syncthing</a></p></li>
+<li><p><a class="reference external" href="https://source.ind.ie/project/pulse-swift/tree/master">https://source.ind.ie/project/pulse-swift/tree/master</a></p></li>
+<li><p><a class="reference external" href="https://github.com/icaruseffect/syncthing-ubuntu-indicator">https://github.com/icaruseffect/syncthing-ubuntu-indicator</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bloones/SyncThingWin">https://github.com/bloones/SyncThingWin</a></p></li>
+<li><p><a class="reference external" href="https://github.com/thunderbirdtr/syncthing_rpm">https://github.com/thunderbirdtr/syncthing_rpm</a></p></li>
+<li><p><a class="reference external" href="https://github.com/dapperstout/pulse-java">https://github.com/dapperstout/pulse-java</a></p></li>
+<li><p><a class="reference external" href="https://github.com/cebe/pulse-php-discover">https://github.com/cebe/pulse-php-discover</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sebw/bitbar-plugins">https://github.com/sebw/bitbar-plugins</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nhojb/SyncthingBar">https://github.com/nhojb/SyncthingBar</a></p></li>
+<li><p><a class="reference external" href="https://github.com/iss0/SyncthingTray">https://github.com/iss0/SyncthingTray</a></p></li>
+<li><p><a class="reference external" href="https://github.com/alex2108/syncthing-tray">https://github.com/alex2108/syncthing-tray</a></p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/contrib.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="autostart.html" title="previous chapter">Starting Syncthing Automatically</a></li>
+      <li>Next: <a href="profiling.html" title="next chapter">Profiling</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

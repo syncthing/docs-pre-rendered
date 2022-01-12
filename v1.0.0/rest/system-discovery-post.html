@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>POST /rest/system/discovery &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="3.10. REST API" href="../dev/rest.html"/>
+        <link rel="next" title="POST /rest/system/error/clear" href="system-error-clear-post.html"/>
+        <link rel="prev" title="GET /rest/system/discovery" href="system-discovery-get.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">3. Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">3.2. Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">3.3. Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">3.4. Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">3.5. Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">3.6. Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">3.7. Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">3.8. Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">3.9. Release Signing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/rest.html">3.10. REST API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#api-key">3.10.1. API Key</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dev/rest.html#system-endpoints">3.10.2. System Endpoints</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="system-browse-get.html">GET /rest/system/browse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-config-get.html">GET /rest/system/config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-config-insync-get.html">GET /rest/system/config/insync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-config-post.html">POST /rest/system/config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-connections-get.html">GET /rest/system/connections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-debug-get.html">GET /rest/system/debug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-debug-post.html">POST /rest/system/debug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-discovery-get.html">GET /rest/system/discovery</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">POST /rest/system/discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-error-clear-post.html">POST /rest/system/error/clear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-error-get.html">GET /rest/system/error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-error-post.html">POST /rest/system/error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-log-get.html">GET /rest/system/log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-pause-post.html">POST /rest/system/pause</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-ping-get.html">GET /rest/system/ping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-ping-post.html">POST /rest/system/ping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-reset-post.html">POST /rest/system/reset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-restart-post.html">POST /rest/system/restart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-resume-post.html">POST /rest/system/resume</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-shutdown-post.html">POST /rest/system/shutdown</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-status-get.html">GET /rest/system/status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-upgrade-get.html">GET /rest/system/upgrade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-upgrade-post.html">POST /rest/system/upgrade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system-version-get.html">GET /rest/system/version</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#database-endpoints">3.10.3. Database Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#event-endpoints">3.10.4. Event Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#statistics-endpoints">3.10.5. Statistics Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#misc-services-endpoints">3.10.6. Misc Services Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html">3.11. Event API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../dev/index.html"><span class="section-number">3. </span>Development</a> &raquo;</li>
+        
+          <li><a href="../dev/rest.html"><span class="section-number">3.10. </span>REST API</a> &raquo;</li>
+        
+      <li>POST /rest/system/discovery</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/rest/system-discovery-post.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="post-rest-system-discovery">
+<h1>POST /rest/system/discovery<a class="headerlink" href="#post-rest-system-discovery" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Removed in v0.12.0.</p>
+</div>
+<p>Post with the query parameters <code class="docutils literal notranslate"><span class="pre">device</span></code> and <code class="docutils literal notranslate"><span class="pre">addr</span></code> to add entries to
+the discovery cache.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST http://127.0.0.1:8384/rest/system/discovery?device<span class="o">=</span>LGFPDIT7SKNNJVJZA4FC7QNCRKCE753K72BW5QD2FOZ7FRFEP57Q<span class="se">\&amp;</span><span class="nv">addr</span><span class="o">=</span><span class="m">192</span>.162.129.11:22000
+<span class="c1"># Or with the X-API-Key header:</span>
+curl -X POST --header <span class="s2">&quot;X-API-Key: TcE28kVPdtJ8COws1JdM0b2nodj77WeQ&quot;</span> http://127.0.0.1:8384/rest/system/discovery?device<span class="o">=</span>LGFPDIT7SKNNJVJZA4FC7QNCRKCE753K72BW5QD2FOZ7FRFEP57Q<span class="se">\&amp;</span><span class="nv">addr</span><span class="o">=</span><span class="m">192</span>.162.129.11:22000
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="system-error-clear-post.html" class="btn btn-neutral float-right" title="POST /rest/system/error/clear" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="system-discovery-get.html" class="btn btn-neutral" title="GET /rest/system/discovery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

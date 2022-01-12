@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>copyRangeMethod &#8212; Syncthing v1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="disableFsync" href="folder-disable-fsync.html" />
+    <link rel="prev" title="caseSensitiveFS" href="folder-caseSensitiveFS.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="copyrangemethod">
+<span id="folder-copyrangemethod"></span><h1>copyRangeMethod<a class="headerlink" href="#copyrangemethod" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.8.0.</span></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an experimental, partially untested feature.</p>
+</div>
+<p>Provides a choice of method for copying data between files. This can be used
+to optimise copies on network filesystems, improve speed of large copies or
+clone the data using copy-on-write functionality if the underlying
+filesystem supports it.</p>
+<p>The following values are accepted:</p>
+<blockquote>
+<div><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">standard</span></code> (default)</dt><dd><p>Reads the data from source file into application memory, writes the
+data from application memory into the destination file. (This is the
+method used by Syncthing prior to this option being introduced.)</p>
+<p><em>Available on: All platforms</em></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">copy_file_range</span></code></dt><dd><p>Uses the Linux <code class="docutils literal notranslate"><span class="pre">copy_file_range</span></code> syscall which, if the underlying
+filesystem supports it, uses copy-on-write semantics to clone the
+data. Introduced in Linux 4.5 and tested on XFS and BTRFS. Some
+network filesystems might use this to perform server-side copies.</p>
+<div class="line-block">
+<div class="line"><em>Tested on: BTRFS, XFS</em></div>
+<div class="line"><em>Available on: Linux</em></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ioctl</span></code></dt><dd><p>Uses the <code class="docutils literal notranslate"><span class="pre">ioctl</span></code> syscall with <code class="docutils literal notranslate"><span class="pre">FICLONERANGE</span></code> option which, if
+the underlying filesystem supports it, uses copy-on-write semantics
+to clone the data. Officially introduced in Linux 4.5, but was
+previously known as <code class="docutils literal notranslate"><span class="pre">BTRFS_IOC_CLONE_RANGE</span></code>, which was used to
+provide copy-on-write semantics to BTRFS filesystems since Linux
+2.6.29. Some network filesystems might use this to perform
+server-side copies. Will fail if not supported by the underlying
+filesystem.</p>
+<div class="line-block">
+<div class="line"><em>Tested on: BTRFS</em></div>
+<div class="line"><em>Not available on: Windows, Solaris, macOS (Darwin)</em></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">sendfile</span></code></dt><dd><p>Uses the <code class="docutils literal notranslate"><span class="pre">sendfile</span></code> syscall which performs in-kernel copy,
+avoiding having to copy the data into application memory.</p>
+<div class="line-block">
+<div class="line"><em>Tested on: BTRFS, XFS</em></div>
+<div class="line"><em>Not available on: Windows, macOS (Darwin)</em></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">duplicate_extents</span></code></dt><dd><p>Uses Windows Block Cloning via <code class="docutils literal notranslate"><span class="pre">FSCTL_DUPLICATE_EXTENTS_TO_FILE</span></code>,
+which provides copy-on-write semantics to clone the data. Requires
+Windows Server 2016 or later, and a compatible filesystem (ReFS, SMB
+3.1.1, CsvFS). Will fail if not supported by the underlying
+filesystem.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Completely untested, use at your own risk.</p>
+</div>
+<div class="line-block">
+<div class="line"><em>Available on: Windows</em></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">all</span></code></dt><dd><p>Tries all of the copy methods in the following order: <code class="docutils literal notranslate"><span class="pre">ioctl</span></code>,
+<code class="docutils literal notranslate"><span class="pre">copy_file_range</span></code>, <code class="docutils literal notranslate"><span class="pre">sendfile</span></code>, <code class="docutils literal notranslate"><span class="pre">duplicate_extents</span></code>,
+<code class="docutils literal notranslate"><span class="pre">standard</span></code>.</p>
+<p><em>Available on: All platforms</em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not recommended on Windows as it has not been tested, might be
+very costly on all other platforms.</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/advanced/folder-copyrangemethod.rst" rel="nofollow">Edit this page on GitHub</a>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../users/index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html">Configuration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../users/advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../users/index.html">Usage</a><ul>
+  <li><a href="../users/advanced.html">Advanced Configuration</a><ul>
+      <li>Previous: <a href="folder-caseSensitiveFS.html" title="previous chapter">caseSensitiveFS</a></li>
+      <li>Next: <a href="folder-disable-fsync.html" title="next chapter">disableFsync</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

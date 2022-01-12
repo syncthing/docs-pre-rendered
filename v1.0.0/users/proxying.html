@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.12. Using Proxies &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="2. Usage" href="index.html"/>
+        <link rel="next" title="2.13. Ignoring Files" href="ignoring.html"/>
+        <link rel="prev" title="2.11. Relaying" href="relaying.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">2.1. Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">2.2. FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">2.3. Release Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">2.4. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">2.5. Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">2.6. Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">2.7. Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">2.8. The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">2.9. Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">2.10. Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">2.11. Relaying</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.12. Using Proxies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#disabling-fallback">2.12.1. Disabling Fallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#caveats">2.12.2. Caveats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">2.13. Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">2.14. File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">2.15. Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">2.16. Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">2.17. Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">2.18. Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">2.19. Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">2.20. Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">2.21. Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">2.22. Security Principles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">2. </span>Usage</a> &raquo;</li>
+        
+      <li><span class="section-number">2.12. </span>Using Proxies</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/users/proxying.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-proxies">
+<span id="proxying"></span><h1><span class="section-number">2.12. </span>Using Proxies<a class="headerlink" href="#using-proxies" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.12.0.</span></p>
+</div>
+<p>Syncthing can run behind a SOCKS5 proxy. This enables use behind some corporate
+firewalls, tunneling via SSH, and over Tor. The Syncthing instance that is
+behind the proxy is limited to outbound connections - it can not listen for
+incoming connections via the proxy. It is however possible to receive incoming
+connections via <a class="reference internal" href="relaying.html#relaying"><span class="std std-ref">Relaying</span></a>.</p>
+<p>There is no graphical configuration to enable proxy usage in Syncthing.
+Instead, an environment variable <code class="docutils literal notranslate"><span class="pre">all_proxy</span></code> must be set that points to the
+proxy. The value of this variable is the proxy URL. For example, on a
+Linux-like system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export all_proxy=socks5://10.20.30.40:5060
+$ syncthing
+[monitor] 11:25:39 INFO: Starting syncthing
+...
+[monitor] 11:25:40 INFO: Proxy settings detected
+</pre></div>
+</div>
+<p>Note that this environment variable is <em>not</em> named with capital letters - it
+must be exactly <code class="docutils literal notranslate"><span class="pre">all_proxy</span></code>. The “Proxy settings detected” log message
+indicates that Syncthing is using the proxy configuration.</p>
+<div class="section" id="disabling-fallback">
+<h2><span class="section-number">2.12.1. </span>Disabling Fallback<a class="headerlink" href="#disabling-fallback" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.13.0.</span></p>
+</div>
+<p>By default, Syncthing will attempt a direct connection if a connection via the
+proxy fails. This is desirable when moving frequently between a proxied and
+non-proxied environment. However it may be undesirable if the intention is to
+force all connections through a Tor proxy or similar. In that case, setting the
+environment variable <code class="docutils literal notranslate"><span class="pre">ALL_PROXY_NO_FALLBACK</span></code> (with capital letters) will
+prevent the fallback behavior. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export all_proxy=socks5://10.20.30.40:5060
+$ export ALL_PROXY_NO_FALLBACK=1
+$ syncthing
+[monitor] 11:33:13 INFO: Starting syncthing
+...
+[monitor] 11:33:13 INFO: Proxy settings detected
+[monitor] 11:33:13 INFO: Proxy fallback disabled
+</pre></div>
+</div>
+</div>
+<div class="section" id="caveats">
+<h2><span class="section-number">2.12.2. </span>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing will use the <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code> / <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code> settings in combination with
+<code class="docutils literal notranslate"><span class="pre">all_proxy</span></code>. Proxys specified with <code class="docutils literal notranslate"><span class="pre">http_</span></code> variants will be used behind the socks proxy.</p>
+<p>If this is not desired, make sure to undefine the <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code> / <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code>
+variables for syncthing.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ignoring.html" class="btn btn-neutral float-right" title="2.13. Ignoring Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="relaying.html" class="btn btn-neutral" title="2.11. Relaying" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

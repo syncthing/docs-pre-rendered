@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.2. Global Discovery v3 &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="4. Specifications" href="index.html"/>
+        <link rel="next" title="4.3. Local Discovery Protocol v4" href="localdisco-v4.html"/>
+        <link rel="prev" title="4.1. Block Exchange Protocol v1" href="bep-v1.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">3. Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. Specifications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html">4.1. Block Exchange Protocol v1</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Global Discovery v3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#announcements">4.2.1. Announcements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#queries">4.2.2. Queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication">4.2.3. Authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="localdisco-v4.html">4.3. Local Discovery Protocol v4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relay-v1.html">4.4. Relay Protocol v1</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">4. </span>Specifications</a> &raquo;</li>
+        
+      <li><span class="section-number">4.2. </span>Global Discovery v3</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/specs/globaldisco-v3.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="global-discovery-v3">
+<span id="globaldisco-v3"></span><h1><span class="section-number">4.2. </span>Global Discovery v3<a class="headerlink" href="#global-discovery-v3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="announcements">
+<h2><span class="section-number">4.2.1. </span>Announcements<a class="headerlink" href="#announcements" title="Permalink to this headline">¶</a></h2>
+<p>A device should announce itself at startup. It does this by an HTTPS POST to
+the announce server URL. Standard discovery currently requires the path to be
+“/v2/”, yet this can be up to the discovery server. The POST has a JSON payload
+listing connection addresses (if any):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="n">addresses</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;tcp://192.0.2.45:22000&quot;</span><span class="p">,</span> <span class="s2">&quot;tcp://:22202&quot;</span><span class="p">,</span> <span class="s2">&quot;relay://192.0.2.99:22028&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It’s OK for the “addresses” field to be either the empty list (<code class="docutils literal notranslate"><span class="pre">[]</span></code>),
+<code class="docutils literal notranslate"><span class="pre">null</span></code>, or missing entirely. An announcement with the field missing
+or empty is however not useful…</p>
+<p>Any empty or unspecified IP addresses (i.e. addresses like <code class="docutils literal notranslate"><span class="pre">tcp://:22000</span></code>,
+<code class="docutils literal notranslate"><span class="pre">tcp://0.0.0.0:22000</span></code>, <code class="docutils literal notranslate"><span class="pre">tcp://[::]:22000</span></code>) are interpreted as referring to
+the source IP address of the announcement.</p>
+<p>The device ID of the announcing device is not part of the announcement.
+Instead, the server requires that the client perform certificate
+authentication. The device ID is deduced from the presented certificate.</p>
+<p>The server response is empty, with code <code class="docutils literal notranslate"><span class="pre">204</span></code> (No Content) on success. If no
+certificate was presented, status <code class="docutils literal notranslate"><span class="pre">403</span></code> (Forbidden) is returned. If the
+posted data doesn’t conform to the expected format, <code class="docutils literal notranslate"><span class="pre">400</span></code> (Bad Request) is
+returned.</p>
+<p>In successful responses, the server may return a <code class="docutils literal notranslate"><span class="pre">Reannounce-After</span></code> header
+containing the number of seconds after which the client should perform a new
+announcement.</p>
+<p>In error responses, the server may return a <code class="docutils literal notranslate"><span class="pre">Retry-After</span></code> header containing
+the number of seconds after which the client should retry.</p>
+<p>Performing announcements significantly more often than indicated by the
+<code class="docutils literal notranslate"><span class="pre">Reannounce-After</span></code> or <code class="docutils literal notranslate"><span class="pre">Retry-After</span></code> headers may result in the client being
+throttled. In such cases the server may respond with status code <code class="docutils literal notranslate"><span class="pre">429</span></code> (Too
+Many Requests).</p>
+</div>
+<div class="section" id="queries">
+<h2><span class="section-number">4.2.2. </span>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h2>
+<p>Queries are performed as HTTPS GET requests to the announce server URL. The
+requested device ID is passed as the query parameter “device”, in canonical
+string form, i.e. <code class="docutils literal notranslate"><span class="pre">https://discovery.syncthing.net/?device=ABC12345-....</span></code></p>
+<p>Successful responses will have status code <code class="docutils literal notranslate"><span class="pre">200</span></code> (OK) and carry a JSON payload
+of the same format as the announcement above. The response will not contain
+empty or unspecified addresses.</p>
+<p>If the “device” query parameter is missing or malformed, the status code 400
+(Bad Request) is returned.</p>
+<p>If the device ID is of a valid format but not found in the registry, 404 (Not
+Found) is returned.</p>
+<p>If the client has exceeded a rate limit, the server may respond with 429 (Too
+Many Requests).</p>
+</div>
+<div class="section" id="authentication">
+<h2><span class="section-number">4.2.3. </span>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>Global discovery is spoken over HTTPS and is protected against attackers in
+the same manner as other HTTPS traffic. However, there are a few Syncthing
+specific considerations on top of this. As mentioned above, for
+announcements the client must provide a certificate to prove ownership of
+the announced device ID.</p>
+<p>In addition, Syncthing has a mechanism to verify the identity of the
+discovery server.  While this would normally be accomplished by using a CA
+signed certificate, Syncthing often runs in environments with outdated or
+simply nonexistent root CA bundles. Instead, Syncthing can verify the
+discovery server certificate fingerprint using the device ID mechanism. This
+is certificate pinning and conveyed in the Syncthing configuration as a
+synthetic “id” parameter on the discovery server URL:
+<code class="docutils literal notranslate"><span class="pre">https://discovery.syncthing.net/?id=...</span></code>. The “id” parameter is not, in
+fact, sent to the discovery server - it’s used by Syncthing itself to know
+which certificate to expect on the server side.</p>
+<p>The public discovery network uses this authentication mechanism instead of
+CA signed certificates.</p>
+<p>The discovery server prints its certificate ID in this manner on startup.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="localdisco-v4.html" class="btn btn-neutral float-right" title="4.3. Local Discovery Protocol v4" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bep-v1.html" class="btn btn-neutral" title="4.1. Block Exchange Protocol v1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

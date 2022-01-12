@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3.11. Event API &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="3. Development" href="index.html"/>
+        <link rel="next" title="ConfigSaved" href="../events/configsaved.html"/>
+        <link rel="prev" title="GET /rest/svc/report" href="../rest/svc-report-get.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">3.2. Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">3.3. Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">3.4. Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">3.5. Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">3.6. Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">3.7. Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">3.8. Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">3.9. Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">3.10. REST API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.11. Event API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#description">3.11.1. Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#event-structure">3.11.2. Event Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#event-types">3.11.3. Event Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../events/configsaved.html">ConfigSaved</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/deviceconnected.html">DeviceConnected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/devicedisconnected.html">DeviceDisconnected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/devicediscovered.html">DeviceDiscovered</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/devicepaused.html">DevicePaused</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/devicerejected.html">DeviceRejected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/deviceresumed.html">DeviceResumed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/downloadprogress.html">DownloadProgress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/foldercompletion.html">FolderCompletion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/foldererrors.html">FolderErrors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/folderrejected.html">FolderRejected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/folderscanprogress.html">Folder Scan Progress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/foldersummary.html">FolderSummary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/itemfinished.html">ItemFinished</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/itemstarted.html">ItemStarted</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/listenaddresseschanged.html">Listen Addresses Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/localchangedetected.html">LocalChangeDetected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/localindexupdated.html">LocalIndexUpdated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/loginattempt.html">Login Attempt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/remotechangedetected.html">RemoteChangeDetected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/remotedownloadprogress.html">Remote Download Progress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/remoteindexupdated.html">RemoteIndexUpdated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/starting.html">Starting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/startupcomplete.html">StartupComplete</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../events/statechanged.html">StateChanged</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">3. </span>Development</a> &raquo;</li>
+        
+      <li><span class="section-number">3.11. </span>Event API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/dev/events.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="event-api">
+<span id="id1"></span><h1><span class="section-number">3.11. </span>Event API<a class="headerlink" href="#event-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2><span class="section-number">3.11.1. </span>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Syncthing provides a simple long polling interface for exposing events from the
+core utility towards a GUI. To receive events, see <a class="reference internal" href="../rest/events-get.html#events-get"><span class="std std-ref">GET /rest/events</span></a>.</p>
+</div>
+<div class="section" id="event-structure">
+<h2><span class="section-number">3.11.2. </span>Event Structure<a class="headerlink" href="#event-structure" title="Permalink to this headline">¶</a></h2>
+<p>Each event is represented by an object similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;globalID&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DeviceConnected&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-07-13T21:04:33.687836696+02:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;addr&quot;</span><span class="p">:</span> <span class="s2">&quot;172.16.32.25:22000&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;NFGKEKE-7Z6RTH7-I3PRZXS-DEJF3UJ-FRWJBFO-VBBTDND-4SGNGVZ-QUQHJAG&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The top level keys <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">globalID</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> are always present,
+though <code class="docutils literal notranslate"><span class="pre">data</span></code> may be <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
+<dl class="simple">
+<dt>id</dt><dd><p>A unique ID for this event on the events API. It always increases by 1: the first
+event generated has id <code class="docutils literal notranslate"><span class="pre">1</span></code>, the next has id <code class="docutils literal notranslate"><span class="pre">2</span></code> etc. If this increases by
+more than 1, then one or more events have been skipped by the events API.</p>
+</dd>
+<dt>globalID</dt><dd><p>A global ID for this event, across the events API, the audit log, and any other
+sources. It may increase by more than 1, but it will always be greater
+than or equal to the id.</p>
+</dd>
+<dt>time</dt><dd><p>The time the event was generated.</p>
+</dd>
+<dt>type</dt><dd><p>Indicates the type of (i.e. reason for) the event and is one of the event
+types below.</p>
+</dd>
+<dt>data</dt><dd><p>An object containing optional extra information; the exact structure is
+determined by the event type.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="event-types">
+<span id="id2"></span><h2><span class="section-number">3.11.3. </span>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../events/configsaved.html">ConfigSaved</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/deviceconnected.html">DeviceConnected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicedisconnected.html">DeviceDisconnected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicediscovered.html">DeviceDiscovered</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicepaused.html">DevicePaused</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/devicerejected.html">DeviceRejected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/deviceresumed.html">DeviceResumed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/downloadprogress.html">DownloadProgress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/foldercompletion.html">FolderCompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/foldererrors.html">FolderErrors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/folderrejected.html">FolderRejected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/folderscanprogress.html">Folder Scan Progress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/foldersummary.html">FolderSummary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/itemfinished.html">ItemFinished</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/itemstarted.html">ItemStarted</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/listenaddresseschanged.html">Listen Addresses Changed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/localchangedetected.html">LocalChangeDetected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/localindexupdated.html">LocalIndexUpdated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/loginattempt.html">Login Attempt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/remotechangedetected.html">RemoteChangeDetected</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/remotedownloadprogress.html">Remote Download Progress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/remoteindexupdated.html">RemoteIndexUpdated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/starting.html">Starting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/startupcomplete.html">StartupComplete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../events/statechanged.html">StateChanged</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../events/configsaved.html" class="btn btn-neutral float-right" title="ConfigSaved" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../rest/svc-report-get.html" class="btn btn-neutral" title="GET /rest/svc/report" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FAQ &mdash; Syncthing v0.12 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v0.12 documentation" href="../index.html"/>
+        <link rel="next" title="Firewall Setup" href="firewall.html"/>
+        <link rel="prev" title="Syncthing Configuration" href="config.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> Syncthing
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro/getting-started.html#syncthing">Syncthing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#configuring">Configuring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/gui.html">An intro to the GUI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/gui.html#folder-view">Folder View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/gui.html#device-view">Device View</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/project-presentation.html">Project Presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing">Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing-android">syncthing-android</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing-inotify">syncthing-inotify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/project-presentation.html#syncthing-gtk">Syncthing-GTK</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">For Users</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html#exit-codes">Exit Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html#development-settings">Development Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#config-file-format">Config File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#configuration-element">Configuration Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#folder-element">Folder Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#device-element">Device Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#gui-element">GUI Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#options-element">Options Element</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general">General</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-syncthing">What is Syncthing?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-it-syncthing-syncthing-or-syncthing">Is it “syncthing”, “Syncthing” or “SyncThing”?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-does-syncthing-differ-from-bittorrent-sync">How does Syncthing differ from BitTorrent Sync?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-things-are-synced">What things are synced?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-synchronization-fast">Is synchronization fast?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#should-i-keep-my-device-ids-secret">Should I keep my device IDs secret?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-if-there-is-a-conflict">What if there is a conflict?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-configure-multiple-users-on-a-single-machine">How to configure multiple users on a single machine?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-syncthing-my-ideal-backup-application">Is Syncthing my ideal backup application?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-is-there-no-ios-client">Why is there no iOS client?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-does-it-use-so-much-cpu">Why does it use so much CPU?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-can-i-exclude-files-with-brackets-in-the-name">How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-is-the-setup-more-complicated-than-btsync">Why is the setup more complicated than BTSync?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-do-i-access-the-web-gui-from-another-computer">How do I access the web GUI from another computer?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-do-i-see-syncthing-twice-in-task-manager">Why do I see Syncthing twice in task manager?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#where-do-syncthing-logs-go-to">Where do Syncthing logs go to?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-do-i-upgrade-syncthing">How do I upgrade Syncthing?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#where-do-i-find-the-latest-release">Where do I find the latest release?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="firewall.html">Firewall Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#port-forwards">Port Forwards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#local-firewall">Local Firewall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#remote-web-gui">Remote Web GUI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="firewall.html#tunneling-via-ssh">Tunneling via SSH</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#per-folder-settings">Per Folder Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/folder-autonormalize.html">autoNormalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/folder-autonormalize.html#background">Background</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/folder-ignoredelete.html">ignoreDelete</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/folder-ignoredelete.html#example-scenario">Example Scenario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html#windows">Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#third-party-tools">Third-party Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#start-on-login">Start on Login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#run-independent-of-user-login">Run independent of user login</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html#mac-os-x">Mac OS X</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#using-homebrew">Using homebrew</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#without-homebrew">Without homebrew</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html#linux">Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#on-ubuntu-like-systems">On Ubuntu-like systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#using-supervisord">Using Supervisord</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autostart.html#using-systemd">Using systemd</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autostart.html#how-to-set-up-a-system-service">How to set up a system service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autostart.html#how-to-set-up-a-user-service">How to set up a user service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autostart.html#checking-the-service-status">Checking the service status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autostart.html#using-the-journal">Using the journal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autostart.html#permissions">Permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autostart.html#debugging">Debugging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Community Contributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html#gui-wrappers">GUI Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#cross-platform">Cross-platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#android">Android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#os-x">OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#kindle-touch">Kindle Touch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html#packages-and-bundlings">Packages and Bundlings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#debian-ubuntu">Debian / Ubuntu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#archlinux">ArchLinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#arkos">arkOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#docker">Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#gentoo">Gentoo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#freebsd">FreeBSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#opensuse">OpenSUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#synology-nas">Synology NAS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#qnap-nas">QNAP NAS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html#integrations">Integrations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#rest-api-bindings">REST API Bindings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#ports">Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contrib.html#configuration-management">Configuration management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html#older-possibly-unmaintained">Older, Possibly Unmaintained</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="discosrv.html">Running a Discovery Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="discosrv.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discosrv.html#installing">Installing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discosrv.html#pointing-syncthing-at-your-discovery-server">Pointing Syncthing at Your Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discosrv.html#configuring">Configuring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="discosrv.html#linux">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="discosrv.html#windows">Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="foldermaster.html">Folder Master</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignoring.html">Ignoring Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html#patterns">Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html#effects-on-in-sync-status">Effects on “In Sync” Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="relaying.html">Relaying</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html#security">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html#running-your-own-relay">Running Your Own Relay</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html#server-configuration">Server Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reverseproxy.html#apache">Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reverseproxy.html#nginx">Nginx</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html#folder-configuration">Folder Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reverseproxy.html#id2">Apache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security Principles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="security.html#information-leakage">Information Leakage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="security.html#global-discovery">Global Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="security.html#local-discovery">Local Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="security.html#upgrade-checks">Upgrade Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="security.html#usage-reporting">Usage Reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="security.html#sync-connections-bep">Sync Connections (BEP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="security.html#web-gui">Web GUI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#in-short">In Short</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">File Versioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#trash-can-file-versioning">Trash Can File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#simple-file-versioning">Simple File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#staggered-file-versioning">Staggered File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html#external-file-versioning">External File Versioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="versioning.html#example-for-unixes">Example for Unixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#contributing-to-the-syncthing-core">Contributing to the Syncthing Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/intro.html#source-code-layout">Source Code Layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/intro.html#why-are-you-being-so-hard-on-my-pull-request">Why are you being so hard on my pull request?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/building.html">Building Syncthing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#branches-and-tags">Branches and Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-unix">Building (Unix)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-windows">Building (Windows)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#subcommands-and-options">Subcommands and Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-without-git">Building without Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html#building-with-docker">Building with Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/contributing.html">Contribution Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#authorship">Authorship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#coding-style">Coding Style</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/contributing.html#general">General</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/contributing.html#go-specific">Go Specific</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#commits">Commits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#branches">Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#tags">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html#licensing">Licensing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/debugging.html">Debugging Syncthing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#sttrace">STTRACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stprofiler">STPROFILER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stguiassets">STGUIASSETS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stcpuprofile">STCPUPROFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stheapprofile">STHEAPPROFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stblockprofile">STBLOCKPROFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stperfstats">STPERFSTATS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#stnoupgrade">STNOUPGRADE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#gomaxprocs">GOMAXPROCS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/debugging.html#gogc">GOGC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/device-ids.html">Understanding Device IDs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#keys">Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#id1">Device IDs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/device-ids.html#connection-establishment">Connection Establishment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#an-aside-about-collisions">An Aside About Collisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html#problems-and-vulnerabilities">Problems and Vulnerabilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/device-ids.html#discovery-spoofing">Discovery Spoofing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/device-ids.html#long-device-ids-are-painful">Long Device IDs are Painful</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/events.html">Event API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html#event-structure">Event Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html#events">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../events/configsaved.html">ConfigSaved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/deviceconnected.html">DeviceConnected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/devicedisconnected.html">DeviceDisconnected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/devicediscovered.html">DeviceDiscovered</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/devicerejected.html">DeviceRejected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/downloadprogress.html">DownloadProgress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/foldercompletion.html">FolderCompletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/foldererrors.html">FolderErrors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/folderrejected.html">FolderRejected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/foldersummary.html">FolderSummary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/itemfinished.html">ItemFinished</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/itemstarted.html">ItemStarted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/localindexupdated.html">LocalIndexUpdated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/ping.html">Ping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/remoteindexupdated.html">RemoteIndexUpdated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/starting.html">Starting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/startupcomplete.html">StartupComplete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../events/statechanged.html">StateChanged</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/infrastructure.html">Syncthing Infrastructure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#github">GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#main-documenatation-websites">Main &amp; Documenatation Websites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#forum-website">Forum Website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#global-discovery-servers">Global Discovery Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#relay-pool-server">Relay Pool Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#relay-servers">Relay Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#usage-reporting-server">Usage Reporting Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#build-servers-core-and-android">Build Servers, Core and Android</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#osx-and-windows-build-slaves">OSX and Windows Build Slaves</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#apt-server">APT Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html#signing-server">Signing Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/issues.html">Issue Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#labels">Labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#milestone">Milestone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#assignee">Assignee</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html#locking">Locking</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/jenkins.html">Interacting with Jenkins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-creation.html">Creating a Release</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html#process">Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-schedule.html">Release Schedule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#patch-releases">Patch Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#minor-releases">Minor Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-schedule.html#major-releases">Major Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/release-signing.html">Release Signing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html#checksum-files">Checksum Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html#binary-signing">Binary Signing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../dev/release-signing.html#creating-and-verifying-binary-signatures-manually">Creating and Verifying Binary Signatures Manually</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/rest.html">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#api-key">API Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#system-endpoints">System Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-config-get.html">GET /rest/system/config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-config-insync-get.html">GET /rest/system/config/insync</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-config-post.html">POST /rest/system/config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-connections-get.html">GET /rest/system/connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-debug-get.html">GET /rest/system/debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-debug-post.html">POST /rest/system/debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-discovery-get.html">GET /rest/system/discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-discovery-post.html">POST /rest/system/discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-error-clear-post.html">POST /rest/system/error/clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-error-get.html">GET /rest/system/error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-error-post.html">POST /rest/system/error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-log-get.html">GET /rest/system/log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-ping-get.html">GET /rest/system/ping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-ping-post.html">POST /rest/system/ping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-reset-post.html">POST /rest/system/reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-restart-post.html">POST /rest/system/restart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-shutdown-post.html">POST /rest/system/shutdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-status-get.html">GET /rest/system/status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-upgrade-get.html">GET /rest/system/upgrade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-upgrade-post.html">POST /rest/system/upgrade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/system-version-get.html">GET /rest/system/version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#database-endpoints">Database Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-browse-get.html">GET /rest/db/browse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-completion-get.html">GET /rest/db/completion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-file-get.html">GET /rest/db/file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-ignores-get.html">GET /rest/db/ignores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-ignores-post.html">POST /rest/db/ignores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-need-get.html">GET /rest/db/need</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-prio-post.html">POST /rest/db/prio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-scan-post.html">POST /rest/db/scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/db-status-get.html">GET /rest/db/status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#statistics-endpoints">Statistics Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/stats-device-get.html">GET /rest/stats/device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/stats-folder-get.html">GET /rest/stats/folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html#misc-services-endpoints">Misc Services Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rest/svc-deviceid-get.html">GET /rest/svc/deviceid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/svc-lang-get.html">GET /rest/svc/lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rest/svc-report-get.html">GET /rest/svc/report</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Specifications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#introduction-and-definitions">Introduction and Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#transport-and-authentication">Transport and Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#messages">Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#cluster-config-type-0">Cluster Config (Type = 0)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#graphical-representation">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#fields-clusterconfigmessage">Fields (ClusterConfigMessage)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#fields-folder-structure">Fields (Folder Structure)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#fields-device-structure">Fields (Device Structure)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#xdr">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#index-type-1-and-index-update-type-6">Index (Type = 1) and Index Update (Type = 6)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id1">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#fields-index-message">Fields (Index Message)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#fields-fileinfo-structure">Fields (FileInfo Structure)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id2">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#request-type-2">Request (Type = 2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id3">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#fields">Fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id4">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#response-type-3">Response (Type = 3)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id5">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id6">Fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id7">XDR</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#ping-type-4">Ping (Type = 4)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#close-type-7">Close (Type = 7)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id8">Graphical Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../specs/bep-v1.html#id9">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#sharing-modes">Sharing Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#trusted">Trusted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/bep-v1.html#read-only">Read Only</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#message-limits">Message Limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#example-exchange">Example Exchange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#examples-of-strong-cipher-suites">Examples of Strong Cipher Suites</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/globaldisco-v3.html">Global Discovery v3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../specs/globaldisco-v3.html#announcements">Announcements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/globaldisco-v3.html#queries">Queries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/localdisco-v3.html">Local Discovery Protocol v3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../specs/localdisco-v3.html#mode-of-operation">Mode of Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/localdisco-v3.html#device-id">Device ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/localdisco-v3.html#announcement-packet">Announcement packet</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/relay-v1.html">Relay Protocol v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#what-is-a-relay">What is a relay?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#operation-modes">Operation modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#identifying-the-connection-mode">Identifying the connection mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#protocol-mode">Protocol mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#permanent-protocol-submode">Permanent protocol submode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#temporary-protocol-submode">Temporary protocol submode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#example-exchange">Example Exchange</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#session-mode">Session mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#id1">Example Exchange</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#messages">Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#header-structure">Header structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#ping-message-type-0">Ping message (Type = 0)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#pong-message-type-1">Pong message (Type = 1)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#joinrelayrequest-message-type-2">JoinRelayRequest message (Type = 2)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#joinsessionrequest-message-type-3">JoinSessionRequest message (Type = 3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#response-message-type-4">Response message (Type = 4)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#connectrequest-message-type-5">ConnectRequest message (Type = 5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../specs/relay-v1.html#sessioninvitation-message-type-6">SessionInvitation message (Type = 6)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#how-syncthing-uses-relays-and-general-security">How syncthing uses relays, and general security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specs/relay-v1.html#examples-of-strong-cipher-suites">Examples of Strong Cipher Suites</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Syncthing</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>FAQ</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="https://github.com/syncthing/docs/blob/master/users/faq.rst" class="fa fa-github"> Edit on GitHub</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="faq">
+<span id="id1"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-is-syncthing">
+<h3>What is Syncthing?<a class="headerlink" href="#what-is-syncthing" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing is an application that lets you synchronize your files across multiple
+devices. This means the creation, modification or deletion of files on one
+machine will automatically be replicated to your other devices. We believe your
+data is your data alone and you deserve to choose where it is stored. Therefore
+Syncthing does not upload your data to the cloud but exchanges your data across
+your machines as soon as they are online at the same time.</p>
+</div>
+<div class="section" id="is-it-syncthing-syncthing-or-syncthing">
+<h3>Is it “syncthing”, “Syncthing” or “SyncThing”?<a class="headerlink" href="#is-it-syncthing-syncthing-or-syncthing" title="Permalink to this headline">¶</a></h3>
+<p>It’s <strong>Syncthing</strong>, although the command and source repository is spelled
+<code class="docutils literal notranslate"><span class="pre">syncthing</span></code> so it may be referred to in that way as well. It’s definitely not
+<span class="strike">SyncThing</span>, even though the abbreviation <code class="docutils literal notranslate"><span class="pre">st</span></code> is used in some
+circumstances and file names.</p>
+</div>
+<div class="section" id="how-does-syncthing-differ-from-bittorrent-sync">
+<h3>How does Syncthing differ from BitTorrent Sync?<a class="headerlink" href="#how-does-syncthing-differ-from-bittorrent-sync" title="Permalink to this headline">¶</a></h3>
+<p>The two are different and not related. Syncthing and BitTorrent Sync accomplish
+some of the same things, namely syncing files between two or more computers.</p>
+<p>BitTorrent Sync by BitTorrent, Inc is a proprietary peer-to-peer file
+synchronization tool available for Windows, Mac, Linux, Android, iOS, Windows
+Phone, Amazon Kindle Fire and BSD. <a class="footnote-reference brackets" href="#btsync" id="id2">1</a> Syncthing is an open source file
+synchronization tool.</p>
+<p>Syncthing uses an open and documented protocol, and likewise the security
+mechanisms in use are well defined and visible in the source code. BitTorrent
+Sync uses an undocumented, closed protocol with unknown security properties.</p>
+<dl class="footnote brackets">
+<dt class="label" id="btsync"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="http://en.wikipedia.org/wiki/BitTorrent_Sync">http://en.wikipedia.org/wiki/BitTorrent_Sync</a></p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-things-are-synced">
+<h3>What things are synced?<a class="headerlink" href="#what-things-are-synced" title="Permalink to this headline">¶</a></h3>
+<p>The following things are <em>always</em> synchronized:</p>
+<ul class="simple">
+<li><p>File Contents</p></li>
+<li><p>File Modification Times</p></li>
+</ul>
+<p>The following may be synchronized or not, depending:</p>
+<ul class="simple">
+<li><p>File Permissions (When supported by file system. On Windows, only the
+read only bit is synchronized.)</p></li>
+<li><p>Symbolic Links (When supported by the OS. On Windows Vista and up,
+requires administrator privileges. Links are synced as is and are not
+followed.)</p></li>
+</ul>
+<p>The following is <em>not</em> synchronized;</p>
+<ul class="simple">
+<li><p>File or Directory Owners and Groups (not preserved)</p></li>
+<li><p>Directory Modification Times (not preserved)</p></li>
+<li><p>Hard Links (followed, not preserved)</p></li>
+<li><p>Extended Attributes, Resource Forks (not preserved)</p></li>
+<li><p>Windows, POSIX or NFS ACLs (not preserved)</p></li>
+<li><p>Devices, FIFOs, and Other Specials (ignored)</p></li>
+<li><p>Sparse file sparseness (will become unsparse)</p></li>
+</ul>
+</div>
+<div class="section" id="is-synchronization-fast">
+<h3>Is synchronization fast?<a class="headerlink" href="#is-synchronization-fast" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing segments files into pieces, called blocks, to transfer data from one
+device to another. Therefore, multiple devices can share the synchronization
+load, in a similar way as the torrent protocol. The more devices you have online
+(and synchronized), the faster an additional device will receive the data
+because small blocks will be fetched from all devices in parallel.</p>
+<p>Syncthing handles renaming files and updating their metadata in an efficient
+manner. This means that renaming a large file will not cause a retransmission of
+that file. Additionally, appending data to existing large files should be
+handled efficiently as well.</p>
+<p>Temporary files are used to store partial data downloaded from other devices.
+They are automatically removed whenever a file transfer has been completed or
+after the configured amount of time which is set in the configuration file (24
+hours by default).</p>
+</div>
+<div class="section" id="should-i-keep-my-device-ids-secret">
+<h3>Should I keep my device IDs secret?<a class="headerlink" href="#should-i-keep-my-device-ids-secret" title="Permalink to this headline">¶</a></h3>
+<p>No. The IDs are not sensitive. Given a device ID it’s possible to find the IP
+address for that node, if global discovery is enabled on it. Knowing the device
+ID doesn’t help you actually establish a connection to that node or get a list
+of files, etc.</p>
+<p>For a connection to be established, both nodes need to know about the other’s
+device ID. It’s not possible (in practice) to forge a device ID. (To forge a
+device ID you need to create a TLS certificate with that specific SHA-256 hash.
+If you can do that, you can spoof any TLS certificate. The world is your
+oyster!)</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a></p>
+</div>
+</div>
+<div class="section" id="what-if-there-is-a-conflict">
+<h3>What if there is a conflict?<a class="headerlink" href="#what-if-there-is-a-conflict" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing does recognize conflicts. When a file has been modified on two devices
+simultaneously, one of the files will be renamed to <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;.sync-</span>
+<span class="pre">conflict-&lt;date&gt;-&lt;time&gt;.&lt;ext&gt;</span></code>. The device which has the larger value of the
+first 63 bits for his device ID will have his file marked as the conflicting
+file. Note that we only create <code class="docutils literal notranslate"><span class="pre">sync-conflict</span></code> files when the actual content
+differs.</p>
+<p>Beware that the <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;.sync-conflict-&lt;date&gt;-&lt;time&gt;.&lt;ext&gt;</span></code> files are
+treated as normal files after they are created, so they are propagated between
+devices. We do this because the conflict is detected and resolved on one device,
+creating the <code class="docutils literal notranslate"><span class="pre">sync-conflict</span></code> file, but it’s just as much of a conflict
+everywhere else and we don’t know which of the conflicting files is the “best”
+from the user point of view. Moreover, if there’s something that automatically
+causes a conflict on change you’ll end up with <code class="docutils literal notranslate"><span class="pre">sync-conflict-...sync-conflict</span>
+<span class="pre">-...-sync-conflict</span></code> files.</p>
+</div>
+<div class="section" id="how-to-configure-multiple-users-on-a-single-machine">
+<h3>How to configure multiple users on a single machine?<a class="headerlink" href="#how-to-configure-multiple-users-on-a-single-machine" title="Permalink to this headline">¶</a></h3>
+<p>Each user should run their own Syncthing instance. Be aware that you might need
+to configure ports such that they do not overlap (see the config.xml).</p>
+</div>
+<div class="section" id="is-syncthing-my-ideal-backup-application">
+<h3>Is Syncthing my ideal backup application?<a class="headerlink" href="#is-syncthing-my-ideal-backup-application" title="Permalink to this headline">¶</a></h3>
+<p>No, Syncthing is not a backup application because all changes to your files
+(modification, deletion, etc) will be propagated to all your devices. You can
+enable versioning, but we encourage the use of other tools to keep your data
+safe from your (or our) mistakes.</p>
+</div>
+<div class="section" id="why-is-there-no-ios-client">
+<h3>Why is there no iOS client?<a class="headerlink" href="#why-is-there-no-ios-client" title="Permalink to this headline">¶</a></h3>
+<p>An alternative implementation of Syncthing (using the Syncthing protocol) is being
+developed at this point in time to enable iOS support. Additionally, it seems
+that the next version of Go will support the darwin-arm architecture such that
+we can compile the mainstream code for the iOS platform.</p>
+</div>
+<div class="section" id="why-does-it-use-so-much-cpu">
+<h3>Why does it use so much CPU?<a class="headerlink" href="#why-does-it-use-so-much-cpu" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>When new or changed files are detected, or Syncthing starts for the
+first time, your files are hashed using SHA-256.</p></li>
+<li><p>Data that is sent over the network is first compressed and then
+encrypted using AES-128. When receiving data, it must be decrypted
+and decompressed.</p></li>
+</ol>
+<p>Hashing, compression and encryption cost CPU time. Also, using the GUI causes a
+certain amount of CPU usage. Note however that once things are <em>in sync</em> CPU
+usage should be negligible.</p>
+</div>
+<div class="section" id="how-can-i-exclude-files-with-brackets-in-the-name">
+<h3>How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?<a class="headerlink" href="#how-can-i-exclude-files-with-brackets-in-the-name" title="Permalink to this headline">¶</a></h3>
+<p>The patterns in .stignore are glob patterns, where brackets are used to denote
+character ranges. That is, the pattern <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> will match the files <code class="docutils literal notranslate"><span class="pre">qax</span></code>,
+<code class="docutils literal notranslate"><span class="pre">qbx</span></code> and <code class="docutils literal notranslate"><span class="pre">qcx</span></code>.</p>
+<p>To match an actual file <em>called</em> <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> the pattern needs to “escape” the
+brackets, like so: <code class="docutils literal notranslate"><span class="pre">q\[abc\]x</span></code>.</p>
+</div>
+<div class="section" id="why-is-the-setup-more-complicated-than-btsync">
+<h3>Why is the setup more complicated than BTSync?<a class="headerlink" href="#why-is-the-setup-more-complicated-than-btsync" title="Permalink to this headline">¶</a></h3>
+<p>Security over convenience. In Syncthing you have to setup both sides to connect
+two nodes. An attacker can’t do much with a stolen node ID, because you have to
+add the node on the other side too. You have better control where your files are
+transferred.</p>
+</div>
+<div class="section" id="how-do-i-access-the-web-gui-from-another-computer">
+<h3>How do I access the web GUI from another computer?<a class="headerlink" href="#how-do-i-access-the-web-gui-from-another-computer" title="Permalink to this headline">¶</a></h3>
+<p>The default listening address is 127.0.0.1:8384, so you can only access the GUI
+from the same machine. Change the <code class="docutils literal notranslate"><span class="pre">GUI</span> <span class="pre">listen</span> <span class="pre">address</span></code> through the web UI from
+<code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code> to <code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code> or change the config.xml:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;address&gt;</span>127.0.0.1:8384<span class="nt">&lt;/address&gt;</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;address&gt;</span>0.0.0.0:8384<span class="nt">&lt;/address&gt;</span>
+</pre></div>
+</div>
+<p>Then the GUI is accessible from everywhere. You should most likely set a
+password and enable HTTPS now. You can do this from inside the GUI.</p>
+<p>If both your computers are Unixy (Linux, Mac, etc) You can also leave the GUI
+settings at default and use an ssh port forward to access it. For example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ssh -L <span class="m">9090</span>:127.0.0.1:8384 user@othercomputer.example.com
+</pre></div>
+</div>
+<p>will log you into othercomputer.example.com, and present the <em>remote</em> Syncthing
+GUI on <a class="reference external" href="http://localhost:9090">http://localhost:9090</a> on your <em>local</em> computer. You should not open more
+than one Syncthing GUI in a single browser due to conflicting X-CSRFTokens. Any
+modification will be rejected. See <a class="reference external" href="https://github.com/syncthing/syncthing/issues/720">issue #720</a> to work around this limitation.</p>
+<p>The CSRF tokens are stored using cookies. Therefore, if you get the message
+<code class="docutils literal notranslate"><span class="pre">Syncthing</span> <span class="pre">seems</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">experiencing</span> <span class="pre">a</span> <span class="pre">problem</span> <span class="pre">processing</span> <span class="pre">your</span> <span class="pre">request</span></code>, you
+should verify the cookie settings of your browser.</p>
+</div>
+<div class="section" id="why-do-i-see-syncthing-twice-in-task-manager">
+<h3>Why do I see Syncthing twice in task manager?<a class="headerlink" href="#why-do-i-see-syncthing-twice-in-task-manager" title="Permalink to this headline">¶</a></h3>
+<p>One process manages the other, to capture logs and manage restarts. This makes
+it easier to handle upgrades from within Syncthing itself, and also ensures that
+we get a nice log file to help us narrow down the cause for crashes and other
+bugs.</p>
+</div>
+<div class="section" id="where-do-syncthing-logs-go-to">
+<h3>Where do Syncthing logs go to?<a class="headerlink" href="#where-do-syncthing-logs-go-to" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing logs to stdout by default. On Windows Syncthing by default also
+creates <code class="docutils literal notranslate"><span class="pre">syncthing.log</span></code> in Syncthing’s home directory (check <code class="docutils literal notranslate"><span class="pre">-help</span></code> to see
+where that is). Command line option <code class="docutils literal notranslate"><span class="pre">-logfile</span></code> can be used to specify a user-defined logfile.</p>
+</div>
+<div class="section" id="how-do-i-upgrade-syncthing">
+<h3>How do I upgrade Syncthing?<a class="headerlink" href="#how-do-i-upgrade-syncthing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>If automatic upgrades is enabled (which is the default), Syncthing will
+upgrade itself automatically within 24 hours of a new release.</p></li>
+<li><p>The upgrade button appears in the web GUI when a new version has been released.
+Pressing it will perform an upgrade.</p></li>
+<li><p>To force an upgrade from the command line, run <code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">-upgrade</span></code>.</p></li>
+</ul>
+<p>Note that your system should have CA certificates installed which allow a secure
+connection to GitHub (e.g. FreeBSD requires <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pkg</span> <span class="pre">install</span> <span class="pre">ca_root_nss</span></code>).
+If <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code> works with normal HTTPS sites, then so should Syncthing.</p>
+</div>
+<div class="section" id="where-do-i-find-the-latest-release">
+<h3>Where do I find the latest release?<a class="headerlink" href="#where-do-i-find-the-latest-release" title="Permalink to this headline">¶</a></h3>
+<p>We release new versions through GitHub. The latest release is always found <a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">on
+the release page</a>.
+Unfortunately GitHub does not provide a single URL to automatically download the
+latest version. We suggest to use the GitHub API at
+<a class="reference external" href="https://api.github.com/repos/syncthing/syncthing/releases/latest">https://api.github.com/repos/syncthing/syncthing/releases/latest</a> and parsing the
+JSON response.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="firewall.html" class="btn btn-neutral float-right" title="Firewall Setup" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="config.html" class="btn btn-neutral" title="Syncthing Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+      Last updated on Jan 12, 2022.
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v0.12',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

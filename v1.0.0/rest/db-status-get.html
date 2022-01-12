@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GET /rest/db/status &mdash; Syncthing v1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Syncthing v1 documentation" href="../index.html"/>
+        <link rel="up" title="3.10. REST API" href="../dev/rest.html"/>
+        <link rel="next" title="GET /rest/events" href="events-get.html"/>
+        <link rel="prev" title="POST /rest/db/scan" href="db-scan-post.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Syncthing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">3. Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">3.2. Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">3.3. Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">3.4. Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">3.5. Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">3.6. Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">3.7. Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">3.8. Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">3.9. Release Signing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/rest.html">3.10. REST API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#api-key">3.10.1. API Key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#system-endpoints">3.10.2. System Endpoints</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dev/rest.html#database-endpoints">3.10.3. Database Endpoints</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="db-browse-get.html">GET /rest/db/browse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-completion-get.html">GET /rest/db/completion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-file-get.html">GET /rest/db/file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-ignores-get.html">GET /rest/db/ignores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-ignores-post.html">POST /rest/db/ignores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-need-get.html">GET /rest/db/need</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-override-post.html">POST /rest/db/override</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-prio-post.html">POST /rest/db/prio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-revert-post.html">POST /rest/db/revert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="db-scan-post.html">POST /rest/db/scan</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">GET /rest/db/status</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#event-endpoints">3.10.4. Event Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#statistics-endpoints">3.10.5. Statistics Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dev/rest.html#misc-services-endpoints">3.10.6. Misc Services Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html">3.11. Event API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">4. Specifications</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Syncthing</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../dev/index.html"><span class="section-number">3. </span>Development</a> &raquo;</li>
+        
+          <li><a href="../dev/rest.html"><span class="section-number">3.10. </span>REST API</a> &raquo;</li>
+        
+      <li>GET /rest/db/status</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/syncthing/docs/blob/master/rest/db-status-get.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="get-rest-db-status">
+<h1>GET /rest/db/status<a class="headerlink" href="#get-rest-db-status" title="Permalink to this headline">¶</a></h1>
+<p>Returns information about the current status of a folder.</p>
+<p>Parameters: <code class="docutils literal notranslate"><span class="pre">folder</span></code>, the ID of a folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+  <span class="s2">&quot;globalBytes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;globalDeleted&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;globalDirectories&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;globalFiles&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;globalSymlinks&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;ignorePatterns&quot;</span>: false,
+  <span class="s2">&quot;inSyncBytes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;inSyncFiles&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;invalid&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;localBytes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;localDeleted&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;localDirectories&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;localFiles&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;localSymlinks&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;needBytes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;needDeletes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;needDirectories&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;needFiles&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;needSymlinks&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;pullErrors&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;receiveOnlyChangedBytes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;receiveOnlyChangedDeletes&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;receiveOnlyChangedDirectories&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;receiveOnlyChangedFiles&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;receiveOnlyChangedSymlinks&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;sequence&quot;</span>: <span class="m">0</span>,
+  <span class="s2">&quot;state&quot;</span>: <span class="s2">&quot;idle&quot;</span>,
+  <span class="s2">&quot;stateChanged&quot;</span>: <span class="s2">&quot;2018-08-08T07:04:57.301064781+02:00&quot;</span>,
+  <span class="s2">&quot;version&quot;</span>: <span class="m">0</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The various fields have the following meaning:</p>
+<dl class="simple">
+<dt>global*:</dt><dd><p>Data in the cluster latest version.</p>
+</dd>
+<dt>inSync*:</dt><dd><p>Data that is locally the same as the cluster latest version.</p>
+</dd>
+<dt>local*:</dt><dd><p>Data that is locally present, regardless of whether it’s the same or different version as the cluster latest version.</p>
+</dd>
+<dt>need*:</dt><dd><p>Data that is needed to become up to date with the cluster latest version (i.e., data that is out of sync).</p>
+</dd>
+<dt>receiveOnlyChanged*:</dt><dd><p>Data that has changed locally in a receive only folder, and thus not been sent to the cluster.</p>
+</dd>
+<dt>invalid:</dt><dd><p>Deprecated, always empty.</p>
+</dd>
+<dt>pullErrors:</dt><dd><p>The number of files that failed to sync during the last sync operations.</p>
+</dd>
+<dt>sequence:</dt><dd><p>The current folder sequence number.</p>
+</dd>
+<dt>state:</dt><dd><p>The current folder state.</p>
+</dd>
+<dt>stateChanged:</dt><dd><p>When the folder state last changed.</p>
+</dd>
+<dt>version:</dt><dd><p>Deprecated, equivalent to the sequence number.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is an expensive call, increasing CPU and RAM usage on the device. Use sparingly.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="events-get.html" class="btn btn-neutral float-right" title="GET /rest/events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="db-scan-post.html" class="btn btn-neutral" title="POST /rest/db/scan" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
