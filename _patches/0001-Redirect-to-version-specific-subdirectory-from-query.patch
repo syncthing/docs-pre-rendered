@@ -1,0 +1,140 @@
+From 9a0ff0c02a7b111c8fb359d9d2b9d66878c505e3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Colomb?= <src@andre.colomb.de>
+Date: Thu, 20 Jan 2022 16:26:51 +0100
+Subject: [PATCH 1/3] Redirect to version-specific subdirectory from query
+ parameter. (#713)
+
+Include a custom JavaScript snippet in the built HTML version.  It
+checks the ?version=... query parameter and heuristically finds a best
+match among the deployed versions list in JSON format.
+
+If a match is found, the browser URL is reconstructed to prepend the
+matched version string as a path component.  If the previous first
+path component matches a version tag from the list, that is removed
+first.  The query parameters get discarded, and the fragment
+identifier (#anchor) appended again.  This changed URL is used for a
+silent redirect.
+
+The version matching heuristic accepts any version string starting
+with a complete known version tag, checking numerically higher ones
+first.  For example if v0.12.10 matches first, v0.12.1 is not even
+considered anymore.  Incomplete matches are accepted as long as they
+only differ after the last dot: v0.13.10 applies to any
+v0.13.* (higher or lower) as long as there is no better, direct match.
+
+Any other string in the query parameter leads to the same path with
+any known version string in the top-level component removed.  That
+should be the default, fall-back version.
+---
+ _static/version_redirect.js | 82 +++++++++++++++++++++++++++++++++++++
+ conf.py                     |  5 +++
+ 2 files changed, 87 insertions(+)
+ create mode 100644 _static/version_redirect.js
+
+diff --git a/_static/version_redirect.js b/_static/version_redirect.js
+new file mode 100644
+index 0000000..ba69f2f
+--- /dev/null
++++ b/_static/version_redirect.js
+@@ -0,0 +1,82 @@
++var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
++
++const VERSIONS_LIST = "/versions.json";
++
++const getVersions = $.getJSON(VERSIONS_LIST).then(function (data) {
++    // Start with highest version number, using natural sorting
++    data.entries.sort(collator.compare).reverse();
++    return data.entries;
++});
++
++function findBestVersion(version, available) {
++    var bestVersion = '';
++    available.some(function (candidate) {
++        if (version.startsWith(candidate)) {
++            // Direct prefix match
++            bestVersion = candidate;
++            return true;
++        }
++        if (collator.compare(candidate, version) < 0) {
++            // Available version is numerically lower than requested
++            if (version.startsWith(candidate.slice(0, candidate.lastIndexOf('.')))) {
++                // Use the lower version if it only differs in last component
++                bestVersion = candidate;
++            }
++            // Stop checking even older versions
++            return true;
++        }
++        bestVersion = candidate;
++        return false;
++    });
++    // Filter out any higher versions which differ in more than the last component
++    if (!version.startsWith(bestVersion.slice(0, bestVersion.lastIndexOf('.')))) {
++        bestVersion = '';
++    }
++    return bestVersion;
++}
++
++function stripVersionPath(path, versions) {
++    var slash = path.indexOf('/', 1);
++    if (slash != -1) {
++        if (versions.indexOf(path.slice(1, slash)) != -1) {
++            path = path.slice(slash);
++        }
++    }
++    return path;
++}
++
++function redirectToPath(newPath) {
++    const fragment = window.location.href.indexOf('#');
++    if (fragment != -1) {
++        newPath += window.location.href.slice(fragment);
++    }
++
++    if (newPath && newPath != window.location.pathname) {
++        window.location.replace(newPath);
++    }
++}
++
++function redirectToVersion(target, available) {
++    const tail = stripVersionPath(window.location.pathname, available + [target]);
++
++    var newPath = '';
++    if (target) {
++        newPath += '/' + target;
++    }
++    if (tail) {
++        newPath += tail;
++    }
++    redirectToPath(newPath);
++}
++
++
++const urlParams = new URLSearchParams(window.location.search);
++const versionParam = urlParams.get('version');
++
++
++if (versionParam) {
++    getVersions.then(function (available) {
++        const useVersion = findBestVersion(versionParam, available);
++        redirectToVersion(useVersion, available);
++    });
++}
+diff --git a/conf.py b/conf.py
+index 1eef9b2..204e00f 100644
+--- a/conf.py
++++ b/conf.py
+@@ -209,6 +209,11 @@ html_show_copyright = False
+ # This is the file name suffix for HTML files (e.g. ".xhtml").
+ #html_file_suffix = None
+ 
++# Include JavaScript files with custom functionality
++html_js_files = [
++    'version_redirect.js',
++]
++
+ # Output file base name for HTML help builder.
+ htmlhelp_basename = 'Syncthingdoc'
+ 
+-- 
+2.25.1
+

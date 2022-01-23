@@ -1,0 +1,37 @@
+From a06a1cfab8ab98ae7321b0041acda95dddae0543 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Colomb?= <src@andre.colomb.de>
+Date: Sun, 23 Jan 2022 13:08:18 +0100
+Subject: [PATCH 2/3] Fix JS warnings about not well-formed XML.
+
+Using the $.getJSON() method apparently fails to apply the correct
+MIME type, trying to parse the script as HTML / XML and giving an
+error message.  Especially Firefox seems to be affected by this.
+Overriding the MIME type explicitly before each request silences the
+error message.  Taken from:
+https://stackoverflow.com/questions/2618959/not-well-formed-warning-when-loading-client-side-json-in-firefox-via-jquery-aj
+
+Review
+---
+ _static/version_redirect.js | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/_static/version_redirect.js b/_static/version_redirect.js
+index ba69f2f..690546f 100644
+--- a/_static/version_redirect.js
++++ b/_static/version_redirect.js
+@@ -1,5 +1,12 @@
+ var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+ 
++// Override MIME type to avoid "invalid XML" warnings when using $.getJSON()
++$.ajaxSetup({beforeSend: function (xhr) {
++    if (xhr.overrideMimeType) {
++        xhr.overrideMimeType("application/json");
++    }
++}});
++
+ const VERSIONS_LIST = "/versions.json";
+ 
+ const getVersions = $.getJSON(VERSIONS_LIST).then(function (data) {
+-- 
+2.25.1
+
