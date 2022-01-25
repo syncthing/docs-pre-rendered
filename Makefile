@@ -16,6 +16,7 @@ SOURCE_REPO = https://github.com/syncthing/docs
 SOURCE_DIR = $(TEMP_DIR)/syncthing-docs
 VERSIONS = $(wildcard v*.*.*)
 TARGET_DIR := $(CURDIR)
+JS_FILES = $(patsubst %,%/_static/version_redirect.js,$(VERSIONS))
 PATCH_FILES := $(sort $(wildcard $(TARGET_DIR)/_patches/*.patch))
 
 
@@ -25,7 +26,10 @@ $(warning Keeping temporary source checkout in $(SOURCE_DIR))
 
 all: $(VERSIONS)
 
-.PHONY: all
+copy-js: $(JS_FILES)
+	git add --no-all .
+
+.PHONY: all copy-js
 
 
 $(SOURCE_DIR):
@@ -43,5 +47,8 @@ $(VERSIONS): %: $(PATCH_FILES) $(SOURCE_DIR) FORCE
 	mv -v $(SOURCE_DIR)/_build/latex/*.pdf $(TARGET_DIR)/$@/pdf
 	cd $(TARGET_DIR) && \
 		git add --no-all $@
+
+$(JS_FILES): %/_static/version_redirect.js: $(SOURCE_DIR) FORCE
+	cp -vf $(SOURCE_DIR)/_static/version_redirect.js $(TARGET_DIR)/$@
 
 FORCE:
