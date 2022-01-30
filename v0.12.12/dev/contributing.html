@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Contribution Guidelines &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -310,7 +315,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -499,7 +504,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -628,9 +633,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="contribution-guidelines">
+  <section id="contribution-guidelines">
 <span id="id1"></span><h1>Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="authorship">
+<section id="authorship">
 <h2>Authorship<a class="headerlink" href="#authorship" title="Permalink to this headline">¶</a></h2>
 <p>All code authors are listed in the AUTHORS file. When your first pull request
 is accepted, the maintainer will add your details to the AUTHORS file, the
@@ -645,8 +650,8 @@ $ git config --global user.email janedoe@example.com
 <p>You must be reachable on the given email address. If you do not wish to use
 your real name for whatever reason, using a nickname or pseudonym is perfectly
 acceptable.</p>
-</div>
-<div class="section" id="team-membership">
+</section>
+<section id="team-membership">
 <h2>Team Membership<a class="headerlink" href="#team-membership" title="Permalink to this headline">¶</a></h2>
 <p>Contributing useful commits via pull requests will at some point get you
 invited to the <a class="reference external" href="https://github.com/orgs/syncthing/teams/core">Syncthing core team</a>. This team gives you push
@@ -654,8 +659,8 @@ access to most repositories, subject to the guidelines below.</p>
 <p>The <a class="reference external" href="https://github.com/orgs/syncthing/teams/maintainers">Syncthing maintainers team</a> has the same access
 permissions, the added responsibility of reviewing major changes, and the
 ability to invite members into the core team.</p>
-</div>
-<div class="section" id="code-review">
+</section>
+<section id="code-review">
 <h2>Code Review<a class="headerlink" href="#code-review" title="Permalink to this headline">¶</a></h2>
 <p>Commits will generally fall into one of the three categories below, with
 different requirements on review.</p>
@@ -681,10 +686,10 @@ member of the <em>maintainers</em> team. Tests must pass.</p>
 of caution - if you are not sure whether a change is <em>trivial</em> or merely
 <em>minor</em>, it’s probably minor.</p>
 <p>First time contributions from new developers are always major.</p>
-</div>
-<div class="section" id="coding-style">
+</section>
+<section id="coding-style">
 <h2>Coding Style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="general">
+<section id="general">
 <h3>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>All text files use Unix line endings. The git settings already present in
@@ -692,8 +697,8 @@ the repository attempts to enforce this.</p></li>
 <li><p>When making changes, follow the brace and paranthesis style of the
 surrounding code.</p></li>
 </ul>
-</div>
-<div class="section" id="go-specific">
+</section>
+<section id="go-specific">
 <h3>Go Specific<a class="headerlink" href="#go-specific" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Follow the conventions laid out in <a class="reference external" href="https://golang.org/doc/effective_go.html">Effective
@@ -704,9 +709,9 @@ be followed.</p></li>
 <li><p>Imports are grouped per <code class="docutils literal notranslate"><span class="pre">goimports</span></code> standard; that is, standard
 library first, then third party libraries after a blank line.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="commits">
+</section>
+</section>
+<section id="commits">
 <h2>Commits<a class="headerlink" href="#commits" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>The commit message subject should be a single short sentence
@@ -730,8 +735,8 @@ amendments during review. It’s perfectly fine to make review changes
 as new commits and just push them to the same branch – but a squash
 should be performed when the change is good to be merged.</p></li>
 </ul>
-</div>
-<div class="section" id="tests">
+</section>
+<section id="tests">
 <h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h2>
 <p>Yes please, do add tests when adding features or fixing bugs. Also, when a
 pull request is filed a number of automatic tests are run on the code. This
@@ -746,8 +751,8 @@ number of potential problems the compiler doesn’t catch.)</p></li>
 </ul>
 <p>If the pull request is invasive or scary looking, the full integration test
 suite can be run as well.</p>
-</div>
-<div class="section" id="branches">
+</section>
+<section id="branches">
 <h2>Branches<a class="headerlink" href="#branches" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> is the main branch containing good code that will end up
@@ -760,20 +765,20 @@ Don’t base any work on them.</p></li>
 rebasing. Don’t base any work on them unless you specifically know
 otherwise.</p></li>
 </ul>
-</div>
-<div class="section" id="tags">
+</section>
+<section id="tags">
 <h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
 <p>All releases are tagged semver style as <code class="docutils literal notranslate"><span class="pre">vx.y.z</span></code>. The maintainer doing the
 release signs the tag using their GPG key.</p>
-</div>
-<div class="section" id="licensing">
+</section>
+<section id="licensing">
 <h2>Licensing<a class="headerlink" href="#licensing" title="Permalink to this headline">¶</a></h2>
 <p>All contributions are made under the same MPLv2 license as the rest of the
 project, except documentation, user interface text and translation strings
 which are licensed under the Creative Commons Attribution 4.0 International
 License. You retain the copyright to code you have written.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -793,7 +798,7 @@ License. You retain the copyright to code you have written.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -819,6 +824,7 @@ License. You retain the copyright to code you have written.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

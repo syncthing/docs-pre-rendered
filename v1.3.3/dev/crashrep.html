@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Automatic Crash Reporting for Developers &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,9 +34,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="automatic-crash-reporting-for-developers">
+  <section id="automatic-crash-reporting-for-developers">
 <span id="crashrep-dev"></span><h1>Automatic Crash Reporting for Developers<a class="headerlink" href="#automatic-crash-reporting-for-developers" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="collecting-and-sending">
+<section id="collecting-and-sending">
 <h2>Collecting and Sending<a class="headerlink" href="#collecting-and-sending" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing will normally run with one <em>monitor process</em> and one <em>main
 process</em>. The main process is the thing that is really “Syncthing”. The
@@ -51,8 +52,8 @@ to the crash reporting server – if crash reporting is enabled. When a log
 has been successfully reported it is renamed with the double file ending
 <code class="docutils literal notranslate"><span class="pre">.reported.log</span></code>. Old crash logs are automatically removed after a while,
 reported or not.</p>
-</div>
-<div class="section" id="report-format">
+</section>
+<section id="report-format">
 <h2>Report Format<a class="headerlink" href="#report-format" title="Permalink to this headline">¶</a></h2>
 <p>A crash report is fundamentally a blob of plain UTF-8 text. It has a loose
 format, documented below. A report implicitly has a “report ID” which is the
@@ -84,8 +85,8 @@ RFC3339 format.</p></li>
         <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">jb</span><span class="o">/</span><span class="n">go</span><span class="o">/</span><span class="n">pkg</span><span class="o">/</span><span class="n">mod</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">thejerf</span><span class="o">/</span><span class="n">suture</span><span class="nd">@v3</span><span class="o">.</span><span class="mf">0.2</span><span class="o">+</span><span class="n">incompatible</span><span class="o">/</span><span class="n">supervisor</span><span class="o">.</span><span class="n">go</span><span class="p">:</span><span class="mi">588</span> <span class="o">+</span><span class="mh">0x5b</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="wire-protocol">
+</section>
+<section id="wire-protocol">
 <h2>Wire Protocol<a class="headerlink" href="#wire-protocol" title="Permalink to this headline">¶</a></h2>
 <p>To upload a crash report we need three things:</p>
 <ul class="simple">
@@ -103,8 +104,8 @@ ID in question. We do not need to upload it.</p>
 <p>If the HEAD request returns <code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code> or another error we can
 attempt to upload the report. This is done by a <code class="docutils literal notranslate"><span class="pre">PUT</span></code> request to the same
 URL with the report data as the body.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -175,7 +176,7 @@ URL with the report data as the body.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

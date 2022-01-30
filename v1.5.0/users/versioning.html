@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>File Versioning &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,7 +34,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="file-versioning">
+  <section id="file-versioning">
 <span id="versioning"></span><h1>File Versioning<a class="headerlink" href="#file-versioning" title="Permalink to this headline">¶</a></h1>
 <p>Syncthing supports archiving the old version of a file when it is deleted or
 replaced with a newer version from the cluster. This is called “file
@@ -48,7 +49,7 @@ will be archived on Alice’s computer when that change is synced from
 Bob. If Alice changes a file locally on her own computer Syncthing will
 not and can not archive the old version.</p>
 </div>
-<div class="section" id="trash-can-file-versioning">
+<section id="trash-can-file-versioning">
 <h2>Trash Can File Versioning<a class="headerlink" href="#trash-can-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>This versioning strategy emulates the common “trash can” approach. When a file
 is deleted or replaced due to a change on a remote device, it is a moved to
@@ -59,8 +60,8 @@ than a specified number of days. If this is set to a positive number of days,
 files will be removed when they have been in the trash can that long. Setting
 this to zero prevents any files from being removed from the trash can
 automatically.</p>
-</div>
-<div class="section" id="simple-file-versioning">
+</section>
+<section id="simple-file-versioning">
 <h2>Simple File Versioning<a class="headerlink" href="#simple-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>With “Simple File Versioning” files are moved to the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder
 (inside your shared folder) when replaced or deleted on a remote device. This
@@ -69,8 +70,8 @@ Syncthing how many old versions of the file it should keep. For example, if
 you set this value to 5, if a file is replaced 5 times on a remote device, you
 will see 5 time-stamped versions on that file in the “.stversions” folder on
 the other devices sharing the same folder.</p>
-</div>
-<div class="section" id="staggered-file-versioning">
+</section>
+<section id="staggered-file-versioning">
 <h2>Staggered File Versioning<a class="headerlink" href="#staggered-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>With “Staggered File Versioning” files are also moved to a different folder
 when replaced or deleted on a remote device (just like “Simple File
@@ -100,8 +101,8 @@ only for 10 days, use 10.
 <strong>Note: Set to 0 to keep versions forever.</strong></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="external-file-versioning">
+</section>
+<section id="external-file-versioning">
 <h2>External File Versioning<a class="headerlink" href="#external-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>This versioning method delegates the decision on what to do to an external
 command (program or script).
@@ -113,7 +114,7 @@ The command should be specified as an absolute path, and can use the following t
 <dt>%FILE_PATH%</dt><dd><p>Path to the file within the folder</p>
 </dd>
 </dl>
-<div class="section" id="example-for-unixes">
+<section id="example-for-unixes">
 <h3>Example for Unixes<a class="headerlink" href="#example-for-unixes" title="Permalink to this headline">¶</a></h3>
 <p>Lets say I want to keep the latest version of each file as they are replaced
 or removed; essentially I want a “trash can”-like behavior. For this, I create
@@ -147,8 +148,8 @@ script will be called as if I ran this from the command line:</p>
 <p>The script will then move the file in question to
 <code class="docutils literal notranslate"><span class="pre">~/.trashcan/docs/letter.txt</span></code>, replacing any previous version of that letter
 that may already have been there.</p>
-</div>
-<div class="section" id="example-for-windows">
+</section>
+<section id="example-for-windows">
 <h3>Example for Windows<a class="headerlink" href="#example-for-windows" title="Permalink to this headline">¶</a></h3>
 <p>On Windows we can use a batch script to perform the same “trash can”-like
 behavior as mentioned above. I created the following script and saved it as
@@ -175,9 +176,9 @@ behavior as mentioned above. I created the following script and saved it as
 </div>
 <p>Finally, I set <code class="docutils literal notranslate"><span class="pre">C:\Users\mfrnd\Scripts\onlylatest.bat</span> <span class="pre">%FOLDER_PATH%</span> <span class="pre">%FILE_PATH%</span></code> as command name in
 Syncthing.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -261,7 +262,7 @@ Syncthing.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

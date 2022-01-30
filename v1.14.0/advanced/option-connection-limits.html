@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Connection Limits &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,7 +34,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="connection-limits">
+  <section id="connection-limits">
 <h1>Connection Limits<a class="headerlink" href="#connection-limits" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.13.0.</span></p>
@@ -45,7 +46,7 @@ this option. Connection limits are useful in specific scenarios concerning
 large deployments only, and care must be taken when selecting limits to work
 in that scenario. The general recommendation is to leave these settings at
 their default of zero, meaning unlimited.</p>
-<div class="section" id="mechanism">
+<section id="mechanism">
 <h2>Mechanism<a class="headerlink" href="#mechanism" title="Permalink to this headline">¶</a></h2>
 <p>There are two limits, called <code class="docutils literal notranslate"><span class="pre">enough</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code>. In short, once there
 are <em>enough</em> connections Syncthing will stop trying to connect to other
@@ -55,10 +56,10 @@ connections.</p>
 set. When setting both values, <code class="docutils literal notranslate"><span class="pre">enough</span></code> should be smaller than <code class="docutils literal notranslate"><span class="pre">max</span></code> or
 it will have no effect (Syncthing will also stop connecting outwards once
 <code class="docutils literal notranslate"><span class="pre">max</span></code> is reached).</p>
-</div>
-<div class="section" id="scenarios">
+</section>
+<section id="scenarios">
 <h2>Scenarios<a class="headerlink" href="#scenarios" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="load-balancing">
+<section id="load-balancing">
 <h3>Load Balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline">¶</a></h3>
 <p>Consider a setup with a handful “servers” and many “clients”. The servers
 are fully connected amongst each other and essentially equivalent. The
@@ -72,9 +73,9 @@ migrate to other servers.</p>
 <p>When establishing new connections Syncthing will preferentially connect to
 devices it was recently connected to, thus clients will usually stay on the
 same server over a restart.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -160,7 +161,7 @@ same server over a restart.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

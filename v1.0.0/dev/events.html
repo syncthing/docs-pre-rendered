@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>3.11. Event API &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -212,14 +217,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="event-api">
+  <section id="event-api">
 <span id="id1"></span><h1><span class="section-number">3.11. </span>Event API<a class="headerlink" href="#event-api" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="description">
+<section id="description">
 <h2><span class="section-number">3.11.1. </span>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing provides a simple long polling interface for exposing events from the
 core utility towards a GUI. To receive events, see <a class="reference internal" href="../rest/events-get.html#events-get"><span class="std std-ref">GET /rest/events</span></a>.</p>
-</div>
-<div class="section" id="event-structure">
+</section>
+<section id="event-structure">
 <h2><span class="section-number">3.11.2. </span>Event Structure<a class="headerlink" href="#event-structure" title="Permalink to this headline">¶</a></h2>
 <p>Each event is represented by an object similar to the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -254,8 +259,8 @@ types below.</p>
 determined by the event type.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="event-types">
+</section>
+<section id="event-types">
 <span id="id2"></span><h2><span class="section-number">3.11.3. </span>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -286,8 +291,8 @@ determined by the event type.</p>
 <li class="toctree-l1"><a class="reference internal" href="../events/statechanged.html">StateChanged</a></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -339,6 +344,7 @@ determined by the event type.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

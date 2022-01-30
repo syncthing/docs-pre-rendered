@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Understanding Device IDs &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -305,7 +310,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -494,7 +499,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -623,16 +628,16 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="understanding-device-ids">
+  <section id="understanding-device-ids">
 <span id="device-ids"></span><h1>Understanding Device IDs<a class="headerlink" href="#understanding-device-ids" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="description">
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Every device is identified by a device ID. The device ID is used for address
 resolution, authentication and authorization. The term “device ID” could
 interchangably have been “key ID” since the device ID is a direct property of
 the public key in use.</p>
-</div>
-<div class="section" id="keys">
+</section>
+<section id="keys">
 <h2>Keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
 <p>To understand device IDs we need to look at the underlying mechanisms. At first
 startup, Syncthing will create a public/private keypair.</p>
@@ -683,8 +688,8 @@ public key; the serial number is zero and the Issuer and Subject are both
 “syncthing” where a qualified name might otherwise be expected.</p>
 <p>An advanced user could replace the <code class="docutils literal notranslate"><span class="pre">key.pem</span></code> and <code class="docutils literal notranslate"><span class="pre">cert.pem</span></code> files with a
 keypair generated directly by the <code class="docutils literal notranslate"><span class="pre">openssl</span></code> utility or other mechanism.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>Device IDs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>To form a device ID the SHA-256 hash of the certificate data in DER form is
 calculated. This means the hash covers all information under the
@@ -706,7 +711,7 @@ grouped with dashes, resulting in the final value:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MFZWI3D</span><span class="o">-</span><span class="n">BONSGYC</span><span class="o">-</span><span class="n">YLTMRWG</span><span class="o">-</span><span class="n">C43ENR5</span><span class="o">-</span><span class="n">QXGZDMM</span><span class="o">-</span><span class="n">FZWI3DP</span><span class="o">-</span><span class="n">BONSGYY</span><span class="o">-</span><span class="n">LTMRWAD</span>
 </pre></div>
 </div>
-<div class="section" id="connection-establishment">
+<section id="connection-establishment">
 <h3>Connection Establishment<a class="headerlink" href="#connection-establishment" title="Permalink to this headline">¶</a></h3>
 <p>Now we know what device IDs are, here’s how they are used in Syncthing. When
 you add a device ID to the configuration, Syncthing will attempt to
@@ -743,9 +748,9 @@ default, we expect it to be <code class="docutils literal notranslate"><span cla
 certificates this can be changed.</p></li>
 <li><p>If everything checks out so far, accept the connection.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="an-aside-about-collisions">
+</section>
+</section>
+<section id="an-aside-about-collisions">
 <h2>An Aside About Collisions<a class="headerlink" href="#an-aside-about-collisions" title="Permalink to this headline">¶</a></h2>
 <p>The SHA-256 hash is cryptographically collision resistant. This means
 that there is no way that we know of to create two different messages
@@ -784,12 +789,12 @@ have the same hash as my certificate. You need to create a valid DER-encoded,
 signed certificate that has the same hash as mine. The difficulty of this is
 staggeringly far beyond the already staggering difficulty of finding a SHA-256
 collision.</p>
-</div>
-<div class="section" id="problems-and-vulnerabilities">
+</section>
+<section id="problems-and-vulnerabilities">
 <h2>Problems and Vulnerabilities<a class="headerlink" href="#problems-and-vulnerabilities" title="Permalink to this headline">¶</a></h2>
 <p>As far as I know, these are the issues or potential issues with the
 above mechanism.</p>
-<div class="section" id="discovery-spoofing">
+<section id="discovery-spoofing">
 <h3>Discovery Spoofing<a class="headerlink" href="#discovery-spoofing" title="Permalink to this headline">¶</a></h3>
 <p>Currently, neither the local nor global discovery mechanism is protected
 by crypto. This means that any device can in theory announce itself for
@@ -810,8 +815,8 @@ instead of trusting the device to tell the truth.</p></li>
 </ul>
 <p>It’s something we might want to look at at some point, but not a huge
 problem as I see it.</p>
-</div>
-<div class="section" id="long-device-ids-are-painful">
+</section>
+<section id="long-device-ids-are-painful">
 <h3>Long Device IDs are Painful<a class="headerlink" href="#long-device-ids-are-painful" title="Permalink to this headline">¶</a></h3>
 <p>It’s a mouthful to read over the phone, annoying to type into an SMS or even
 into a computer. And it needs to be done twice, once for each side.</p>
@@ -828,9 +833,9 @@ that PIN plus a short device ID to another user. On initial connect,
 both sides verify that the other knows the correct PIN before
 accepting the connection.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -850,7 +855,7 @@ accepting the connection.</p></li>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -876,6 +881,7 @@ accepting the connection.</p></li>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

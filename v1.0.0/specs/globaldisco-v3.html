@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>4.2. Global Discovery v3 &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -178,9 +183,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="global-discovery-v3">
+  <section id="global-discovery-v3">
 <span id="globaldisco-v3"></span><h1><span class="section-number">4.2. </span>Global Discovery v3<a class="headerlink" href="#global-discovery-v3" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="announcements">
+<section id="announcements">
 <h2><span class="section-number">4.2.1. </span>Announcements<a class="headerlink" href="#announcements" title="Permalink to this headline">¶</a></h2>
 <p>A device should announce itself at startup. It does this by an HTTPS POST to
 the announce server URL. Standard discovery currently requires the path to be
@@ -213,8 +218,8 @@ the number of seconds after which the client should retry.</p>
 <code class="docutils literal notranslate"><span class="pre">Reannounce-After</span></code> or <code class="docutils literal notranslate"><span class="pre">Retry-After</span></code> headers may result in the client being
 throttled. In such cases the server may respond with status code <code class="docutils literal notranslate"><span class="pre">429</span></code> (Too
 Many Requests).</p>
-</div>
-<div class="section" id="queries">
+</section>
+<section id="queries">
 <h2><span class="section-number">4.2.2. </span>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h2>
 <p>Queries are performed as HTTPS GET requests to the announce server URL. The
 requested device ID is passed as the query parameter “device”, in canonical
@@ -228,8 +233,8 @@ empty or unspecified addresses.</p>
 Found) is returned.</p>
 <p>If the client has exceeded a rate limit, the server may respond with 429 (Too
 Many Requests).</p>
-</div>
-<div class="section" id="authentication">
+</section>
+<section id="authentication">
 <h2><span class="section-number">4.2.3. </span>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
 <p>Global discovery is spoken over HTTPS and is protected against attackers in
 the same manner as other HTTPS traffic. However, there are a few Syncthing
@@ -249,8 +254,8 @@ which certificate to expect on the server side.</p>
 <p>The public discovery network uses this authentication mechanism instead of
 CA signed certificates.</p>
 <p>The discovery server prints its certificate ID in this manner on startup.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -302,6 +307,7 @@ CA signed certificates.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

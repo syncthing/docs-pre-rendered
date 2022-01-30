@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.6. Folder Types &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -196,14 +201,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="folder-types">
+  <section id="folder-types">
 <span id="id1"></span><h1><span class="section-number">2.6. </span>Folder Types<a class="headerlink" href="#folder-types" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="send-receive-folder">
+<section id="send-receive-folder">
 <h2><span class="section-number">2.6.1. </span>Send &amp; Receive Folder<a class="headerlink" href="#send-receive-folder" title="Permalink to this headline">¶</a></h2>
 <p>This is the standard folder type. Under this setting, a folder will both send
 changes to and receive changes from remote devices.</p>
-</div>
-<div class="section" id="send-only-folder">
+</section>
+<section id="send-only-folder">
 <span id="folder-sendonly"></span><h2><span class="section-number">2.6.2. </span>Send Only Folder<a class="headerlink" href="#send-only-folder" title="Permalink to this headline">¶</a></h2>
 <p>A folder can be set in “send only mode” among the folder settings.</p>
 <img alt="../_images/foldersendonly.png" src="../_images/foldersendonly.png" />
@@ -220,8 +225,8 @@ button is shown at the bottom of the folder details.</p>
 rest of the cluster. Any changes made to files will be overwritten by
 the version on this host, any files that don’t exist on this host will
 be deleted, and so on.</p>
-</div>
-<div class="section" id="receive-only-folder">
+</section>
+<section id="receive-only-folder">
 <span id="folder-recvonly"></span><h2><span class="section-number">2.6.3. </span>Receive Only Folder<a class="headerlink" href="#receive-only-folder" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.14.50.</span></p>
@@ -245,8 +250,8 @@ by the cluster will cause a sync conflict. The conflict will be resolved
 with the cluster version as the winner. Being a receive-only folder, the
 sync conflict copy will not be sent to the cluster - and will be deleted if
 “Revert Changes” is used.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -298,6 +303,7 @@ sync conflict copy will not be sent to the cluster - and will be deleted if
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Building Syncthing &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -299,7 +304,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -482,7 +487,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#introduction-and-definitions">Introduction and Definitions</a></li>
@@ -574,7 +579,7 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="building-syncthing">
+  <section id="building-syncthing">
 <span id="building"></span><h1>Building Syncthing<a class="headerlink" href="#building-syncthing" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -589,7 +594,7 @@ releases instead.</p>
 <a class="reference internal" href="#building-with-docker"><span class="std std-ref">Building with Docker</span></a>. Otherwise follow the guide below to set up the
 development environment on your computer.</p>
 </div>
-<div class="section" id="branches-and-tags">
+<section id="branches-and-tags">
 <h2>Branches and Tags<a class="headerlink" href="#branches-and-tags" title="Permalink to this headline">¶</a></h2>
 <p>You should base your work on the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch when doing your
 development. This branch is usually what will be going into the next
@@ -597,8 +602,8 @@ release and always what pull requests should be based on.</p>
 <p>If you’re looking to build and package a release of Syncthing you should
 instead use the latest tag (<code class="docutils literal notranslate"><span class="pre">vX.Y.Z</span></code>) as the contents of <code class="docutils literal notranslate"><span class="pre">master</span></code>
 may be unstable and unsuitable for general consumption.</p>
-</div>
-<div class="section" id="prerequisites">
+</section>
+<section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Go <strong>1.3</strong> or higher</p></li>
@@ -611,8 +616,8 @@ is to download the latest version of Go as instructed in
 <p class="admonition-title">Note</p>
 <p>You need to set <code class="docutils literal notranslate"><span class="pre">GOPATH</span></code> correctly and the source <strong>must</strong> be checked out into <code class="docutils literal notranslate"><span class="pre">$GOPATH/src/github.com/syncthing/syncthing</span></code>. The instructions below accomplish this correctly.</p>
 </div>
-</div>
-<div class="section" id="building-unix">
+</section>
+<section id="building-unix">
 <h2>Building (Unix)<a class="headerlink" href="#building-unix" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Install the prerequisites.</p></li>
@@ -638,8 +643,8 @@ $ go run build.go
 </div>
 <p>Unless something goes wrong, you will have a <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> binary built
 and ready in <code class="docutils literal notranslate"><span class="pre">~/src/github.com/syncthing/syncthing/bin</span></code>.</p>
-</div>
-<div class="section" id="building-windows">
+</section>
+<section id="building-windows">
 <h2>Building (Windows)<a class="headerlink" href="#building-windows" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>Install the prerequisites.</p></li>
@@ -664,8 +669,8 @@ and ready in <code class="docutils literal notranslate"><span class="pre">~/src/
 </ul>
 <p>Unless something goes wrong, you will have a <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> binary
 built and ready in <code class="docutils literal notranslate"><span class="pre">c:\src\github.com\syncthing\syncthing\bin</span></code>.</p>
-</div>
-<div class="section" id="subcommands-and-options">
+</section>
+<section id="subcommands-and-options">
 <h2>Subcommands and Options<a class="headerlink" href="#subcommands-and-options" title="Permalink to this headline">¶</a></h2>
 <p>The following <code class="docutils literal notranslate"><span class="pre">build.go</span></code> subcommands and options exist.</p>
 <dl class="simple">
@@ -707,8 +712,8 @@ upgrading disabled.</p>
 <p class="admonition-title">Note</p>
 <p>Building for a different operating system or architecture than your native one requires Go having been set up for cross compilation. The easiest way to get this right is to use the official Docker image, described below.</p>
 </div>
-</div>
-<div class="section" id="building-without-git">
+</section>
+<section id="building-without-git">
 <h2>Building without Git<a class="headerlink" href="#building-without-git" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing can be built perfectly fine from a source tarball of course.
 If the tarball is from our build server it contains a file called
@@ -724,8 +729,8 @@ well to prevent the built in upgrade system from being activated.</p>
 <code class="docutils literal notranslate"><span class="pre">v0.10.26</span></code>, with upgrades disabled.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="building-with-docker">
+</section>
+<section id="building-with-docker">
 <span id="id1"></span><h2>Building with Docker<a class="headerlink" href="#building-with-docker" title="Permalink to this headline">¶</a></h2>
 <p>The Docker based build image exactly replicates the official build
 process and is a quick way to get up and running with the full cross
@@ -743,8 +748,8 @@ $ ./build.sh docker-all
 <p>A full build is done for all supported architectures, and tests are run.
 The process should end with a bunch of release files (<code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> and
 <code class="docutils literal notranslate"><span class="pre">.zip</span></code>) created.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -764,7 +769,7 @@ The process should end with a bunch of release files (<code class="docutils lite
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -790,6 +795,7 @@ The process should end with a bunch of release files (<code class="docutils lite
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

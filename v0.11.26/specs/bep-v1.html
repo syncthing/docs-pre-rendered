@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Block Exchange Protocol v1 &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -299,7 +304,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -482,7 +487,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Block Exchange Protocol v1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction-and-definitions">Introduction and Definitions</a></li>
@@ -574,9 +579,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="block-exchange-protocol-v1">
+  <section id="block-exchange-protocol-v1">
 <h1>Block Exchange Protocol v1<a class="headerlink" href="#block-exchange-protocol-v1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction-and-definitions">
+<section id="introduction-and-definitions">
 <h2>Introduction and Definitions<a class="headerlink" href="#introduction-and-definitions" title="Permalink to this headline">¶</a></h2>
 <p>BEP is used between two or more <em>devices</em> thus forming a <em>cluster</em>. Each
 device has one or more <em>folders</em> of files described by the <em>local
@@ -591,8 +596,8 @@ devices in the cluster.</p>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
 “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
 document are to be interpreted as described in RFC 2119.</p>
-</div>
-<div class="section" id="transport-and-authentication">
+</section>
+<section id="transport-and-authentication">
 <h2>Transport and Authentication<a class="headerlink" href="#transport-and-authentication" title="Permalink to this headline">¶</a></h2>
 <p>BEP is deployed as the highest level in a protocol stack, with the lower
 level protocols providing encryption and authentication.</p>
@@ -626,8 +631,8 @@ the sender need not await a response to one message before sending
 another. Responses MUST however be sent in the same order as the
 requests are received.</p>
 <p>The underlying transport protocol MUST be TCP.</p>
-</div>
-<div class="section" id="messages">
+</section>
+<section id="messages">
 <h2>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h2>
 <p>Every message starts with one 32 bit word indicating the message
 version, type and ID, followed by the length of the message. The header
@@ -698,13 +703,13 @@ are identical, the distinction being solely one of interpretation.
 Opaque data should not be interpreted but can be compared bytewise to
 other opaque data. All strings MUST use the Unicode UTF-8 encoding,
 normalization form C.</p>
-<div class="section" id="cluster-config-type-0">
+<section id="cluster-config-type-0">
 <h3>Cluster Config (Type = 0)<a class="headerlink" href="#cluster-config-type-0" title="Permalink to this headline">¶</a></h3>
 <p>This informational message provides information about the cluster
 configuration as it pertains to the current connection. A Cluster Config
 message MUST be the first message sent on a BEP connection. Additional
 Cluster Config messages MUST NOT be sent after the initial exchange.</p>
-<div class="section" id="graphical-representation">
+<section id="graphical-representation">
 <h4>Graphical Representation<a class="headerlink" href="#graphical-representation" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ClusterConfigMessage</span> <span class="n">Structure</span><span class="p">:</span>
 
@@ -808,8 +813,8 @@ Cluster Config messages MUST NOT be sent after the initial exchange.</p>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fields">
+</section>
+<section id="fields">
 <h4>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h4>
 <p>The ClientName and ClientVersion fields identify the implementation. The
 values SHOULD be simple strings identifying the implementation name, as
@@ -873,8 +878,8 @@ this device.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-odd">Bits 0 through 14</dt>
-<dd class="field-odd"><p>are reserved and MUST be set to zero.</p>
+<dt class="field-even">Bits 0 through 14</dt>
+<dd class="field-even"><p>are reserved and MUST be set to zero.</p>
 </dd>
 </dl>
 <p>Exactly one of the T and R bits MUST be set.</p>
@@ -896,8 +901,8 @@ limiting or make recommendations about request parallelism, device
 priorities, etc. An empty options list is valid for devices not having
 any such information to share. Devices MAY NOT make any assumptions
 about peers acting in a specific manner as a result of sent options.</p>
-</div>
-<div class="section" id="xdr">
+</section>
+<section id="xdr">
 <h4>XDR<a class="headerlink" href="#xdr" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">ClusterConfigMessage</span> <span class="p">{</span>
     <span class="n">string</span> <span class="n">ClientName</span><span class="o">&lt;&gt;</span><span class="p">;</span>
@@ -926,9 +931,9 @@ about peers acting in a specific manner as a result of sent options.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="index-type-1-and-index-update-type-6">
+</section>
+</section>
+<section id="index-type-1-and-index-update-type-6">
 <h3>Index (Type = 1) and Index Update (Type = 6)<a class="headerlink" href="#index-type-1-and-index-update-type-6" title="Permalink to this headline">¶</a></h3>
 <p>The Index and Index Update messages define the contents of the senders
 folder. An Index message represents the full contents of the folder and
@@ -937,7 +942,7 @@ index with new information, not affecting any entries not included in
 the message. An Index Update MAY NOT be sent unless preceded by an
 Index, unless a non-zero Max Local Version has been announced for the
 given folder by the peer device.</p>
-<div class="section" id="id1">
+<section id="id1">
 <h4>Graphical Representation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IndexMessage</span> <span class="n">Structure</span><span class="p">:</span>
 
@@ -1042,8 +1047,8 @@ given folder by the peer device.</p>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h4>Fields<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
 <p>The Folder field identifies the folder that the index message pertains
 to. For single folder implementations the device MUST use the string
@@ -1127,8 +1132,8 @@ block which may represent a smaller amount of data.</p>
 <p>The Flags field (in IndexMessage) is reserved for future use and MUST
 currently be set to zero. The Options list is implementation defined and
 as described in the ClusterConfig message section.</p>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h4>XDR<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">IndexMessage</span> <span class="p">{</span>
     <span class="n">string</span> <span class="n">Folder</span><span class="o">&lt;&gt;</span><span class="p">;</span>
@@ -1161,13 +1166,13 @@ as described in the ClusterConfig message section.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="request-type-2">
+</section>
+</section>
+<section id="request-type-2">
 <h3>Request (Type = 2)<a class="headerlink" href="#request-type-2" title="Permalink to this headline">¶</a></h3>
 <p>The Request message expresses the desire to receive a data block
 corresponding to a part of a certain file in the peer’s folder.</p>
-<div class="section" id="id4">
+<section id="id4">
 <h4>Graphical Representation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RequestMessage</span> <span class="n">Structure</span><span class="p">:</span>
 
@@ -1208,8 +1213,8 @@ corresponding to a part of a certain file in the peer’s folder.</p>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h4>Fields<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <p>The Folder and Name fields are as documented for the Index message. The
 Offset and Size fields specify the region of the file to be transferred.
@@ -1222,8 +1227,8 @@ and hash, if one exists.</p>
 <p>The Flags field is reserved for future use and MUST currently be set to
 zero. The Options list is implementation defined and as described in the
 ClusterConfig message section.</p>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h4>XDR<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">RequestMessage</span> <span class="p">{</span>
     <span class="n">string</span> <span class="n">Folder</span><span class="o">&lt;</span><span class="mi">64</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1236,12 +1241,12 @@ ClusterConfig message section.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="response-type-3">
+</section>
+</section>
+<section id="response-type-3">
 <h3>Response (Type = 3)<a class="headerlink" href="#response-type-3" title="Permalink to this headline">¶</a></h3>
 <p>The Response message is sent in response to a Request message.</p>
-<div class="section" id="id7">
+<section id="id7">
 <h4>Graphical Representation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <p>ResponseMessage Structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
@@ -1257,8 +1262,8 @@ ClusterConfig message section.</p>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h4>Fields<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>The Data field contains either a full 128 KiB block, a shorter block in
 the case of the last block in a file, or is empty (zero length) if the
@@ -1282,8 +1287,8 @@ outside the acceptable range for the file)</p>
 unavailable)</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h4>XDR<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">ResponseMessage</span> <span class="p">{</span>
     <span class="n">opaque</span> <span class="n">Data</span><span class="o">&lt;&gt;</span><span class="p">;</span>
@@ -1291,25 +1296,25 @@ unavailable)</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="ping-type-4">
+</section>
+</section>
+<section id="ping-type-4">
 <h3>Ping (Type = 4)<a class="headerlink" href="#ping-type-4" title="Permalink to this headline">¶</a></h3>
 <p>The Ping message is used to determine that a connection is alive, and to
 keep connections alive through state tracking network elements such as
 firewalls and NAT gateways. The Ping message has no contents.</p>
-</div>
-<div class="section" id="pong-type-5">
+</section>
+<section id="pong-type-5">
 <h3>Pong (Type = 5)<a class="headerlink" href="#pong-type-5" title="Permalink to this headline">¶</a></h3>
 <p>The Pong message is sent in response to a Ping. The Pong message has no
 contents, but copies the Message ID from the Ping.</p>
-</div>
-<div class="section" id="close-type-7">
+</section>
+<section id="close-type-7">
 <h3>Close (Type = 7)<a class="headerlink" href="#close-type-7" title="Permalink to this headline">¶</a></h3>
 <p>The Close message MAY be sent to indicate that the connection will be
 torn down due to an error condition. A Close message MUST NOT be
 followed by further messages.</p>
-<div class="section" id="id10">
+<section id="id10">
 <h4>Graphical Representation<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CloseMessage</span> <span class="n">Structure</span><span class="p">:</span>
 
@@ -1326,8 +1331,8 @@ followed by further messages.</p>
 <span class="o">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id11">
+</section>
+<section id="id11">
 <h4>Fields<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <p>The Reason field contains a human description of the error condition,
 suitable for consumption by a human. The Code field is for a machine
@@ -1339,12 +1344,12 @@ currently be set to zero.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="sharing-modes">
+</section>
+</section>
+</section>
+<section id="sharing-modes">
 <h2>Sharing Modes<a class="headerlink" href="#sharing-modes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="trusted">
+<section id="trusted">
 <h3>Trusted<a class="headerlink" href="#trusted" title="Permalink to this headline">¶</a></h3>
 <p>Trusted mode is the default sharing mode. Updates are exchanged in both
 directions.</p>
@@ -1355,8 +1360,8 @@ directions.</p>
 <span class="o">+------------+</span>     <span class="n">Updates</span>      \<span class="o">---------/</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="read-only">
+</section>
+<section id="read-only">
 <h3>Read Only<a class="headerlink" href="#read-only" title="Permalink to this headline">¶</a></h3>
 <p>In read only mode, a device does not synchronize the local folder to the
 cluster, but publishes changes to its local folder contents as usual.
@@ -1369,9 +1374,9 @@ by the actions of other cluster devices.</p>
 <span class="o">+------------+</span>                  \<span class="o">---------/</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="message-limits">
+</section>
+</section>
+<section id="message-limits">
 <h2>Message Limits<a class="headerlink" href="#message-limits" title="Permalink to this headline">¶</a></h2>
 <p>An implementation MAY impose reasonable limits on the length of messages
 and message fields to aid robustness in the face of corruption or broken
@@ -1511,8 +1516,8 @@ large Index message.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="example-exchange">
+</section>
+<section id="example-exchange">
 <h2>Example Exchange<a class="headerlink" href="#example-exchange" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -1604,8 +1609,8 @@ and transmits an Index Update message (10). Both peers enter idle state
 after 10. At some later time 11, peer A determines that it has not seen
 data from B for some time and sends a Ping request. A response is sent
 at 12.</p>
-</div>
-<div class="section" id="examples-of-strong-cipher-suites">
+</section>
+<section id="examples-of-strong-cipher-suites">
 <h2>Examples of Strong Cipher Suites<a class="headerlink" href="#examples-of-strong-cipher-suites" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -1654,8 +1659,8 @@ at 12.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -1675,7 +1680,7 @@ at 12.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -1701,6 +1706,7 @@ at 12.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

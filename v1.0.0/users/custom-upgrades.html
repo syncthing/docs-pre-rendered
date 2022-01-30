@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.17. Custom Upgrade Server &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -194,7 +199,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="custom-upgrade-server">
+  <section id="custom-upgrade-server">
 <h1><span class="section-number">2.17. </span>Custom Upgrade Server<a class="headerlink" href="#custom-upgrade-server" title="Permalink to this headline">¶</a></h1>
 <p>Syncthing by default upgrades automatically from the <a class="reference external" href="https://github.com/syncthing/syncthing/releases">official release packages</a>
 on Github. If this is unsuitable, Syncthing can instead be configured to look
@@ -202,7 +207,7 @@ for upgrades on a local or private upgrade server.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
 </div>
-<div class="section" id="usage">
+<section id="usage">
 <h2><span class="section-number">2.17.1. </span>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>The URL used to fetch release information can be set in <a class="reference internal" href="advanced.html#advanced"><span class="std std-ref">Advanced Configuration</span></a>, under
 the name <code class="docutils literal notranslate"><span class="pre">releasesURL</span></code>. The URL should point to a location serving a valid
@@ -262,8 +267,8 @@ version numbers of the form <code class="docutils literal notranslate"><span cla
 a release marked as <code class="docutils literal notranslate"><span class="pre">&quot;prerelease&quot;:</span> <span class="pre">true</span></code>. The actual assets must be official
 releases downloaded from Github, or they must be custom compiled and signed
 according to the process outlined in <a class="reference internal" href="../dev/release-signing.html#release-signing"><span class="std std-ref">Release Signing</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -315,6 +320,7 @@ according to the process outlined in <a class="reference internal" href="../dev/
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

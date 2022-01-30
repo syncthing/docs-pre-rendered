@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>GET /rest/events &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,7 +34,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="get-rest-events">
+  <section id="get-rest-events">
 <span id="events-get"></span><h1>GET /rest/events<a class="headerlink" href="#get-rest-events" title="Permalink to this headline">¶</a></h1>
 <p>To receive events, perform a HTTP GET of <code class="docutils literal notranslate"><span class="pre">/rest/events</span></code>.</p>
 <p>To filter the event list, in effect creating a specific subscription for
@@ -54,7 +55,7 @@ with the optional parameter <code class="docutils literal notranslate"><span cla
 suitable value for <code class="docutils literal notranslate"><span class="pre">n</span></code> and only the <em>last</em> <code class="docutils literal notranslate"><span class="pre">n</span></code> events will be returned. This
 can be used to catch up with the latest event ID after a disconnection for
 example: <code class="docutils literal notranslate"><span class="pre">/rest/events?since=0&amp;limit=1</span></code>.</p>
-</div>
+</section>
 
 
           </div>
@@ -127,7 +128,7 @@ example: <code class="docutils literal notranslate"><span class="pre">/rest/even
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

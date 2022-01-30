@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Syncthing &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -98,7 +99,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -128,9 +129,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="syncthing">
+  <section id="syncthing">
 <span id="id1"></span><h1>Syncthing<a class="headerlink" href="#syncthing" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
+<section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">syncthing</span> <span class="p">[</span><span class="o">-</span><span class="n">audit</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">auditfile</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">|-|--&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">browser</span><span class="o">-</span><span class="n">only</span><span class="p">]</span> <span class="p">[</span><span class="n">device</span><span class="o">-</span><span class="nb">id</span><span class="p">]</span>
           <span class="p">[</span><span class="o">-</span><span class="n">generate</span><span class="o">=&lt;</span><span class="nb">dir</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">gui</span><span class="o">-</span><span class="n">address</span><span class="o">=&lt;</span><span class="n">address</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">gui</span><span class="o">-</span><span class="n">apikey</span><span class="o">=&lt;</span><span class="n">key</span><span class="o">&gt;</span><span class="p">]</span>
@@ -140,8 +141,8 @@
           <span class="p">[</span><span class="o">-</span><span class="n">upgrade</span><span class="o">-</span><span class="n">check</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">upgrade</span><span class="o">-</span><span class="n">to</span><span class="o">=&lt;</span><span class="n">url</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">verbose</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">version</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="description">
+</section>
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing lets you synchronize your files bidirectionally across multiple
 devices. This means the creation, modification or deletion of files on one
@@ -149,62 +150,62 @@ machine will automatically be replicated to your other devices. We believe your
 data is your data alone and you deserve to choose where it is stored. Therefore
 Syncthing does not upload your data to the cloud but exchanges your data across
 your machines as soon as they are online at the same time.</p>
-</div>
-<div class="section" id="options">
+</section>
+<section id="options">
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <dl class="std cmdoption">
-<dt id="cmdoption-audit">
-<code class="sig-name descname">-audit</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-audit" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-audit">
+<span class="sig-name descname"><span class="pre">-audit</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-audit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write events to timestamped file <code class="docutils literal notranslate"><span class="pre">audit-YYYYMMDD-HHMMSS.log</span></code>.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-auditfile">
-<code class="sig-name descname">-auditfile</code><code class="sig-prename descclassname">=&lt;file|-|--&gt;</code><a class="headerlink" href="#cmdoption-auditfile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-auditfile">
+<span class="sig-name descname"><span class="pre">-auditfile</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;file|-|--&gt;</span></span><a class="headerlink" href="#cmdoption-auditfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use specified file or stream (<code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code> for stdout, <code class="docutils literal notranslate"><span class="pre">&quot;--&quot;</span></code> for stderr) for audit events, rather than the timestamped default file name.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-browser-only">
-<code class="sig-name descname">-browser-only</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-browser-only" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-browser-only">
+<span class="sig-name descname"><span class="pre">-browser-only</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-browser-only" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open the web UI in a browser for an already running Syncthing instance.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-device-id">
-<code class="sig-name descname">-device-id</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-device-id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-device-id">
+<span class="sig-name descname"><span class="pre">-device-id</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-device-id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print device ID to command line.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-generate">
-<code class="sig-name descname">-generate</code><code class="sig-prename descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-generate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-generate">
+<span class="sig-name descname"><span class="pre">-generate</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;dir&gt;</span></span><a class="headerlink" href="#cmdoption-generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate key and config in specified dir, then exit.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-gui-address">
-<code class="sig-name descname">-gui-address</code><code class="sig-prename descclassname">=&lt;address&gt;</code><a class="headerlink" href="#cmdoption-gui-address" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-gui-address">
+<span class="sig-name descname"><span class="pre">-gui-address</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;address&gt;</span></span><a class="headerlink" href="#cmdoption-gui-address" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override GUI listen address. Set this to an address (<code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code>)
 or file path (<code class="docutils literal notranslate"><span class="pre">/var/run/st.sock</span></code>, for UNIX sockets).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-home">
-<code class="sig-name descname">-home</code><code class="sig-prename descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-home" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-home">
+<span class="sig-name descname"><span class="pre">-home</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;dir&gt;</span></span><a class="headerlink" href="#cmdoption-home" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set configuration directory. The default configuration directory is
 <code class="docutils literal notranslate"><span class="pre">$HOME/.config/syncthing</span></code> (Unix-like), <code class="docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/Syncthing</span></code> (Mac) and <code class="docutils literal notranslate"><span class="pre">%LOCALAPPDATA%\Syncthing</span></code> (Windows).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-logfile">
-<code class="sig-name descname">-logfile</code><code class="sig-prename descclassname">=&lt;filename&gt;</code><a class="headerlink" href="#cmdoption-logfile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-logfile">
+<span class="sig-name descname"><span class="pre">-logfile</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;filename&gt;</span></span><a class="headerlink" href="#cmdoption-logfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set destination filename for logging (use <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code> for stdout, which is the default option).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-logflags">
-<code class="sig-name descname">-logflags</code><code class="sig-prename descclassname">=&lt;flags&gt;</code><a class="headerlink" href="#cmdoption-logflags" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-logflags">
+<span class="sig-name descname"><span class="pre">-logflags</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;flags&gt;</span></span><a class="headerlink" href="#cmdoption-logflags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select information in log line prefix. The <code class="docutils literal notranslate"><span class="pre">-logflags</span></code> value is a sum of
 the following:</p>
 <ul class="simple">
@@ -220,38 +221,38 @@ show time only (2).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-no-browser">
-<code class="sig-name descname">-no-browser</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-browser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-no-browser">
+<span class="sig-name descname"><span class="pre">-no-browser</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-no-browser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not start a browser.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-no-console">
-<code class="sig-name descname">-no-console</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-console" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-no-console">
+<span class="sig-name descname"><span class="pre">-no-console</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-no-console" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hide the console window. (On Windows only)</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-no-restart">
-<code class="sig-name descname">-no-restart</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-restart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-no-restart">
+<span class="sig-name descname"><span class="pre">-no-restart</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-no-restart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable the Syncthing monitor process which handles restarts for some configuration changes, upgrades, crashes and also log file writing (stdout is still written).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-paths">
-<code class="sig-name descname">-paths</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-paths" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-paths">
+<span class="sig-name descname"><span class="pre">-paths</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-paths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the paths used for configuration, keys, database, GUI overrides, default sync folder and the log file.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-paused">
-<code class="sig-name descname">-paused</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-paused" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-paused">
+<span class="sig-name descname"><span class="pre">-paused</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-paused" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start with all devices and folders paused.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-reset-database">
-<code class="sig-name descname">-reset-database</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-reset-database" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-reset-database">
+<span class="sig-name descname"><span class="pre">-reset-database</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-reset-database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the database, forcing a full rescan and resync. Create <cite>.stfolder</cite>
 folders in each sync folder if they do not already exist. <strong>Caution</strong>:
 Ensure that all sync folders which are mountpoints are already mounted.
@@ -260,49 +261,49 @@ contains older versions.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-reset-deltas">
-<code class="sig-name descname">-reset-deltas</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-reset-deltas" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-reset-deltas">
+<span class="sig-name descname"><span class="pre">-reset-deltas</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-reset-deltas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset delta index IDs, forcing a full index exchange.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-unpaused">
-<code class="sig-name descname">-unpaused</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-unpaused" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-unpaused">
+<span class="sig-name descname"><span class="pre">-unpaused</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-unpaused" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start with all devices and folders unpaused.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-upgrade">
-<code class="sig-name descname">-upgrade</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-upgrade" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-upgrade">
+<span class="sig-name descname"><span class="pre">-upgrade</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-upgrade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform upgrade.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-upgrade-check">
-<code class="sig-name descname">-upgrade-check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-upgrade-check" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-upgrade-check">
+<span class="sig-name descname"><span class="pre">-upgrade-check</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-upgrade-check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check for available upgrade.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-upgrade-to">
-<code class="sig-name descname">-upgrade-to</code><code class="sig-prename descclassname">=&lt;url&gt;</code><a class="headerlink" href="#cmdoption-upgrade-to" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-upgrade-to">
+<span class="sig-name descname"><span class="pre">-upgrade-to</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;url&gt;</span></span><a class="headerlink" href="#cmdoption-upgrade-to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Force upgrade directly from specified URL.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-verbose">
-<code class="sig-name descname">-verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-verbose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-verbose">
+<span class="sig-name descname"><span class="pre">-verbose</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-verbose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print verbose log output.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-version">
-<code class="sig-name descname">-version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-version">
+<span class="sig-name descname"><span class="pre">-version</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show version.</p>
 </dd></dl>
 
-</div>
-<div class="section" id="exit-codes">
+</section>
+<section id="exit-codes">
 <h2>Exit Codes<a class="headerlink" href="#exit-codes" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
 <dt>0</dt><dd><p>Success / Shutdown</p>
@@ -321,8 +322,8 @@ process (with environment variable <code class="docutils literal notranslate"><s
 usually returned by the shell/binary loader/default signal handler. Exit codes
 over 128+N on Unix usually represent the signal which caused the process to
 exit. For example, <code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">+</span> <span class="pre">9</span> <span class="pre">(SIGKILL)</span> <span class="pre">=</span> <span class="pre">137</span></code>.</p>
-</div>
-<div class="section" id="proxies">
+</section>
+<section id="proxies">
 <h2>Proxies<a class="headerlink" href="#proxies" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing can use a SOCKS, HTTP, or HTTPS proxy to talk to the outside
 world. The proxy is used for outgoing connections only - it is not possible
@@ -333,8 +334,8 @@ example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ export all_proxy=socks://192.0.2.42:8081
 </pre></div>
 </div>
-</div>
-<div class="section" id="development-settings">
+</section>
+<section id="development-settings">
 <h2>Development Settings<a class="headerlink" href="#development-settings" title="Permalink to this headline">¶</a></h2>
 <p>The following environment variables modify Syncthing’s behavior in ways that
 are mostly useful for developers. Use with care.
@@ -459,15 +460,15 @@ numbers keep peak memory usage down, at the price of CPU usage
 (i.e. performance).</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="see-also">
+</section>
+<section id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
 <p><em class="manpage">syncthing-config(5)</em>, <em class="manpage">syncthing-stignore(5)</em>,
 <em class="manpage">syncthing-device-ids(7)</em>, <em class="manpage">syncthing-security(7)</em>,
 <em class="manpage">syncthing-networking(7)</em>, <em class="manpage">syncthing-versioning(7)</em>,
 <em class="manpage">syncthing-faq(7)</em></p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

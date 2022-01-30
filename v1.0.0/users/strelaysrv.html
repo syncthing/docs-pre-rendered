@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.16. Syncthing Relay Server &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -203,9 +208,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="syncthing-relay-server">
+  <section id="syncthing-relay-server">
 <span id="strelaysrv"></span><h1><span class="section-number">2.16. </span>Syncthing Relay Server<a class="headerlink" href="#syncthing-relay-server" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
+<section id="synopsis">
 <h2><span class="section-number">2.16.1. </span>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">strelaysrv</span> <span class="p">[</span><span class="o">-</span><span class="n">debug</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">ext</span><span class="o">-</span><span class="n">address</span><span class="o">=&lt;</span><span class="n">address</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="k">global</span><span class="o">-</span><span class="n">rate</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">/</span><span class="n">s</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">keys</span><span class="o">=&lt;</span><span class="nb">dir</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">listen</span><span class="o">=&lt;</span><span class="n">listen</span> <span class="n">addr</span><span class="o">&gt;</span><span class="p">]</span>
            <span class="p">[</span><span class="o">-</span><span class="n">message</span><span class="o">-</span><span class="n">timeout</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="o">-</span><span class="n">lease</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">nat</span><span class="o">-</span><span class="n">renewal</span><span class="o">=&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span>
@@ -214,81 +219,81 @@
            <span class="p">[</span><span class="o">-</span><span class="n">status</span><span class="o">-</span><span class="n">srv</span><span class="o">=&lt;</span><span class="n">listen</span> <span class="n">addr</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="description">
+</section>
+<section id="description">
 <h2><span class="section-number">2.16.2. </span>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing relies on a network of community-contributed relay servers. Anyone
 can run a relay server, and it will automatically join the relay pool and be
 available to Syncthing users. The current list of relays can be found at
 <a class="reference external" href="http://relays.syncthing.net/">http://relays.syncthing.net/</a>.</p>
-</div>
-<div class="section" id="options">
+</section>
+<section id="options">
 <h2><span class="section-number">2.16.3. </span>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <dl class="std cmdoption">
-<dt id="cmdoption-debug">
-<code class="sig-name descname">-debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-debug">
+<span class="sig-name descname"><span class="pre">-debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable debug output.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-ext-address">
-<code class="sig-name descname">-ext-address</code><code class="sig-prename descclassname">=&lt;address&gt;</code><a class="headerlink" href="#cmdoption-ext-address" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-ext-address">
+<span class="sig-name descname"><span class="pre">-ext-address</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;address&gt;</span></span><a class="headerlink" href="#cmdoption-ext-address" title="Permalink to this definition">¶</a></dt>
 <dd><p>An optional address to advertising as being available on. Allows listening
 on an unprivileged port with port forwarding from e.g. 443, and be
 connected to on port 443.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-global-rate">
-<code class="sig-name descname">-global-rate</code><code class="sig-prename descclassname">=&lt;bytes/s&gt;</code><a class="headerlink" href="#cmdoption-global-rate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-global-rate">
+<span class="sig-name descname"><span class="pre">-global-rate</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;bytes/s&gt;</span></span><a class="headerlink" href="#cmdoption-global-rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Global rate limit, in bytes/s.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-keys">
-<code class="sig-name descname">-keys</code><code class="sig-prename descclassname">=&lt;dir&gt;</code><a class="headerlink" href="#cmdoption-keys" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-keys">
+<span class="sig-name descname"><span class="pre">-keys</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;dir&gt;</span></span><a class="headerlink" href="#cmdoption-keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory where cert.pem and key.pem is stored (default “.”).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-listen">
-<code class="sig-name descname">-listen</code><code class="sig-prename descclassname">=&lt;listen addr&gt;</code><a class="headerlink" href="#cmdoption-listen" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-listen">
+<span class="sig-name descname"><span class="pre">-listen</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;listen</span> <span class="pre">addr&gt;</span></span><a class="headerlink" href="#cmdoption-listen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protocol listen address (default “:22067”).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-message-timeout">
-<code class="sig-name descname">-message-timeout</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-message-timeout" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-message-timeout">
+<span class="sig-name descname"><span class="pre">-message-timeout</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-message-timeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum amount of time we wait for relevant messages to arrive (default 1m0s).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-nat">
-<code class="sig-name descname">-nat</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-nat" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-nat">
+<span class="sig-name descname"><span class="pre">-nat</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-nat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use UPnP/NAT-PMP to acquire external port mapping</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-nat-lease">
-<code class="sig-name descname">-nat-lease</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-nat-lease" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-nat-lease">
+<span class="sig-name descname"><span class="pre">-nat-lease</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-nat-lease" title="Permalink to this definition">¶</a></dt>
 <dd><p>NAT lease length in minutes (default 60)</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-nat-renewal">
-<code class="sig-name descname">-nat-renewal</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-nat-renewal" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-nat-renewal">
+<span class="sig-name descname"><span class="pre">-nat-renewal</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-nat-renewal" title="Permalink to this definition">¶</a></dt>
 <dd><p>NAT renewal frequency in minutes (default 30)</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-nat-timeout">
-<code class="sig-name descname">-nat-timeout</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-nat-timeout" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-nat-timeout">
+<span class="sig-name descname"><span class="pre">-nat-timeout</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-nat-timeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>NAT discovery timeout in seconds (default 10)</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-network-timeout">
-<code class="sig-name descname">-network-timeout</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-network-timeout" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-network-timeout">
+<span class="sig-name descname"><span class="pre">-network-timeout</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-network-timeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Timeout for network operations between the client and the relay. If no data
 is received between the client and the relay in this period of time, the
 connection is terminated. Furthermore, if no data is sent between either
@@ -297,46 +302,46 @@ terminated. (default 2m0s)</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-per-session-rate">
-<code class="sig-name descname">-per-session-rate</code><code class="sig-prename descclassname">=&lt;bytes/s&gt;</code><a class="headerlink" href="#cmdoption-per-session-rate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-per-session-rate">
+<span class="sig-name descname"><span class="pre">-per-session-rate</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;bytes/s&gt;</span></span><a class="headerlink" href="#cmdoption-per-session-rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Per session rate limit, in bytes/s.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-ping-interval">
-<code class="sig-name descname">-ping-interval</code><code class="sig-prename descclassname">=&lt;duration&gt;</code><a class="headerlink" href="#cmdoption-ping-interval" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-ping-interval">
+<span class="sig-name descname"><span class="pre">-ping-interval</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;duration&gt;</span></span><a class="headerlink" href="#cmdoption-ping-interval" title="Permalink to this definition">¶</a></dt>
 <dd><p>How often pings are sent (default 1m0s).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-pools">
-<code class="sig-name descname">-pools</code><code class="sig-prename descclassname">=&lt;pool addresses&gt;</code><a class="headerlink" href="#cmdoption-pools" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-pools">
+<span class="sig-name descname"><span class="pre">-pools</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;pool</span> <span class="pre">addresses&gt;</span></span><a class="headerlink" href="#cmdoption-pools" title="Permalink to this definition">¶</a></dt>
 <dd><p>Comma separated list of relay pool addresses to join (default
 “<a class="reference external" href="http://relays.syncthing.net/endpoint">http://relays.syncthing.net/endpoint</a>”). Blank to disable announcement to
 a pool, thereby remaining a private relay.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-protocol">
-<code class="sig-name descname">-protocol</code><code class="sig-prename descclassname">=&lt;string&gt;</code><a class="headerlink" href="#cmdoption-protocol" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-protocol">
+<span class="sig-name descname"><span class="pre">-protocol</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;string&gt;</span></span><a class="headerlink" href="#cmdoption-protocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Protocol used for listening. ‘tcp’ for IPv4 and IPv6, ‘tcp4’ for IPv4, ‘tcp6’ for IPv6 (default “tcp”).</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-provided-by">
-<code class="sig-name descname">-provided-by</code><code class="sig-prename descclassname">=&lt;string&gt;</code><a class="headerlink" href="#cmdoption-provided-by" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-provided-by">
+<span class="sig-name descname"><span class="pre">-provided-by</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;string&gt;</span></span><a class="headerlink" href="#cmdoption-provided-by" title="Permalink to this definition">¶</a></dt>
 <dd><p>An optional description about who provides the relay.</p>
 </dd></dl>
 
 <dl class="std cmdoption">
-<dt id="cmdoption-status-srv">
-<code class="sig-name descname">-status-srv</code><code class="sig-prename descclassname">=&lt;listen addr&gt;</code><a class="headerlink" href="#cmdoption-status-srv" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-status-srv">
+<span class="sig-name descname"><span class="pre">-status-srv</span></span><span class="sig-prename descclassname"><span class="pre">=&lt;listen</span> <span class="pre">addr&gt;</span></span><a class="headerlink" href="#cmdoption-status-srv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Listen address for status service (blank to disable) (default “:22070”).
 Status service is used by the relay pool server UI for displaying stats (data transfered, number of clients, etc.)</p>
 </dd></dl>
 
-</div>
-<div class="section" id="setting-up">
+</section>
+<section id="setting-up">
 <h2><span class="section-number">2.16.4. </span>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h2>
 <p>Primarily, you need to decide on a directory to store the TLS key and
 certificate and a listen port. The default listen port of 22067 works, but for
@@ -356,7 +361,7 @@ the keys. The keys are generated on first startup. The relay will join the
 global relay pool, unless a <code class="docutils literal notranslate"><span class="pre">-pools=&quot;&quot;</span></code> argument is given.</p>
 <p>To make the relay server start automatically at boot, use the recommended
 procedure for your operating system.</p>
-<div class="section" id="client-configuration">
+<section id="client-configuration">
 <h3>Client configuration<a class="headerlink" href="#client-configuration" title="Permalink to this headline">¶</a></h3>
 <p>Syncthing can be configured to use specific relay servers (exclusively of the public pool) by adding the required servers to the Sync Protocol Listen Address field, under Actions and Settings. The format is as follows:</p>
 <blockquote>
@@ -367,8 +372,8 @@ procedure for your operating system.</p>
 <div><p>relay://private-relay-1.example.com:443/?id=ITZRNXE-YNROGBZ-HXTH5P7-VK5NYE5-QHRQGE2-7JQ6VNJ-KZUEDIU-5PPR5AM</p>
 </div></blockquote>
 <p>The relay’s device ID is output on start-up.</p>
-</div>
-<div class="section" id="running-on-port-443-as-an-unprivileged-user">
+</section>
+<section id="running-on-port-443-as-an-unprivileged-user">
 <h3>Running on port 443 as an unprivileged user<a class="headerlink" href="#running-on-port-443-as-an-unprivileged-user" title="Permalink to this headline">¶</a></h3>
 <p>It is recommended that you run the relay on port 443 (or another port which is
 commonly allowed through corporate firewalls), in order to maximise the chances
@@ -396,9 +401,9 @@ on port 22067. You will also need to let both port 443 and 22067 through your
 firewall.</p>
 <p>Another option is <a class="reference external" href="https://wiki.apache.org/httpd/NonRootPortBinding">described here</a>,
 although your mileage may vary.</p>
-</div>
-</div>
-<div class="section" id="firewall-considerations">
+</section>
+</section>
+<section id="firewall-considerations">
 <h2><span class="section-number">2.16.5. </span>Firewall Considerations<a class="headerlink" href="#firewall-considerations" title="Permalink to this headline">¶</a></h2>
 <p>The relay server listens on two ports by default.  One for data connections and the other
 for providing public statistics at <a class="reference external" href="http://relays.syncthing.net/">http://relays.syncthing.net/</a>.  The firewall, such as
@@ -413,13 +418,13 @@ for providing public statistics at <a class="reference external" href="http://re
 </pre></div>
 </div>
 <p>Please consult Linux distribution documentation to persist firewall rules.</p>
-</div>
-<div class="section" id="see-also">
+</section>
+<section id="see-also">
 <h2><span class="section-number">2.16.6. </span>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
 <p><em class="manpage">syncthing-relay(7)</em>, <em class="manpage">syncthing-faq(7)</em>,
 <em class="manpage">syncthing-networking(7)</em></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -471,6 +476,7 @@ for providing public statistics at <a class="reference external" href="http://re
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

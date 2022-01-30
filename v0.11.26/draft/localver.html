@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Understanding the Local Version Counter &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -76,7 +81,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -99,7 +104,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -297,7 +302,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -480,7 +485,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../specs/bep-v1.html#introduction-and-definitions">Introduction and Definitions</a></li>
@@ -572,9 +577,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="understanding-the-local-version-counter">
+  <section id="understanding-the-local-version-counter">
 <span id="localver"></span><h1>Understanding the Local Version Counter<a class="headerlink" href="#understanding-the-local-version-counter" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="description">
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Changes to files are tracked by so called <em>version vectors</em>, which can be used
 to understand a file’s provinence in terms of who changed it after receiving a
@@ -587,8 +592,8 @@ For this purpose we have the <em>local version counter</em>.</p>
 device. Each time a change is made to the index information of an item (file
 or directory), that item is tagged with the current value of the local version
 counter, and the counter is increased.</p>
-</div>
-<div class="section" id="principal-operation">
+</section>
+<section id="principal-operation">
 <h2>Principal Operation<a class="headerlink" href="#principal-operation" title="Permalink to this headline">¶</a></h2>
 <p>Assume that the starting value of the counter is <code class="docutils literal notranslate"><span class="pre">0</span></code>. The next change that
 happens will be assigned local version <code class="docutils literal notranslate"><span class="pre">1</span></code>. Local scanning reveals the
@@ -645,8 +650,8 @@ is increased. Likewise <code class="docutils literal notranslate"><span class="p
 us that they see a maximum local version value of <code class="docutils literal notranslate"><span class="pre">3</span></code>, then we know that we
 only need to send them information about entries with local version number
 <code class="docutils literal notranslate"><span class="pre">4</span></code> or higher – in this case the entry for <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
-</div>
-<div class="section" id="implementation-details">
+</section>
+<section id="implementation-details">
 <h2>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
 <p>In actual operation, the local version is assigned from the current timestamp
 in Unix epoch nanoseconds, potentially incremented in case of multiple changes
@@ -670,8 +675,8 @@ received maximum.</p>
 <p>If the received maximum local version number is equal to the maximum local
 version number in our index, the other device is fully up to date with our
 index information.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -682,7 +687,7 @@ index information.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -708,6 +713,7 @@ index information.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Getting Started &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -262,7 +267,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -460,7 +465,7 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="getting-started">
+  <section id="getting-started">
 <span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>For this guide let’s assume you have two machines between which you want
 to synchronise files. In keeping with Syncthing terminology they are
@@ -476,7 +481,7 @@ immediately obvious.</p>
 shows how to install Syncthing on Ubuntu/Debian/Mint using PPA, also available
 in <a class="reference external" href="https://www.youtube.com/watch?v=Gh5nUlDzqJc">German</a>. <a class="reference external" href="https://www.youtube.com/watch?v=2QcO8ikxzxA">This video</a> shows how to install Syncthing
 on Windows, also available in <a class="reference external" href="https://www.youtube.com/watch?v=7LziT3KDiMU">German</a></p>
-<div class="section" id="installing">
+<section id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
 <p>We suggest you have a look to many of the <a class="reference internal" href="../users/contrib.html#contributions"><span class="std std-ref">Community Contributions</span></a> which let
 you pick a flavor of Syncthing that best fits your scenario. For example, if you
@@ -486,7 +491,7 @@ more specific flavors that help you run Syncthing on your devices. Currently
 all community flavors run the same Syncthing core underneath, so don’t worry
 about changing your flavor at a later point in time. The remainder of this page
 will explain how to set up two devices with the core Syncthing flavor.</p>
-<div class="section" id="syncthing">
+<section id="syncthing">
 <h3>Syncthing<a class="headerlink" href="#syncthing" title="Permalink to this headline">¶</a></h3>
 <p>Grab the <a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">latest release</a> of Syncthing for your operating system at and unpack
 it. There will be a binary called <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> (or <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> on
@@ -520,9 +525,9 @@ browser. Something like the following will be printed in the terminal:</p>
 <code class="docutils literal notranslate"><span class="pre">default</span></code> for you, in a directory called <code class="docutils literal notranslate"><span class="pre">Sync</span></code> in your home
 directory. You can use this as a starting point, then remove it or add
 more folders later.</p>
-</div>
-</div>
-<div class="section" id="configuring">
+</section>
+</section>
+<section id="configuring">
 <h2>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h2>
 <p>The admin GUI starts automatically and remains available on
 <code class="docutils literal notranslate"><span class="pre">http://localhost:8384/</span></code>. It should look something like this:</p>
@@ -575,8 +580,8 @@ forum</a>. If you have
 problems getting this to connect, first take a look at <a class="reference internal" href="../users/firewall.html#firewall-setup"><span class="std std-ref">Firewall Setup</span></a>, then
 look at any error messages in the GUI or on the console and if necessary
 move on to <span class="xref std std-ref">debugging</span>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -596,7 +601,7 @@ move on to <span class="xref std std-ref">debugging</span>.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -622,6 +627,7 @@ move on to <span class="xref std std-ref">debugging</span>.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

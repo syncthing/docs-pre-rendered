@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Starting Syncthing Automatically &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -289,7 +294,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -487,17 +492,17 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="starting-syncthing-automatically">
+  <section id="starting-syncthing-automatically">
 <h1>Starting Syncthing Automatically<a class="headerlink" href="#starting-syncthing-automatically" title="Permalink to this headline">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This page may be outdated and requires review.</p>
 </div>
-<div class="section" id="windows">
+<section id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <p>There is currently no official installer available for Windows. However,
 there are a number of easy solutions.</p>
-<div class="section" id="third-party-tools">
+<section id="third-party-tools">
 <h3>Third-party Tools<a class="headerlink" href="#third-party-tools" title="Permalink to this headline">¶</a></h3>
 <p>There are a number of third-party utilities which aim to address this
 issue. These typically provide an installer, let Syncthing start
@@ -508,8 +513,8 @@ browser to interact with Syncthing).</p>
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="contrib.html#contrib-windows"><span class="std std-ref">Windows GUI Wrappers</span></a>, <a class="reference internal" href="contrib.html#contrib-all"><span class="std std-ref">Cross-platform GUI Wrappers</span></a>.</p>
 </div>
-</div>
-<div class="section" id="start-on-login">
+</section>
+<section id="start-on-login">
 <h3>Start on Login<a class="headerlink" href="#start-on-login" title="Permalink to this headline">¶</a></h3>
 <p>Starting Syncthing on login, without a console window or browser opening
 on start, is relatively easy.</p>
@@ -542,8 +547,8 @@ copy the following command instead of the command in step 5:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="s2">&quot;Syncthing&quot;</span> <span class="o">/</span><span class="n">low</span> <span class="n">syncthing</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">console</span> <span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="run-independent-of-user-login">
+</section>
+<section id="run-independent-of-user-login">
 <h3>Run independent of user login<a class="headerlink" href="#run-independent-of-user-login" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -584,11 +589,11 @@ more responsive system at the cost of longer sync time</p></li>
 <li><p>Connect to the Syncthing UI, enable HTTPS, and set a secure username
 and password.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="mac-os-x">
+</section>
+</section>
+<section id="mac-os-x">
 <h2>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="using-homebrew">
+<section id="using-homebrew">
 <h3>Using <a class="reference external" href="http://brew.sh">homebrew</a><a class="headerlink" href="#using-homebrew" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">syncthing</span></code></p></li>
@@ -596,8 +601,8 @@ and password.</p></li>
 this is done using this command:
 <code class="docutils literal notranslate"><span class="pre">launchctl</span> <span class="pre">load</span> <span class="pre">~/Library/LaunchAgents/homebrew.mxcl.syncthing.plist</span></code>.</p></li>
 </ol>
-</div>
-<div class="section" id="without-homebrew">
+</section>
+<section id="without-homebrew">
 <h3>Without homebrew<a class="headerlink" href="#without-homebrew" title="Permalink to this headline">¶</a></h3>
 <p>Download Syncthing for Mac:
 <a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">https://github.com/syncthing/syncthing/releases/latest</a>.</p>
@@ -620,11 +625,11 @@ run this command in terminal:
 <p><strong>Note:</strong> You probably want to turn off “Start Browser” in the web GUI
 settings to avoid it opening a browser window on each login. Then, to
 access the GUI type 127.0.0.1:8384 (by default) into Safari.</p>
-</div>
-</div>
-<div class="section" id="linux">
+</section>
+</section>
+<section id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="ubuntu-like-systems">
+<section id="ubuntu-like-systems">
 <h3>Ubuntu like systems<a class="headerlink" href="#ubuntu-like-systems" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Click the dashboard (hit ‘Win’ button).</p></li>
@@ -637,8 +642,8 @@ access the GUI type 127.0.0.1:8384 (by default) into Safari.</p>
 </ul>
 </li>
 </ol>
-</div>
-<div class="section" id="supervisord">
+</section>
+<section id="supervisord">
 <h3>Supervisord<a class="headerlink" href="#supervisord" title="Permalink to this headline">¶</a></h3>
 <p>Add following to your <code class="docutils literal notranslate"><span class="pre">/etc/supervisord.conf</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">program</span><span class="p">:</span><span class="n">syncthing</span><span class="p">]</span>
@@ -649,8 +654,8 @@ access the GUI type 127.0.0.1:8384 (by default) into Safari.</p>
 <span class="n">environment</span> <span class="o">=</span> <span class="n">STNORESTART</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="systemd">
+</section>
+<section id="systemd">
 <h3>systemd<a class="headerlink" href="#systemd" title="Permalink to this headline">¶</a></h3>
 <p>systemd is a suite of system management daemons, libraries, and
 utilities designed as a central management and configuration platform
@@ -663,7 +668,7 @@ can be found in
 Several distros (including arch linux) ship these service files with the
 Syncthing package. If your distro provides a systemd service file for
 Syncthing you can skip step 2.</p>
-<div class="section" id="how-to-use-the-system-instance">
+<section id="how-to-use-the-system-instance">
 <h4>How to use the system instance<a class="headerlink" href="#how-to-use-the-system-instance" title="Permalink to this headline">¶</a></h4>
 <p>Running Syncthing as a system service ensures that Syncthing is run at startup
 even if the Syncthing user has no active session. Since the system service
@@ -683,8 +688,8 @@ instance</a>.</p></li>
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="how-to-use-the-user-instance">
+</section>
+<section id="how-to-use-the-user-instance">
 <h4>How to use the user instance<a class="headerlink" href="#how-to-use-the-user-instance" title="Permalink to this headline">¶</a></h4>
 <p>Running Syncthing as a user service ensures that Syncthing is run after the
 Syncthing user has created a session (e.g. via the graphical login screen or
@@ -711,8 +716,8 @@ subcommand:</p>
 <span class="n">systemctl</span> <span class="o">--</span><span class="n">user</span> <span class="n">status</span> <span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-the-journal">
+</section>
+<section id="using-the-journal">
 <h4>Using the journal<a class="headerlink" href="#using-the-journal" title="Permalink to this headline">¶</a></h4>
 <p>Systemd logs everything into the journal. You can easily access Syncthing
 log messages (<code class="docutils literal notranslate"><span class="pre">-e</span></code> lets the pager jump to the very end):</p>
@@ -720,12 +725,12 @@ log messages (<code class="docutils literal notranslate"><span class="pre">-e</s
 <span class="n">journalctl</span> <span class="o">-</span><span class="n">e</span> <span class="o">--</span><span class="n">user</span><span class="o">-</span><span class="n">unit</span><span class="o">=</span><span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="permissions">
+</section>
+<section id="permissions">
 <h4>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h4>
 <p>In case you want to override the permissions under which the files and folders are created (especially because Windows does not have a concept of group permissions), you enable the <cite>Ignore Permissions</cite> option in the folder settings, and add the line “UMask=0002” (or any other umask you like) in the [Service] section of the “syncthing&#64;.service” file.</p>
-</div>
-<div class="section" id="debugging">
+</section>
+<section id="debugging">
 <h4>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h4>
 <p>If you are asked on the bugtracker to start Syncthing with specific
 environment variables it will not work the easy way. Systemd isolates each
@@ -738,10 +743,10 @@ add this variables to the service file instead. Just use:</p>
 <p>This will create an additional configuration file automatically and you
 can define (or overwrite) further service parameters like e.g.
 <code class="docutils literal notranslate"><span class="pre">Environment=STTRACE=model</span></code>.</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -761,7 +766,7 @@ can define (or overwrite) further service parameters like e.g.
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -787,6 +792,7 @@ can define (or overwrite) further service parameters like e.g.
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

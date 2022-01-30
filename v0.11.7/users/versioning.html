@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>File Versioning &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#general">General</a><ul>
@@ -246,7 +251,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/building.html">Building Syncthing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/building.html#branches-and-tags">Branches and Tags</a></li>
@@ -420,7 +425,7 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="file-versioning">
+  <section id="file-versioning">
 <h1>File Versioning<a class="headerlink" href="#file-versioning" title="Permalink to this headline">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -430,7 +435,7 @@
 <p class="admonition-title">Todo</p>
 <p>External versioning requires documenting.</p>
 </div>
-<div class="section" id="description">
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>There are 3 types of File Versioning. When you select each in the web interface,
 a short description of each is shown to help you decide.</p>
@@ -442,16 +447,16 @@ an absolute path?</p>
 <p>With “Staggered File Versioning” method (only), you would like to specify where
 removed and deleted files are stored as part of the Versioning feature, you can
 specify the path in the “Versions Path” input after this method is selected.</p>
-</div>
-<div class="section" id="no-file-versioning">
+</section>
+<section id="no-file-versioning">
 <h2>No File Versioning<a class="headerlink" href="#no-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>This is the default setting. With no file versioning, files that are replaced or
 deleted on one device are deleted on other devices that the directory is shared
 with. (Note: If a folder is marked “Master Folder” on a device, that device will
 not accept changes to the files in the folder, and therefore will not have files
 replaced or deleted.)</p>
-</div>
-<div class="section" id="simple-file-versioning">
+</section>
+<section id="simple-file-versioning">
 <h2>Simple File Versioning<a class="headerlink" href="#simple-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>With “Simple File Versioning” files are moved to the “.stversions”
 folder (inside your shared folder) when replaced or deleted on a remote
@@ -468,8 +473,8 @@ Syncthing how many old versions of the file it should keep. For example, if you
 set this value to 5, if a file is replaced 5 times on a remote device, you will
 see 5 time-stamped versions on that file in the “.stversions” folder on the
 other devices sharing the same folder.</p>
-</div>
-<div class="section" id="staggered-file-versioning">
+</section>
+<section id="staggered-file-versioning">
 <h2>Staggered File Versioning<a class="headerlink" href="#staggered-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>With “Staggered File Versioning” files are also moved to the “.stversions”
 folder (inside your shared folder) when replaced or deleted on a remote device
@@ -490,8 +495,8 @@ deleted files in the “.stversions” folder for an entire year, use 365. If
 only or 10 days, use 10. <strong>Note: Set to 0 to keep versions forever.</strong></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -512,7 +517,7 @@ only or 10 days, use 10. <strong>Note: Set to 0 to keep versions forever.</stron
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, The Syncthing Authors.
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -539,6 +544,7 @@ only or 10 days, use 10. <strong>Note: Set to 0 to keep versions forever.</stron
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

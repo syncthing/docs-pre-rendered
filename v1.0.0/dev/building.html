@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>3.2. Building Syncthing &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -188,7 +193,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="building-syncthing">
+  <section id="building-syncthing">
 <span id="building"></span><h1><span class="section-number">3.2. </span>Building Syncthing<a class="headerlink" href="#building-syncthing" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -197,7 +202,7 @@ to do development on Syncthing or if you need to do a special packaging
 of it. For all other purposes we recommend using the official binary
 releases instead.</p>
 </div>
-<div class="section" id="branches-and-tags">
+<section id="branches-and-tags">
 <h2><span class="section-number">3.2.1. </span>Branches and Tags<a class="headerlink" href="#branches-and-tags" title="Permalink to this headline">¶</a></h2>
 <p>You should base your work on the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch when doing your
 development. This branch is usually what will be going into the next
@@ -205,8 +210,8 @@ release and always what pull requests should be based on.</p>
 <p>If you’re looking to build and package a release of Syncthing you should
 instead use the latest tag (<code class="docutils literal notranslate"><span class="pre">vX.Y.Z</span></code>) as the contents of <code class="docutils literal notranslate"><span class="pre">master</span></code>
 may be unstable and unsuitable for general consumption.</p>
-</div>
-<div class="section" id="prerequisites">
+</section>
+<section id="prerequisites">
 <h2><span class="section-number">3.2.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The latest stable version of Go. Earlier releases may work, but we recommend
@@ -224,8 +229,8 @@ instructions below accomplish this correctly. On Go 1.8 and newer
 you can use the default <code class="docutils literal notranslate"><span class="pre">GOPATH</span></code> of <code class="docutils literal notranslate"><span class="pre">~/go</span></code> instead of setting
 the environment variable.</p>
 </div>
-</div>
-<div class="section" id="building-unix">
+</section>
+<section id="building-unix">
 <h2><span class="section-number">3.2.3. </span>Building (Unix)<a class="headerlink" href="#building-unix" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Install the prerequisites.</p></li>
@@ -251,8 +256,8 @@ $ go run build.go
 </div>
 <p>Unless something goes wrong, you will have a <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> binary built
 and ready in <code class="docutils literal notranslate"><span class="pre">~/go/src/github.com/syncthing/syncthing/bin</span></code>.</p>
-</div>
-<div class="section" id="building-windows">
+</section>
+<section id="building-windows">
 <h2><span class="section-number">3.2.4. </span>Building (Windows)<a class="headerlink" href="#building-windows" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>Install the prerequisites.</p></li>
@@ -277,8 +282,8 @@ and ready in <code class="docutils literal notranslate"><span class="pre">~/go/s
 </ul>
 <p>Unless something goes wrong, you will have a <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> binary
 built and ready in <code class="docutils literal notranslate"><span class="pre">%USERPROFILE%\go\src\github.com\syncthing\syncthing\bin</span></code>.</p>
-</div>
-<div class="section" id="subcommands-and-options">
+</section>
+<section id="subcommands-and-options">
 <h2><span class="section-number">3.2.5. </span>Subcommands and Options<a class="headerlink" href="#subcommands-and-options" title="Permalink to this headline">¶</a></h2>
 <p>The following <code class="docutils literal notranslate"><span class="pre">build.go</span></code> subcommands and options exist.</p>
 <dl class="simple">
@@ -306,8 +311,8 @@ influence <code class="docutils literal notranslate"><span class="pre">install</
 upgrading disabled.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="building-without-git">
+</section>
+<section id="building-without-git">
 <h2><span class="section-number">3.2.6. </span>Building without Git<a class="headerlink" href="#building-without-git" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing can be built perfectly fine from a source tarball of course.
 If the tarball is from our build server it contains a file called
@@ -323,8 +328,8 @@ well to prevent the built in upgrade system from being activated.</p>
 <code class="docutils literal notranslate"><span class="pre">v0.10.26</span></code>, with upgrades disabled.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -376,6 +381,7 @@ well to prevent the built in upgrade system from being activated.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

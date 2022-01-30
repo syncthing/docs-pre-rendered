@@ -44,8 +44,8 @@
 <p>First open a tunnel from <code class="docutils literal notranslate"><span class="pre">hosta</span></code> to <code class="docutils literal notranslate"><span class="pre">hostb</span></code> by running the SSH client on <code class="docutils literal notranslate"><span class="pre">hosta</span></code>, such that <strong>localhost:22001/TCP</strong> on each machine redirects to <strong>localhost:22000/TCP</strong> on the other (for <strong>syncthing</strong> to use):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#/bin/bash</span>
 <span class="n">ssh</span> <span class="o">-</span><span class="n">i</span> <span class="o">~/.</span><span class="n">keys</span><span class="o">/</span><span class="n">somekey</span><span class="o">.</span><span class="n">pem</span> \
-   <span class="o">-</span><span class="n">L</span> <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22001</span><span class="p">:</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22000</span> \
-   <span class="o">-</span><span class="n">R</span> <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22001</span><span class="p">:</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22000</span> \
+   <span class="o">-</span><span class="n">L</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span><span class="p">:</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22000</span> \
+   <span class="o">-</span><span class="n">R</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span><span class="p">:</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22000</span> \
    <span class="n">syncguy</span><span class="nd">@hostb</span>
 </pre></div>
 </div>
@@ -54,14 +54,14 @@
 <section id="listen-on-localhost">
 <h2>Listen on localhost<a class="headerlink" href="#listen-on-localhost" title="Permalink to this headline">¶</a></h2>
 <p>Now in Syncthing on both sides of the tunnel (<code class="docutils literal notranslate"><span class="pre">hosta</span></code> and <code class="docutils literal notranslate"><span class="pre">hostb</span></code>) in Settings | Connections, you can disable/uncheck all options: Enable NAT Traversal, Local Discovery, Global Discovery, and Enable Relaying. Also configure Syncthing to listen only on localhost by setting Sync Protocol Listen Addresses to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22000</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22000</span>
 </pre></div>
 </div>
 </section>
 <section id="provide-address-for-remote-device">
 <h2>Provide Address for Remote Device<a class="headerlink" href="#provide-address-for-remote-device" title="Permalink to this headline">¶</a></h2>
 <p>Next add the remote device and use Edit | Advanced to assign the Addresses of:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22001</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span>
 </pre></div>
 </div>
 <p>Port <strong>22001/TCP</strong> is the SSH tunnel that will redirect to localhost port <strong>22000/TCP</strong> on the other machine. This same configuration is done on both <code class="docutils literal notranslate"><span class="pre">hosta</span></code> and <code class="docutils literal notranslate"><span class="pre">hostb</span></code>, and then they can find each other through the tunnel.</p>
@@ -73,10 +73,10 @@
 </pre></div>
 </div>
 <p>A typical correct result looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22000</span>         <span class="mf">0.0.0.0</span><span class="p">:</span><span class="o">*</span>               <span class="n">LISTEN</span>      <span class="mi">16035</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span>
-<span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22001</span>         <span class="mf">0.0.0.0</span><span class="p">:</span><span class="o">*</span>               <span class="n">LISTEN</span>      <span class="mi">16112</span><span class="o">/</span><span class="n">ssh</span>
-<span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22001</span>         <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">45042</span>         <span class="n">ESTABLISHED</span> <span class="mi">16112</span><span class="o">/</span><span class="n">ssh</span>
-<span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">45042</span>         <span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">22001</span>         <span class="n">ESTABLISHED</span> <span class="mi">16035</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22000</span>         <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="o">*</span>               <span class="n">LISTEN</span>      <span class="mi">16035</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span>
+<span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span>         <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="o">*</span>               <span class="n">LISTEN</span>      <span class="mi">16112</span><span class="o">/</span><span class="n">ssh</span>
+<span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span>         <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">45042</span>         <span class="n">ESTABLISHED</span> <span class="mi">16112</span><span class="o">/</span><span class="n">ssh</span>
+<span class="n">tcp</span>        <span class="mi">0</span>      <span class="mi">0</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">45042</span>         <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span>         <span class="n">ESTABLISHED</span> <span class="mi">16035</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span>
 </pre></div>
 </div>
 <p>Common mistakes when SSH tunneling include misconfiguration of the SSH client and/or server, wrong permissions on keys, forgetting about selinux policy, and being blocked by firewall, i.e. even <strong>22/TCP</strong> is blocked. If you want the tunnel to establish after reboot and re-establish upon failure, consider <strong>autossh</strong>.</p>
@@ -166,7 +166,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

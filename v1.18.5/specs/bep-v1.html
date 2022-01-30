@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Block Exchange Protocol v1 &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -34,9 +35,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="block-exchange-protocol-v1">
+  <section id="block-exchange-protocol-v1">
 <span id="bep-v1"></span><h1>Block Exchange Protocol v1<a class="headerlink" href="#block-exchange-protocol-v1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction-and-definitions">
+<section id="introduction-and-definitions">
 <h2>Introduction and Definitions<a class="headerlink" href="#introduction-and-definitions" title="Permalink to this headline">¶</a></h2>
 <p>The Block Exchange Protocol (BEP) is used between two or more <em>devices</em> thus
 forming a <em>cluster</em>. Each device has one or more <em>folders</em> of files
@@ -53,8 +54,8 @@ for the last block which may be smaller.</p>
 <p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
 “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this
 document are to be interpreted as described in [RFC 2119](<a class="reference external" href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>).</p>
-</div>
-<div class="section" id="transport-and-authentication">
+</section>
+<section id="transport-and-authentication">
 <h2>Transport and Authentication<a class="headerlink" href="#transport-and-authentication" title="Permalink to this headline">¶</a></h2>
 <p>BEP is deployed as the highest level in a protocol stack, with the lower
 level protocols providing encryption and authentication.</p>
@@ -103,8 +104,8 @@ implementation. However the folder label is for human consumption only so an
 empty label should be accepted - the implementation will have to choose some
 way to represent the folder, perhaps by using the ID in it’s place or
 automatically generating a label.</p>
-</div>
-<div class="section" id="pre-authentication-messages">
+</section>
+<section id="pre-authentication-messages">
 <h2>Pre-authentication messages<a class="headerlink" href="#pre-authentication-messages" title="Permalink to this headline">¶</a></h2>
 <p>AFTER establishing a connection, but BEFORE performing any authentication,
 devices MUST exchange Hello messages.</p>
@@ -139,7 +140,7 @@ followed by the contents of the Hello message itself.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="fields-hello-message">
+<section id="fields-hello-message">
 <h3>Fields (Hello message)<a class="headerlink" href="#fields-hello-message" title="Permalink to this headline">¶</a></h3>
 <p>The <strong>device_name</strong> is a human readable (configured or auto detected) device
 name or host name, for the remote device.</p>
@@ -151,9 +152,9 @@ The client version field SHOULD follow the patterns laid out in the <a class="re
 Versioning</a> standard.</p>
 <p>Immediately after exchanging Hello messages, the connection MUST be dropped
 if the remote device does not pass authentication.</p>
-</div>
-</div>
-<div class="section" id="post-authentication-messages">
+</section>
+</section>
+<section id="post-authentication-messages">
 <h2>Post-authentication Messages<a class="headerlink" href="#post-authentication-messages" title="Permalink to this headline">¶</a></h2>
 <p>Every message post authentication is made up of several parts:</p>
 <ul class="simple">
@@ -215,17 +216,17 @@ protocol buffer format.</p>
 integer describing the uncompressed message length followed by a single LZ4
 block. After decompressing the LZ4 block it should be interpreted as a
 protocol buffer message just as in the uncompressed case.</p>
-</div>
-<div class="section" id="message-subtypes">
+</section>
+<section id="message-subtypes">
 <h2>Message Subtypes<a class="headerlink" href="#message-subtypes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="cluster-config">
+<section id="cluster-config">
 <span id="id1"></span><h3>Cluster Config<a class="headerlink" href="#cluster-config" title="Permalink to this headline">¶</a></h3>
 <p>This informational message provides information about the cluster
 configuration as it pertains to the current connection. A Cluster Config
 message MUST be the first post authentication message sent on a BEP
 connection. Additional Cluster Config messages MUST NOT be sent after the
 initial exchange.</p>
-<div class="section" id="protocol-buffer-schema">
+<section id="protocol-buffer-schema">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#protocol-buffer-schema" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">ClusterConfig</span> <span class="p">{</span>
     <span class="k">repeated</span> <span class="n">Folder</span> <span class="na">folders</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -263,13 +264,13 @@ initial exchange.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fields-cluster-config-message">
+</section>
+<section id="fields-cluster-config-message">
 <h4>Fields (Cluster Config Message)<a class="headerlink" href="#fields-cluster-config-message" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>folders</strong> field contains the list of folders that will be synchronized
 over the current connection.</p>
-</div>
-<div class="section" id="fields-folder-message">
+</section>
+<section id="fields-folder-message">
 <h4>Fields (Folder Message)<a class="headerlink" href="#fields-folder-message" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>id</strong> field contains the folder ID, which is the unique identifier of
 the folder.</p>
@@ -287,8 +288,8 @@ via Download Progress messages.</p>
 <p>The <strong>paused</strong> field is set for folders that are currently paused.</p>
 <p>The <strong>devices</strong> field is a list of devices participating in sharing this
 folder.</p>
-</div>
-<div class="section" id="fields-device-message">
+</section>
+<section id="fields-device-message">
 <h4>Fields (Device Message)<a class="headerlink" href="#fields-device-message" title="Permalink to this headline">¶</a></h4>
 <p>The device <strong>id</strong> field is a 32 byte number that uniquely identifies the
 device. For instance, the reference implementation uses the SHA-256 of the
@@ -326,9 +327,9 @@ used to encrypt data sent to this device. If the device is the same as the
 device sending the message, it signifies that the device itself has encrypted
 data that was encrypted with the given token. It is empty or missing if there is
 no encryption. See <a class="reference internal" href="untrusted.html#untrusted"><span class="std std-ref">Untrusted Device Encryption</span></a> for details on the encryption scheme.</p>
-</div>
-</div>
-<div class="section" id="index-and-index-update">
+</section>
+</section>
+<section id="index-and-index-update">
 <h3>Index and Index Update<a class="headerlink" href="#index-and-index-update" title="Permalink to this headline">¶</a></h3>
 <p>The Index and Index Update messages define the contents of the senders
 folder. An Index message represents the full contents of the folder and
@@ -339,7 +340,7 @@ Index, unless a non-zero Max Sequence has been announced for the
 given folder by the peer device.</p>
 <p>The Index and Index Update messages are currently identical in format,
 although this is not guaranteed to be the case in the future.</p>
-<div class="section" id="id2">
+<section id="id2">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Index</span> <span class="p">{</span>
     <span class="kt">string</span>            <span class="na">folder</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -395,13 +396,13 @@ although this is not guaranteed to be the case in the future.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fields-index-message">
+</section>
+<section id="fields-index-message">
 <h4>Fields (Index Message)<a class="headerlink" href="#fields-index-message" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>folder</strong> field identifies the folder that the index message pertains to.</p>
 <p>The <strong>files</strong> field is a list of files making up the index information.</p>
-</div>
-<div class="section" id="fields-fileinfo-message">
+</section>
+<section id="fields-fileinfo-message">
 <h4>Fields (FileInfo Message)<a class="headerlink" href="#fields-fileinfo-message" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>name</strong> is the file name path relative to the folder root. Like all
 strings in BEP, the Name is always in UTF-8 NFC regardless of operating
@@ -455,13 +456,13 @@ the last block which may represent a smaller amount of data. The block list
 is empty for directories and symlinks.</p>
 <p>The <strong>symlink_target</strong> field contains the symlink target, for entries of
 symlink type. It is empty for all other entry types.</p>
-</div>
-</div>
-<div class="section" id="request">
+</section>
+</section>
+<section id="request">
 <h3>Request<a class="headerlink" href="#request" title="Permalink to this headline">¶</a></h3>
 <p>The Request message expresses the desire to receive a data block
 corresponding to a part of a certain file in the peer’s folder.</p>
-<div class="section" id="id3">
+<section id="id3">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Request</span> <span class="p">{</span>
     <span class="kt">int32</span>  <span class="na">id</span>             <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -474,8 +475,8 @@ corresponding to a part of a certain file in the peer’s folder.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fields">
+</section>
+<section id="fields">
 <h4>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>id</strong> is the request identifier. It will be matched in the
 corresponding <strong>Response</strong> message. Each outstanding request must have a
@@ -492,12 +493,12 @@ offset having the same size and hash, if one exists.</p>
 performed from the temporary file (converting name to it’s temporary form)
 and falling back to the non temporary file if any error occurs. Knowledge of
 contents of temporary files comes from DownloadProgress messages.</p>
-</div>
-</div>
-<div class="section" id="response">
+</section>
+</section>
+<section id="response">
 <h3>Response<a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h3>
 <p>The Response message is sent in response to a Request message.</p>
-<div class="section" id="id4">
+<section id="id4">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Response</span> <span class="p">{</span>
     <span class="kt">int32</span>     <span class="na">id</span>   <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -513,8 +514,8 @@ contents of temporary files comes from DownloadProgress messages.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h4>Fields<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>id</strong> field is the request identifier. It must match the ID of the
 <strong>Request</strong> that is being responded to.</p>
@@ -539,16 +540,16 @@ outside the acceptable range for the file)</p>
 unavailable)</p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="downloadprogress">
+</section>
+</section>
+<section id="downloadprogress">
 <h3>DownloadProgress<a class="headerlink" href="#downloadprogress" title="Permalink to this headline">¶</a></h3>
 <p>The DownloadProgress message is used to notify remote devices about partial
 availability of files. By default, these messages are sent every 5 seconds,
 and only in the cases where progress or state changes have been detected.
 Each DownloadProgress message is addressed to a specific folder and MUST
 contain zero or more FileDownloadProgressUpdate messages.</p>
-<div class="section" id="id6">
+<section id="id6">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">DownloadProgress</span> <span class="p">{</span>
     <span class="kt">string</span>                              <span class="na">folder</span>  <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -568,14 +569,14 @@ contain zero or more FileDownloadProgressUpdate messages.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fields-downloadprogress-message">
+</section>
+<section id="fields-downloadprogress-message">
 <h4>Fields (DownloadProgress Message)<a class="headerlink" href="#fields-downloadprogress-message" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>folder</strong> field represents the ID of the folder for which the update is
 being provided.</p>
 <p>The <strong>updates</strong> field is a list of progress update messages.</p>
-</div>
-<div class="section" id="fields-filedownloadprogressupdate-message">
+</section>
+<section id="fields-filedownloadprogressupdate-message">
 <h4>Fields (FileDownloadProgressUpdate Message)<a class="headerlink" href="#fields-filedownloadprogressupdate-message" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>update type</strong> indicates whether the update is of type <strong>append (0)</strong>
 (new blocks are available) or <strong>forget (1)</strong> (the file transfer has
@@ -607,45 +608,45 @@ between update messages implies that the file has changed and that any
 indexes previously advertised are no longer available. The list of available
 block indexes MUST be replaced (rather than appended) with the indexes
 specified in this message.</p>
-</div>
-</div>
-<div class="section" id="ping">
+</section>
+</section>
+<section id="ping">
 <h3>Ping<a class="headerlink" href="#ping" title="Permalink to this headline">¶</a></h3>
 <p>The Ping message is used to determine that a connection is alive, and to
 keep connections alive through state tracking network elements such as
 firewalls and NAT gateways. A Ping message is sent every 90 seconds, if no
 other message has been sent in the preceding 90 seconds.</p>
-<div class="section" id="id7">
+<section id="id7">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Ping</span> <span class="p">{</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="close">
+</section>
+</section>
+<section id="close">
 <h3>Close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
 <p>The Close message MAY be sent to indicate that the connection will be torn
 down due to an error condition. A Close message MUST NOT be followed by
 further messages.</p>
-<div class="section" id="id8">
+<section id="id8">
 <h4>Protocol Buffer Schema<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span> <span class="nc">Close</span> <span class="p">{</span>
     <span class="kt">string</span> <span class="na">reason</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h4>Fields<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>The <strong>reason</strong> field contains a human readable description of the error
 condition.</p>
-</div>
-</div>
-</div>
-<div class="section" id="sharing-modes">
+</section>
+</section>
+</section>
+<section id="sharing-modes">
 <h2>Sharing Modes<a class="headerlink" href="#sharing-modes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="trusted">
+<section id="trusted">
 <h3>Trusted<a class="headerlink" href="#trusted" title="Permalink to this headline">¶</a></h3>
 <p>Trusted mode is the default sharing mode. Updates are exchanged in both
 directions.</p>
@@ -656,8 +657,8 @@ directions.</p>
 <span class="o">+------------+</span>     <span class="n">Updates</span>      \<span class="o">---------/</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="send-only">
+</section>
+<section id="send-only">
 <h3>Send Only<a class="headerlink" href="#send-only" title="Permalink to this headline">¶</a></h3>
 <p>In send only mode, a device does not apply any updates from the cluster, but
 publishes changes of its local folder to the cluster as usual.</p>
@@ -668,8 +669,8 @@ publishes changes of its local folder to the cluster as usual.</p>
 <span class="o">+------------+</span>                  \<span class="o">---------/</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="receive-only">
+</section>
+<section id="receive-only">
 <h3>Receive Only<a class="headerlink" href="#receive-only" title="Permalink to this headline">¶</a></h3>
 <p>In receive only mode, a device does not send any updates to the cluster, but
 accepts changes to its local folder from the cluster as usual.</p>
@@ -680,9 +681,9 @@ accepts changes to its local folder from the cluster as usual.</p>
 <span class="o">+------------+</span>                  \<span class="o">---------/</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="delta-index-exchange">
+</section>
+</section>
+<section id="delta-index-exchange">
 <span id="deltaidx"></span><h2>Delta Index Exchange<a class="headerlink" href="#delta-index-exchange" title="Permalink to this headline">¶</a></h2>
 <p>Index data must be exchanged whenever two devices connect so that one knows
 the files available on the other. In the most basic case this happens by way
@@ -725,8 +726,8 @@ non-zero index ID in the <code class="docutils literal notranslate"><span class=
 ordered by increasing sequence number. Devices not intending to participate
 in delta index exchange MUST send a zero index ID or, equivalently, not send
 the <code class="docutils literal notranslate"><span class="pre">index_id</span></code> attribute at all.</p>
-</div>
-<div class="section" id="message-limits">
+</section>
+<section id="message-limits">
 <h2>Message Limits<a class="headerlink" href="#message-limits" title="Permalink to this headline">¶</a></h2>
 <p>An implementation MAY impose reasonable limits on the length of messages and
 message fields to aid robustness in the face of corruption or broken
@@ -740,8 +741,8 @@ a connection close. This size was chosen to accommodate Index messages
 containing a large block list. It’s intended that the limit may be further
 reduced in a future protocol update supporting variable block sizes (and
 thus shorter block lists for large files).</p>
-</div>
-<div class="section" id="selection-of-block-size">
+</section>
+<section id="selection-of-block-size">
 <span id="blocksize"></span><h2>Selection of Block Size<a class="headerlink" href="#selection-of-block-size" title="Permalink to this headline">¶</a></h2>
 <p>The desired block size for any given file is the smallest block size that
 results in fewer than 2000 blocks, or the maximum block size for larger
@@ -794,8 +795,8 @@ size rule above SHOULD be followed.</p>
 from the above rule. This does not mean that arbitrary block sizes are
 allowed. The block size used MUST be exactly one of the power-of-two block
 sizes listed in the table above.</p>
-</div>
-<div class="section" id="example-exchange">
+</section>
+<section id="example-exchange">
 <h2>Example Exchange<a class="headerlink" href="#example-exchange" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -886,8 +887,8 @@ retrieves the data from the folder and transmits Response records (9 through
 message (13). Both peers enter idle state after 13. At some later time 14,
 the ping timer on device B expires and a Ping message is sent. The same
 process occurs for device A at 15.</p>
-</div>
-<div class="section" id="examples-of-strong-cipher-suites">
+</section>
+<section id="examples-of-strong-cipher-suites">
 <h2>Examples of Strong Cipher Suites<a class="headerlink" href="#examples-of-strong-cipher-suites" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -936,8 +937,8 @@ process occurs for device A at 15.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -1001,7 +1002,7 @@ process occurs for device A at 15.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

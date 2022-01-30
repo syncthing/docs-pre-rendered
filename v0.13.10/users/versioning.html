@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>File Versioning &mdash; Syncthing v0.13 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -334,7 +339,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -535,7 +540,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -678,21 +683,21 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="file-versioning">
+  <section id="file-versioning">
 <span id="versioning"></span><h1>File Versioning<a class="headerlink" href="#file-versioning" title="Permalink to this headline">¶</a></h1>
 <div class="admonition-todo admonition" id="id1">
 <p class="admonition-title">Todo</p>
 <p>External versioning needs example for Windows.</p>
 </div>
-<div class="section" id="description">
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing supports archiving the old version of a file when it is deleted or
 replaced with a newer version from the cluster. This is called “file
 versioning” and uses one of the available <em>versioning strategies</em> described
 below. File versioning is configured per folder and defaults to “no file
 versioning”, i.e. no old copies of files are kept.</p>
-</div>
-<div class="section" id="trash-can-file-versioning">
+</section>
+<section id="trash-can-file-versioning">
 <h2>Trash Can File Versioning<a class="headerlink" href="#trash-can-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>This versioning strategy emulates the common “trash can” approach. When a file
 is deleted or replaced due to a change on a remote device, it is a moved to
@@ -703,8 +708,8 @@ than a specified number of days. If this is set to a positive number of days,
 files will be removed when they have been in the trash can that long. Setting
 this to zero prevents any files from being removed from the trash can
 automatically.</p>
-</div>
-<div class="section" id="simple-file-versioning">
+</section>
+<section id="simple-file-versioning">
 <h2>Simple File Versioning<a class="headerlink" href="#simple-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>With “Simple File Versioning” files are moved to the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder
 (inside your shared folder) when replaced or deleted on a remote device. This
@@ -713,8 +718,8 @@ Syncthing how many old versions of the file it should keep. For example, if
 you set this value to 5, if a file is replaced 5 times on a remote device, you
 will see 5 time-stamped versions on that file in the “.stversions” folder on
 the other devices sharing the same folder.</p>
-</div>
-<div class="section" id="staggered-file-versioning">
+</section>
+<section id="staggered-file-versioning">
 <h2>Staggered File Versioning<a class="headerlink" href="#staggered-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>With “Staggered File Versioning” files are also moved to a different folder
 when replaced or deleted on a remote device (just like “Simple File
@@ -741,15 +746,15 @@ deleted files in the “.stversions” folder for an entire year, use 365. If
 only or 10 days, use 10. <strong>Note: Set to 0 to keep versions forever.</strong></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="external-file-versioning">
+</section>
+<section id="external-file-versioning">
 <h2>External File Versioning<a class="headerlink" href="#external-file-versioning" title="Permalink to this headline">¶</a></h2>
 <p>This versioning method delegates the decision on what to do to an external
 command (program or script). The only configuration option is the name of the
 command. This should be an absolute path name. Just prior to a file being
 replaced, the command will be run with two parameters: the path to the folder,
 and the path to the file within the folder.</p>
-<div class="section" id="example-for-unixes">
+<section id="example-for-unixes">
 <h3>Example for Unixes<a class="headerlink" href="#example-for-unixes" title="Permalink to this headline">¶</a></h3>
 <p>Lets say I want to keep the latest version of each file as they are replaced
 or removed; essentially I want a “trash can”-like behavior. For this, I create
@@ -784,8 +789,8 @@ script will be called as if I ran this from the command line:</p>
 <p>The script will then move the file in question to
 <code class="docutils literal notranslate"><span class="pre">~/.trashcan/docs/letter.txt</span></code>, replacing any previous version of that letter
 that may already have been there.</p>
-</div>
-<div class="section" id="example-for-windows">
+</section>
+<section id="example-for-windows">
 <h3>Example for Windows<a class="headerlink" href="#example-for-windows" title="Permalink to this headline">¶</a></h3>
 <p>On Windows we can use a batch script to perform the same “trash can”-like
 behavior as mentioned above. I created the following script and saved it as
@@ -812,9 +817,9 @@ behavior as mentioned above. I created the following script and saved it as
 </div>
 <p>Finally, I set <code class="docutils literal notranslate"><span class="pre">C:\Users\mfrnd\Scripts\onlylatest.bat</span></code> as command name in
 Syncthing.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -834,7 +839,7 @@ Syncthing.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -860,6 +865,7 @@ Syncthing.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.8. The GUI Listen Address &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -194,7 +199,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="the-gui-listen-address">
+  <section id="the-gui-listen-address">
 <span id="gui-listen"></span><h1><span class="section-number">2.8. </span>The GUI Listen Address<a class="headerlink" href="#the-gui-listen-address" title="Permalink to this headline">¶</a></h1>
 <p>The GUI (and, together with it, the REST API) listens on a single TCP port
 for HTTP and HTTPS connections. By default this address is <code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code>.
@@ -207,7 +212,7 @@ to access the GUI - it cannot be accessed from the network.</p>
 also set a username and a strong password for authentication and check the
 option to use HTTPS. You are otherwise, potentially, opening up your
 Syncthing installation for the world.</p>
-<div class="section" id="port-numbers">
+<section id="port-numbers">
 <h2><span class="section-number">2.8.1. </span>Port Numbers<a class="headerlink" href="#port-numbers" title="Permalink to this headline">¶</a></h2>
 <p>The default port number is 8384. It’s traditional for custom HTTP services
 to live somewhere in the 8xxx-series and it’s an unusual enough port that
@@ -236,8 +241,8 @@ not, in general, run as a privileged user (<code class="docutils literal notrans
 port number.</p></li>
 </ul>
 <p>We do not recommend using a port number lower than 1024.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -289,6 +294,7 @@ port number.</p></li>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

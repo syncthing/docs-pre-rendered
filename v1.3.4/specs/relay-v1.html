@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Relay Protocol v1 &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -32,9 +33,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="relay-protocol-v1">
+  <section id="relay-protocol-v1">
 <span id="relay-v1"></span><h1>Relay Protocol v1<a class="headerlink" href="#relay-protocol-v1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="what-is-a-relay">
+<section id="what-is-a-relay">
 <h2>What is a relay?<a class="headerlink" href="#what-is-a-relay" title="Permalink to this headline">¶</a></h2>
 <p>Relay is a service which relays data between two <em>devices</em> which are not able to
 connect to each other directly otherwise. This is usually due to both devices
@@ -45,8 +46,8 @@ in the protocol spec, but at the same time it is general enough that could be
 reused by other protocols or applications, as the data transferred between two
 devices which use a relay is completely obscure and does not affect the
 relaying.</p>
-</div>
-<div class="section" id="operation-modes">
+</section>
+<section id="operation-modes">
 <h2>Operation modes<a class="headerlink" href="#operation-modes" title="Permalink to this headline">¶</a></h2>
 <p>Relay listens on a single TCP socket, but has two different connection modes,
 where a connection mode is a predefined set of messages which the relay and
@@ -61,8 +62,8 @@ device.</p>
 connects two devices directly to each other via the relay, and is a plain-text
 protocol, which for every byte written by one device, sends the same set of
 bytes to the other device and vica versa.</p>
-</div>
-<div class="section" id="identifying-the-connection-mode">
+</section>
+<section id="identifying-the-connection-mode">
 <h2>Identifying the connection mode<a class="headerlink" href="#identifying-the-connection-mode" title="Permalink to this headline">¶</a></h2>
 <p>Because both connection modes operate over the same single socket, a method
 of detecting the connection mode is required.</p>
@@ -72,8 +73,8 @@ the connection is a protocol mode connection, due to 0x16 being the first byte
 in the TLS handshake, and only protocol mode connections use TLS.</p>
 <p>If the first byte is not 0x16, then we assume that the connection is a session
 mode connection.</p>
-</div>
-<div class="section" id="protocol-mode">
+</section>
+<section id="protocol-mode">
 <h2>Protocol mode<a class="headerlink" href="#protocol-mode" title="Permalink to this headline">¶</a></h2>
 <p>Protocol mode uses TLS and protocol name defined by the TLS header should be
 <cite>bep-relay</cite>.</p>
@@ -83,7 +84,7 @@ the relay asking to connect to some device which is interested in having a
 session with you.
 2. Temporary protocol submode - Only used to request a session with a device
 which is connected to the relay using the permanent protocol submode.</p>
-<div class="section" id="permanent-protocol-submode">
+<section id="permanent-protocol-submode">
 <h3>Permanent protocol submode<a class="headerlink" href="#permanent-protocol-submode" title="Permalink to this headline">¶</a></h3>
 <p>A permanent protocol submode begins with the client sending a JoinRelayRequest
 message, which the relay responds to with either a ResponseSuccess or
@@ -99,15 +100,15 @@ which then can be used to establish a connection in session mode.</p>
 interval, the connection is terminated.
 If the client fails to send a message (even if it’s a ping message) every minute
 (by default), the connection is terminated.</p>
-</div>
-<div class="section" id="temporary-protocol-submode">
+</section>
+<section id="temporary-protocol-submode">
 <h3>Temporary protocol submode<a class="headerlink" href="#temporary-protocol-submode" title="Permalink to this headline">¶</a></h3>
 <p>A temporary protocol submode begins with ConnectRequest message, to which the
 relay responds with either ResponseNotFound if the device the client it is after
 is not available, or with a SessionInvitation, which contains the unique session
 key which then can be used to establish a connection in session mode.</p>
 <p>The connection is terminated immediately after that.</p>
-<div class="section" id="example-exchange">
+<section id="example-exchange">
 <h4>Example Exchange<a class="headerlink" href="#example-exchange" title="Permalink to this headline">¶</a></h4>
 <p>Client A - Permanent protocol submode
 Client B - Temporary protocol submode</p>
@@ -188,10 +189,10 @@ Client B - Temporary protocol submode</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="section" id="session-mode">
+</section>
+</section>
+</section>
+<section id="session-mode">
 <h2>Session mode<a class="headerlink" href="#session-mode" title="Permalink to this headline">¶</a></h2>
 <p>The first and only message the client sends in the session mode is the
 SessionInvitation message which contains the session key identifying which
@@ -204,7 +205,7 @@ Response messages:</p>
 </ol>
 <p>After the successful response, all the bytes written and received will be
 relayed between the two devices in the session directly.</p>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Example Exchange<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Client A - Permanent protocol mode
 Client B - Temporary protocol mode</p>
@@ -270,9 +271,9 @@ Client B - Temporary protocol mode</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="messages">
+</section>
+</section>
+<section id="messages">
 <h2>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h2>
 <p>All messages are preceded by a header message. Header message contains the
 magic value 0x9E79BC40, message type integer, and message length.</p>
@@ -281,7 +282,7 @@ magic value 0x9E79BC40, message type integer, and message length.</p>
 <p>Some messages have no content, apart from the implied header which allows
 us to identify what type of message it is.</p>
 </div>
-<div class="section" id="header-structure">
+<section id="header-structure">
 <h3>Header structure<a class="headerlink" href="#header-structure" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -301,8 +302,8 @@ us to identify what type of message it is.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="ping-message-type-0">
+</section>
+<section id="ping-message-type-0">
 <h3>Ping message (Type = 0)<a class="headerlink" href="#ping-message-type-0" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -313,8 +314,8 @@ us to identify what type of message it is.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pong-message-type-1">
+</section>
+<section id="pong-message-type-1">
 <h3>Pong message (Type = 1)<a class="headerlink" href="#pong-message-type-1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -325,8 +326,8 @@ us to identify what type of message it is.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="joinrelayrequest-message-type-2">
+</section>
+<section id="joinrelayrequest-message-type-2">
 <h3>JoinRelayRequest message (Type = 2)<a class="headerlink" href="#joinrelayrequest-message-type-2" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -337,8 +338,8 @@ us to identify what type of message it is.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="joinsessionrequest-message-type-3">
+</section>
+<section id="joinsessionrequest-message-type-3">
 <h3>JoinSessionRequest message (Type = 3)<a class="headerlink" href="#joinsessionrequest-message-type-3" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -361,8 +362,8 @@ us to identify what type of message it is.</p>
 used to identify which session you are trying to connect to.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="response-message-type-4">
+</section>
+<section id="response-message-type-4">
 <h3>Response message (Type = 4)<a class="headerlink" href="#response-message-type-4" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -389,8 +390,8 @@ used to identify which session you are trying to connect to.</p>
 <dt>: Message</dt><dd><p>Message associated with the code.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="connectrequest-message-type-5">
+</section>
+<section id="connectrequest-message-type-5">
 <h3>ConnectRequest message (Type = 5)<a class="headerlink" href="#connectrequest-message-type-5" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -412,8 +413,8 @@ used to identify which session you are trying to connect to.</p>
 <dt>: ID</dt><dd><p>Device ID to which the client would like to connect.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="sessioninvitation-message-type-6">
+</section>
+<section id="sessioninvitation-message-type-6">
 <h3>SessionInvitation message (Type = 6)<a class="headerlink" href="#sessioninvitation-message-type-6" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="mi">0</span>                   <span class="mi">1</span>                   <span class="mi">2</span>                   <span class="mi">3</span>
  <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">1</span>
@@ -473,9 +474,9 @@ the invitation which is sent to the other device, so that there is always
 one client socket, and one server socket.</p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="how-syncthing-uses-relays-and-general-security">
+</section>
+</section>
+<section id="how-syncthing-uses-relays-and-general-security">
 <h2>How Syncthing uses relays, and general security<a class="headerlink" href="#how-syncthing-uses-relays-and-general-security" title="Permalink to this headline">¶</a></h2>
 <p>In the case of Syncthing and BEP, when two devices connect via relay, they
 start their standard TLS connection encapsulated within the relay’s plain-text
@@ -496,8 +497,8 @@ boolean value in the SessionInvitation, and starts the TLS handshake.</p>
 establishing a direct connection with the other device over the internet,
 performing device ID validation, and full TLS encryption, and provides the same
 security properties as it would provide when connecting over the internet.</p>
-</div>
-<div class="section" id="examples-of-strong-cipher-suites">
+</section>
+<section id="examples-of-strong-cipher-suites">
 <h2>Examples of Strong Cipher Suites<a class="headerlink" href="#examples-of-strong-cipher-suites" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
@@ -546,8 +547,8 @@ security properties as it would provide when connecting over the internet.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -609,7 +610,7 @@ security properties as it would provide when connecting over the internet.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

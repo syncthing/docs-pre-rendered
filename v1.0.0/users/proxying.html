@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.12. Using Proxies &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -195,7 +200,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="using-proxies">
+  <section id="using-proxies">
 <span id="proxying"></span><h1><span class="section-number">2.12. </span>Using Proxies<a class="headerlink" href="#using-proxies" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
@@ -219,7 +224,7 @@ $ syncthing
 <p>Note that this environment variable is <em>not</em> named with capital letters - it
 must be exactly <code class="docutils literal notranslate"><span class="pre">all_proxy</span></code>. The “Proxy settings detected” log message
 indicates that Syncthing is using the proxy configuration.</p>
-<div class="section" id="disabling-fallback">
+<section id="disabling-fallback">
 <h2><span class="section-number">2.12.1. </span>Disabling Fallback<a class="headerlink" href="#disabling-fallback" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.13.0.</span></p>
@@ -239,15 +244,15 @@ $ syncthing
 [monitor] 11:33:13 INFO: Proxy fallback disabled
 </pre></div>
 </div>
-</div>
-<div class="section" id="caveats">
+</section>
+<section id="caveats">
 <h2><span class="section-number">2.12.2. </span>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing will use the <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code> / <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code> settings in combination with
 <code class="docutils literal notranslate"><span class="pre">all_proxy</span></code>. Proxys specified with <code class="docutils literal notranslate"><span class="pre">http_</span></code> variants will be used behind the socks proxy.</p>
 <p>If this is not desired, make sure to undefine the <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code> / <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code>
 variables for syncthing.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -299,6 +304,7 @@ variables for syncthing.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

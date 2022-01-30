@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>FAQ &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -299,7 +304,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -486,7 +491,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -615,11 +620,11 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="faq">
+  <section id="faq">
 <span id="id1"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="general">
+<section id="general">
 <h2>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="what-is-syncthing">
+<section id="what-is-syncthing">
 <h3>What is Syncthing?<a class="headerlink" href="#what-is-syncthing" title="Permalink to this headline">¶</a></h3>
 <p>Syncthing is an application that lets you synchronize your files across multiple
 devices. This means the creation, modification or deletion of files on one
@@ -627,15 +632,15 @@ machine will automatically be replicated to your other devices. We believe your
 data is your data alone and you deserve to choose where it is stored. Therefore
 Syncthing does not upload your data to the cloud but exchanges your data across
 your machines as soon as they are online at the same time.</p>
-</div>
-<div class="section" id="is-it-syncthing-syncthing-or-syncthing">
+</section>
+<section id="is-it-syncthing-syncthing-or-syncthing">
 <h3>Is it “syncthing”, “Syncthing” or “SyncThing”?<a class="headerlink" href="#is-it-syncthing-syncthing-or-syncthing" title="Permalink to this headline">¶</a></h3>
 <p>It’s <strong>Syncthing</strong>, although the command and source repository is spelled
 <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> so it may be referred to in that way as well. It’s definitely not
 <span class="strike">SyncThing</span>, even though the abbreviation <code class="docutils literal notranslate"><span class="pre">st</span></code> is used in some
 circumstances and file names.</p>
-</div>
-<div class="section" id="how-does-syncthing-differ-from-bittorrent-sync">
+</section>
+<section id="how-does-syncthing-differ-from-bittorrent-sync">
 <h3>How does Syncthing differ from BitTorrent Sync?<a class="headerlink" href="#how-does-syncthing-differ-from-bittorrent-sync" title="Permalink to this headline">¶</a></h3>
 <p>The two are different and not related. Syncthing and BitTorrent Sync accomplish
 some of the same things, namely syncing files between two or more computers.</p>
@@ -651,11 +656,11 @@ Sync uses an undocumented, closed protocol with unknown security properties.</p>
 <dd><p><a class="reference external" href="http://en.wikipedia.org/wiki/BitTorrent_Sync">http://en.wikipedia.org/wiki/BitTorrent_Sync</a></p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="usage">
+</section>
+</section>
+<section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="what-things-are-synced">
+<section id="what-things-are-synced">
 <h3>What things are synced?<a class="headerlink" href="#what-things-are-synced" title="Permalink to this headline">¶</a></h3>
 <p>The following things are <em>always</em> synchronized:</p>
 <ul class="simple">
@@ -680,8 +685,8 @@ followed.)</p></li>
 <li><p>Devices, FIFOs, and Other Specials (ignored)</p></li>
 <li><p>Sparse file sparseness (will become unsparse)</p></li>
 </ul>
-</div>
-<div class="section" id="is-synchronization-fast">
+</section>
+<section id="is-synchronization-fast">
 <h3>Is synchronization fast?<a class="headerlink" href="#is-synchronization-fast" title="Permalink to this headline">¶</a></h3>
 <p>Syncthing segments files into pieces, called blocks, to transfer data from one
 device to another. Therefore, multiple devices can share the synchronization
@@ -696,8 +701,8 @@ handled efficiently as well.</p>
 They are automatically removed whenever a file transfer has been completed or
 after the configured amount of time which is set in the configuration file (24
 hours by default).</p>
-</div>
-<div class="section" id="should-i-keep-my-device-ids-secret">
+</section>
+<section id="should-i-keep-my-device-ids-secret">
 <h3>Should I keep my device IDs secret?<a class="headerlink" href="#should-i-keep-my-device-ids-secret" title="Permalink to this headline">¶</a></h3>
 <p>No. The IDs are not sensitive. Given a device ID it’s possible to find the IP
 address for that node, if global discovery is enabled on it. Knowing the device
@@ -712,8 +717,8 @@ oyster!)</p>
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a></p>
 </div>
-</div>
-<div class="section" id="what-if-there-is-a-conflict">
+</section>
+<section id="what-if-there-is-a-conflict">
 <h3>What if there is a conflict?<a class="headerlink" href="#what-if-there-is-a-conflict" title="Permalink to this headline">¶</a></h3>
 <p>Syncthing does recognize conflicts. When a file has been modified on two devices
 simultaneously, one of the files will be renamed to <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;.sync-</span>
@@ -729,27 +734,27 @@ everywhere else and we don’t know which of the conflicting files is the “bes
 from the user point of view. Moreover, if there’s something that automatically
 causes a conflict on change you’ll end up with <code class="docutils literal notranslate"><span class="pre">sync-conflict-...sync-conflict</span>
 <span class="pre">-...-sync-conflict</span></code> files.</p>
-</div>
-<div class="section" id="how-to-configure-multiple-users-on-a-single-machine">
+</section>
+<section id="how-to-configure-multiple-users-on-a-single-machine">
 <h3>How to configure multiple users on a single machine?<a class="headerlink" href="#how-to-configure-multiple-users-on-a-single-machine" title="Permalink to this headline">¶</a></h3>
 <p>Each user should run their own Syncthing instance. Be aware that you might need
 to configure ports such that they do not overlap (see the config.xml).</p>
-</div>
-<div class="section" id="is-syncthing-my-ideal-backup-application">
+</section>
+<section id="is-syncthing-my-ideal-backup-application">
 <h3>Is Syncthing my ideal backup application?<a class="headerlink" href="#is-syncthing-my-ideal-backup-application" title="Permalink to this headline">¶</a></h3>
 <p>No, Syncthing is not a backup application because all changes to your files
 (modification, deletion, etc) will be propagated to all your devices. You can
 enable versioning, but we encourage the use of other tools to keep your data
 safe from your (or our) mistakes.</p>
-</div>
-<div class="section" id="why-is-there-no-ios-client">
+</section>
+<section id="why-is-there-no-ios-client">
 <h3>Why is there no iOS client?<a class="headerlink" href="#why-is-there-no-ios-client" title="Permalink to this headline">¶</a></h3>
 <p>An alternative implementation of Syncthing (using the Syncthing protocol) is being
 developed at this point in time to enable iOS support. Additionally, it seems
 that the next version of Go will support the darwin-arm architecture such that
 we can compile the mainstream code for the iOS platform.</p>
-</div>
-<div class="section" id="why-does-it-use-so-much-cpu">
+</section>
+<section id="why-does-it-use-so-much-cpu">
 <h3>Why does it use so much CPU?<a class="headerlink" href="#why-does-it-use-so-much-cpu" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>When new or changed files are detected, or Syncthing starts for the
@@ -761,23 +766,23 @@ and decompressed.</p></li>
 <p>Hashing, compression and encryption cost CPU time. Also, using the GUI causes a
 certain amount of CPU usage. Note however that once things are <em>in sync</em> CPU
 usage should be negligible.</p>
-</div>
-<div class="section" id="how-can-i-exclude-files-with-brackets-in-the-name">
+</section>
+<section id="how-can-i-exclude-files-with-brackets-in-the-name">
 <h3>How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?<a class="headerlink" href="#how-can-i-exclude-files-with-brackets-in-the-name" title="Permalink to this headline">¶</a></h3>
 <p>The patterns in .stignore are glob patterns, where brackets are used to denote
 character ranges. That is, the pattern <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> will match the files <code class="docutils literal notranslate"><span class="pre">qax</span></code>,
 <code class="docutils literal notranslate"><span class="pre">qbx</span></code> and <code class="docutils literal notranslate"><span class="pre">qcx</span></code>.</p>
 <p>To match an actual file <em>called</em> <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> the pattern needs to “escape” the
 brackets, like so: <code class="docutils literal notranslate"><span class="pre">q\[abc\]x</span></code>.</p>
-</div>
-<div class="section" id="why-is-the-setup-more-complicated-than-btsync">
+</section>
+<section id="why-is-the-setup-more-complicated-than-btsync">
 <h3>Why is the setup more complicated than BTSync?<a class="headerlink" href="#why-is-the-setup-more-complicated-than-btsync" title="Permalink to this headline">¶</a></h3>
 <p>Security over convenience. In Syncthing you have to setup both sides to connect
 two nodes. An attacker can’t do much with a stolen node ID, because you have to
 add the node on the other side too. You have better control where your files are
 transferred.</p>
-</div>
-<div class="section" id="how-do-i-access-the-web-gui-from-another-computer">
+</section>
+<section id="how-do-i-access-the-web-gui-from-another-computer">
 <h3>How do I access the web GUI from another computer?<a class="headerlink" href="#how-do-i-access-the-web-gui-from-another-computer" title="Permalink to this headline">¶</a></h3>
 <p>The default listening address is 127.0.0.1:8384, so you can only access the GUI
 from the same machine. Change the <code class="docutils literal notranslate"><span class="pre">GUI</span> <span class="pre">listen</span> <span class="pre">address</span></code> through the web UI from
@@ -805,21 +810,21 @@ modification will be rejected. See <a class="reference external" href="https://g
 <p>The CSRF tokens are stored using cookies. Therefore, if you get the message
 <code class="docutils literal notranslate"><span class="pre">Syncthing</span> <span class="pre">seems</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">experiencing</span> <span class="pre">a</span> <span class="pre">problem</span> <span class="pre">processing</span> <span class="pre">your</span> <span class="pre">request</span></code>, you
 should verify the cookie settings of your browser.</p>
-</div>
-<div class="section" id="why-do-i-see-syncthing-twice-in-task-manager">
+</section>
+<section id="why-do-i-see-syncthing-twice-in-task-manager">
 <h3>Why do I see Syncthing twice in task manager?<a class="headerlink" href="#why-do-i-see-syncthing-twice-in-task-manager" title="Permalink to this headline">¶</a></h3>
 <p>One process manages the other, to capture logs and manage restarts. This makes
 it easier to handle upgrades from within Syncthing itself, and also ensures that
 we get a nice log file to help us narrow down the cause for crashes and other
 bugs.</p>
-</div>
-<div class="section" id="where-do-syncthing-logs-go-to">
+</section>
+<section id="where-do-syncthing-logs-go-to">
 <h3>Where do Syncthing logs go to?<a class="headerlink" href="#where-do-syncthing-logs-go-to" title="Permalink to this headline">¶</a></h3>
 <p>Syncthing logs to stdout by default. On Windows Syncthing by default also
 creates <code class="docutils literal notranslate"><span class="pre">syncthing.log</span></code> in Syncthing’s home directory (check <code class="docutils literal notranslate"><span class="pre">-help</span></code> to see
 where that is). Command line option <code class="docutils literal notranslate"><span class="pre">-logfile</span></code> can be used to specify a user-defined logfile.</p>
-</div>
-<div class="section" id="how-do-i-upgrade-syncthing">
+</section>
+<section id="how-do-i-upgrade-syncthing">
 <h3>How do I upgrade Syncthing?<a class="headerlink" href="#how-do-i-upgrade-syncthing" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>If automatic upgrades is enabled (which is the default), Syncthing will
@@ -831,8 +836,8 @@ Pressing it will perform an upgrade.</p></li>
 <p>Note that your system should have CA certificates installed which allow a secure
 connection to GitHub (e.g. FreeBSD requires <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pkg</span> <span class="pre">install</span> <span class="pre">ca_root_nss</span></code>).
 If <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code> works with normal HTTPS sites, then so should Syncthing.</p>
-</div>
-<div class="section" id="where-do-i-find-the-latest-release">
+</section>
+<section id="where-do-i-find-the-latest-release">
 <h3>Where do I find the latest release?<a class="headerlink" href="#where-do-i-find-the-latest-release" title="Permalink to this headline">¶</a></h3>
 <p>We release new versions through GitHub. The latest release is always found <a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">on
 the release page</a>.
@@ -840,9 +845,9 @@ Unfortunately GitHub does not provide a single URL to automatically download the
 latest version. We suggest to use the GitHub API at
 <a class="reference external" href="https://api.github.com/repos/syncthing/syncthing/releases/latest">https://api.github.com/repos/syncthing/syncthing/releases/latest</a> and parsing the
 JSON response.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -862,7 +867,7 @@ JSON response.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -888,6 +893,7 @@ JSON response.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

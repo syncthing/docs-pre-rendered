@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Running a Discovery Server &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -300,7 +305,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -488,7 +493,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -617,18 +622,18 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="running-a-discovery-server">
+  <section id="running-a-discovery-server">
 <h1>Running a Discovery Server<a class="headerlink" href="#running-a-discovery-server" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This describes the procedure for a v0.12 discovery server.</p>
 </div>
-<div class="section" id="description">
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>This guide assumes that you have already set up Syncthing. If you
 haven’t yet, head over to <a class="reference internal" href="../intro/getting-started.html#getting-started"><span class="std std-ref">Getting Started</span></a> first.</p>
-</div>
-<div class="section" id="installing">
+</section>
+<section id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
 <p>Go to <a class="reference external" href="https://github.com/syncthing/discosrv/releases">releases</a> and
 download the file appropriate for your operating system. Unpacking it will
@@ -640,8 +645,8 @@ partition <code class="docutils literal notranslate"><span class="pre">discosrv.
 running <code class="docutils literal notranslate"><span class="pre">discosrv</span></code> doesn’t have permission to do so, create the directory
 and set the owner appropriately or use the command line switches (see below)
 to select a different location.</p>
-</div>
-<div class="section" id="configuring">
+</section>
+<section id="configuring">
 <h2>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h2>
 <p>Running discosrv with non-default settings requires passing the
 respective parameters to discosrv on every start. <code class="docutils literal notranslate"><span class="pre">discosrv</span> <span class="pre">-help</span></code>
@@ -669,7 +674,7 @@ gives you all the tweakables with their defaults:</p>
       <span class="n">File</span> <span class="n">to</span> <span class="n">write</span> <span class="n">periodic</span> <span class="n">operation</span> <span class="n">stats</span> <span class="n">to</span>
 </pre></div>
 </div>
-<div class="section" id="certificates">
+<section id="certificates">
 <h3>Certificates<a class="headerlink" href="#certificates" title="Permalink to this headline">¶</a></h3>
 <p>The discovery server provides service over HTTPS. To ensure secure connections
 from clients there are two options:</p>
@@ -694,9 +699,9 @@ given to the clients in the discovery server URL:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://disco.example.com:8443/?id=7DDRT7J-UICR4PM-PBIZYL3-MZOJ7X7-EX56JP6-IK6HHMW-S7EK32W-G3EUPQA
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="pointing-syncthing-at-your-discovery-server">
+</section>
+</section>
+<section id="pointing-syncthing-at-your-discovery-server">
 <h2>Pointing Syncthing at Your Discovery Server<a class="headerlink" href="#pointing-syncthing-at-your-discovery-server" title="Permalink to this headline">¶</a></h2>
 <p>By default, Syncthing uses a number of global discovery servers, signified by
 the entry <code class="docutils literal notranslate"><span class="pre">default</span></code> in the list of discovery servers. To make Syncthing use
@@ -707,8 +712,8 @@ list, e.g. <code class="docutils literal notranslate"><span class="pre">https://
 IP address, you will need a dynamic DNS service.</p>
 <p>If you wish to use <em>only</em> your own discovery server, remove the <code class="docutils literal notranslate"><span class="pre">default</span></code>
 entry from the list.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -728,7 +733,7 @@ entry from the list.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -754,6 +759,7 @@ entry from the list.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

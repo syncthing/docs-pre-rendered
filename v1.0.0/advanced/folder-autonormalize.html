@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>autoNormalize &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -202,7 +207,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="autonormalize">
+  <section id="autonormalize">
 <h1>autoNormalize<a class="headerlink" href="#autonormalize" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">autoNormalize</span></code> is an advanced folder setting that affects the handling of
 files with incorrect UTF-8 normalization in their name. When set, such files
@@ -211,7 +216,7 @@ are renamed to the correctly normalized form during scanning.</p>
 <p class="admonition-title">Note</p>
 <p>This option should normally be set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
 </div>
-<div class="section" id="background">
+<section id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
 <p>File names can be represented in many different ways. Some systems use an
 extended ASCII character set like ISO-8859-1 (Latin), others may use a
@@ -230,8 +235,8 @@ another normalization form (Windows) without translation; say, via a USB
 stick.</p>
 <p>To avoid such issues, Syncthing automatically corrects normalization errors
 when it runs into them, unless this option is disabled.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -283,6 +288,7 @@ when it runs into them, unless this option is disabled.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
