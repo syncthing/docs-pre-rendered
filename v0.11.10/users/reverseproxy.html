@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Reverse Proxy Setup &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -262,7 +267,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -455,7 +460,7 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="reverse-proxy-setup">
+  <section id="reverse-proxy-setup">
 <span id="id1"></span><h1>Reverse Proxy Setup<a class="headerlink" href="#reverse-proxy-setup" title="Permalink to this headline">¶</a></h1>
 <p>A reverse proxy allow you to “pass” requests through your web server to another
 site or program. The reverse proxy will make it look like Syncthing’s GUI is a
@@ -467,12 +472,12 @@ on the same device.</p></li>
 <li><p>You want to share SSL certificates with an existing site.</p></li>
 <li><p>You want to share authentification with an existing setup.</p></li>
 </ul>
-<div class="section" id="server-configuration">
+<section id="server-configuration">
 <h2>Server Configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h2>
 <p>If you have access to your web server’s configuration use the following
 examples to pass the location <code class="docutils literal notranslate"><span class="pre">/syncthing</span></code> on your web server to Syncthing’s
 GUI hosted on <code class="docutils literal notranslate"><span class="pre">localhost:8384</span></code>.</p>
-<div class="section" id="apache">
+<section id="apache">
 <h3>Apache<a class="headerlink" href="#apache" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">ProxyPass</span> <span class="sx">/syncthing/</span> http://localhost:8384/
 <span class="nt">&lt;Location</span> <span class="s">/syncthing/</span><span class="nt">&gt;</span>
@@ -481,8 +486,8 @@ GUI hosted on <code class="docutils literal notranslate"><span class="pre">local
 <span class="nt">&lt;/Location&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="nginx">
+</section>
+<section id="nginx">
 <h3>Nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/syncthing/</span> <span class="p">{</span>
   <span class="kn">proxy_set_header</span>        <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
@@ -494,13 +499,13 @@ GUI hosted on <code class="docutils literal notranslate"><span class="pre">local
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="folder-configuration">
+</section>
+</section>
+<section id="folder-configuration">
 <h2>Folder Configuration<a class="headerlink" href="#folder-configuration" title="Permalink to this headline">¶</a></h2>
 <p>If you don’t have access to your web server configuration files you might try
 the following technique.</p>
-<div class="section" id="id2">
+<section id="id2">
 <h3>Apache<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Add the configuration below to a <code class="docutils literal notranslate"><span class="pre">.htaccess</span></code> file in the folder of your
 webroot which should redirect to the WebUI, <code class="docutils literal notranslate"><span class="pre">/syncthing</span></code> to produce the same
@@ -513,9 +518,9 @@ behaviour as above</p>
 </pre></div>
 </div>
 <p>This method also redirects to HTTPS to prevent opening the GUI unencrypted.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -535,7 +540,7 @@ behaviour as above</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -561,6 +566,7 @@ behaviour as above</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.22. Security Principles &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -205,7 +210,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="security-principles">
+  <section id="security-principles">
 <h1><span class="section-number">2.22. </span>Security Principles<a class="headerlink" href="#security-principles" title="Permalink to this headline">¶</a></h1>
 <p>Security is one of the primary project goals. This means that it should not be
 possible for an attacker to join a cluster uninvited, and it should not be
@@ -220,9 +225,9 @@ in BASE32 encoding to form a reasonably compact and convenient string.</p>
 file name must exist in the local index and the global model.</p>
 <p>For information about ensuring you are running the code you think you are and
 for reporting security vulnerabilities, please see the official <a class="reference external" href="https://syncthing.net/security.html">security page</a>.</p>
-<div class="section" id="information-leakage">
+<section id="information-leakage">
 <h2><span class="section-number">2.22.1. </span>Information Leakage<a class="headerlink" href="#information-leakage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="global-discovery">
+<section id="global-discovery">
 <h3>Global Discovery<a class="headerlink" href="#global-discovery" title="Permalink to this headline">¶</a></h3>
 <p>When global discovery is enabled, Syncthing sends an announcement every 30
 minutes to the global discovery servers so that they can keep a mapping
@@ -242,8 +247,8 @@ Syncthing with global discovery enabled, and what their device IDs are.</p>
 IP addresses, and deduce which devices are connected to each other.</p>
 <p>If a different global discovery server is configured, no data is sent to the
 default global discovery servers.</p>
-</div>
-<div class="section" id="local-discovery">
+</section>
+<section id="local-discovery">
 <h3>Local Discovery<a class="headerlink" href="#local-discovery" title="Permalink to this headline">¶</a></h3>
 <p>When local discovery is enabled, Syncthing sends broadcast (IPv4) and multicast
 (IPv6) packets to the local network every 30 seconds. The packets contain the
@@ -252,8 +257,8 @@ device ID and listening port. Local discovery defaults to <strong>on</strong>.</
 Syncthing with local discovery enabled, and what their device IDs are.</p>
 <p>When turned off, devices with dynamic addresses on the local network cannot be
 found and connected to.</p>
-</div>
-<div class="section" id="upgrade-checks">
+</section>
+<section id="upgrade-checks">
 <h3>Upgrade Checks<a class="headerlink" href="#upgrade-checks" title="Permalink to this headline">¶</a></h3>
 <p>When automatic upgrades are enabled, Syncthing checks for a new version at
 startup and then once every twelve hours. This is by an HTTPS request to the
@@ -268,8 +273,8 @@ upgrades disabled.</p>
 <strong>GitHub</strong>, thus exposing the user to them.</p>
 <p>The upgrade check (or download) requests <em>do not</em> contain any identifiable
 information about the user or device.</p>
-</div>
-<div class="section" id="usage-reporting">
+</section>
+<section id="usage-reporting">
 <h3>Usage Reporting<a class="headerlink" href="#usage-reporting" title="Permalink to this headline">¶</a></h3>
 <p>When usage reporting is enabled, Syncthing reports usage data at startup and
 then every 24 hours. The report is sent as an HTTPS POST to the usage reporting
@@ -279,8 +284,8 @@ be seen behind the “Preview” link in settings. Usage reporting defaults to
 install.</p>
 <p>The reported data is protected from eavesdroppers, but the connection to the
 usage reporting server itself may expose the client as running Syncthing.</p>
-</div>
-<div class="section" id="sync-connections-bep">
+</section>
+<section id="sync-connections-bep">
 <h3>Sync Connections (BEP)<a class="headerlink" href="#sync-connections-bep" title="Permalink to this headline">¶</a></h3>
 <p>Sync connections are attempted to all configured devices, when the address is
 possible to resolve. The sync connection is based on TLS 1.2. The TLS
@@ -292,8 +297,8 @@ device IDs involved based on the hashes of the sent certificates.</p>
 port scanner may discover it, attempt a TLS negotiation and thus obtain the
 device certificate. This provides the same information as in the eavesdropper
 case.</p>
-</div>
-<div class="section" id="relay-connections">
+</section>
+<section id="relay-connections">
 <h3>Relay Connections<a class="headerlink" href="#relay-connections" title="Permalink to this headline">¶</a></h3>
 <p>When relaying is enabled, Syncthing will look up the pool of public relays
 and establish a connection to one of them (the best, based on an internal
@@ -305,22 +310,22 @@ relaying, or only use specific relays.</p>
 the other device’s device ID as well.</p>
 <p>Any data exchanged between the two devices is encrypted as usual and not
 subject to inspection by the relay.</p>
-</div>
-<div class="section" id="web-gui">
+</section>
+<section id="web-gui">
 <h3>Web GUI<a class="headerlink" href="#web-gui" title="Permalink to this headline">¶</a></h3>
 <p>If the web GUI is accessible, it exposes the device as running Syncthing. The
 web GUI defaults to being reachable from the <strong>local host only</strong>.</p>
-</div>
-</div>
-<div class="section" id="in-short">
+</section>
+</section>
+<section id="in-short">
 <h2><span class="section-number">2.22.2. </span>In Short<a class="headerlink" href="#in-short" title="Permalink to this headline">¶</a></h2>
 <p>Parties doing surveillance on your network (whether that be corporate IT, the
 NSA or someone else) will be able to see that you use Syncthing, and your device
 IDs <a class="reference external" href="https://docs.syncthing.net/users/faq.html#should-i-keep-my-device-ids-secret">are OK to share anyway</a>,
 but the actual transmitted data is protected as well as we can. Knowing your
 device ID can expose your IP address, using global discovery.</p>
-</div>
-<div class="section" id="protecting-your-syncthing-keys-and-identity">
+</section>
+<section id="protecting-your-syncthing-keys-and-identity">
 <h2><span class="section-number">2.22.3. </span>Protecting your Syncthing keys and identity<a class="headerlink" href="#protecting-your-syncthing-keys-and-identity" title="Permalink to this headline">¶</a></h2>
 <p>Anyone who can access the Syncthing TLS keys and config file on your device can
 impersonate your device, connect to your peers, and then have access to your
@@ -332,8 +337,8 @@ devices.</p></li>
 device theft, put the Syncthing config folder on the same encrypted disk to
 avoid leaking keys and metadata. Or, use whole disk encryption.</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -385,6 +390,7 @@ avoid leaking keys and metadata. Or, use whole disk encryption.</p></li>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

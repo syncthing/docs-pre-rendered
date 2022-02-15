@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>ignoreDelete &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -202,7 +207,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ignoredelete">
+  <section id="ignoredelete">
 <h1>ignoreDelete<a class="headerlink" href="#ignoredelete" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">ignoreDelete</span></code> is an advanced folder setting that affects the handling of
 incoming index updates. When set, incoming updates with the delete flag set
@@ -211,7 +216,7 @@ are ignored.</p>
 <p class="admonition-title">Note</p>
 <p>This option should normally be set to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </div>
-<div class="section" id="example-scenario">
+<section id="example-scenario">
 <h2>Example Scenario<a class="headerlink" href="#example-scenario" title="Permalink to this headline">¶</a></h2>
 <p>Assume two devices, “Alice” and “Bob”, are sharing a folder. Bob has set
 <code class="docutils literal notranslate"><span class="pre">ignoreDelete</span></code>.</p>
@@ -237,8 +242,8 @@ sent to Alice and Alice will download the now updated file.</p>
 <p>Ignoring deletes in both directions between two devices can be a
 confusing configuration.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -290,6 +295,7 @@ confusing configuration.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

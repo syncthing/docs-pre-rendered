@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.11. Relaying &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -196,7 +201,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="relaying">
+  <section id="relaying">
 <span id="id1"></span><h1><span class="section-number">2.11. </span>Relaying<a class="headerlink" href="#relaying" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
@@ -210,7 +215,7 @@ is much lower than a direct connection would allow.</p>
 to communicate directly with each other. When connected via a relay, Syncthing
 will periodically retry a direct connection and, if one is established, stop
 communicating via the relay.</p>
-<div class="section" id="configuring-clients">
+<section id="configuring-clients">
 <h2><span class="section-number">2.11.1. </span>Configuring clients<a class="headerlink" href="#configuring-clients" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing can be configured to use specific relay servers (exclusively of the public pool) by adding the required servers to the Sync Protocol Listen Address field, under Actions and Settings. The format is as follows:</p>
 <blockquote>
@@ -221,8 +226,8 @@ communicating via the relay.</p>
 <div><p>relay://private-relay-1.example.com:443/?id=ITZRNXE-YNROGBZ-HXTH5P7-VK5NYE5-QHRQGE2-7JQ6VNJ-KZUEDIU-5PPR5AM</p>
 </div></blockquote>
 <p>The relay’s device ID is output on start-up.</p>
-</div>
-<div class="section" id="security">
+</section>
+<section id="security">
 <h2><span class="section-number">2.11.2. </span>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
 <p>The connection between two devices is still end to end encrypted, the relay
 only retransmits the encrypted data much like a router. However, a device must
@@ -230,12 +235,12 @@ register with a relay in order to be reachable over that relay, so the relay
 knows your IP and device ID. In that respect it is similar to a discovery
 server. The relay operator can see the amount of traffic flowing between
 devices.</p>
-</div>
-<div class="section" id="running-your-own-relay">
+</section>
+<section id="running-your-own-relay">
 <h2><span class="section-number">2.11.3. </span>Running Your Own Relay<a class="headerlink" href="#running-your-own-relay" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference internal" href="strelaysrv.html#strelaysrv"><span class="std std-ref">Syncthing Relay Server</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -287,6 +292,7 @@ devices.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

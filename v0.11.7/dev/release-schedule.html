@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Release Schedule &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/faq.html">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/faq.html#general">General</a><ul>
@@ -246,7 +251,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="building.html">Building Syncthing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="building.html#branches-and-tags">Branches and Tags</a></li>
@@ -420,9 +425,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="release-schedule">
+  <section id="release-schedule">
 <h1>Release Schedule<a class="headerlink" href="#release-schedule" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="structure">
+<section id="structure">
 <h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing follows the <a class="reference external" href="http://semver.org/">Semantic Versioning</a>
 scheme of versioning. Each release has a three part version number:
@@ -439,27 +444,27 @@ able to talk to version 0.7.52, but will probably not understand version
 downgrade to 0.7.3 again and keep your configuration, index caches, etc.
 However 0.8.0 might have a different format for those things so a
 downgrade to 0.7.x might be trickier.</p>
-</div>
-<div class="section" id="patch-releases">
+</section>
+<section id="patch-releases">
 <h2>Patch Releases<a class="headerlink" href="#patch-releases" title="Permalink to this headline">¶</a></h2>
 <p>A new patch release is made each Sunday, if there have been changes
 committed since the last release. Serious bugs, such as would crash the
 client or corrupt data, cause an immediate (out of schedule) patch
 release.</p>
-</div>
-<div class="section" id="minor-releases">
+</section>
+<section id="minor-releases">
 <h2>Minor Releases<a class="headerlink" href="#minor-releases" title="Permalink to this headline">¶</a></h2>
 <p>Minor releases are made when new functionality is ready for release.
 This happen approximately once every few weeks, with the pace slowing as
 the 1.0 release nears.</p>
-</div>
-<div class="section" id="major-releases">
+</section>
+<section id="major-releases">
 <h2>Major Releases<a class="headerlink" href="#major-releases" title="Permalink to this headline">¶</a></h2>
 <p>A new major release is a rare event. At the time of writing this has not
 yet happened and is foreseen to happen only once in the foreseeable
 future - the 1.0 release.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -480,7 +485,7 @@ future - the 1.0 release.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, The Syncthing Authors.
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -507,6 +512,7 @@ future - the 1.0 release.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

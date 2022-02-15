@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.20. Profiling &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -196,7 +201,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="profiling">
+  <section id="profiling">
 <span id="id1"></span><h1><span class="section-number">2.20. </span>Profiling<a class="headerlink" href="#profiling" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -211,7 +216,7 @@ are using most CPU time and the “heap profile” that shows which functions
 have caused most memory to be allocated.</p>
 <p>Neither of the profiles contain any private data about your setup - only
 what parts of the program are using resources.</p>
-<div class="section" id="enable-debugging">
+<section id="enable-debugging">
 <h2><span class="section-number">2.20.1. </span>Enable Debugging<a class="headerlink" href="#enable-debugging" title="Permalink to this headline">¶</a></h2>
 <p>Debugging must be enabled to be able to capture profiles. To enable
 debugging, open the advanced settings:</p>
@@ -219,8 +224,8 @@ debugging, open the advanced settings:</p>
 <p>Enable the “debugging” setting under “GUI”, and then scroll down and <strong>Save</strong>.
 No restart is necessary.</p>
 <img alt="../_images/gui-debugging.png" src="../_images/gui-debugging.png" />
-</div>
-<div class="section" id="capture-a-cpu-profile">
+</section>
+<section id="capture-a-cpu-profile">
 <h2><span class="section-number">2.20.2. </span>Capture a CPU profile<a class="headerlink" href="#capture-a-cpu-profile" title="Permalink to this headline">¶</a></h2>
 <p>To get a CPU profile you need to visit a URL ending in
 <code class="docutils literal notranslate"><span class="pre">/rest/debug/cpuprof</span></code>. Assuming you are on the same computer as Syncthing
@@ -235,8 +240,8 @@ Once done the profiling will result in a download called something like
 keep and send in, without modifying the file name as it tells us information
 necessary to interpret it.</p>
 <p>Repeat the process twice and keep both files.</p>
-</div>
-<div class="section" id="capture-a-heap-profile">
+</section>
+<section id="capture-a-heap-profile">
 <h2><span class="section-number">2.20.3. </span>Capture a heap profile<a class="headerlink" href="#capture-a-heap-profile" title="Permalink to this headline">¶</a></h2>
 <p>To get a heap profile you need to visit a URL ending in
 <code class="docutils literal notranslate"><span class="pre">/rest/debug/heapprof</span></code>. The procedure is otherwise identical to the process
@@ -251,8 +256,8 @@ adjust the host name and port as necessary.</p>
 keep and send in, without modifying the file name as it tells us information
 necessary to interpret it.</p>
 <p>Repeat the process twice and keep both files.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -304,6 +309,7 @@ necessary to interpret it.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

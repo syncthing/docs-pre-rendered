@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Folder Master &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#general">General</a><ul>
@@ -246,7 +251,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/building.html">Building Syncthing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/building.html#branches-and-tags">Branches and Tags</a></li>
@@ -420,12 +425,12 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="folder-master">
+  <section id="folder-master">
 <h1>Folder Master<a class="headerlink" href="#folder-master" title="Permalink to this headline">¶</a></h1>
 <p>A folder can be set in “master mode” among the folder settings.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/foldermaster.png" src="../_images/foldermaster.png" />
-</div>
+</figure>
 <p>The intention is for this to be used on devices where a “master copy” of
 files are kept - where the files are not expected to be changed on other
 devices or where such changes would be undesirable.</p>
@@ -434,14 +439,14 @@ ignored. Changes are still <em>received</em> so the folder may become “out of
 sync”, but no changes will be applied.</p>
 <p>When a master folder becomes out of sync, a red “Override Changes”
 button is shown at the bottom of the folder details.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/override.png" src="../_images/override.png" />
-</div>
+</figure>
 <p>Clicking this button will make enforce the master’s current state on the
 rest of the cluster. Any changes made to files will be overwritten by
 the version on the master, any files that don’t exist on the master will
 be deleted, and so on.</p>
-</div>
+</section>
 
 
           </div>
@@ -462,7 +467,7 @@ be deleted, and so on.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, The Syncthing Authors.
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -489,6 +494,7 @@ be deleted, and so on.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

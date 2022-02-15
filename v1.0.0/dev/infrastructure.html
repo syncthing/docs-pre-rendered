@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>3.6. Syncthing Infrastructure &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -192,15 +197,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="syncthing-infrastructure">
+  <section id="syncthing-infrastructure">
 <h1><span class="section-number">3.6. </span>Syncthing Infrastructure<a class="headerlink" href="#syncthing-infrastructure" title="Permalink to this headline">¶</a></h1>
 <p>This is a list of the infrastructure that powers the Syncthing project.
 Unless otherwise noted, the default is that it’s a VM hosted by <a class="reference external" href="https://github.com/calmh">&#64;calmh</a>.</p>
-<div class="section" id="github">
+<section id="github">
 <h2><span class="section-number">3.6.1. </span>GitHub<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
 <p>All repos, issue trackers and binary releases are hosted at <a class="reference external" href="https://github.com/syncthing">GitHub</a>.</p>
-</div>
-<div class="section" id="main-documentation-websites">
+</section>
+<section id="main-documentation-websites">
 <h2><span class="section-number">3.6.2. </span>Main &amp; Documentation Websites<a class="headerlink" href="#main-documentation-websites" title="Permalink to this headline">¶</a></h2>
 <p>Static HTML, served by Caddy.</p>
 <ul class="simple">
@@ -209,15 +214,15 @@ Unless otherwise noted, the default is that it’s a VM hosted by <a class="refe
 <li><p><a class="reference external" href="https://docs.syncthing.net/">docs.syncthing.net</a> (Sphinx for site generation)</p></li>
 <li><p><a class="reference external" href="https://upgrades.syncthing.net/meta.json">upgrades.syncthing.net</a> (upgrade metadata)</p></li>
 </ul>
-</div>
-<div class="section" id="forum-website">
+</section>
+<section id="forum-website">
 <h2><span class="section-number">3.6.3. </span>Forum Website<a class="headerlink" href="#forum-website" title="Permalink to this headline">¶</a></h2>
 <p>Powered by Discourse.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://forum.syncthing.net/">forum.syncthing.net</a></p></li>
 </ul>
-</div>
-<div class="section" id="global-discovery-servers">
+</section>
+<section id="global-discovery-servers">
 <h2><span class="section-number">3.6.4. </span>Global Discovery Servers<a class="headerlink" href="#global-discovery-servers" title="Permalink to this headline">¶</a></h2>
 <p>Runs the <code class="docutils literal notranslate"><span class="pre">stdiscosrv</span></code> instances that serve global discovery requests. The
 discovery setup is a load balanced cluster and the members can change
@@ -228,28 +233,28 @@ DigitalOcean.</p>
 <li><p>discovery-v4.syncthing.net (multiple A records, for IPv4 announces)</p></li>
 <li><p>discovery-v6.syncthing.net (multiple AAAA records, for IPv6 announces)</p></li>
 </ul>
-</div>
-<div class="section" id="relay-pool-server">
+</section>
+<section id="relay-pool-server">
 <h2><span class="section-number">3.6.5. </span>Relay Pool Server<a class="headerlink" href="#relay-pool-server" title="Permalink to this headline">¶</a></h2>
 <p>Runs the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/master/cmd/strelaypoolsrv">strelaypoolsrv</a>
 daemon to handle dynamic registration and announcement of relays.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://relays.syncthing.net">relays.syncthing.net</a></p></li>
 </ul>
-</div>
-<div class="section" id="relay-servers">
+</section>
+<section id="relay-servers">
 <h2><span class="section-number">3.6.6. </span>Relay Servers<a class="headerlink" href="#relay-servers" title="Permalink to this headline">¶</a></h2>
 <p>Hosted by friendly people on the internet.</p>
-</div>
-<div class="section" id="usage-reporting-server">
+</section>
+<section id="usage-reporting-server">
 <h2><span class="section-number">3.6.7. </span>Usage Reporting Server<a class="headerlink" href="#usage-reporting-server" title="Permalink to this headline">¶</a></h2>
 <p>Runs the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/master/cmd/ursrv">ursrv</a>
 daemon with PostgreSQL and Nginx.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://data.syncthing.net/">data.syncthing.net</a></p></li>
 </ul>
-</div>
-<div class="section" id="build-servers">
+</section>
+<section id="build-servers">
 <h2><span class="section-number">3.6.8. </span>Build Servers<a class="headerlink" href="#build-servers" title="Permalink to this headline">¶</a></h2>
 <p>Runs TeamCity and does the core builds.</p>
 <ul class="simple">
@@ -257,23 +262,23 @@ daemon with PostgreSQL and Nginx.</p>
 </ul>
 <p>There are various build agents; Linux, Windows, and Mac. These are currently
 provided by <a href="#id1"><span class="problematic" id="id2">:users:`calmh`</span></a> or Kastelo.</p>
-</div>
-<div class="section" id="signing-server">
+</section>
+<section id="signing-server">
 <h2><span class="section-number">3.6.9. </span>Signing Server<a class="headerlink" href="#signing-server" title="Permalink to this headline">¶</a></h2>
 <p>Signs and uploads the release bundles to GitHub.</p>
 <ul class="simple">
 <li><p>secure.syncthing.net</p></li>
 </ul>
-</div>
-<div class="section" id="monitoring">
+</section>
+<section id="monitoring">
 <h2><span class="section-number">3.6.10. </span>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
 <p>The infrastructure is monitored and its status is publicly accessible on the following urls:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://status.syncthing.net">status.syncthing.net</a> (Apex Ping)</p></li>
 <li><p><a class="reference external" href="https://monitor.syncthing.net">monitor.syncthing.net</a> (Grafana)</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -325,6 +330,7 @@ provided by <a href="#id1"><span class="problematic" id="id2">:users:`calmh`</sp
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

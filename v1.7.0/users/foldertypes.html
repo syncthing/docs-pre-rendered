@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Folder Types &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,14 +34,14 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="folder-types">
+  <section id="folder-types">
 <span id="id1"></span><h1>Folder Types<a class="headerlink" href="#folder-types" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="send-receive-folder">
+<section id="send-receive-folder">
 <h2>Send &amp; Receive Folder<a class="headerlink" href="#send-receive-folder" title="Permalink to this headline">¶</a></h2>
 <p>This is the standard folder type. Under this setting, a folder will both send
 changes to and receive changes from remote devices.</p>
-</div>
-<div class="section" id="send-only-folder">
+</section>
+<section id="send-only-folder">
 <span id="folder-sendonly"></span><h2>Send Only Folder<a class="headerlink" href="#send-only-folder" title="Permalink to this headline">¶</a></h2>
 <p>A folder can be set in “send only mode” among the folder settings.</p>
 <img alt="../_images/foldersendonly.png" src="../_images/foldersendonly.png" />
@@ -57,8 +58,8 @@ button is shown at the bottom of the folder details.</p>
 rest of the cluster. Any changes made to files will be overwritten by
 the version on this host, any files that don’t exist on this host will
 be deleted, and so on.</p>
-</div>
-<div class="section" id="receive-only-folder">
+</section>
+<section id="receive-only-folder">
 <span id="folder-recvonly"></span><h2>Receive Only Folder<a class="headerlink" href="#receive-only-folder" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.14.50.</span></p>
@@ -82,8 +83,8 @@ by the cluster will cause a sync conflict. The conflict will be resolved
 with the cluster version as the winner. Being a receive-only folder, the
 sync conflict copy will not be sent to the cluster - and will be deleted if
 “Revert Changes” is used.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -167,7 +168,7 @@ sync conflict copy will not be sent to the cluster - and will be deleted if
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

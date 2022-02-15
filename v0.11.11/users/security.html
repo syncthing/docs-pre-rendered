@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Security Principles &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -262,7 +267,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -455,7 +460,7 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="security-principles">
+  <section id="security-principles">
 <h1>Security Principles<a class="headerlink" href="#security-principles" title="Permalink to this headline">¶</a></h1>
 <p>Security is one of the primary project goals. This means that it should not be
 possible for an attacker to join a cluster uninvited, and it should not be
@@ -470,9 +475,9 @@ reasonably compact and convenient string.</p>
 file name must exist in the local index and the global model.</p>
 <p>For information about ensuring you are running the code you think you are and
 for reporting security vulnerabilities, please see the official <a class="reference external" href="http://syncthing.net/security.html">security page</a>.</p>
-<div class="section" id="information-leakage">
+<section id="information-leakage">
 <h2>Information Leakage<a class="headerlink" href="#information-leakage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="global-discovery">
+<section id="global-discovery">
 <h3>Global Discovery<a class="headerlink" href="#global-discovery" title="Permalink to this headline">¶</a></h3>
 <p>When global discovery is enabled, Syncthing sends an announcement packet every
 30 minutes to the global discovery server, so that it can keep a mapping between
@@ -484,8 +489,8 @@ currently hosted by <a class="reference external" href="https://github.com/calmh
 be found and connected to.</p>
 <p>If a different global discovery server is configured, no data is sent to the
 default global discovery server.</p>
-</div>
-<div class="section" id="local-discovery">
+</section>
+<section id="local-discovery">
 <h3>Local Discovery<a class="headerlink" href="#local-discovery" title="Permalink to this headline">¶</a></h3>
 <p>When local discovery is enabled, Syncthing sends broadcast (IPv4) and multicast
 (IPv6) packets to the local network every 30 seconds. The packets contain the
@@ -494,8 +499,8 @@ device ID and listening port. Local discovery defaults to <strong>on</strong>.</
 Syncthing with local discovery enabled, and what their device IDs are.</p>
 <p>When turned off, devices with dynamic addresses on the local network cannot be
 found and connected to.</p>
-</div>
-<div class="section" id="upgrade-checks">
+</section>
+<section id="upgrade-checks">
 <h3>Upgrade Checks<a class="headerlink" href="#upgrade-checks" title="Permalink to this headline">¶</a></h3>
 <p>When automatic upgrades are enabled, Syncthing checks for a new version at
 startup and then once every twelve hours. This is by an HTTPS request to the
@@ -511,8 +516,8 @@ to outside parties (including <a class="reference external" href="https://github
 per release binary are available in the GitHub API. The upgrade check (or
 download) requests <em>do not</em> contain any identifiable information about the user,
 device, Syncthing version, etc.</p>
-</div>
-<div class="section" id="usage-reporting">
+</section>
+<section id="usage-reporting">
 <h3>Usage Reporting<a class="headerlink" href="#usage-reporting" title="Permalink to this headline">¶</a></h3>
 <p>When usage reporting is enabled, Syncthing reports usage data at startup and
 then every 24 hours. The report is sent as an HTTPS POST to the usage reporting
@@ -522,8 +527,8 @@ be seen behind the “Preview” link in settings. Usage reporting defaults to
 install.</p>
 <p>The reported data is protected from eavesdroppers, but the connection to the
 usage reporting server itself may expose the client as running Syncthing.</p>
-</div>
-<div class="section" id="sync-connections-bep">
+</section>
+<section id="sync-connections-bep">
 <h3>Sync Connections (BEP)<a class="headerlink" href="#sync-connections-bep" title="Permalink to this headline">¶</a></h3>
 <p>Sync connections are attempted to all configured devices, when the address is
 possible to resolve. The sync connection is based on TLS 1.2. The TLS
@@ -535,22 +540,22 @@ device ID:s involved based on the hashes of the sent certificates.</p>
 port scanner may discover it, attempt a TLS negotiation and thus obtain the
 device certificate. This provides the same information as in the eavesdropper
 case.</p>
-</div>
-<div class="section" id="web-gui">
+</section>
+<section id="web-gui">
 <h3>Web GUI<a class="headerlink" href="#web-gui" title="Permalink to this headline">¶</a></h3>
 <p>If the web GUI is accessible, it exposes the device as running Syncthing. The
 web GUI defaults to being reachable from the <strong>local host only</strong>.</p>
-</div>
-</div>
-<div class="section" id="in-short">
+</section>
+</section>
+<section id="in-short">
 <h2>In Short<a class="headerlink" href="#in-short" title="Permalink to this headline">¶</a></h2>
 <p>Parties doing surveillance on your network (whether that be corporate IT, the
 NSA or someone else) will be able to see that you use Syncthing, and your device
 ID’s <a class="reference external" href="http://docs.syncthing.net/users/faq.html#should-i-keep-my-device-ids-secret">are OK to share anyway</a>,
 but the actual transmitted data is protected as well as we can. Knowing your
 device ID can expose your IP address, using global discovery.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -570,7 +575,7 @@ device ID can expose your IP address, using global discovery.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -596,6 +601,7 @@ device ID can expose your IP address, using global discovery.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

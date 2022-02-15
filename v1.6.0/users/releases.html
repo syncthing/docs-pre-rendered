@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Versions &amp; Releases &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,9 +34,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="versions-releases">
+  <section id="versions-releases">
 <span id="releases"></span><h1>Versions &amp; Releases<a class="headerlink" href="#versions-releases" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="major-minor-or-patch">
+<section id="major-minor-or-patch">
 <h2>Major, Minor, or Patch<a class="headerlink" href="#major-minor-or-patch" title="Permalink to this headline">¶</a></h2>
 <p>Since the 1.0.0 release, Syncthing uses a <a class="reference external" href="https://semver.org/">semver</a>-like <a class="footnote-reference brackets" href="#id6" id="id1">1</a> three part version number, <strong>x.y.z</strong> where <em>x</em>
 is the major version, <em>y</em> is the minor version, and <em>z</em> is the patch
@@ -50,8 +51,8 @@ need changes, or did the database schema or configuration change so that a
 downgrade might be problematic? That’s a new <em>minor</em> version.</p></li>
 <li><p>If there are no specific concerns as above, it’s a new <em>patch</em> version.</p></li>
 </ul>
-</div>
-<div class="section" id="release-channels">
+</section>
+<section id="release-channels">
 <h2>Release Channels<a class="headerlink" href="#release-channels" title="Permalink to this headline">¶</a></h2>
 <p>There are two different release channels that can be selected. The <em>stable</em>
 channel is the more stable one, while <em>candidate</em> releases are closer to
@@ -104,37 +105,37 @@ surprises you might run into.</p>
 <dd><p>Yes, there is intentionally no difference here.</p>
 </dd>
 </dl>
-<div class="section" id="schedule">
+<section id="schedule">
 <h3>Schedule<a class="headerlink" href="#schedule" title="Permalink to this headline">¶</a></h3>
 <p>Barring blocking issues, stable versions are released <em>on the first Tuesday
 of the month</em>. A new candidate releases is made <em>on the second Tuesday of the
 month</em>.</p>
-</div>
-<div class="section" id="how-to-choose">
+</section>
+<section id="how-to-choose">
 <h3>How to Choose<a class="headerlink" href="#how-to-choose" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="built-in-github">
+<section id="built-in-github">
 <h4>Built-in / GitHub<a class="headerlink" href="#built-in-github" title="Permalink to this headline">¶</a></h4>
 <p>For releases obtained from Syncthing.net or GitHub, with built-in upgrade
 functionality, the choice is made in the “Settings” dialog. Set the
 “Automatic upgrade” drop down to either “Stable releases only” or “Stable
 releases and release candidates”.</p>
-</div>
-<div class="section" id="apt-debian">
+</section>
+<section id="apt-debian">
 <h4>APT (Debian)<a class="headerlink" href="#apt-debian" title="Permalink to this headline">¶</a></h4>
 <p>The choice between stable and candidate is done in the APT source
 configuration. Please see <a class="reference external" href="https://apt.syncthing.net/">our APT instructions</a>.</p>
-</div>
-<div class="section" id="some-other-distribution-channel">
+</section>
+<section id="some-other-distribution-channel">
 <h4>Some Other Distribution Channel<a class="headerlink" href="#some-other-distribution-channel" title="Permalink to this headline">¶</a></h4>
 <p>If you are getting packages from your Linux distribution, NAS vendor, etc.,
 then you should be getting the <em>stable</em> channel. If you get a release
 candidate you should complain to your distributor or vendor and refer them
 to this page.</p>
-</div>
-</div>
-<div class="section" id="faq">
+</section>
+</section>
+<section id="faq">
 <h3>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="what-s-the-relationship-between-candidate-and-release-exactly">
+<section id="what-s-the-relationship-between-candidate-and-release-exactly">
 <h4>What’s the relationship between candidate and release exactly?<a class="headerlink" href="#what-s-the-relationship-between-candidate-and-release-exactly" title="Permalink to this headline">¶</a></h4>
 <p>Every new feature and bugfix begins its life in the development branch,
 <code class="docutils literal notranslate"><span class="pre">master</span></code>. Once a month the current <code class="docutils literal notranslate"><span class="pre">master</span></code> becomes a <em>release
@@ -150,8 +151,8 @@ Unless any serious issues were discovered, this release is exactly identical
 to the “-rc.1” release candidate three weeks prior.</p>
 <p>The cycle then restarts one week later with a new release candidate based on
 the current <code class="docutils literal notranslate"><span class="pre">master</span></code> branch.</p>
-</div>
-<div class="section" id="which-bugfixes-trigger-a-new-release-candidate">
+</section>
+<section id="which-bugfixes-trigger-a-new-release-candidate">
 <h4>Which bugfixes trigger a new release candidate?<a class="headerlink" href="#which-bugfixes-trigger-a-new-release-candidate" title="Permalink to this headline">¶</a></h4>
 <p>Those that fix a regression since the last release. Lets say the current
 release is <code class="docutils literal notranslate"><span class="pre">v1.5.0</span></code>. We release <code class="docutils literal notranslate"><span class="pre">v1.5.1-rc.1</span></code> and discover a new problem that
@@ -159,8 +160,8 @@ is not present in <code class="docutils literal notranslate"><span class="pre">v
 candidate. However, if we discover and fix a problem that’s been present
 since <code class="docutils literal notranslate"><span class="pre">v1.4.0</span></code>, this fix will instead be incorporated in the next regular
 cycle.</p>
-</div>
-<div class="section" id="what-s-the-difference-between-the-latest-candidate-and-the-following-stable-release">
+</section>
+<section id="what-s-the-difference-between-the-latest-candidate-and-the-following-stable-release">
 <h4>What’s the difference between the latest candidate and the following stable release?<a class="headerlink" href="#what-s-the-difference-between-the-latest-candidate-and-the-following-stable-release" title="Permalink to this headline">¶</a></h4>
 <p>Nothing. If we release <code class="docutils literal notranslate"><span class="pre">v1.5.1-rc.1</span></code> and no serious problems are discovered
 during the next twelve days, this is the exact software that will become
@@ -176,10 +177,10 @@ API change, in a way that isn’t super helpful to the average user of a
 program like Syncthing.</p>
 </dd>
 </dl>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -263,7 +264,7 @@ program like Syncthing.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

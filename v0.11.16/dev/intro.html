@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Syncthing Development &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -273,7 +278,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -471,9 +476,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="syncthing-development">
+  <section id="syncthing-development">
 <h1>Syncthing Development<a class="headerlink" href="#syncthing-development" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="controlling-syncthing-from-external-applications">
+<section id="controlling-syncthing-from-external-applications">
 <h2>Controlling Syncthing from External Applications<a class="headerlink" href="#controlling-syncthing-from-external-applications" title="Permalink to this headline">¶</a></h2>
 <p>People all over the world have developed a number of <a class="reference internal" href="../users/contrib.html#contributions"><span class="std std-ref">useful applications</span></a> that build around the Syncthing core, such as tray
 notifications and Android support. These are made possible using two APIs:</p>
@@ -487,8 +492,8 @@ querying for current status.</p></li>
 <p>If this covers what you need to do, there is no need to delve deeper. However,
 if you would like to add functionality to Syncthing itself, or correct a bug
 or two in there, please read on.</p>
-</div>
-<div class="section" id="contributing-to-the-syncthing-core">
+</section>
+<section id="contributing-to-the-syncthing-core">
 <h2>Contributing to the Syncthing Core<a class="headerlink" href="#contributing-to-the-syncthing-core" title="Permalink to this headline">¶</a></h2>
 <p>First of all, follow <a class="reference internal" href="building.html#building"><span class="std std-ref">Building Syncthing</span></a> to get your workspace set up correctly.
 Syncthing is written mainly in <a class="reference external" href="http://golang.org">Go</a> which has some
@@ -501,7 +506,7 @@ done so with it being their first contact with Go.</p>
 to know what to expect and to make the process smoother. The main take away is
 to keep the code clean, base it on the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, and we’ll sort out
 the rest once you file a pull request.</p>
-<div class="section" id="source-code-layout">
+<section id="source-code-layout">
 <h3>Source Code Layout<a class="headerlink" href="#source-code-layout" title="Permalink to this headline">¶</a></h3>
 <p>In the source repository you’ll find a tree of various packages and directories. There is some Go code at the top level, but it’s basically scripts for the build system. The actual code lives in the <code class="docutils literal notranslate"><span class="pre">cmd/syncthing</span></code> and <code class="docutils literal notranslate"><span class="pre">internal</span></code> directories. The web GUI lives in <code class="docutils literal notranslate"><span class="pre">gui</span></code>. The rest is as follows.</p>
 <dl>
@@ -584,8 +589,8 @@ the rest once you file a pull request.</p>
 <dt>test/</dt><dd><p>The integration test suite.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="why-are-you-being-so-hard-on-my-pull-request">
+</section>
+<section id="why-are-you-being-so-hard-on-my-pull-request">
 <h3>Why are you being so hard on my pull request?<a class="headerlink" href="#why-are-you-being-so-hard-on-my-pull-request" title="Permalink to this headline">¶</a></h3>
 <p>A pull request looks a little different depending on whether you’re on the
 “contributor” or “maintainer” side. The contributor says:</p>
@@ -631,9 +636,9 @@ the maintainer will have to do after accepting the pull request.</p></li>
 </ul>
 <p>All in all, a great pull request creates less work for the maintainer,
 not more.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -653,7 +658,7 @@ not more.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -679,6 +684,7 @@ not more.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

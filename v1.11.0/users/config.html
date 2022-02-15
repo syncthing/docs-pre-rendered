@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Syncthing Configuration &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,17 +34,17 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="syncthing-configuration">
+  <section id="syncthing-configuration">
 <span id="config"></span><h1>Syncthing Configuration<a class="headerlink" href="#syncthing-configuration" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
+<section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$HOME/.config/syncthing
 $HOME/Library/Application Support/Syncthing
 %LOCALAPPDATA%/Syncthing
 </pre></div>
 </div>
-</div>
-<div class="section" id="description">
+</section>
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing uses a single directory to store configuration, crypto keys
 and index caches. The location defaults to <code class="docutils literal notranslate"><span class="pre">$HOME/.config/syncthing</span></code>
@@ -67,8 +68,8 @@ currently on disk and available from peers.</p>
 site request forgery).</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="config-file-format">
+</section>
+<section id="config-file-format">
 <h2>Config File Format<a class="headerlink" href="#config-file-format" title="Permalink to this headline">¶</a></h2>
 <p>The following shows an example of the default configuration file (IDs will differ):</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration</span> <span class="na">version=</span><span class="s">&quot;30&quot;</span><span class="nt">&gt;</span>
@@ -161,8 +162,8 @@ site request forgery).</p>
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuration-element">
+</section>
+<section id="configuration-element">
 <h2>Configuration Element<a class="headerlink" href="#configuration-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration</span> <span class="na">version=</span><span class="s">&quot;30&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;folder&gt;&lt;/folder&gt;</span>
@@ -193,8 +194,8 @@ always be skipped when advertised from a remote device, i.e. this will be
 logged, but there will be no dialog about it in the web GUI.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="folder-element">
+</section>
+<section id="folder-element">
 <h2>Folder Element<a class="headerlink" href="#folder-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;folder</span> <span class="na">id=</span><span class="s">&quot;default&quot;</span> <span class="na">label=</span><span class="s">&quot;Default Folder&quot;</span> <span class="na">path=</span><span class="s">&quot;/Users/jb/Sync/&quot;</span> <span class="na">type=</span><span class="s">&quot;sendreceive&quot;</span> <span class="na">rescanIntervalS=</span><span class="s">&quot;3600&quot;</span> <span class="na">fsWatcherEnabled=</span><span class="s">&quot;true&quot;</span> <span class="na">fsWatcherDelayS=</span><span class="s">&quot;10&quot;</span> <span class="na">ignorePerms=</span><span class="s">&quot;false&quot;</span> <span class="na">autoNormalize=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;filesystemType&gt;</span>basic<span class="nt">&lt;/filesystemType&gt;</span>
@@ -389,8 +390,8 @@ filesystem supports it.</p>
 <p>See <a class="reference internal" href="../advanced/folder-copyrangemethod.html#folder-copyrangemethod"><span class="std std-ref">copyRangeMethod</span></a> for details.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="device-element">
+</section>
+<section id="device-element">
 <h2>Device Element<a class="headerlink" href="#device-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;5SYI2FS-LW6YAXI-JJDYETS-NDBBPIO-256MWBO-XDPXWVG-24QPUM4-PDW4UQU&quot;</span> <span class="na">name=</span><span class="s">&quot;syno&quot;</span> <span class="na">compression=</span><span class="s">&quot;metadata&quot;</span> <span class="na">introducer=</span><span class="s">&quot;false&quot;</span> <span class="na">skipIntroductionRemovals=</span><span class="s">&quot;false&quot;</span> <span class="na">introducedBy=</span><span class="s">&quot;2CYF2WQ-AKZO2QZ-JAKWLYD-AGHMQUM-BGXUOIS-GYILW34-HJG3DUK-LRRYQAR&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;address&gt;</span>dynamic<span class="nt">&lt;/address&gt;</span>
@@ -505,8 +506,8 @@ despite the config name looking like kilobits/second.</p>
 Unit is kibibytes.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="gui-element">
+</section>
+<section id="gui-element">
 <h2>GUI Element<a class="headerlink" href="#gui-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span> <span class="na">debugging=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;address&gt;</span>127.0.0.1:8384<span class="nt">&lt;/address&gt;</span>
@@ -568,8 +569,8 @@ is controlled by presence of user/password fields for backward compatibility.</p
 </dl>
 </dd>
 </dl>
-</div>
-<div class="section" id="ldap-element">
+</section>
+<section id="ldap-element">
 <h2>LDAP Element<a class="headerlink" href="#ldap-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ldap&gt;</span>
     <span class="nt">&lt;address&gt;</span>localhost:389<span class="nt">&lt;/address&gt;</span>
@@ -602,8 +603,8 @@ Special %s variable should be used to pass username to LDAP.</p>
 <dt>insecureSkipVerify</dt><dd><p>Skip verification (true or false).</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="options-element">
+</section>
+<section id="options-element">
 <h2>Options Element<a class="headerlink" href="#options-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;options&gt;</span>
     <span class="nt">&lt;listenAddress&gt;</span>tcp://0.0.0.0:8384<span class="nt">&lt;/listenAddress&gt;</span>
@@ -787,7 +788,7 @@ disable this behavior, for example to control process priority yourself
 as part of launching Syncthing, set this option to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </dd>
 </dl>
-<div class="section" id="listen-addresses">
+<section id="listen-addresses">
 <span id="id1"></span><h3>Listen Addresses<a class="headerlink" href="#listen-addresses" title="Permalink to this headline">¶</a></h3>
 <p>The following address types are accepted in sync protocol listen addresses. If you want Syncthing to listen on multiple addresses, you can either: add multiple <code class="docutils literal notranslate"><span class="pre">&lt;listenAddress&gt;</span></code> tags in the configuration file or enter several addresses separated by commas in the GUI.</p>
 <dl>
@@ -827,9 +828,9 @@ that as if specified as a static relay above.</p>
 </div>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="syncing-configuration-files">
+</section>
+</section>
+<section id="syncing-configuration-files">
 <h2>Syncing Configuration Files<a class="headerlink" href="#syncing-configuration-files" title="Permalink to this headline">¶</a></h2>
 <p>Syncing configuration files between devices (such that multiple devices are
 using the same configuration files) can cause issues. This is easy to do
@@ -843,8 +844,8 @@ device(s) should not be used as configuration for the remote devices.</p>
 folder that stores the configuration files to the <a class="reference internal" href="ignoring.html#ignoring-files"><span class="std std-ref">ignore list</span></a>.
 If you’d also like to backup your configuration files, add another folder in
 send only mode for just the configuration folder.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -928,7 +929,7 @@ send only mode for just the configuration folder.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

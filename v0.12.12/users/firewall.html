@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Firewall Setup &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -310,7 +315,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -499,7 +504,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -628,9 +633,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="firewall-setup">
+  <section id="firewall-setup">
 <span id="id1"></span><h1>Firewall Setup<a class="headerlink" href="#firewall-setup" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="port-forwards">
+<section id="port-forwards">
 <h2>Port Forwards<a class="headerlink" href="#port-forwards" title="Permalink to this headline">¶</a></h2>
 <p>If you have a NAT router which supports UPnP, the easiest way to get a working
 port forward is to make sure UPnP setting is enabled on both Syncthing and the
@@ -649,8 +654,8 @@ they are behind a NAT network or firewall.</p>
 <p>In the absence of port forwarding, <a class="reference internal" href="relaying.html#relaying"><span class="std std-ref">Relaying</span></a> may work well enough to get
 devices connected and synced, but will perform poorly in comparison to a
 direct connection.</p>
-</div>
-<div class="section" id="local-firewall">
+</section>
+<section id="local-firewall">
 <h2>Local Firewall<a class="headerlink" href="#local-firewall" title="Permalink to this headline">¶</a></h2>
 <p>If your PC has a local firewall, you will need to open the following ports for
 incoming and outgoing traffic:</p>
@@ -659,14 +664,14 @@ incoming and outgoing traffic:</p>
 the <em>Sync Protocol Listen Address</em> setting.)</p></li>
 <li><p>Port <strong>21027/UDP</strong> (for discovery broadcasts on IPv4 and multicasts on IPv6)</p></li>
 </ul>
-</div>
-<div class="section" id="remote-web-gui">
+</section>
+<section id="remote-web-gui">
 <h2>Remote Web GUI<a class="headerlink" href="#remote-web-gui" title="Permalink to this headline">¶</a></h2>
 <p>To be able to access the web GUI from other computers, you need to change the
 <em>GUI Listen Address</em> setting from the default <code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code> to
 <code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code>. You also need to open the port in your local firewall if you
 have one.</p>
-<div class="section" id="tunneling-via-ssh">
+<section id="tunneling-via-ssh">
 <h3>Tunneling via SSH<a class="headerlink" href="#tunneling-via-ssh" title="Permalink to this headline">¶</a></h3>
 <p>If you have SSH access to the machine running Syncthing but would rather not
 open the web GUI port to the outside world, you can access it through a SSH
@@ -677,9 +682,9 @@ tunnel instead. You can start a tunnel with a command like the following:</p>
 <p>This will bind to your local port 9999 and forward all connections from there to
 port 8384 on the target machine. This still works even if Syncthing is bound to
 listen on localhost only.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -699,7 +704,7 @@ listen on localhost only.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -725,6 +730,7 @@ listen on localhost only.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

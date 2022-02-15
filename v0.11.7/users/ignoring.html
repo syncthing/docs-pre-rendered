@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Ignoring Files &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#general">General</a><ul>
@@ -246,7 +251,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/building.html">Building Syncthing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/building.html#branches-and-tags">Branches and Tags</a></li>
@@ -420,15 +425,15 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="ignoring-files">
+  <section id="ignoring-files">
 <h1>Ignoring Files<a class="headerlink" href="#ignoring-files" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
+<section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">stignore</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="description">
+</section>
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>If some files should not be synchronized to other nodes, a file called
 <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> can be created containing file patterns to ignore. The
@@ -436,8 +441,8 @@
 <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file itself will never be synced to other nodes, although it can
 <code class="docutils literal notranslate"><span class="pre">#include</span></code> files that <em>are</em> synchronized between nodes. All patterns are
 relative to the repository root.</p>
-</div>
-<div class="section" id="patterns">
+</section>
+<section id="patterns">
 <h2>Patterns<a class="headerlink" href="#patterns" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">.stignore</span></code> file contains a list of file or path patterns. The
 <em>first</em> pattern that matches will decide the fate of a given file.</p>
@@ -476,8 +481,8 @@ be synchronized. Note that case-insensitive patterns must start with
 <code class="docutils literal notranslate"><span class="pre">(?i)</span></code> when combined with other flags.</p></li>
 <li><p>A line beginning with <code class="docutils literal notranslate"><span class="pre">//</span></code> is a comment and has no effect.</p></li>
 </ul>
-</div>
-<div class="section" id="example">
+</section>
+<section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Given a directory layout:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span>
@@ -524,8 +529,8 @@ qu*
 directory itself. If you want the pattern to match the director and it’s
 content, make sure it does not have a <code class="docutils literal notranslate"><span class="pre">/</span></code> at the end of the pattern.</p>
 </div>
-</div>
-<div class="section" id="effects-on-in-sync-status">
+</section>
+<section id="effects-on-in-sync-status">
 <h2>Effects on “In Sync” Status<a class="headerlink" href="#effects-on-in-sync-status" title="Permalink to this headline">¶</a></h2>
 <p>Currently the effects on who is in sync with what can be a bit confusing
 when using ignore patterns. This should be cleared up in a future
@@ -544,8 +549,8 @@ but still 100% in sync (<a class="reference external" href="https://github.com/s
 Alice’s point of view, Bob will remain 100% in sync until the next
 reconnect, because Bob has already announce that he has the files that
 are now suddenly ignored.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -566,7 +571,7 @@ are now suddenly ignored.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, The Syncthing Authors.
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -593,6 +598,7 @@ are now suddenly ignored.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

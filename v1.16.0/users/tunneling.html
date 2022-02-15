@@ -4,12 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>SSH Tunneling &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -34,11 +35,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="ssh-tunneling">
+  <section id="ssh-tunneling">
 <h1>SSH Tunneling<a class="headerlink" href="#ssh-tunneling" title="Permalink to this headline">¶</a></h1>
 <p>SSH tunneling can serve two purposes. One is a point-to-point secure tunnel between two machines (e.g., for Syncthing purposes), and another is to make use of a port you have available when you don’t control the firewall. Here we’ll assume <strong>22/TCP</strong> is open from <code class="docutils literal notranslate"><span class="pre">hosta</span></code> to <code class="docutils literal notranslate"><span class="pre">hostb</span></code> and we want to Syncthing directories between these two hosts. There is no need for ports <strong>22000/TCP</strong> or <strong>22001/TCP</strong> to be open between the machines for this to work. Port <strong>21027/UDP</strong> isn’t needed because there is no discovery, we’ll explicitly tell each member where to find the other.</p>
 <p>SSH server config is not in scope, but we’ll also assume the server, <code class="docutils literal notranslate"><span class="pre">hostb</span></code>, is configured to allow SSH connections as user <code class="docutils literal notranslate"><span class="pre">syncguy</span></code> with RSA key <code class="docutils literal notranslate"><span class="pre">somekey.pem</span></code>, and port forwarding is allowed. Meanwhile, <code class="docutils literal notranslate"><span class="pre">hosta</span></code> is the SSH client. For Syncthing they are symmetrical peers.</p>
-<div class="section" id="create-the-ssh-tunnel">
+<section id="create-the-ssh-tunnel">
 <h2>Create the SSH Tunnel<a class="headerlink" href="#create-the-ssh-tunnel" title="Permalink to this headline">¶</a></h2>
 <p>First open a tunnel from <code class="docutils literal notranslate"><span class="pre">hosta</span></code> to <code class="docutils literal notranslate"><span class="pre">hostb</span></code> by running the SSH client on <code class="docutils literal notranslate"><span class="pre">hosta</span></code>, such that <strong>localhost:22001/TCP</strong> on each machine redirects to <strong>localhost:22000/TCP</strong> on the other (for <strong>syncthing</strong> to use):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#/bin/bash</span>
@@ -49,23 +50,23 @@
 </pre></div>
 </div>
 <p>127.0.0.1 is explicitly used throughout the example so the tunnels and Syncthing do NOT listen on externally exposed interfaces, for better security.</p>
-</div>
-<div class="section" id="listen-on-localhost">
+</section>
+<section id="listen-on-localhost">
 <h2>Listen on localhost<a class="headerlink" href="#listen-on-localhost" title="Permalink to this headline">¶</a></h2>
 <p>Now in Syncthing on both sides of the tunnel (<code class="docutils literal notranslate"><span class="pre">hosta</span></code> and <code class="docutils literal notranslate"><span class="pre">hostb</span></code>) in Settings | Connections, you can disable/uncheck all options: Enable NAT Traversal, Local Discovery, Global Discovery, and Enable Relaying. Also configure Syncthing to listen only on localhost by setting Sync Protocol Listen Addresses to:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22000</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="provide-address-for-remote-device">
+</section>
+<section id="provide-address-for-remote-device">
 <h2>Provide Address for Remote Device<a class="headerlink" href="#provide-address-for-remote-device" title="Permalink to this headline">¶</a></h2>
 <p>Next add the remote device and use Edit | Advanced to assign the Addresses of:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tcp</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">22001</span>
 </pre></div>
 </div>
 <p>Port <strong>22001/TCP</strong> is the SSH tunnel that will redirect to localhost port <strong>22000/TCP</strong> on the other machine. This same configuration is done on both <code class="docutils literal notranslate"><span class="pre">hosta</span></code> and <code class="docutils literal notranslate"><span class="pre">hostb</span></code>, and then they can find each other through the tunnel.</p>
-</div>
-<div class="section" id="troubleshooting">
+</section>
+<section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>To ensure all is working, run netstat, on both <code class="docutils literal notranslate"><span class="pre">hosta</span></code> and <code class="docutils literal notranslate"><span class="pre">hostb</span></code>, with elevated privilege to confirm <strong>ssh</strong> and <strong>syncthing</strong> are listening, and that connections are established between <strong>ssh</strong> and <strong>syncthing</strong> on port 22001:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[syncguy@hosta ~]$ sudo netstat -tupna | grep 2200
@@ -79,8 +80,8 @@
 </pre></div>
 </div>
 <p>Common mistakes when SSH tunneling include misconfiguration of the SSH client and/or server, wrong permissions on keys, forgetting about selinux policy, and being blocked by firewall, i.e. even <strong>22/TCP</strong> is blocked. If you want the tunnel to establish after reboot and re-establish upon failure, consider <strong>autossh</strong>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -165,7 +166,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

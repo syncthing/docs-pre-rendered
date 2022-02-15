@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Syncthing Development &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -263,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -447,13 +452,13 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="syncthing-development">
+  <section id="syncthing-development">
 <h1>Syncthing Development<a class="headerlink" href="#syncthing-development" title="Permalink to this headline">¶</a></h1>
 <p>Here are some notes for getting started with developing for Syncthing.
 The first section discusses the options for building an external
 application using Syncthing as a component. The second section discusses
 the development process of Syncthing itself.</p>
-<div class="section" id="controlling-syncthing-from-external-applications">
+<section id="controlling-syncthing-from-external-applications">
 <h2>Controlling Syncthing from External Applications<a class="headerlink" href="#controlling-syncthing-from-external-applications" title="Permalink to this headline">¶</a></h2>
 <p>Our community has developed a number of <a class="reference external" href="https://github.com/syncthing/syncthing/wiki/Community-Contributions">useful
 applications</a>
@@ -467,10 +472,10 @@ notified when changes occur.</p></li>
 used by the GUI code (Javascript) and can be used by other processes
 wishing to control Syncthing.</p></li>
 </ul>
-</div>
-<div class="section" id="contributing-to-the-syncthing-core">
+</section>
+<section id="contributing-to-the-syncthing-core">
 <h2>Contributing to the Syncthing Core<a class="headerlink" href="#contributing-to-the-syncthing-core" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="why-is-it-written-in-go">
+<section id="why-is-it-written-in-go">
 <h3>Why is it written in Go?<a class="headerlink" href="#why-is-it-written-in-go" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -511,8 +516,8 @@ a standardized repo layout. Etc.</p></li>
 $my_favourite_language”, the last point above is really all you need.
 Of course you <em>could</em> write something like Syncthing in Java, C++ or PHP
 for that matter, but I wouldn’t want to.</p>
-</div>
-<div class="section" id="setting-up-a-go-workspace">
+</section>
+<section id="setting-up-a-go-workspace">
 <h3>Setting up a Go workspace<a class="headerlink" href="#setting-up-a-go-workspace" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>Go is particularly picky about file locations; carefully follow the
@@ -524,8 +529,8 @@ environment parameter can be set to override the default files:</p>
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="why-are-you-being-so-hard-on-my-pull-request">
+</section>
+<section id="why-are-you-being-so-hard-on-my-pull-request">
 <h3>Why are you being so hard on my pull request?<a class="headerlink" href="#why-are-you-being-so-hard-on-my-pull-request" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -583,9 +588,9 @@ the maintainer will have to do after accepting the pull request.</p></li>
 not more. If the pull request seems like it would add significantly to
 the maintainer workload, there will probably be some resistance to
 accepting it. ;)</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -605,7 +610,7 @@ accepting it. ;)</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -631,6 +636,7 @@ accepting it. ;)</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

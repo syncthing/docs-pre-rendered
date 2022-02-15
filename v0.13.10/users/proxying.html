@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Using Proxies &mdash; Syncthing v0.13 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -334,7 +339,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -535,7 +540,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -678,7 +683,7 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="using-proxies">
+  <section id="using-proxies">
 <span id="proxying"></span><h1>Using Proxies<a class="headerlink" href="#using-proxies" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
@@ -702,7 +707,7 @@ $ syncthing
 <p>Note that this environment variable is <em>not</em> named with capital letters - it
 must be exactly <code class="docutils literal notranslate"><span class="pre">all_proxy</span></code>. The “Proxy settings detected” log message
 indicates that Syncthing is using the proxy configuration.</p>
-<div class="section" id="disabling-fallback">
+<section id="disabling-fallback">
 <h2>Disabling Fallback<a class="headerlink" href="#disabling-fallback" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.13.0.</span></p>
@@ -722,8 +727,8 @@ $ syncthing
 [monitor] 11:33:13 INFO: Proxy fallback disabled
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -743,7 +748,7 @@ $ syncthing
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -769,6 +774,7 @@ $ syncthing
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

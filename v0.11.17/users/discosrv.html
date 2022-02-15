@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Running a Discovery Server &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -289,7 +294,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -487,14 +492,14 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="running-a-discovery-server">
+  <section id="running-a-discovery-server">
 <h1>Running a Discovery Server<a class="headerlink" href="#running-a-discovery-server" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="description">
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>This guide assumes that you have already set up Syncthing. If you
 haven’t yet, head over to <a class="reference internal" href="../intro/getting-started.html#getting-started"><span class="std std-ref">Getting Started</span></a> first.</p>
-</div>
-<div class="section" id="installing">
+</section>
+<section id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
 <p>Go to <a class="reference external" href="https://github.com/syncthing/discosrv/releases">releases</a> and
 download the file appropriate for your operating system. Unpacking it will
@@ -506,8 +511,8 @@ partition <code class="docutils literal notranslate"><span class="pre">discosrv.
 running <code class="docutils literal notranslate"><span class="pre">discosrv</span></code> doesn’t have permission to do so, create the directory
 and set the owner appropriately or use the command line switches (see below)
 to select a different location.</p>
-</div>
-<div class="section" id="pointing-syncthing-at-your-discovery-server">
+</section>
+<section id="pointing-syncthing-at-your-discovery-server">
 <h2>Pointing Syncthing at Your Discovery Server<a class="headerlink" href="#pointing-syncthing-at-your-discovery-server" title="Permalink to this headline">¶</a></h2>
 <p>By default, Syncthing uses the global discovery servers at
 <code class="docutils literal notranslate"><span class="pre">announce.syncthing.net</span></code> (IPv4) and <code class="docutils literal notranslate"><span class="pre">announce-v6.syncthing.net</span></code> (IPv6). To
@@ -518,8 +523,8 @@ Note that discosrv uses port 22026 by default. For discosrv to be available
 over the internet with a dynamic ip address, you will need a dynamic DNS
 service.</p>
 <p><img alt="Settings Screenshot" src="../_images/disco-settings.png" /></p>
-</div>
-<div class="section" id="configuring">
+</section>
+<section id="configuring">
 <h2>Configuring<a class="headerlink" href="#configuring" title="Permalink to this headline">¶</a></h2>
 <p>Running discosrv with non-default settings requires passing the
 respective parameters to discosrv on every start. <code class="docutils literal notranslate"><span class="pre">discosrv</span> <span class="pre">-help</span></code>
@@ -536,7 +541,7 @@ gives you all the tweakables with their defaults:</p>
 <span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="n">Unknown</span> <span class="n">packet</span> <span class="n">log</span> <span class="n">file</span> <span class="n">name</span>
 </pre></div>
 </div>
-<div class="section" id="linux">
+<section id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
 <p>The following instructions enables a <code class="docutils literal notranslate"><span class="pre">discosrv</span></code> instance on a Ubuntu server,
 and assumes the user has knowledge of basic linux commands.</p>
@@ -567,8 +572,8 @@ command. The correct command is:</p>
 <li><p>Set the Syncthing WebGUI settings for “Global Discovery Server” to
 point to <code class="docutils literal notranslate"><span class="pre">udp4://your.vps.ip.address:22026</span></code> and restart Syncthing.</p></li>
 </ul>
-</div>
-<div class="section" id="windows">
+</section>
+<section id="windows">
 <h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
 <p>On Windows, it is unusual to have a var folder in a root directory. The
 following batch file will start <code class="docutils literal notranslate"><span class="pre">discosrv</span></code> from the current folder and make
@@ -603,9 +608,9 @@ change all available parameters if desired.</p>
 <span class="n">START</span> <span class="s2">&quot;discosrv&quot;</span> <span class="o">/</span><span class="n">B</span> <span class="n">discosrv</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">b-dir%&quot;</span> <span class="o">-</span><span class="n">stats</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">tats-file%&quot;</span> <span class="o">-</span><span class="n">listen</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%li</span><span class="s2">sten%&quot;</span> <span class="o">-</span><span class="n">debug</span><span class="o">=%</span><span class="n">debug</span><span class="o">%</span> <span class="o">-</span><span class="n">limit</span><span class="o">-</span><span class="n">avg</span><span class="o">=%</span><span class="n">limit</span><span class="o">-</span><span class="n">avg</span><span class="o">%</span> <span class="o">-</span><span class="n">limit</span><span class="o">-</span><span class="n">burst</span><span class="o">=%</span><span class="n">limit</span><span class="o">-</span><span class="n">burst</span><span class="o">%</span> <span class="o">-</span><span class="n">limit</span><span class="o">-</span><span class="n">cache</span><span class="o">=%</span><span class="n">limit</span><span class="o">-</span><span class="n">cache</span><span class="o">%</span> <span class="o">-</span><span class="n">stats</span><span class="o">-</span><span class="n">intv</span><span class="o">=%</span><span class="n">stats</span><span class="o">-</span><span class="n">intv</span><span class="o">%</span> <span class="o">-</span><span class="n">timestamp</span><span class="o">=%</span><span class="n">timestamp</span><span class="o">%</span> <span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%u</span><span class="s2">nknown-file%&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -625,7 +630,7 @@ change all available parameters if desired.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -651,6 +656,7 @@ change all available parameters if desired.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

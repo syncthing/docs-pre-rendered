@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>2.2. FAQ &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -225,9 +230,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="faq">
+  <section id="faq">
 <span id="id1"></span><h1><span class="section-number">2.2. </span>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="what-is-syncthing">
+<section id="what-is-syncthing">
 <h2><span class="section-number">2.2.1. </span>What is Syncthing?<a class="headerlink" href="#what-is-syncthing" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing is an application that lets you synchronize your files across multiple
 devices. This means the creation, modification or deletion of files on one
@@ -235,15 +240,15 @@ machine will automatically be replicated to your other devices. We believe your
 data is your data alone and you deserve to choose where it is stored. Therefore
 Syncthing does not upload your data to the cloud but exchanges your data across
 your machines as soon as they are online at the same time.</p>
-</div>
-<div class="section" id="is-it-syncthing-syncthing-or-syncthing">
+</section>
+<section id="is-it-syncthing-syncthing-or-syncthing">
 <h2><span class="section-number">2.2.2. </span>Is it “syncthing”, “Syncthing” or “SyncThing”?<a class="headerlink" href="#is-it-syncthing-syncthing-or-syncthing" title="Permalink to this headline">¶</a></h2>
 <p>It’s <strong>Syncthing</strong>, although the command and source repository is spelled
 <code class="docutils literal notranslate"><span class="pre">syncthing</span></code> so it may be referred to in that way as well. It’s definitely not
 SyncThing, even though the abbreviation <code class="docutils literal notranslate"><span class="pre">st</span></code> is used in some
 circumstances and file names.</p>
-</div>
-<div class="section" id="how-does-syncthing-differ-from-bittorrent-resilio-sync">
+</section>
+<section id="how-does-syncthing-differ-from-bittorrent-resilio-sync">
 <h2><span class="section-number">2.2.3. </span>How does Syncthing differ from BitTorrent/Resilio Sync?<a class="headerlink" href="#how-does-syncthing-differ-from-bittorrent-resilio-sync" title="Permalink to this headline">¶</a></h2>
 <p>The two are different and not related. Syncthing and BitTorrent/Resilio Sync accomplish
 some of the same things, namely syncing files between two or more computers.</p>
@@ -259,8 +264,8 @@ Sync uses an undocumented, closed protocol with unknown security properties.</p>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Resilio_Sync">https://en.wikipedia.org/wiki/Resilio_Sync</a></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="what-things-are-synced">
+</section>
+<section id="what-things-are-synced">
 <h2><span class="section-number">2.2.4. </span>What things are synced?<a class="headerlink" href="#what-things-are-synced" title="Permalink to this headline">¶</a></h2>
 <p>The following things are <em>always</em> synchronized:</p>
 <ul class="simple">
@@ -283,8 +288,8 @@ read only bit is synchronized.)</p></li>
 <li><p>Devices, FIFOs, and Other Specials (ignored)</p></li>
 <li><p>Sparse file sparseness (will become sparse, when supported by the OS &amp; filesystem)</p></li>
 </ul>
-</div>
-<div class="section" id="is-synchronization-fast">
+</section>
+<section id="is-synchronization-fast">
 <h2><span class="section-number">2.2.5. </span>Is synchronization fast?<a class="headerlink" href="#is-synchronization-fast" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing segments files into pieces, called blocks, to transfer data from one
 device to another. Therefore, multiple devices can share the synchronization
@@ -299,8 +304,8 @@ handled efficiently as well.</p>
 downloaded from other devices. They are automatically removed whenever a file
 transfer has been completed or after the configured amount of time which is set
 in the configuration file (24 hours by default).</p>
-</div>
-<div class="section" id="why-is-the-sync-so-slow">
+</section>
+<section id="why-is-the-sync-so-slow">
 <h2><span class="section-number">2.2.6. </span>Why is the sync so slow?<a class="headerlink" href="#why-is-the-sync-so-slow" title="Permalink to this headline">¶</a></h2>
 <p>When troubleshooting a slow sync, there are a number of things to check.</p>
 <p>First of all, verify that you are not connected via a relay. In the “Remote
@@ -321,8 +326,8 @@ Syncthing is doing something that is not parallellizable and thus limited to
 a single CPU core.</p>
 <p>Third, verify that the network connection is OK. Tools such as iperf or just
 an Internet speed test can be used to verify the performance here.</p>
-</div>
-<div class="section" id="why-does-it-use-so-much-cpu">
+</section>
+<section id="why-does-it-use-so-much-cpu">
 <h2><span class="section-number">2.2.7. </span>Why does it use so much CPU?<a class="headerlink" href="#why-does-it-use-so-much-cpu" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>When new or changed files are detected, or Syncthing starts for the
@@ -350,8 +355,8 @@ system’s CPU power.</p>
 <p>To reduce CPU spikes from scanning activity, use a filesystem notifications
 plugin. This is delivered by default via Synctrayzor, Syncthing-GTK and on
 Android. For other setups, consider using <a class="reference external" href="https://github.com/syncthing/syncthing-inotify">syncthing-inotify</a>.</p>
-</div>
-<div class="section" id="should-i-keep-my-device-ids-secret">
+</section>
+<section id="should-i-keep-my-device-ids-secret">
 <h2><span class="section-number">2.2.8. </span>Should I keep my device IDs secret?<a class="headerlink" href="#should-i-keep-my-device-ids-secret" title="Permalink to this headline">¶</a></h2>
 <p>No. The IDs are not sensitive. Given a device ID it’s possible to find the IP
 address for that device, if global discovery is enabled on it. Knowing the device
@@ -366,8 +371,8 @@ oyster!)</p>
 <p class="admonition-title">See also</p>
 <p><a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a></p>
 </div>
-</div>
-<div class="section" id="what-if-there-is-a-conflict">
+</section>
+<section id="what-if-there-is-a-conflict">
 <h2><span class="section-number">2.2.9. </span>What if there is a conflict?<a class="headerlink" href="#what-if-there-is-a-conflict" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing does recognize conflicts. When a file has been modified on two devices
 simultaneously and the content actually differs, one of the files will be
@@ -387,8 +392,8 @@ everywhere else and we don’t know which of the conflicting files is the “bes
 from the user point of view. Moreover, if there’s something that automatically
 causes a conflict on change you’ll end up with <code class="docutils literal notranslate"><span class="pre">sync-conflict-...sync-conflict</span>
 <span class="pre">-...-sync-conflict</span></code> files.</p>
-</div>
-<div class="section" id="how-do-i-serve-a-folder-from-a-read-only-filesystem">
+</section>
+<section id="how-do-i-serve-a-folder-from-a-read-only-filesystem">
 <span id="marker-faq"></span><h2><span class="section-number">2.2.10. </span>How do I serve a folder from a read only filesystem?<a class="headerlink" href="#how-do-i-serve-a-folder-from-a-read-only-filesystem" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing requires a “folder marker” to indicate that the folder is present
 and healthy. By default this is a directory called <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> that is
@@ -396,18 +401,18 @@ created by Syncthing when the folder is added. If this folder can’t be
 created (you are serving files from a CD or something) you can instead set
 the advanced config <code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Name</span></code> to the name of some file or folder that
 you know will always exist in the folder.</p>
-</div>
-<div class="section" id="i-really-hate-the-stfolder-directory-can-i-remove-it">
+</section>
+<section id="i-really-hate-the-stfolder-directory-can-i-remove-it">
 <h2><span class="section-number">2.2.11. </span>I really hate the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> directory, can I remove it?<a class="headerlink" href="#i-really-hate-the-stfolder-directory-can-i-remove-it" title="Permalink to this headline">¶</a></h2>
 <p>See the previous question.</p>
-</div>
-<div class="section" id="am-i-able-to-nest-shared-folders-in-syncthing">
+</section>
+<section id="am-i-able-to-nest-shared-folders-in-syncthing">
 <h2><span class="section-number">2.2.12. </span>Am I able to nest shared folders in Syncthing?<a class="headerlink" href="#am-i-able-to-nest-shared-folders-in-syncthing" title="Permalink to this headline">¶</a></h2>
 <p>Do not share a folder which is inside another shared folder. This behaviour
 is in no way supported, recommended or coded for in any way, and comes with
 many pitfalls.</p>
-</div>
-<div class="section" id="how-do-i-rename-move-a-synced-folder">
+</section>
+<section id="how-do-i-rename-move-a-synced-folder">
 <h2><span class="section-number">2.2.13. </span>How do I rename/move a synced folder?<a class="headerlink" href="#how-do-i-rename-move-a-synced-folder" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing doesn’t have a direct way to do this, as it’s potentially
 dangerous to do so if you’re not careful - it may result in data loss if
@@ -423,19 +428,19 @@ locally may be overwritten by those on other devices.</p>
 <p>An alternative way is to shut down Syncthing, move the folder on disk (including
 the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> marker), edit the path directly in <code class="docutils literal notranslate"><span class="pre">config.xml</span></code> in the
 configuration folder (see <a class="reference internal" href="config.html#config"><span class="std std-ref">Syncthing Configuration</span></a>) and then start Syncthing again.</p>
-</div>
-<div class="section" id="how-do-i-configure-multiple-users-on-a-single-machine">
+</section>
+<section id="how-do-i-configure-multiple-users-on-a-single-machine">
 <h2><span class="section-number">2.2.14. </span>How do I configure multiple users on a single machine?<a class="headerlink" href="#how-do-i-configure-multiple-users-on-a-single-machine" title="Permalink to this headline">¶</a></h2>
 <p>Each user should run their own Syncthing instance. Be aware that you might need
 to configure listening ports such that they do not overlap (see <a class="reference internal" href="config.html#config"><span class="std std-ref">Syncthing Configuration</span></a>).</p>
-</div>
-<div class="section" id="does-syncthing-support-syncing-between-folders-on-the-same-system">
+</section>
+<section id="does-syncthing-support-syncing-between-folders-on-the-same-system">
 <h2><span class="section-number">2.2.15. </span>Does Syncthing support syncing between folders on the same system?<a class="headerlink" href="#does-syncthing-support-syncing-between-folders-on-the-same-system" title="Permalink to this headline">¶</a></h2>
 <p>No. Syncthing is not designed to sync locally and the overhead involved in
 doing so using Syncthing’s method would be wasteful. There are better
 programs to achieve this such as rsync or Unison.</p>
-</div>
-<div class="section" id="when-i-do-have-two-distinct-syncthing-managed-folders-on-two-hosts-how-does-syncthing-handle-moving-files-between-them">
+</section>
+<section id="when-i-do-have-two-distinct-syncthing-managed-folders-on-two-hosts-how-does-syncthing-handle-moving-files-between-them">
 <h2><span class="section-number">2.2.16. </span>When I do have two distinct Syncthing-managed folders on two hosts, how does Syncthing handle moving files between them?<a class="headerlink" href="#when-i-do-have-two-distinct-syncthing-managed-folders-on-two-hosts-how-does-syncthing-handle-moving-files-between-them" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing does not specially handle this case, and most files most likely get
 re-downloaded.</p>
@@ -449,22 +454,22 @@ peers will reconstruct the files (not rename, more like copy block by
 block) from A, and then as A gets rescanned remove the files from A.</p>
 <p>A workaround would be to copy first from A to B, rescan B, wait for B to
 rebuild on remote ends, and then delete from A.</p>
-</div>
-<div class="section" id="is-syncthing-my-ideal-backup-application">
+</section>
+<section id="is-syncthing-my-ideal-backup-application">
 <h2><span class="section-number">2.2.17. </span>Is Syncthing my ideal backup application?<a class="headerlink" href="#is-syncthing-my-ideal-backup-application" title="Permalink to this headline">¶</a></h2>
 <p>No. Syncthing is not a great backup application because all changes to your
 files (modifications, deletions, etc.) will be propagated to all your
 devices. You can enable versioning, but we encourage the use of other tools
 to keep your data safe from your (or our) mistakes.</p>
-</div>
-<div class="section" id="why-is-there-no-ios-client">
+</section>
+<section id="why-is-there-no-ios-client">
 <h2><span class="section-number">2.2.18. </span>Why is there no iOS client?<a class="headerlink" href="#why-is-there-no-ios-client" title="Permalink to this headline">¶</a></h2>
 <p>There is an alternative implementation of Syncthing (using the same network
 protocol) called <code class="docutils literal notranslate"><span class="pre">fsync()</span></code>. There are no plans by the current Syncthing
 team to support iOS in the foreseeable future, as the code required to do so
 would be quite different from what Syncthing is today.</p>
-</div>
-<div class="section" id="how-can-i-exclude-files-with-brackets-in-the-name">
+</section>
+<section id="how-can-i-exclude-files-with-brackets-in-the-name">
 <h2><span class="section-number">2.2.19. </span>How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?<a class="headerlink" href="#how-can-i-exclude-files-with-brackets-in-the-name" title="Permalink to this headline">¶</a></h2>
 <p>The patterns in .stignore are glob patterns, where brackets are used to
 denote character ranges. That is, the pattern <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> will match the
@@ -474,16 +479,16 @@ the brackets, like so: <code class="docutils literal notranslate"><span class="p
 <p>On Windows, escaping special characters is not supported as the <code class="docutils literal notranslate"><span class="pre">\</span></code>
 character is used as a path separator. On the other hand, special characters
 such as <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> are not allowed in file names on Windows.</p>
-</div>
-<div class="section" id="why-is-the-setup-more-complicated-than-bittorrent-resilio-sync">
+</section>
+<section id="why-is-the-setup-more-complicated-than-bittorrent-resilio-sync">
 <h2><span class="section-number">2.2.20. </span>Why is the setup more complicated than BitTorrent/Resilio Sync?<a class="headerlink" href="#why-is-the-setup-more-complicated-than-bittorrent-resilio-sync" title="Permalink to this headline">¶</a></h2>
 <p>Security over convenience. In Syncthing you have to setup both sides to
 connect two devices. An attacker can’t do much with a stolen device ID, because
 you have to add the device on the other side too. You have better control
 where your files are transferred.</p>
 <p>This is an area that we are working to improve in the long term.</p>
-</div>
-<div class="section" id="how-do-i-access-the-web-gui-from-another-computer">
+</section>
+<section id="how-do-i-access-the-web-gui-from-another-computer">
 <h2><span class="section-number">2.2.21. </span>How do I access the web GUI from another computer?<a class="headerlink" href="#how-do-i-access-the-web-gui-from-another-computer" title="Permalink to this headline">¶</a></h2>
 <p>The default listening address is 127.0.0.1:8384, so you can only access the
 GUI from the same machine. This is for security reasons. Change the <code class="docutils literal notranslate"><span class="pre">GUI</span>
@@ -522,8 +527,8 @@ the Windows Subsystem for Linux.
 (Gnu On Windows) <a class="reference external" href="https://github.com/bmatzelle/gow">https://github.com/bmatzelle/gow</a></p>
 <p>The easiest way to install gow is with chocolatey.
 <a class="reference external" href="https://chocolatey.org/">https://chocolatey.org/</a></p>
-</div>
-<div class="section" id="why-do-i-get-host-check-error-in-the-gui-api">
+</section>
+<section id="why-do-i-get-host-check-error-in-the-gui-api">
 <h2><span class="section-number">2.2.22. </span>Why do I get “Host check error” in the GUI/API?<a class="headerlink" href="#why-do-i-get-host-check-error-in-the-gui-api" title="Permalink to this headline">¶</a></h2>
 <p>Since version 0.14.6 Syncthing does an extra security check when the GUI/API
 is bound to localhost - namely that the browser is talking to localhost.
@@ -540,12 +545,12 @@ protect against unauthorized access. Either:</p>
 <li><p>Bind the GUI/API to a non-localhost listen port.</p></li>
 </ul>
 <p>In all cases, username/password authentication and HTTPS should be used.</p>
-</div>
-<div class="section" id="my-syncthing-database-is-corrupt">
+</section>
+<section id="my-syncthing-database-is-corrupt">
 <h2><span class="section-number">2.2.23. </span>My Syncthing database is corrupt<a class="headerlink" href="#my-syncthing-database-is-corrupt" title="Permalink to this headline">¶</a></h2>
 <p>This is almost always a result of bad RAM, storage device or other hardware. When the index database is found to be corrupt Syncthing cannot operate and will note this in the logs and exit. To overcome this delete the <a class="reference external" href="https://docs.syncthing.net/users/config.html#description">database folder</a> inside Syncthing’s home directory and re-start Syncthing. It will then need to perform a full re-hashing of all shared folders. You should check your system in case the underlying cause is indeed faulty hardware which may put the system at risk of further data loss.</p>
-</div>
-<div class="section" id="i-don-t-like-the-gui-or-the-theme-can-it-be-changed">
+</section>
+<section id="i-don-t-like-the-gui-or-the-theme-can-it-be-changed">
 <h2><span class="section-number">2.2.24. </span>I don’t like the GUI or the theme. Can it be changed?<a class="headerlink" href="#i-don-t-like-the-gui-or-the-theme-can-it-be-changed" title="Permalink to this headline">¶</a></h2>
 <p>You can change the theme in the settings. Syncthing ships with other themes
 than the default.</p>
@@ -561,30 +566,30 @@ inside the GUI override directory to override the default CSS styles.</p>
 <p>To create a whole new GUI, you should checkout the files at
 <a class="reference external" href="https://github.com/syncthing/syncthing/tree/master/gui/default">https://github.com/syncthing/syncthing/tree/master/gui/default</a>
 to get an idea how to do that.</p>
-</div>
-<div class="section" id="why-do-i-see-syncthing-twice-in-task-manager">
+</section>
+<section id="why-do-i-see-syncthing-twice-in-task-manager">
 <h2><span class="section-number">2.2.25. </span>Why do I see Syncthing twice in task manager?<a class="headerlink" href="#why-do-i-see-syncthing-twice-in-task-manager" title="Permalink to this headline">¶</a></h2>
 <p>One process manages the other, to capture logs and manage restarts. This
 makes it easier to handle upgrades from within Syncthing itself, and also
 ensures that we get a nice log file to help us narrow down the cause for
 crashes and other bugs.</p>
-</div>
-<div class="section" id="where-do-syncthing-logs-go-to">
+</section>
+<section id="where-do-syncthing-logs-go-to">
 <h2><span class="section-number">2.2.26. </span>Where do Syncthing logs go to?<a class="headerlink" href="#where-do-syncthing-logs-go-to" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing logs to stdout by default. On Windows Syncthing by default also
 creates <code class="docutils literal notranslate"><span class="pre">syncthing.log</span></code> in Syncthing’s home directory (run <code class="docutils literal notranslate"><span class="pre">syncthing</span>
 <span class="pre">-paths</span></code> to see where that is). Command line option <code class="docutils literal notranslate"><span class="pre">-logfile</span></code> can be used
 to specify a user-defined logfile.</p>
-</div>
-<div class="section" id="how-can-i-view-the-history-of-changes">
+</section>
+<section id="how-can-i-view-the-history-of-changes">
 <h2><span class="section-number">2.2.27. </span>How can I view the history of changes?<a class="headerlink" href="#how-can-i-view-the-history-of-changes" title="Permalink to this headline">¶</a></h2>
 <p>The web GUI contains a <code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Changes</span></code> button under the device list which
 displays changes since the last (re)start of Syncthing. With the <code class="docutils literal notranslate"><span class="pre">-audit</span></code>
 option you can enable a persistent, detailed log of changes and most
 activities, which contains a <code class="docutils literal notranslate"><span class="pre">JSON</span></code> formatted  sequence of events in the
 <code class="docutils literal notranslate"><span class="pre">~/.config/syncthing/audit-_date_-_time_.log</span></code> file.</p>
-</div>
-<div class="section" id="does-the-audit-log-contain-every-change">
+</section>
+<section id="does-the-audit-log-contain-every-change">
 <h2><span class="section-number">2.2.28. </span>Does the audit log contain every change?<a class="headerlink" href="#does-the-audit-log-contain-every-change" title="Permalink to this headline">¶</a></h2>
 <p>The audit log (and the <code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Changes</span></code> window) sees the changes that your
 Syncthing sees. When Syncthing is continuously connected it usually sees every change
@@ -599,8 +604,8 @@ the node where that latest change occurred). When we connect to multiple neighbo
 Syncthing decides which neighbor has the latest state, or if the states conflict
 it initiates the conflict resolution procedure, which in the end results in a consistent
 up-to-date state with all the neighbours.</p>
-</div>
-<div class="section" id="how-do-i-upgrade-syncthing">
+</section>
+<section id="how-do-i-upgrade-syncthing">
 <h2><span class="section-number">2.2.29. </span>How do I upgrade Syncthing?<a class="headerlink" href="#how-do-i-upgrade-syncthing" title="Permalink to this headline">¶</a></h2>
 <p>If you use a package manager such as Debian’s apt-get, you should upgrade
 using the package manager. If you use the binary packages linked from
@@ -616,8 +621,8 @@ released. Pressing it will perform an upgrade.</p></li>
 secure connection to GitHub (e.g. FreeBSD requires <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pkg</span> <span class="pre">install</span>
 <span class="pre">ca_root_nss</span></code>). If <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code> works with normal HTTPS sites, then
 so should Syncthing.</p>
-</div>
-<div class="section" id="where-do-i-find-the-latest-release">
+</section>
+<section id="where-do-i-find-the-latest-release">
 <h2><span class="section-number">2.2.30. </span>Where do I find the latest release?<a class="headerlink" href="#where-do-i-find-the-latest-release" title="Permalink to this headline">¶</a></h2>
 <p>We release new versions through GitHub. The latest release is always found
 <a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">on the release page</a>. Unfortunately
@@ -625,8 +630,8 @@ GitHub does not provide a single URL to automatically download the latest
 version. We suggest to use the GitHub API at
 <a class="reference external" href="https://api.github.com/repos/syncthing/syncthing/releases/latest">https://api.github.com/repos/syncthing/syncthing/releases/latest</a> and parsing
 the JSON response.</p>
-</div>
-<div class="section" id="how-do-i-run-syncthing-as-a-daemon-process-on-linux">
+</section>
+<section id="how-do-i-run-syncthing-as-a-daemon-process-on-linux">
 <h2><span class="section-number">2.2.31. </span>How do I run Syncthing as a daemon process on Linux?<a class="headerlink" href="#how-do-i-run-syncthing-as-a-daemon-process-on-linux" title="Permalink to this headline">¶</a></h2>
 <p>If you’re using systemd, runit, or upstart, we already ship examples, check
 <a class="reference external" href="https://github.com/syncthing/syncthing/tree/master/etc">https://github.com/syncthing/syncthing/tree/master/etc</a> for example
@@ -640,8 +645,8 @@ to do this.  The most well known is called daemontools, and can be found in the
 standard package repositories for  almost every modern Linux distribution.
 Other popular tools with similar functionality include S6 and the aforementioned
 runit.</p>
-</div>
-<div class="section" id="how-do-i-increase-the-inotify-limit-to-get-my-filesystem-watcher-to-work">
+</section>
+<section id="how-do-i-increase-the-inotify-limit-to-get-my-filesystem-watcher-to-work">
 <span id="inotify-limits"></span><h2><span class="section-number">2.2.32. </span>How do I increase the inotify limit to get my filesystem watcher to work?<a class="headerlink" href="#how-do-i-increase-the-inotify-limit-to-get-my-filesystem-watcher-to-work" title="Permalink to this headline">¶</a></h2>
 <p>You are probably reading this because you encountered the following error with
 the filesystem watcher on linux:</p>
@@ -665,8 +670,8 @@ separate file, i.e. you should run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;echo 204800 &gt; /proc/sys/fs/inotify/max_user_watches&#39;</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -718,6 +723,7 @@ separate file, i.e. you should run:</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

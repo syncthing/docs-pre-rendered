@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Relaying &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,7 +34,7 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="relaying">
+  <section id="relaying">
 <span id="id1"></span><h1>Relaying<a class="headerlink" href="#relaying" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
@@ -47,7 +48,7 @@ is much lower than a direct connection would allow.</p>
 to communicate directly with each other. When connected via a relay, Syncthing
 will periodically retry a direct connection and, if one is established, stop
 communicating via the relay.</p>
-<div class="section" id="configuring-clients">
+<section id="configuring-clients">
 <h2>Configuring clients<a class="headerlink" href="#configuring-clients" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing can be configured to use specific relay servers (exclusively of the public pool) by adding the required servers to the Sync Protocol Listen Address field, under Actions and Settings. The format is as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>relay://&lt;host name|IP&gt;[:port]/?id=&lt;relay device ID&gt;
@@ -58,8 +59,8 @@ communicating via the relay.</p>
 </pre></div>
 </div>
 <p>The relay’s device ID is output on start-up.</p>
-</div>
-<div class="section" id="security">
+</section>
+<section id="security">
 <h2>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
 <p>The connection between two devices is still end to end encrypted, the relay
 only retransmits the encrypted data much like a router. However, a device must
@@ -67,12 +68,12 @@ register with a relay in order to be reachable over that relay, so the relay
 knows your IP and device ID. In that respect it is similar to a discovery
 server. The relay operator can see the amount of traffic flowing between
 devices.</p>
-</div>
-<div class="section" id="running-your-own-relay">
+</section>
+<section id="running-your-own-relay">
 <h2>Running Your Own Relay<a class="headerlink" href="#running-your-own-relay" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference internal" href="strelaysrv.html#strelaysrv"><span class="std std-ref">Syncthing Relay Server</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -155,7 +156,7 @@ devices.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

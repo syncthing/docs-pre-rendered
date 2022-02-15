@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>3.10. REST API &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -240,13 +245,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rest-api">
+  <section id="rest-api">
 <span id="id1"></span><h1><span class="section-number">3.10. </span>REST API<a class="headerlink" href="#rest-api" title="Permalink to this headline">¶</a></h1>
 <p>Syncthing exposes a REST interface over HTTP on the GUI port. This is used by
 the GUI (from Javascript) and can be used by other processes wishing to control
 Syncthing. In most cases both the input and output data is in JSON format. The
 interface is subject to change.</p>
-<div class="section" id="api-key">
+<section id="api-key">
 <h2><span class="section-number">3.10.1. </span>API Key<a class="headerlink" href="#api-key" title="Permalink to this headline">¶</a></h2>
 <p>To use the REST API an API key must be set and used. The API key can be
 generated in the GUI, or set in the <code class="docutils literal notranslate"><span class="pre">configuration/gui/apikey</span></code> element in
@@ -254,8 +259,8 @@ the configuration file. To use an API key, set the request header
 <code class="docutils literal notranslate"><span class="pre">X-API-Key</span></code> to the API key value. For example, <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-H</span>
 <span class="pre">&quot;X-API-Key:</span> <span class="pre">abc123&quot;</span> <span class="pre">http://localhost:8384/rest/...</span></code> can be used to invoke
 with <code class="docutils literal notranslate"><span class="pre">curl</span></code>.</p>
-</div>
-<div class="section" id="system-endpoints">
+</section>
+<section id="system-endpoints">
 <h2><span class="section-number">3.10.2. </span>System Endpoints<a class="headerlink" href="#system-endpoints" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -285,8 +290,8 @@ with <code class="docutils literal notranslate"><span class="pre">curl</span></c
 <li class="toctree-l1"><a class="reference internal" href="../rest/system-version-get.html">GET /rest/system/version</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="database-endpoints">
+</section>
+<section id="database-endpoints">
 <h2><span class="section-number">3.10.3. </span>Database Endpoints<a class="headerlink" href="#database-endpoints" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -303,16 +308,16 @@ with <code class="docutils literal notranslate"><span class="pre">curl</span></c
 <li class="toctree-l1"><a class="reference internal" href="../rest/db-status-get.html">GET /rest/db/status</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="event-endpoints">
+</section>
+<section id="event-endpoints">
 <h2><span class="section-number">3.10.4. </span>Event Endpoints<a class="headerlink" href="#event-endpoints" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../rest/events-get.html">GET /rest/events</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="statistics-endpoints">
+</section>
+<section id="statistics-endpoints">
 <h2><span class="section-number">3.10.5. </span>Statistics Endpoints<a class="headerlink" href="#statistics-endpoints" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -320,8 +325,8 @@ with <code class="docutils literal notranslate"><span class="pre">curl</span></c
 <li class="toctree-l1"><a class="reference internal" href="../rest/stats-folder-get.html">GET /rest/stats/folder</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="misc-services-endpoints">
+</section>
+<section id="misc-services-endpoints">
 <h2><span class="section-number">3.10.6. </span>Misc Services Endpoints<a class="headerlink" href="#misc-services-endpoints" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -331,8 +336,8 @@ with <code class="docutils literal notranslate"><span class="pre">curl</span></c
 <li class="toctree-l1"><a class="reference internal" href="../rest/svc-report-get.html">GET /rest/svc/report</a></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -384,6 +389,7 @@ with <code class="docutils literal notranslate"><span class="pre">curl</span></c
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

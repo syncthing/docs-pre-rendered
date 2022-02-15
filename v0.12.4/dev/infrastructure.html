@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Syncthing Infrastructure &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -299,7 +304,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -487,7 +492,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -616,30 +621,30 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="syncthing-infrastructure">
+  <section id="syncthing-infrastructure">
 <h1>Syncthing Infrastructure<a class="headerlink" href="#syncthing-infrastructure" title="Permalink to this headline">¶</a></h1>
 <p>This is a list of the infrastructure that powers the Syncthing project.
 Unless otherwise noted, the default is that it’s a VM hosted by <a class="reference external" href="https://github.com/calmh">&#64;calmh</a>.</p>
-<div class="section" id="github">
+<section id="github">
 <h2>GitHub<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
 <p>All repos, issue trackers and binary releases are hosted at <a class="reference external" href="https://github.com/syncthing">GitHub</a>.</p>
-</div>
-<div class="section" id="main-documenatation-websites">
+</section>
+<section id="main-documenatation-websites">
 <h2>Main &amp; Documenatation Websites<a class="headerlink" href="#main-documenatation-websites" title="Permalink to this headline">¶</a></h2>
 <p>Static HTML, served by Nginx.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://syncthing.net/">syncthing.net</a> (SmartOS container, 1024 MB)</p></li>
 <li><p><a class="reference external" href="http://docs.syncthing.net/">docs.syncthing.net</a> (Sphinx for site generation)</p></li>
 </ul>
-</div>
-<div class="section" id="forum-website">
+</section>
+<section id="forum-website">
 <h2>Forum Website<a class="headerlink" href="#forum-website" title="Permalink to this headline">¶</a></h2>
 <p>Powered by Discourse.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://forum.syncthing.net/">forum.syncthing.net</a> (Ubuntu Linux, 3072 MB)</p></li>
 </ul>
-</div>
-<div class="section" id="global-discovery-servers">
+</section>
+<section id="global-discovery-servers">
 <h2>Global Discovery Servers<a class="headerlink" href="#global-discovery-servers" title="Permalink to this headline">¶</a></h2>
 <p>Runs the <code class="docutils literal notranslate"><span class="pre">discosrv</span></code> instances for v0.11 and v0.12.</p>
 <ul class="simple">
@@ -650,26 +655,26 @@ Unless otherwise noted, the default is that it’s a VM hosted by <a class="refe
 <li><p>discovery-v4-3.syncthing.net (Ubuntu 14.04, 512 MB, hosted at DigitalOcean)</p></li>
 <li><p>discovery-v6-3.syncthing.net (alias for above)</p></li>
 </ul>
-</div>
-<div class="section" id="relay-pool-server">
+</section>
+<section id="relay-pool-server">
 <h2>Relay Pool Server<a class="headerlink" href="#relay-pool-server" title="Permalink to this headline">¶</a></h2>
 <p>Runs the <code class="docutils literal notranslate"><span class="pre">relaypoolsrv</span></code> to handle dynamic registration and announcement of relays.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://relays.syncthing.net">relays.syncthing.net</a> (SmartOS container, 256 MB)</p></li>
 </ul>
-</div>
-<div class="section" id="relay-servers">
+</section>
+<section id="relay-servers">
 <h2>Relay Servers<a class="headerlink" href="#relay-servers" title="Permalink to this headline">¶</a></h2>
 <p>Hosted by friendly people on the internet.</p>
-</div>
-<div class="section" id="usage-reporting-server">
+</section>
+<section id="usage-reporting-server">
 <h2>Usage Reporting Server<a class="headerlink" href="#usage-reporting-server" title="Permalink to this headline">¶</a></h2>
 <p>Runs the <code class="docutils literal notranslate"><span class="pre">ursrv</span></code> instance, PostgreSQL and Nginx.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://data.syncthing.net/">data.syncthing.net</a> (Ubuntu Linux, 512 MB)</p></li>
 </ul>
-</div>
-<div class="section" id="build-servers-core-and-android">
+</section>
+<section id="build-servers-core-and-android">
 <h2>Build Servers, Core and Android<a class="headerlink" href="#build-servers-core-and-android" title="Permalink to this headline">¶</a></h2>
 <p>Runs Jenkins and does the core and Android builds, Ubuntu Linux.</p>
 <ul class="simple">
@@ -677,22 +682,22 @@ Unless otherwise noted, the default is that it’s a VM hosted by <a class="refe
 <li><p>build2.syncthing.net (build runner, SmartOS container, 8192 MB)</p></li>
 <li><p><a class="reference external" href="http://android.syncthing.net/">android.syncthing.net</a> (Ubuntu Linux, 3072 MB)</p></li>
 </ul>
-</div>
-<div class="section" id="apt-server">
+</section>
+<section id="apt-server">
 <h2>APT Server<a class="headerlink" href="#apt-server" title="Permalink to this headline">¶</a></h2>
 <p>Serves the APT repository for Debian/Ubuntu users. Runs Nginx.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://apt.syncthing.net">apt.syncthing.net</a> (SmartOS container, 256 MB)</p></li>
 </ul>
-</div>
-<div class="section" id="signing-server">
+</section>
+<section id="signing-server">
 <h2>Signing Server<a class="headerlink" href="#signing-server" title="Permalink to this headline">¶</a></h2>
 <p>Signs and uploads the release bundles to Github.</p>
 <ul class="simple">
 <li><p>secure.syncthing.net (SmartOS container, 2048 MB)</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -712,7 +717,7 @@ Unless otherwise noted, the default is that it’s a VM hosted by <a class="refe
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -738,6 +743,7 @@ Unless otherwise noted, the default is that it’s a VM hosted by <a class="refe
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

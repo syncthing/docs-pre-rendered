@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Local Discovery Protocol v3 &mdash; Syncthing v0.13 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -334,7 +339,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -535,7 +540,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -678,9 +683,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="local-discovery-protocol-v3">
+  <section id="local-discovery-protocol-v3">
 <span id="localdisco-v3"></span><h1>Local Discovery Protocol v3<a class="headerlink" href="#local-discovery-protocol-v3" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="mode-of-operation">
+<section id="mode-of-operation">
 <h2>Mode of Operation<a class="headerlink" href="#mode-of-operation" title="Permalink to this headline">¶</a></h2>
 <p>Each participating device periodically sends an Announcement packet. It also
 keeps a table of the announcements it has seen. There is no way to solicit a
@@ -695,13 +700,13 @@ multicast address <code class="docutils literal notranslate"><span class="pre">[
 <p>It is recommended that local discovery Announcement packets be sent on a 30 to
 60 second interval, possibly with immediate transmissions when a previously
 unknown device is discovered.</p>
-</div>
-<div class="section" id="device-id">
+</section>
+<section id="device-id">
 <h2>Device ID<a class="headerlink" href="#device-id" title="Permalink to this headline">¶</a></h2>
 <p>The device ID is the SHA-256 (32 bytes) of the device X.509 certificate. See
 <a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a> in the Syncthing documentation.</p>
-</div>
-<div class="section" id="announcement-packet">
+</section>
+<section id="announcement-packet">
 <h2>Announcement packet<a class="headerlink" href="#announcement-packet" title="Permalink to this headline">¶</a></h2>
 <p>The Announcement packet has the following structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Announce</span> <span class="n">Structure</span><span class="p">:</span>
@@ -782,8 +787,8 @@ ID</em>.</p>
 <p>For each <code class="docutils literal notranslate"><span class="pre">Address</span></code> the <code class="docutils literal notranslate"><span class="pre">URL</span></code> field contains the actual target address.
 Direct connections will typically have the <code class="docutils literal notranslate"><span class="pre">tcp://</span></code> scheme. Relay connections
 will typically use the <code class="docutils literal notranslate"><span class="pre">relay://</span></code> scheme.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -803,7 +808,7 @@ will typically use the <code class="docutils literal notranslate"><span class="p
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -829,6 +834,7 @@ will typically use the <code class="docutils literal notranslate"><span class="p
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

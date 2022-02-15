@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Firewall Setup &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,11 +34,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="firewall-setup">
+  <section id="firewall-setup">
 <span id="id1"></span><h1>Firewall Setup<a class="headerlink" href="#firewall-setup" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="router-setup">
+<section id="router-setup">
 <h2>Router Setup<a class="headerlink" href="#router-setup" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="port-forwards">
+<section id="port-forwards">
 <h3>Port Forwards<a class="headerlink" href="#port-forwards" title="Permalink to this headline">¶</a></h3>
 <p>If you have a NAT router which supports UPnP, the easiest way to get a working
 port forward is to make sure UPnP setting is enabled on both Syncthing and the
@@ -56,8 +57,8 @@ they are behind a NAT network or firewall.</p>
 <p>In the absence of port forwarding, <a class="reference internal" href="relaying.html#relaying"><span class="std std-ref">Relaying</span></a> may work well enough to get
 devices connected and synced, but will perform poorly in comparison to a
 direct connection.</p>
-</div>
-<div class="section" id="local-discovery">
+</section>
+<section id="local-discovery">
 <h3>Local Discovery<a class="headerlink" href="#local-discovery" title="Permalink to this headline">¶</a></h3>
 <p>The router needs to allow/forward broad-/multicasts for local discovery to work.
 Usually these are allowed by default in a single local subnet, but may be
@@ -66,9 +67,9 @@ blocked between different subnets or even between a bridged Wi-Fi and LAN.</p>
 and your devices have static IP addresses, you can specify them directly by
 changing the default <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> setting for <em>Addresses</em> to something like:
 <code class="docutils literal notranslate"><span class="pre">tcp://192.168.1.xxx:22000,</span> <span class="pre">dynamic</span></code>.</p>
-</div>
-</div>
-<div class="section" id="local-firewall">
+</section>
+</section>
+<section id="local-firewall">
 <h2>Local Firewall<a class="headerlink" href="#local-firewall" title="Permalink to this headline">¶</a></h2>
 <p>If your PC has a local firewall, you will need to open the following ports for
 incoming and outgoing traffic:</p>
@@ -79,7 +80,7 @@ incoming and outgoing traffic:</p>
 </ul>
 <p>If you configured a custom port in the <em>Sync Protocol Listen Address</em> setting,
 you have to adapt the firewall rules accordingly.</p>
-<div class="section" id="uncomplicated-firewall-ufw">
+<section id="uncomplicated-firewall-ufw">
 <h3>Uncomplicated Firewall (ufw)<a class="headerlink" href="#uncomplicated-firewall-ufw" title="Permalink to this headline">¶</a></h3>
 <p>If you’re using <code class="docutils literal notranslate"><span class="pre">ufw</span></code> on Linux and have installed the <a class="reference external" href="https://apt.syncthing.net/">Syncthing package</a>, you can allow the necessary ports by running:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="n">syncthing</span>
@@ -95,8 +96,8 @@ you have to adapt the firewall rules accordingly.</p>
 </pre></div>
 </div>
 <p>In case you installed Syncthing manually you can follow the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/etc/firewall-ufw">instructions to manually add the syncthing preset</a> to ufw.</p>
-</div>
-<div class="section" id="firewalld">
+</section>
+<section id="firewalld">
 <h3>Firewalld<a class="headerlink" href="#firewalld" title="Permalink to this headline">¶</a></h3>
 <p>If you are using <a class="reference external" href="https://www.firewalld.org/">Firewalld</a> it has included
 support for syncthing (since version 0.5.0, January 2018), and you can enable
@@ -106,15 +107,15 @@ it with:</p>
 </pre></div>
 </div>
 <p>Similarly there is also a <code class="docutils literal notranslate"><span class="pre">syncthing-gui</span></code> service.</p>
-</div>
-</div>
-<div class="section" id="remote-web-gui">
+</section>
+</section>
+<section id="remote-web-gui">
 <h2>Remote Web GUI<a class="headerlink" href="#remote-web-gui" title="Permalink to this headline">¶</a></h2>
 <p>To be able to access the web GUI from other computers, you need to change the
 <em>GUI Listen Address</em> setting from the default <code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code> to
 <code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code>. You also need to open the port in your local firewall if you
 have one.</p>
-<div class="section" id="tunneling-via-ssh">
+<section id="tunneling-via-ssh">
 <h3>Tunneling via SSH<a class="headerlink" href="#tunneling-via-ssh" title="Permalink to this headline">¶</a></h3>
 <p>If you have SSH access to the machine running Syncthing but would rather not
 open the web GUI port to the outside world, you can access it through a SSH
@@ -125,13 +126,13 @@ tunnel instead. You can start a tunnel with a command like the following:</p>
 <p>This will bind to your local port 9999 and forward all connections from there to
 port 8384 on the target machine. This still works even if Syncthing is bound to
 listen on localhost only.</p>
-</div>
-</div>
-<div class="section" id="via-a-proxy">
+</section>
+</section>
+<section id="via-a-proxy">
 <h2>Via a Proxy<a class="headerlink" href="#via-a-proxy" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing can use a SOCKS5 proxy for outbound connections. Please see <a class="reference internal" href="proxying.html#proxying"><span class="std std-ref">Using Proxies</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -215,7 +216,7 @@ listen on localhost only.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

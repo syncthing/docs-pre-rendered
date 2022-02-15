@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>3.9. Release Signing &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -187,11 +192,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="release-signing">
+  <section id="release-signing">
 <span id="id1"></span><h1><span class="section-number">3.9. </span>Release Signing<a class="headerlink" href="#release-signing" title="Permalink to this headline">¶</a></h1>
 <p>Syncthing releases are <em>signed</em> in various ways to enable users and automatic
 systems to determine that it is in fact a genuine release.</p>
-<div class="section" id="checksum-files">
+<section id="checksum-files">
 <h2><span class="section-number">3.9.1. </span>Checksum Files<a class="headerlink" href="#checksum-files" title="Permalink to this headline">¶</a></h2>
 <p>Two checksum files are created during the release process. These are
 <code class="docutils literal notranslate"><span class="pre">sha1sum.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">sha256sum.txt</span></code>. They contain the SHA1 and SHA256 checksums
@@ -200,8 +205,8 @@ checksum files are signed by the Syncthing Release Management GPG key and thus
 gain a <code class="docutils literal notranslate"><span class="pre">.asc</span></code> extension. To verify that a download is genuine, first verify
 the signature on the checksum file is correct, then that the checksum matches
 the release archive.</p>
-</div>
-<div class="section" id="binary-signing">
+</section>
+<section id="binary-signing">
 <h2><span class="section-number">3.9.2. </span>Binary Signing<a class="headerlink" href="#binary-signing" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
@@ -220,7 +225,7 @@ signature using the actual binary and the public key. If these match, we know
 that the binary has not been tampered with and the release is genuine - the
 upgrade proceeds. If there is a mismatch, Syncthing deletes any temporary
 files and aborts the upgrade.</p>
-<div class="section" id="creating-and-verifying-binary-signatures-manually">
+<section id="creating-and-verifying-binary-signatures-manually">
 <h3>Creating and Verifying Binary Signatures Manually<a class="headerlink" href="#creating-and-verifying-binary-signatures-manually" title="Permalink to this headline">¶</a></h3>
 <p>As a developer, you may need to verify and create signatures manually.
 Syncthing provides a tool to perform these operations in the same manner as
@@ -246,9 +251,9 @@ storage. You can then sign binaries with the private key using <code class="docu
 <span class="pre">sign</span></code>, verify them with the public key using <code class="docutils literal notranslate"><span class="pre">stsigtool</span> <span class="pre">verify</span></code>, and have
 Syncthing accept these signatures by replacing the compiled in public key.
 This may be useful in an enterprise setting, for example.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
@@ -300,6 +305,7 @@ This may be useful in an enterprise setting, for example.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

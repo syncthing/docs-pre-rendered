@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Debugging Syncthing &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -294,7 +299,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -517,15 +522,15 @@
 <span id="debugging"></span><p class="admonition-title">Todo</p>
 <p>This page mostly duplicates syncthing(1). Needs merging.</p>
 </div>
-<div class="section" id="debugging-syncthing">
+<section id="debugging-syncthing">
 <h1>Debugging Syncthing<a class="headerlink" href="#debugging-syncthing" title="Permalink to this headline">¶</a></h1>
 <p>There’s a lot that happens behind the covers, and Syncthing is generally
 quite silent about it. A number of environment variables can be used to
 set the logging to verbose for various parts of the program, and to
 enable profiling.</p>
-<div class="section" id="environment-variables">
+<section id="environment-variables">
 <h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="sttrace">
+<section id="sttrace">
 <h3>STTRACE<a class="headerlink" href="#sttrace" title="Permalink to this headline">¶</a></h3>
 <p>The environment variable <code class="docutils literal notranslate"><span class="pre">STTRACE</span></code> can be set to a comma separated
 list of “facilities”, to enable extra debugging information for said
@@ -584,55 +589,55 @@ I.e:</p>
 <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">syncthing</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="stprofiler">
+</section>
+<section id="stprofiler">
 <h3>STPROFILER<a class="headerlink" href="#stprofiler" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">STPROFILER</span></code> environment variable sets the listen address for the
 HTTP profiler. If set to for example <code class="docutils literal notranslate"><span class="pre">:9090</span></code> the profiler will start
 and listen on port 9090. <a class="reference external" href="http://localhost:9090/debug/pprof">http://localhost:9090/debug/pprof</a> is then the
 address to the profiler. Se <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">tool</span> <span class="pre">pprof</span></code> for more information.</p>
-</div>
-<div class="section" id="stguiassets">
+</section>
+<section id="stguiassets">
 <h3>STGUIASSETS<a class="headerlink" href="#stguiassets" title="Permalink to this headline">¶</a></h3>
 <p>Directory to load GUI assets from. Overrides compiled in assets. Useful
 for developing webgui, commonly use <code class="docutils literal notranslate"><span class="pre">STGUIASSETS=gui</span> <span class="pre">bin/syncthing</span></code></p>
-</div>
-<div class="section" id="stcpuprofile">
+</section>
+<section id="stcpuprofile">
 <h3>STCPUPROFILE<a class="headerlink" href="#stcpuprofile" title="Permalink to this headline">¶</a></h3>
 <p>Write a CPU profile to <code class="docutils literal notranslate"><span class="pre">cpu-$pid.pprof</span></code> on exit.</p>
-</div>
-<div class="section" id="stheapprofile">
+</section>
+<section id="stheapprofile">
 <h3>STHEAPPROFILE<a class="headerlink" href="#stheapprofile" title="Permalink to this headline">¶</a></h3>
 <p>Write heap profiles to <code class="docutils literal notranslate"><span class="pre">heap-$pid-$timestamp.pprof</span></code> each time
 heap usage increases.</p>
-</div>
-<div class="section" id="stblockprofile">
+</section>
+<section id="stblockprofile">
 <h3>STBLOCKPROFILE<a class="headerlink" href="#stblockprofile" title="Permalink to this headline">¶</a></h3>
 <p>Write block profiles to <code class="docutils literal notranslate"><span class="pre">block-$pid-$timestamp.pprof</span></code> every 20
 seconds.</p>
-</div>
-<div class="section" id="stperfstats">
+</section>
+<section id="stperfstats">
 <h3>STPERFSTATS<a class="headerlink" href="#stperfstats" title="Permalink to this headline">¶</a></h3>
 <p>Write running performance statistics to <code class="docutils literal notranslate"><span class="pre">perf-$pid.csv</span></code>. Not supported on
 Windows.</p>
-</div>
-<div class="section" id="stnoupgrade">
+</section>
+<section id="stnoupgrade">
 <h3>STNOUPGRADE<a class="headerlink" href="#stnoupgrade" title="Permalink to this headline">¶</a></h3>
 <p>Disable automatic upgrades.</p>
-</div>
-<div class="section" id="gomaxprocs">
+</section>
+<section id="gomaxprocs">
 <h3>GOMAXPROCS<a class="headerlink" href="#gomaxprocs" title="Permalink to this headline">¶</a></h3>
 <p>Set the maximum number of CPU cores to use. Defaults to all available
 CPU cores.</p>
-</div>
-<div class="section" id="gogc">
+</section>
+<section id="gogc">
 <h3>GOGC<a class="headerlink" href="#gogc" title="Permalink to this headline">¶</a></h3>
 <p>Percentage of heap growth at which to trigger GC. Default is 100. Lower
 numbers keep peak memory usage down, at the price of CPU usage (ie.
 performance)</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -652,7 +657,7 @@ performance)</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -678,6 +683,7 @@ performance)</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

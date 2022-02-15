@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Understanding Synchronization &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -98,7 +99,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -128,11 +129,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="understanding-synchronization">
+  <section id="understanding-synchronization">
 <span id="syncing"></span><h1>Understanding Synchronization<a class="headerlink" href="#understanding-synchronization" title="Permalink to this headline">¶</a></h1>
 <p>This article describes the mechanisms Syncthing uses to bring files in sync
 on a high level.</p>
-<div class="section" id="blocks">
+<section id="blocks">
 <h2>Blocks<a class="headerlink" href="#blocks" title="Permalink to this headline">¶</a></h2>
 <p>Files are divided into <em>blocks</em>. The blocks are currently fixed size, 128
 KiB, except the last one in the file which may be smaller. Each file is
@@ -150,8 +151,8 @@ device.</p>
 computed and compared with the expected value. If it matches the block is
 written to a temporary copy of the file, otherwise it is discarded and
 Syncthing tries to find another source for the block.</p>
-</div>
-<div class="section" id="scanning">
+</section>
+<section id="scanning">
 <span id="id1"></span><h2>Scanning<a class="headerlink" href="#scanning" title="Permalink to this headline">¶</a></h2>
 <p>There are two methods how Syncthing detects changes: By regular full scans and
 by notifications received from the filesystem (“watcher”). By default the
@@ -174,8 +175,8 @@ are further delayed for 1min. Therefore it is expected that you experience a
 slight delay between making the change and it appearing on another device.</p>
 <p>Changes that were detected and hashed are transmitted to the other devices
 after each rescan.</p>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h2>Syncing<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing keeps track of several versions of each file - the version that it
 currently has on disk, called the <em>local</em> version, the versions announced by
@@ -191,8 +192,8 @@ to the current local version. When the two differ, Syncthing needs to
 synchronize the file. The block lists are compared to build a list of needed
 blocks, which are then requested from the network or copied locally, as
 described above.</p>
-</div>
-<div class="section" id="temporary-files">
+</section>
+<section id="temporary-files">
 <span id="id3"></span><h2>Temporary Files<a class="headerlink" href="#temporary-files" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing never writes directly to a destination file. Instead all changes
 are made to a temporary copy which is then moved in place over the old
@@ -205,8 +206,8 @@ on Windows, <code class="docutils literal notranslate"><span class="pre">~syncth
 normally hidden. If the temporary file name would be too long due to the
 addition of the prefix and extra extension, a hash of the original file name
 is used instead of the actual original file name.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

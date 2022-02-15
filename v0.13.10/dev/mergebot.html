@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Interacting with the Merge Bot &mdash; Syncthing v0.13 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -334,7 +339,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -535,7 +540,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -678,17 +683,17 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="interacting-with-the-merge-bot">
+  <section id="interacting-with-the-merge-bot">
 <h1>Interacting with the Merge Bot<a class="headerlink" href="#interacting-with-the-merge-bot" title="Permalink to this headline">¶</a></h1>
 <p>There is a bot that hangs around on the Syncthing Github projects and
 assists with doing correct merges of pull requests. Using the merge bot to
 accept pull requests is the recommended way in all cases as it enforces some
 extra checks that the “standard” Github merge button does not. The merge bot
 is currently called <code class="docutils literal notranslate"><span class="pre">st-review</span></code>.</p>
-<div class="section" id="merging-a-pr">
+<section id="merging-a-pr">
 <h2>Merging a PR<a class="headerlink" href="#merging-a-pr" title="Permalink to this headline">¶</a></h2>
 <p>There are two ways to merge a pull request - by direct <code class="docutils literal notranslate"><span class="pre">merge</span></code> command and by <code class="docutils literal notranslate"><span class="pre">lgtm</span></code> consensus.</p>
-<div class="section" id="by-lgtm">
+<section id="by-lgtm">
 <h3>By “lgtm”<a class="headerlink" href="#by-lgtm" title="Permalink to this headline">¶</a></h3>
 <p>Any developer with push access can evaluate the pull request and let the bot
 know that they approve of it. The word for this is LGTM, “looks good to
@@ -705,8 +710,8 @@ merged, but I’d appreciate a second look from someone else.”</p>
 <p>If the commit message or subject needs to be tweaked, used the <code class="docutils literal notranslate"><span class="pre">merge</span></code>
 command instead. A previously given <code class="docutils literal notranslate"><span class="pre">lgtm</span></code> will still be recorded on the
 commit message.</p>
-</div>
-<div class="section" id="by-merge">
+</section>
+<section id="by-merge">
 <h3>By “merge”<a class="headerlink" href="#by-merge" title="Permalink to this headline">¶</a></h3>
 <p>To merge a pull request, simply tell the bot to do so, making sure that the
 first word of the command is <code class="docutils literal notranslate"><span class="pre">merge</span></code>:</p>
@@ -724,9 +729,9 @@ formatting - the commit body will be reflowed appropriately by the bot:</p>
 </pre></div>
 </div>
 <img alt="../_images/merge-2.png" src="../_images/merge-2.png" />
-</div>
-</div>
-<div class="section" id="handling-check-results">
+</section>
+</section>
+<section id="handling-check-results">
 <h2>Handling Check Results<a class="headerlink" href="#handling-check-results" title="Permalink to this headline">¶</a></h2>
 <p>The merge bot will wait for status checks to resolve, but will refuse to
 merge pull requests with unclean statuses:</p>
@@ -758,8 +763,8 @@ from unknown authors.</p>
 <p>If you want to skip the author check, make sure it’s mentioned first
 and that the string is <em>exactly</em> “Skip-check: authors”.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -779,7 +784,7 @@ and that the string is <em>exactly</em> “Skip-check: authors”.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -805,6 +810,7 @@ and that the string is <em>exactly</em> “Skip-check: authors”.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

@@ -4,11 +4,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Understanding Device IDs &#8212; Syncthing v1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -33,13 +34,13 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="understanding-device-ids">
+  <section id="understanding-device-ids">
 <span id="device-ids"></span><h1>Understanding Device IDs<a class="headerlink" href="#understanding-device-ids" title="Permalink to this headline">¶</a></h1>
 <p>Every device is identified by a device ID. The device ID is used for address
 resolution, authentication and authorization. The term “device ID” could
 interchangeably have been “key ID” since the device ID is a direct property of
 the public key in use.</p>
-<div class="section" id="keys">
+<section id="keys">
 <h2>Keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
 <p>To understand device IDs we need to look at the underlying mechanisms. At first
 startup, Syncthing will create a public/private keypair.</p>
@@ -91,8 +92,8 @@ public key; the serial number is zero and the Issuer and Subject are both
 “syncthing” where a qualified name might otherwise be expected.</p>
 <p>An advanced user could replace the <code class="docutils literal notranslate"><span class="pre">key.pem</span></code> and <code class="docutils literal notranslate"><span class="pre">cert.pem</span></code> files with a
 keypair generated directly by the <code class="docutils literal notranslate"><span class="pre">openssl</span></code> utility or other mechanism.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>Device IDs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>To form a device ID the SHA-256 hash of the certificate data in DER form is
 calculated. This means the hash covers all information under the
@@ -114,7 +115,7 @@ grouped with dashes, resulting in the final value:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MFZWI3D</span><span class="o">-</span><span class="n">BONSGYC</span><span class="o">-</span><span class="n">YLTMRWG</span><span class="o">-</span><span class="n">C43ENR5</span><span class="o">-</span><span class="n">QXGZDMM</span><span class="o">-</span><span class="n">FZWI3DP</span><span class="o">-</span><span class="n">BONSGYY</span><span class="o">-</span><span class="n">LTMRWAD</span>
 </pre></div>
 </div>
-<div class="section" id="connection-establishment">
+<section id="connection-establishment">
 <h3>Connection Establishment<a class="headerlink" href="#connection-establishment" title="Permalink to this headline">¶</a></h3>
 <p>Now we know what device IDs are, here’s how they are used in Syncthing. When
 you add a device ID to the configuration, Syncthing will attempt to
@@ -151,9 +152,9 @@ default, we expect it to be <code class="docutils literal notranslate"><span cla
 certificates this can be changed.</p></li>
 <li><p>If everything checks out so far, accept the connection.</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="an-aside-about-collisions">
+</section>
+</section>
+<section id="an-aside-about-collisions">
 <h2>An Aside About Collisions<a class="headerlink" href="#an-aside-about-collisions" title="Permalink to this headline">¶</a></h2>
 <p>The SHA-256 hash is cryptographically collision resistant. This means
 that there is no way that we know of to create two different messages
@@ -192,18 +193,18 @@ have the same hash as my certificate. You need to create a valid DER-encoded,
 signed certificate that has the same hash as mine. The difficulty of this is
 staggeringly far beyond the already staggering difficulty of finding a SHA-256
 collision.</p>
-</div>
-<div class="section" id="problems-and-vulnerabilities">
+</section>
+<section id="problems-and-vulnerabilities">
 <h2>Problems and Vulnerabilities<a class="headerlink" href="#problems-and-vulnerabilities" title="Permalink to this headline">¶</a></h2>
 <p>As far as I know, these are the issues or potential issues with the
 above mechanism.</p>
-<div class="section" id="discovery-spoofing">
+<section id="discovery-spoofing">
 <h3>Discovery Spoofing<a class="headerlink" href="#discovery-spoofing" title="Permalink to this headline">¶</a></h3>
 <p>Currently, the local discovery mechanism isn’t protected by crypto. This
 means that any device can in theory announce itself for any device ID and
 potentially receive connections for that device from the local network.</p>
-</div>
-<div class="section" id="long-device-ids-are-painful">
+</section>
+<section id="long-device-ids-are-painful">
 <h3>Long Device IDs are Painful<a class="headerlink" href="#long-device-ids-are-painful" title="Permalink to this headline">¶</a></h3>
 <p>It’s a mouthful to read over the phone, annoying to type into an SMS or even
 into a computer. And it needs to be done twice, once for each side.</p>
@@ -220,9 +221,9 @@ that PIN plus a short device ID to another user. On initial connect,
 both sides verify that the other knows the correct PIN before
 accepting the connection.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -294,7 +295,7 @@ accepting the connection.</p></li>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

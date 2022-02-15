@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Issue Management &mdash; Syncthing v0.11 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -263,7 +268,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -456,13 +461,13 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="issue-management">
+  <section id="issue-management">
 <h1>Issue Management<a class="headerlink" href="#issue-management" title="Permalink to this headline">¶</a></h1>
 <p>Bugs, feature requests and other things we need to do are tracked as
 Github issues. Issues can be of various types and in various states, and
 also belong to milestones or not. This page is an attempt to document
 the current practice.</p>
-<div class="section" id="labels">
+<section id="labels">
 <h2>Labels<a class="headerlink" href="#labels" title="Permalink to this headline">¶</a></h2>
 <p>Issues without labels are undecided - that is, we don’t yet know if it’s
 a bug, a configuration issue, a feature request or what. Issues that are
@@ -505,21 +510,21 @@ discussion.</p>
 <dt>protocol</dt><dd><p>This requires a change to the protocol.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="milestone">
+</section>
+<section id="milestone">
 <h2>Milestone<a class="headerlink" href="#milestone" title="Permalink to this headline">¶</a></h2>
 <p>There are milestones for major and sometimes minor versions. An issues
 being assigned to a milestone means it is a blocker - the release can’t
 be made without the issue being closed. Issues not assigned to a
 milestone can be handled whenever.</p>
-</div>
-<div class="section" id="assignee">
+</section>
+<section id="assignee">
 <h2>Assignee<a class="headerlink" href="#assignee" title="Permalink to this headline">¶</a></h2>
 <p>Users can be assigned to issues. We don’t usually do so. Sometimes
 someone assigns themself to an issue to indicate “I’m working on this”
 to avoid others doing so too. It’s not mandatory.</p>
-</div>
-<div class="section" id="locking">
+</section>
+<section id="locking">
 <h2>Locking<a class="headerlink" href="#locking" title="Permalink to this headline">¶</a></h2>
 <p>We don’t normally lock issues (prevent further discussion on them).
 There are some exceptions though;</p>
@@ -537,8 +542,8 @@ The intention is to move the discussion to the other (referenced)
 issue, while someone just doing a search and jumping on the first
 match might otherwise resurrect discussion in the duplicate.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -558,7 +563,7 @@ match might otherwise resurrect discussion in the duplicate.</p></li>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -584,6 +589,7 @@ match might otherwise resurrect discussion in the duplicate.</p></li>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

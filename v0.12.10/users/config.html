@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Syncthing Configuration &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -78,7 +83,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -101,7 +106,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="syncthing.html#synopsis">Synopsis</a></li>
@@ -305,7 +310,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -494,7 +499,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -623,9 +628,9 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="syncthing-configuration">
+  <section id="syncthing-configuration">
 <h1>Syncthing Configuration<a class="headerlink" href="#syncthing-configuration" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
+<section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$HOME/.config/syncthing
 $HOME/Library/Application Support/Syncthing
@@ -633,8 +638,8 @@ $HOME/Library/Application Support/Syncthing
 %localappdata%/Syncthing
 </pre></div>
 </div>
-</div>
-<div class="section" id="description">
+</section>
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Syncthing uses a single directory to store configuration, crypto keys
 and index caches. The location defaults to <code class="docutils literal notranslate"><span class="pre">$HOME/.config/syncthing</span></code>
@@ -658,8 +663,8 @@ currently on disk and available from peers.</p>
 site request forgery).</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="config-file-format">
+</section>
+<section id="config-file-format">
 <h2>Config File Format<a class="headerlink" href="#config-file-format" title="Permalink to this headline">¶</a></h2>
 <p>The following shows the default configuration file:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration</span> <span class="na">version=</span><span class="s">&quot;12&quot;</span><span class="nt">&gt;</span>
@@ -722,8 +727,8 @@ site request forgery).</p>
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuration-element">
+</section>
+<section id="configuration-element">
 <h2>Configuration Element<a class="headerlink" href="#configuration-element" title="Permalink to this headline">¶</a></h2>
 <p>This is the root element.</p>
 <dl class="simple">
@@ -731,8 +736,8 @@ site request forgery).</p>
 migration from previous formats.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="folder-element">
+</section>
+<section id="folder-element">
 <h2>Folder Element<a class="headerlink" href="#folder-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;folder</span> <span class="na">id=</span><span class="s">&quot;default&quot;</span> <span class="na">path=</span><span class="s">&quot;/Users/jb/Sync/&quot;</span> <span class="na">ro=</span><span class="s">&quot;false&quot;</span> <span class="na">rescanIntervalS=</span><span class="s">&quot;60&quot;</span> <span class="na">ignorePerms=</span><span class="s">&quot;false&quot;</span> <span class="na">autoNormalize=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;3LT2GA5-CQI4XJM-WTZ264P-MLOGMHL-MCRLDNT-MZV4RD3-KA745CL-OGAERQZ&quot;</span><span class="nt">&gt;&lt;/device&gt;</span>
@@ -824,8 +829,8 @@ The default, -1, means an unlimited number. Setting this to zero disables
 conflict copies altogether.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="device-element">
+</section>
+<section id="device-element">
 <h2>Device Element<a class="headerlink" href="#device-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;device</span> <span class="na">id=</span><span class="s">&quot;5SYI2FS-LW6YAXI-JJDYETS-NDBBPIO-256MWBO-XDPXWVG-24QPUM4-PDW4UQU&quot;</span> <span class="na">name=</span><span class="s">&quot;syno&quot;</span> <span class="na">compression=</span><span class="s">&quot;metadata&quot;</span> <span class="na">introducer=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;address&gt;</span>dynamic<span class="nt">&lt;/address&gt;</span>
@@ -878,8 +883,8 @@ square brackets.</p>
 device.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="gui-element">
+</section>
+<section id="gui-element">
 <h2>GUI Element<a class="headerlink" href="#gui-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;address&gt;</span>127.0.0.1:8384<span class="nt">&lt;/address&gt;</span>
@@ -920,8 +925,8 @@ interfaces and both IPv4 and IPv6.</p>
 <dt>apikey</dt><dd><p>If set, this is the API key that enables usage of the REST interface.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="options-element">
+</section>
+<section id="options-element">
 <h2>Options Element<a class="headerlink" href="#options-element" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;options&gt;</span>
     <span class="nt">&lt;listenAddress&gt;</span>tcp://0.0.0.0:22000<span class="nt">&lt;/listenAddress&gt;</span>
@@ -1069,8 +1074,8 @@ the configuration and index.</p>
 <dt>releasesURL</dt><dd><p>The URL from which release information is loaded, for automatic upgrades.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="syncing-configuration-files">
+</section>
+<section id="syncing-configuration-files">
 <h2>Syncing Configuration files<a class="headerlink" href="#syncing-configuration-files" title="Permalink to this headline">¶</a></h2>
 <p>Syncing configuration files between devices (such that multiple devices are
 using the same configuration files) can cause issues. This is easy to do
@@ -1084,8 +1089,8 @@ device(s) should not be used as configuration for the remote devices.</p>
 folder that stores the configuration files to the <a class="reference internal" href="ignoring.html#ignoring-files"><span class="std std-ref">ignore list</span></a>.
 If you’d also like to backup your configuration files, add another folder in
 master mode for just the configuration folder.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -1105,7 +1110,7 @@ master mode for just the configuration folder.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -1131,6 +1136,7 @@ master mode for just the configuration folder.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

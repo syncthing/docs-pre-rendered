@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>POST /rest/system/debug &mdash; Syncthing v1 documentation</title>
@@ -31,6 +32,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -216,7 +221,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="post-rest-system-debug">
+  <section id="post-rest-system-debug">
 <h1>POST /rest/system/debug<a class="headerlink" href="#post-rest-system-debug" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
@@ -228,7 +233,7 @@ for config and db:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ curl -H X-API-Key:abc123 -X POST <span class="s1">&#39;http://localhost:8384/rest/system/debug?disable=beacon,discovery&amp;enable=config,db&#39;</span>
 </pre></div>
 </div>
-</div>
+</section>
 
 
            </div>
@@ -280,6 +285,7 @@ for config and db:</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>

@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Symbolic Link Following &mdash; Syncthing v0.12 documentation</title>
@@ -29,6 +30,10 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
     <link rel="stylesheet" href="../_static/syncthing.css" type="text/css" />
   
@@ -76,7 +81,7 @@
         
           
           
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/getting-started.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/getting-started.html#installing">Installing</a><ul>
@@ -99,7 +104,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Users</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html#synopsis">Synopsis</a></li>
@@ -303,7 +308,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dev/intro.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/intro.html#controlling-syncthing-from-external-applications">Controlling Syncthing from External Applications</a></li>
@@ -492,7 +497,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Specifications</span></p>
+<p class="caption" role="heading"><span class="caption-text">Specifications</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../specs/bep-v1.html">Block Exchange Protocol v1</a><ul>
@@ -632,13 +637,13 @@ guide, and have a backup of your data. Incorrect configuration may result in
 the deletion of your files. Currently it’s probably best to only use
 <code class="docutils literal notranslate"><span class="pre">FollowSymlinks</span></code> on a folder master.</p>
 </div>
-<div class="section" id="symbolic-link-following">
+<section id="symbolic-link-following">
 <h1>Symbolic Link Following<a class="headerlink" href="#symbolic-link-following" title="Permalink to this headline">¶</a></h1>
 <p>It is possible to synchronize directory trees not present directly under a
 sync folder by using symbolic links (“symlinks”) and enabling “following” of
 them. This feature is currently experimental and cannot be enabled by using
 the graphical interface.</p>
-<div class="section" id="operation">
+<section id="operation">
 <h2>Operation<a class="headerlink" href="#operation" title="Permalink to this headline">¶</a></h2>
 <p>When a folder is configured to follow symlinks, any such links that are
 encountered during scanning will be resolved to their destination and scanned.
@@ -657,8 +662,8 @@ deleted.</p></li>
 directory are ignored. This is to avoid infinite recursion in symlink
 following.</p></li>
 </ol>
-</div>
-<div class="section" id="enabling">
+</section>
+<section id="enabling">
 <h2>Enabling<a class="headerlink" href="#enabling" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration</span> <span class="na">version=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;folder</span> <span class="na">id=</span><span class="s">&quot;default&quot;</span> <span class="na">path=</span><span class="s">&quot;/Users/jb/Sync&quot;</span><span class="nt">&gt;</span>
@@ -669,8 +674,8 @@ following.</p></li>
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="disabling">
+</section>
+<section id="disabling">
 <h2>Disabling<a class="headerlink" href="#disabling" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -685,8 +690,8 @@ having the symlink, in addition to the other devices.</p>
 <code class="docutils literal notranslate"><span class="pre">FollowSymlinks</span></code>. The files previously reachable via the symlink will be
 deleted from other devices, but (given the symlink was removed) are not
 reachable and hence are preserved on the source device.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -697,7 +702,7 @@ reachable and hence are preserved on the source device.</p>
 
   <div role="contentinfo">
     <p>
-      Last updated on Jan 12, 2022.
+      Last updated on Jan 30, 2022.
     </p>
   </div>
 
@@ -723,6 +728,7 @@ reachable and hence are preserved on the source device.</p>
             HAS_SOURCE:  true
         };
     </script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
