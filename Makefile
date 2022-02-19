@@ -16,6 +16,8 @@ SOURCE_REPO = https://github.com/syncthing/docs
 SOURCE_DIR = $(TEMP_DIR)/syncthing-docs
 VERSIONS = $(wildcard v*.*.*)
 TARGET_DIR := $(CURDIR)
+JS_FILES = $(patsubst %,%/_static/version_redirect.js,$(VERSIONS))
+PATCH_FILES := $(sort $(wildcard $(TARGET_DIR)/_patches/*.patch))
 
 
 TEMP_DIR := $(shell mktemp -d)
@@ -24,15 +26,19 @@ $(warning Keeping temporary source checkout in $(SOURCE_DIR))
 
 all: $(VERSIONS)
 
-.PHONY: all
+copy-js: $(JS_FILES)
+	git add --no-all .
+
+.PHONY: all copy-js
 
 
 $(SOURCE_DIR):
 	git clone $(SOURCE_REPO) $@
 
-$(VERSIONS): %: $(SOURCE_DIR) FORCE
+$(VERSIONS): %: $(PATCH_FILES) $(SOURCE_DIR) FORCE
 	cd $(SOURCE_DIR) && \
-		git checkout -f $@
+		git checkout -f $@ && \
+		cat $(PATCH_FILES) | git am --3way
 	make -C $(SOURCE_DIR) clean html man latexpdf
 	rm -rf $(TARGET_DIR)/$@
 	mv -v $(SOURCE_DIR)/_build/html/ $(TARGET_DIR)/$@
@@ -41,5 +47,8 @@ $(VERSIONS): %: $(SOURCE_DIR) FORCE
 	mv -v $(SOURCE_DIR)/_build/latex/*.pdf $(TARGET_DIR)/$@/pdf
 	cd $(TARGET_DIR) && \
 		git add --no-all $@
+
+$(JS_FILES): %/_static/version_redirect.js: $(SOURCE_DIR) FORCE
+	cp -vf $(SOURCE_DIR)/_static/version_redirect.js $(TARGET_DIR)/$@
 
 FORCE:
