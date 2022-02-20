@@ -41,14 +41,14 @@ $(VERSIONS): %: $(SOURCE_DIR) FORCE
 		git merge --no-commit -X theirs $(PATCH_BRANCH)
 	make -C $(SOURCE_DIR) clean html man latexpdf
 	rm -rf $(TARGET_DIR)/$@
-	mv -v $(SOURCE_DIR)/_build/html/ $(TARGET_DIR)/$@
-	mv -v $(SOURCE_DIR)/_build/man/ $(TARGET_DIR)/$@/
+	@mv -v $(SOURCE_DIR)/_build/html/ $(TARGET_DIR)/$@/
+	@mv -v $(SOURCE_DIR)/_build/man/ $(TARGET_DIR)/$@/
 	mkdir $(TARGET_DIR)/$@/pdf
-	mv -v $(SOURCE_DIR)/_build/latex/*.pdf $(TARGET_DIR)/$@/pdf
+	@mv -v $(SOURCE_DIR)/_build/latex/*.pdf $(TARGET_DIR)/$@/pdf/
 	cd $(TARGET_DIR) && \
 		git add --no-all $@
 
 $(JS_FILES): %/_static/version_redirect.js: $(SOURCE_DIR) FORCE
-	cp -vf $(SOURCE_DIR)/_static/version_redirect.js $(TARGET_DIR)/$@
+	@cp -vf $(SOURCE_DIR)/_static/version_redirect.js $(TARGET_DIR)/$@
 
 FORCE:
