@@ -14,10 +14,10 @@
 
 SOURCE_REPO = https://github.com/syncthing/docs
 SOURCE_DIR = $(TEMP_DIR)/syncthing-docs
+PATCH_BRANCH = patches-for-version-picker
 VERSIONS = $(wildcard v*.*.*)
 TARGET_DIR := $(CURDIR)
 JS_FILES = $(patsubst %,%/_static/version_redirect.js,$(VERSIONS))
-PATCH_FILES := $(sort $(wildcard $(TARGET_DIR)/_patches/*.patch))
 
 
 TEMP_DIR := $(shell mktemp -d)
@@ -33,12 +33,12 @@ copy-js: $(JS_FILES)
 
 
 $(SOURCE_DIR):
-	git clone $(SOURCE_REPO) $@
+	git clone -b $(PATCH_BRANCH) $(SOURCE_REPO) $@
 
-$(VERSIONS): %: $(PATCH_FILES) $(SOURCE_DIR) FORCE
+$(VERSIONS): %: $(SOURCE_DIR) FORCE
 	cd $(SOURCE_DIR) && \
 		git checkout -f $@ && \
-		cat $(PATCH_FILES) | git am --3way
+		git merge --no-commit -X theirs $(PATCH_BRANCH)
 	make -C $(SOURCE_DIR) clean html man latexpdf
 	rm -rf $(TARGET_DIR)/$@
 	mv -v $(SOURCE_DIR)/_build/html/ $(TARGET_DIR)/$@
