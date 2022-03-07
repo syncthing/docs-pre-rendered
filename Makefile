@@ -20,7 +20,7 @@ TARGET_DIR := $(CURDIR)
 JS_FILES = $(patsubst %,%/_static/version_redirect.js,$(VERSIONS))
 
 
-TEMP_DIR := $(shell mktemp -d)
+TEMP_DIR := $(shell mktemp -d --tmpdir st-pre-rendered.XXXXXX)
 $(warning Keeping temporary source checkout in $(SOURCE_DIR))
 
 
