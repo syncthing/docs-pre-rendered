@@ -56,11 +56,12 @@ GUI hosted on <code class="docutils literal notranslate"><span class="pre">local
 <section id="apache">
 <h3>Apache<a class="headerlink" href="#apache" title="Permalink to this headline">¶</a></h3>
 <p>First of all, execute the following command to enable the Apache HTTP Proxy
-module: <code class="docutils literal notranslate"><span class="pre">a2enmod</span> <span class="pre">proxy_http</span></code>.</p>
+module and the headers module: <code class="docutils literal notranslate"><span class="pre">a2enmod</span> <span class="pre">proxy_http</span> <span class="pre">headers</span></code>.</p>
 <p>Then, you may add the following to your Apache httpd configuration:</p>
-<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">ProxyPass</span> <span class="sx">/syncthing/</span> http://localhost:8384/
-<span class="nt">&lt;Location</span> <span class="s">/syncthing/</span><span class="nt">&gt;</span>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Location</span> <span class="s">/syncthing/</span><span class="nt">&gt;</span>
+    <span class="nb">ProxyPass</span> http://localhost:8384/
     <span class="nb">ProxyPassReverse</span> http://localhost:8384/
+    <span class="nb">RequestHeader</span> set <span class="s2">&quot;X-Forwarded-Proto&quot;</span> expr=%{REQUEST_SCHEME}
     <span class="nb">Require</span> <span class="k">all</span> granted
 <span class="nt">&lt;/Location&gt;</span>
 </pre></div>
@@ -210,7 +211,7 @@ behaviour as above</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
