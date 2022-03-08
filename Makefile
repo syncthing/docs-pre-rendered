@@ -49,6 +49,6 @@ $(VERSIONS): %: $(SOURCE_DIR) FORCE
 		git add --no-all $@
 
 $(JS_FILES): %/_static/version_redirect.js: $(SOURCE_DIR) FORCE
-	@cp -vf $(SOURCE_DIR)/_static/version_redirect.js $(TARGET_DIR)/$@
+	@cp -vf $(SOURCE_DIR)/_static/version_redirect.js $(TARGET_DIR)/$@/
 
 FORCE:
