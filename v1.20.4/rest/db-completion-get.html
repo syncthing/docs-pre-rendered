@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>GET /rest/db/completion &#8212; Syncthing v1.20.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/version_redirect.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GET /rest/db/file" href="db-file-get.html" />
+    <link rel="prev" title="GET /rest/db/browse" href="db-browse-get.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="get-rest-db-completion">
+<h1>GET /rest/db/completion<a class="headerlink" href="#get-rest-db-completion" title="Permalink to this headline">¶</a></h1>
+<p>Returns the completion percentage (0 to 100) and byte / item counts. Takes
+optional <code class="docutils literal notranslate"><span class="pre">device</span></code> and <code class="docutils literal notranslate"><span class="pre">folder</span></code> parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">folder</span></code> specifies the folder ID to calculate completion for. An empty
+or absent <code class="docutils literal notranslate"><span class="pre">folder</span></code> parameter means all folders as an aggregate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">device</span></code> specifies the device ID to calculate completion for. An empty
+or absent <code class="docutils literal notranslate"><span class="pre">device</span></code> parameter means the local device.</p></li>
+</ul>
+<p>If a device is specified but no folder, completion is calculated for all
+folders shared with that device.</p>
+<section id="example-queries">
+<h2>Example Queries<a class="headerlink" href="#example-queries" title="Permalink to this headline">¶</a></h2>
+<p>Completion status for folder <code class="docutils literal notranslate"><span class="pre">abcd-1234</span></code> on device <code class="docutils literal notranslate"><span class="pre">I6KAH76-...-3PSROAU</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/rest/db/completion?folder=abcd-1234&amp;device=I6KAH76-...-3PSROAU
+</pre></div>
+</div>
+<p>Aggregated completion status for device <code class="docutils literal notranslate"><span class="pre">I6KAH76-...-3PSROAU</span></code> (all folders shared with them):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/rest/db/completion?device=I6KAH76-...-3PSROAU
+</pre></div>
+</div>
+<p>Completion status for folder <code class="docutils literal notranslate"><span class="pre">abcd-1234</span></code> on the local device:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/rest/db/completion?folder=abcd-1234
+</pre></div>
+</div>
+<p>Aggregated completion status for all folders on the local device:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">rest</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">completion</span>
+</pre></div>
+</div>
+</section>
+<section id="example-response">
+<h2>Example Response<a class="headerlink" href="#example-response" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;completion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">99.9937565835</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;globalBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">156793013575</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;needBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9789241</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;globalItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7823</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;needItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">412</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;needDeletes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;remoteState&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;valid&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;sequence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.8.0: </span>The ability to aggregate multiple folders by leaving out the folder ID.
+Querying data for the local device by leaving out the device ID. Returning
+the <code class="docutils literal notranslate"><span class="pre">globalItems</span></code> counter in the response.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.20.0: </span>Indication whether the remote device has accepted the folder (shares it with
+us) as well, and whether it is paused.  The <code class="docutils literal notranslate"><span class="pre">remoteState</span></code> field is
+meaningless for aggregated responses, <code class="docutils literal notranslate"><span class="pre">unknown</span></code> when the remote device is
+not connected.  Otherwise it can be either <code class="docutils literal notranslate"><span class="pre">paused</span></code>, <code class="docutils literal notranslate"><span class="pre">notSharing</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">valid</span></code> if the remote is sharing back.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/rest/db-completion-get.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.20.3-0-g2cf6093</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.20.3</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">Release Signing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../dev/index.html">Development</a><ul>
+  <li><a href="../dev/rest.html">REST API</a><ul>
+      <li>Previous: <a href="db-browse-get.html" title="previous chapter">GET /rest/db/browse</a></li>
+      <li>Next: <a href="db-file-get.html" title="next chapter">GET /rest/db/file</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
