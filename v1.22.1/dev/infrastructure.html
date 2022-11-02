@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Syncthing Infrastructure &#8212; Syncthing v1.22.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/version_redirect.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Issue Management" href="issues.html" />
+    <link rel="prev" title="Understanding Device IDs" href="device-ids.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="syncthing-infrastructure">
+<h1>Syncthing Infrastructure<a class="headerlink" href="#syncthing-infrastructure" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of the infrastructure that powers the Syncthing project.
+Unless otherwise noted, the default is that it’s a VM hosted by <a class="reference external" href="https://github.com/calmh">&#64;calmh</a>.</p>
+<section id="github">
+<h2>GitHub<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
+<p>All repos, issue trackers and binary releases are hosted at <a class="reference external" href="https://github.com/syncthing">GitHub</a>.</p>
+</section>
+<section id="main-documentation-websites">
+<h2>Main &amp; Documentation Websites<a class="headerlink" href="#main-documentation-websites" title="Permalink to this headline">¶</a></h2>
+<p>Static HTML, served by Caddy.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://syncthing.net/">syncthing.net</a></p></li>
+<li><p><a class="reference external" href="https://apt.syncthing.net">apt.syncthing.net</a> (Debian packages)</p></li>
+<li><p><a class="reference external" href="https://docs.syncthing.net/">docs.syncthing.net</a> (Sphinx for site generation)</p></li>
+<li><p><a class="reference external" href="https://upgrades.syncthing.net/meta.json">upgrades.syncthing.net</a> (upgrade metadata)</p></li>
+</ul>
+</section>
+<section id="forum-website">
+<h2>Forum Website<a class="headerlink" href="#forum-website" title="Permalink to this headline">¶</a></h2>
+<p>Powered by Discourse.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://forum.syncthing.net/">forum.syncthing.net</a></p></li>
+</ul>
+</section>
+<section id="global-discovery-servers">
+<h2>Global Discovery Servers<a class="headerlink" href="#global-discovery-servers" title="Permalink to this headline">¶</a></h2>
+<p>Runs the <code class="docutils literal notranslate"><span class="pre">stdiscosrv</span></code> instances that serve global discovery requests. The
+discovery setup is a load balanced cluster and the members can change
+without prior notice. As of the time of writing they are all hosted at
+DigitalOcean.</p>
+<ul class="simple">
+<li><p>discovery.syncthing.net (multiple A and AAAA records, for queries)</p></li>
+<li><p>discovery-v4.syncthing.net (multiple A records, for IPv4 announces)</p></li>
+<li><p>discovery-v6.syncthing.net (multiple AAAA records, for IPv6 announces)</p></li>
+</ul>
+</section>
+<section id="relay-pool-server">
+<h2>Relay Pool Server<a class="headerlink" href="#relay-pool-server" title="Permalink to this headline">¶</a></h2>
+<p>Runs the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/cmd/strelaypoolsrv">strelaypoolsrv</a>
+daemon to handle dynamic registration and announcement of relays.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://relays.syncthing.net">relays.syncthing.net</a></p></li>
+</ul>
+</section>
+<section id="relay-servers">
+<h2>Relay Servers<a class="headerlink" href="#relay-servers" title="Permalink to this headline">¶</a></h2>
+<p>Hosted by friendly people on the internet.</p>
+</section>
+<section id="usage-reporting-server">
+<h2>Usage Reporting Server<a class="headerlink" href="#usage-reporting-server" title="Permalink to this headline">¶</a></h2>
+<p>Runs the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/cmd/ursrv">ursrv</a>
+daemon with PostgreSQL and Nginx.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://data.syncthing.net/">data.syncthing.net</a></p></li>
+</ul>
+</section>
+<section id="build-servers">
+<h2>Build Servers<a class="headerlink" href="#build-servers" title="Permalink to this headline">¶</a></h2>
+<p>Runs TeamCity and does the core builds.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://build.syncthing.net/">build.syncthing.net</a></p></li>
+</ul>
+<p>There are various build agents; Linux, Windows, and Mac. These are currently
+provided by <a class="reference external" href="https://github.com/calmh">&#64;calmh</a> or Kastelo.</p>
+</section>
+<section id="signing-server">
+<h2>Signing Server<a class="headerlink" href="#signing-server" title="Permalink to this headline">¶</a></h2>
+<p>Signs and uploads the release bundles to GitHub.</p>
+<ul class="simple">
+<li><p>secure.syncthing.net</p></li>
+</ul>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>The infrastructure is monitored and its status is publicly accessible on the following urls:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://status.syncthing.net">status.syncthing.net</a> (Apex Ping)</p></li>
+<li><p><a class="reference external" href="https://monitor.syncthing.net">monitor.syncthing.net</a> (Grafana)</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/infrastructure.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.22.1-0-gb16206f</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.22.1</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="device-ids.html" title="previous chapter">Understanding Device IDs</a></li>
+      <li>Next: <a href="issues.html" title="next chapter">Issue Management</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
