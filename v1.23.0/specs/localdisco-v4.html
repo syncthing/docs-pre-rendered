@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Local Discovery Protocol v4 &#8212; Syncthing v1.23.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/version_redirect.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Relay Protocol v1" href="relay-v1.html" />
+    <link rel="prev" title="Global Discovery v3" href="globaldisco-v3.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="local-discovery-protocol-v4">
+<span id="localdisco-v4"></span><h1>Local Discovery Protocol v4<a class="headerlink" href="#local-discovery-protocol-v4" title="Permalink to this headline">¶</a></h1>
+<section id="mode-of-operation">
+<h2>Mode of Operation<a class="headerlink" href="#mode-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>Each participating device periodically sends an Announcement packet. It also
+keeps a table of the announcements it has seen. There is no way to solicit a
+reply; the only message type is Announcement.</p>
+<p>On multihomed hosts the announcement packets should be sent on each interface
+on which Syncthing will accept connections.</p>
+<p>The announcement packet is sent over UDP.</p>
+<p>For IPv4, the Announcement packet is broadcast either to the link-specific
+broadcast address, or to the generic link-local broadcast address
+<code class="docutils literal notranslate"><span class="pre">255.255.255.255</span></code>, with destination port 21027.</p>
+<p>For IPv6, the Announcement packet is multicast to the transient link-local
+multicast address <code class="docutils literal notranslate"><span class="pre">ff12::8384</span></code>, with destination port 21027.</p>
+<p>It is recommended that local discovery Announcement packets be sent on a 30
+to 60 second interval, possibly with immediate transmissions when a
+previously unknown device is discovered or a device has restarted (see the
+<code class="docutils literal notranslate"><span class="pre">instance_id</span></code> field).</p>
+</section>
+<section id="device-id">
+<h2>Device ID<a class="headerlink" href="#device-id" title="Permalink to this headline">¶</a></h2>
+<p>The device ID is the SHA-256 (32 bytes) of the device X.509 certificate. See
+<a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a> in the Syncthing documentation.</p>
+</section>
+<section id="announcement-packet">
+<h2>Announcement packet<a class="headerlink" href="#announcement-packet" title="Permalink to this headline">¶</a></h2>
+<p>The Announcement packet has the following structure:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             Magic                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+/                                                               /
+\                       Announce Message                        \
+/                                                               /
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre></div>
+</div>
+<p>There is no explicit length field as the length is given by the length of
+the discovery announcement packet itself.</p>
+<p>The Magic field is a 32 bit word representing 0x2EA7D90B in network (big
+endian) byte order. It identifies the packet as being a Syncthing discovery
+protocol packet.</p>
+<p>The Announce Message contents are in protocol buffer format using the
+following schema:</p>
+<div class="highlight-proto notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span><span class="w"> </span><span class="nc">Announce</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w">           </span><span class="na">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">addresses</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int64</span><span class="w">           </span><span class="na">instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">id</span></code> field contains the Device ID of the sending device.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">addresses</span></code> field contains a list of addresses where the device can be
+contacted. Direct connections will typically have the <code class="docutils literal notranslate"><span class="pre">tcp://</span></code> scheme.
+Relay connections will typically use the <code class="docutils literal notranslate"><span class="pre">relay://</span></code> scheme.</p>
+<p>When interpreting addresses with an unspecified address, e.g.,
+<code class="docutils literal notranslate"><span class="pre">tcp://0.0.0.0:22000</span></code> or <code class="docutils literal notranslate"><span class="pre">tcp://:42424</span></code>, the source address of the
+discovery announcement is to be used.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">instance_id</span></code> field is set to a randomly generated ID at client
+startup. Other devices on the network can detect a change in instance ID
+between two announces and conclude that the announcing device has restarted.</p>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/specs/localdisco-v4.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.23.0-0-g6a04057</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.23.0</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Specifications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html">Block Exchange Protocol v1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="globaldisco-v3.html">Global Discovery v3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Local Discovery Protocol v4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relay-v1.html">Relay Protocol v1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted Device Encryption</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Specifications</a><ul>
+      <li>Previous: <a href="globaldisco-v3.html" title="previous chapter">Global Discovery v3</a></li>
+      <li>Next: <a href="relay-v1.html" title="next chapter">Relay Protocol v1</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Contribution Guidelines &#8212; Syncthing v1.23.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/version_redirect.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Debugging Syncthing" href="debugging.html" />
+    <link rel="prev" title="Building Syncthing" href="building.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="contribution-guidelines">
+<span id="id1"></span><h1>Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Permalink to this headline">¶</a></h1>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>So you want to contribute? Great! Here’s a short checklist with the most
+important points:</p>
+<ul class="simple">
+<li><p>Don’t worry. You are not expected to get everything right on the first
+attempt, we’ll guide you through it.</p></li>
+<li><p>Make sure there is an <a class="reference external" href="https://github.com/syncthing/syncthing/issues">issue</a> that describes the
+change you want to do. If the thing you want to do does not have an issue
+yet, please file one before starting work on it.</p></li>
+<li><p>Fork the repository and make your changes in a new branch. If you already
+have push access to the Syncthing repository, do <em>not</em> create a new branch
+there. We do all changes as pull requests from personal forks.</p></li>
+</ul>
+</section>
+<section id="authorship">
+<h2>Authorship<a class="headerlink" href="#authorship" title="Permalink to this headline">¶</a></h2>
+<p>All code authors are listed in the AUTHORS file. When your first pull request
+is accepted, the maintainer will add your details to the AUTHORS file, the
+NICKS file and the list of authors in the GUI. Commits must be made with the
+same name and email as listed in the AUTHORS file. To accomplish this, ensure
+that your git configuration is set correctly prior to making your first
+commit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git config --global user.name &quot;Jane Doe&quot;
+$ git config --global user.email janedoe@example.com
+</pre></div>
+</div>
+<p>You must be reachable on the given email address. If you do not wish to use
+your real name for whatever reason, using a nickname or pseudonym is perfectly
+acceptable.</p>
+</section>
+<section id="team-membership">
+<h2>Team Membership<a class="headerlink" href="#team-membership" title="Permalink to this headline">¶</a></h2>
+<p>Contributing useful commits via pull requests will at some point get you
+invited to the Syncthing core team. This team gives you push
+access to most repositories, subject to the guidelines below.</p>
+<p>The Syncthing maintainers team has the same access
+permissions, the added responsibility of reviewing major changes, and the
+ability to invite members into the core team.</p>
+</section>
+<section id="code-review">
+<h2>Code Review<a class="headerlink" href="#code-review" title="Permalink to this headline">¶</a></h2>
+<p>Commits will generally fall into one of the three categories below, with
+different requirements on review.</p>
+<dl class="simple">
+<dt>Trivial:</dt><dd><p>A small change or refactor that is obviously correct. These may be pushed
+without review by any member of the core team. Examples:
+<a class="reference external" href="https://github.com/syncthing/syncthing/commits/main">removing dead code</a>,
+<a class="reference external" href="https://github.com/syncthing/syncthing/commit/2aa028facb7ccbe48e85c8c444501cc3fb38ef24">updating values</a>.</p>
+</dd>
+<dt>Minor:</dt><dd><p>A new feature, bugfix or refactoring that may need extra eyes on it to weed
+out mistakes, but is architecturally simple or at least uncontroversial.
+Minor changes must go through a pull request and can be merged on approval
+by any other developer on the core or maintainers team. Tests must pass.
+Examples: <a class="reference external" href="https://github.com/syncthing/syncthing/pull/2432/files">adding caching</a>,
+<a class="reference external" href="https://github.com/syncthing/syncthing/pull/2406/files">fixing a small bug</a>.</p>
+</dd>
+<dt>Major:</dt><dd><p>A complex new feature or bugfix, a large refactoring, or a change to the
+underlying architecture of things. A major change must be reviewed by a
+member of the <em>maintainers</em> team. Tests must pass.</p>
+</dd>
+</dl>
+<p>The categorization is inherently subjective; we recommend erring on the side
+of caution - if you are not sure whether a change is <em>trivial</em> or merely
+<em>minor</em>, it’s probably minor.</p>
+<p>First time contributions from new developers are always major.</p>
+</section>
+<section id="coding-style">
+<h2>Coding Style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h2>
+<section id="general">
+<h3>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>All text files use Unix line endings. The git settings already present in
+the repository attempts to enforce this.</p></li>
+<li><p>When making changes, follow the brace and parenthesis style of the
+surrounding code.</p></li>
+</ul>
+</section>
+<section id="go-specific">
+<h3>Go Specific<a class="headerlink" href="#go-specific" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Follow the conventions laid out in <a class="reference external" href="https://go.dev/doc/effective_go">Effective
+Go</a> as much as makes
+sense. The review guidelines in <a class="reference external" href="https://github.com/golang/go/wiki/CodeReviewComments">Go Code Review Comments</a> should generally
+be followed.</p></li>
+<li><p>Each commit should be <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">fmt</span></code> clean.</p></li>
+<li><p>Imports are grouped per <code class="docutils literal notranslate"><span class="pre">goimports</span></code> standard; that is, standard
+library first, then third party libraries after a blank line.</p></li>
+</ul>
+</section>
+</section>
+<section id="commits">
+<h2>Commits<a class="headerlink" href="#commits" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>The commit message subject should be a single short sentence
+describing the change, starting with a capital letter but without
+ending punctuation, and prefixed with the package name most affected
+by the change.</p></li>
+<li><p>Commits that resolve an existing issue must include the issue number
+as <code class="docutils literal notranslate"><span class="pre">(fixes</span> <span class="pre">#123)</span></code> at the end of the commit message subject. A correctly
+formatted commit message looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lib</span><span class="o">/</span><span class="n">dialer</span><span class="p">:</span> <span class="n">Add</span> <span class="n">env</span> <span class="n">var</span> <span class="n">to</span> <span class="n">disable</span> <span class="n">proxy</span> <span class="n">fallback</span> <span class="p">(</span><span class="n">fixes</span> <span class="c1">#3006)</span>
+</pre></div>
+</div>
+</li>
+<li><p>If the commit message subject doesn’t say it all, one or more paragraphs of
+describing text should be added to the commit message. This should explain
+why the change is made and what it accomplishes.</p></li>
+<li><p>When drafting a pull request, please feel free to add commits with
+corrections and merge from <code class="docutils literal notranslate"><span class="pre">main</span></code> when necessary. This provides a clear time
+line with changes and simplifies review. Do not, in general, rebase your
+commits.</p></li>
+<li><p>Pull requests are merged to <code class="docutils literal notranslate"><span class="pre">main</span></code> using squash merge. The “stream of
+consciousness” set of commits described in the previous point will be reduced
+to a single commit at merge time.</p></li>
+</ul>
+</section>
+<section id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h2>
+<p>Yes please, do add tests when adding features or fixing bugs. Also, when a
+pull request is filed a number of automatic tests are run on the code. This
+includes:</p>
+<ul class="simple">
+<li><p>That the code actually builds and the test suite passes.</p></li>
+<li><p>That the code is correctly formatted (<code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">fmt</span></code>).</p></li>
+<li><p>That the commits are based on a reasonably recent <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p></li>
+<li><p>That the author is listed in AUTHORS.</p></li>
+<li><p>That the output from <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">lint</span></code> and <code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">vet</span></code> is clean. (This checks for a
+number of potential problems the compiler doesn’t catch.)</p></li>
+</ul>
+<p>If the pull request is invasive or scary looking, the full integration test
+suite can be run as well.</p>
+</section>
+<section id="branches">
+<h2>Branches<a class="headerlink" href="#branches" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">main</span></code> is the main branch containing good code that will end up
+in the next release. You should base your work on it. It won’t ever
+be rebased or force-pushed to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vx.y</span></code> branches exist to make patch releases on otherwise obsolete
+minor releases. Should only contain fixes cherry picked from <code class="docutils literal notranslate"><span class="pre">main</span></code>.
+Don’t base any work on them.</p></li>
+<li><p>Other branches are probably topic branches and may be subject to
+rebasing. Don’t base any work on them unless you specifically know
+otherwise.</p></li>
+</ul>
+</section>
+<section id="tags">
+<h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<p>All releases are tagged semver style as <code class="docutils literal notranslate"><span class="pre">vx.y.z</span></code>. The maintainer doing the
+release signs the tag using their GPG key.</p>
+</section>
+<section id="licensing">
+<h2>Licensing<a class="headerlink" href="#licensing" title="Permalink to this headline">¶</a></h2>
+<p>All contributions are made under the same MPLv2 license as the rest of the
+project, except documentation, user interface text and translation strings
+which are licensed under the Creative Commons Attribution 4.0 International
+License. You retain the copyright to code you have written.</p>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/contributing.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.23.0-0-g6a04057</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.23.0</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="building.html" title="previous chapter">Building Syncthing</a></li>
+      <li>Next: <a href="debugging.html" title="next chapter">Debugging Syncthing</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
