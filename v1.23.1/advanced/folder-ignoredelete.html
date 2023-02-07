@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>ignoreDelete &#8212; Syncthing v1.23.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/version_redirect.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sendOwnership" href="folder-send-ownership.html" />
+    <link rel="prev" title="filesystemType" href="folder-filesystem-type.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="ignoredelete">
+<h1>ignoreDelete<a class="headerlink" href="#ignoredelete" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ignoreDelete</span></code> is an advanced folder setting that affects the handling of
+incoming index updates. When set, incoming updates with the delete flag set
+are ignored.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This option should normally be set to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Changing
+it is not recommended, unless you are a power user and know exactly
+what you are doing. If you still intend to enable this option,
+please read the explanation below very thoroughly before doing so.</p>
+</div>
+<section id="example-scenario">
+<h2>Example Scenario<a class="headerlink" href="#example-scenario" title="Permalink to this headline">¶</a></h2>
+<p>Assume two devices, “Alice” and “Bob”, are sharing a folder. Bob has set
+<code class="docutils literal notranslate"><span class="pre">ignoreDelete</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>New and updated files are synchronized as usual between Alice and Bob. When
+Bob deletes a file, it is deleted for Alice as well. When Alice deletes a
+file, Bob ignores that update and does not delete the file.</p>
+<p>In this state, Bob is fully up to date from his own point of view, as is Alice
+from her own point of view.</p>
+<p>However from the point of view of Alice, who deleted a file and propagated the
+update, Bob is now out of date because he has yet to remove the file that was
+deleted by Alice.</p>
+<p>From the point of view of Bob, who ignored the delete entry from Alice, Alice
+is now out of date because she is missing the file that was deleted.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Bob may continue to see Alice as up to date until the next time
+Syncthing is restarted on his device.</p>
+</div>
+<p>Should Bob modify any of the files that Alice has deleted, the update will be
+sent to Alice and Alice will download the now updated file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignoring deletes in both directions between two devices can be a
+confusing configuration.</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/advanced/folder-ignoredelete.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.23.1-0-ge11e87c</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.23.1</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../users/index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../users/syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/config.html">Configuration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../users/advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../users/crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../users/index.html">Usage</a><ul>
+  <li><a href="../users/advanced.html">Advanced Configuration</a><ul>
+      <li>Previous: <a href="folder-filesystem-type.html" title="previous chapter">filesystemType</a></li>
+      <li>Next: <a href="folder-send-ownership.html" title="next chapter">sendOwnership</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
