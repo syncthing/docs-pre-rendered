@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>FAQ &#8212; Syncthing v1.23.6 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/version_redirect.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Versions &amp; Releases" href="releases.html" />
+    <link rel="prev" title="Syncthing" href="syncthing.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="faq">
+<span id="id1"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#general" id="id4">General</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-is-syncthing" id="id5">What is Syncthing?</a></p></li>
+<li><p><a class="reference internal" href="#is-it-syncthing-syncthing-or-syncthing" id="id6">Is it “syncthing”, “Syncthing” or “SyncThing”?</a></p></li>
+<li><p><a class="reference internal" href="#what-things-are-synced" id="id7">What things are synced?</a></p></li>
+<li><p><a class="reference internal" href="#is-synchronization-fast" id="id8">Is synchronization fast?</a></p></li>
+<li><p><a class="reference internal" href="#how-does-syncthing-differ-from-bittorrent-resilio-sync" id="id9">How does Syncthing differ from BitTorrent/Resilio Sync?</a></p></li>
+<li><p><a class="reference internal" href="#is-there-an-ios-client" id="id10">Is there an iOS client?</a></p></li>
+<li><p><a class="reference internal" href="#should-i-keep-my-device-ids-secret" id="id11">Should I keep my device IDs secret?</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#troubleshooting" id="id12">Troubleshooting</a></p>
+<ul>
+<li><p><a class="reference internal" href="#where-are-the-syncthing-logs" id="id13">Where are the Syncthing logs?</a></p></li>
+<li><p><a class="reference internal" href="#why-is-the-sync-so-slow" id="id14">Why is the sync so slow?</a></p></li>
+<li><p><a class="reference internal" href="#why-does-it-use-so-much-cpu" id="id15">Why does it use so much CPU?</a></p></li>
+<li><p><a class="reference internal" href="#why-is-the-setup-more-complicated-than-bittorrent-resilio-sync" id="id16">Why is the setup more complicated than BitTorrent/Resilio Sync?</a></p></li>
+<li><p><a class="reference internal" href="#why-do-i-get-host-check-error-in-the-gui-api" id="id17">Why do I get “Host check error” in the GUI/API?</a></p></li>
+<li><p><a class="reference internal" href="#my-syncthing-database-is-corrupt" id="id18">My Syncthing database is corrupt</a></p></li>
+<li><p><a class="reference internal" href="#why-do-i-see-syncthing-twice-in-task-manager" id="id19">Why do I see Syncthing twice in task manager?</a></p></li>
+<li><p><a class="reference internal" href="#how-can-i-view-the-history-of-changes" id="id20">How can I view the history of changes?</a></p></li>
+<li><p><a class="reference internal" href="#does-the-audit-log-contain-every-change" id="id21">Does the audit log contain every change?</a></p></li>
+<li><p><a class="reference internal" href="#why-does-syncthing-connect-to-this-unknown-suspicious-address" id="id22">Why does Syncthing connect to this unknown/suspicious address?</a></p></li>
+<li><p><a class="reference internal" href="#i-am-seeing-the-error-message-folder-marker-missing-what-do-i-do" id="id23">I am seeing the error message “folder marker missing”. What do I do?</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#usage" id="id24">Usage</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-if-there-is-a-conflict" id="id25">What if there is a conflict?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-serve-a-folder-from-a-read-only-filesystem" id="id26">How do I serve a folder from a read only filesystem?</a></p></li>
+<li><p><a class="reference internal" href="#i-really-hate-the-stfolder-directory-can-i-remove-it" id="id27">I really hate the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> directory, can I remove it?</a></p></li>
+<li><p><a class="reference internal" href="#am-i-able-to-nest-shared-folders-in-syncthing" id="id28">Am I able to nest shared folders in Syncthing?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-rename-move-a-synced-folder" id="id29">How do I rename/move a synced folder?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-configure-multiple-users-on-a-single-machine" id="id30">How do I configure multiple users on a single machine?</a></p></li>
+<li><p><a class="reference internal" href="#does-syncthing-support-syncing-between-folders-on-the-same-system" id="id31">Does Syncthing support syncing between folders on the same system?</a></p></li>
+<li><p><a class="reference internal" href="#when-i-do-have-two-distinct-syncthing-managed-folders-on-two-hosts-how-does-syncthing-handle-moving-files-between-them" id="id32">When I do have two distinct Syncthing-managed folders on two hosts, how does Syncthing handle moving files between them?</a></p></li>
+<li><p><a class="reference internal" href="#can-i-help-initial-sync-by-copying-files-manually" id="id33">Can I help initial sync by copying files manually?</a></p></li>
+<li><p><a class="reference internal" href="#is-syncthing-my-ideal-backup-application" id="id34">Is Syncthing my ideal backup application?</a></p></li>
+<li><p><a class="reference internal" href="#how-can-i-exclude-files-with-brackets-in-the-name" id="id35">How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-access-the-web-gui-from-another-computer" id="id36">How do I access the web GUI from another computer?</a></p></li>
+<li><p><a class="reference internal" href="#i-don-t-like-the-gui-or-the-theme-can-it-be-changed" id="id37">I don’t like the GUI or the theme. Can it be changed?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-upgrade-syncthing" id="id38">How do I upgrade Syncthing?</a></p></li>
+<li><p><a class="reference internal" href="#where-do-i-find-the-latest-release" id="id39">Where do I find the latest release?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-run-syncthing-as-a-daemon-process-on-linux" id="id40">How do I run Syncthing as a daemon process on Linux?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-increase-the-inotify-limit-to-get-my-filesystem-watcher-to-work" id="id41">How do I increase the inotify limit to get my filesystem watcher to work?</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-reset-the-gui-password" id="id42">How do I reset the GUI password?</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h2>
+<section id="what-is-syncthing">
+<h3>What is Syncthing?<a class="headerlink" href="#what-is-syncthing" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing is an application that lets you synchronize your files across multiple
+devices. This means the creation, modification or deletion of files on one
+machine will automatically be replicated to your other devices. We believe your
+data is your data alone and you deserve to choose where it is stored. Therefore
+Syncthing does not upload your data to the cloud but exchanges your data across
+your machines as soon as they are online at the same time.</p>
+</section>
+<section id="is-it-syncthing-syncthing-or-syncthing">
+<h3>Is it “syncthing”, “Syncthing” or “SyncThing”?<a class="headerlink" href="#is-it-syncthing-syncthing-or-syncthing" title="Permalink to this headline">¶</a></h3>
+<p>It’s <strong>Syncthing</strong>, although the command and source repository is spelled
+<code class="docutils literal notranslate"><span class="pre">syncthing</span></code> so it may be referred to in that way as well. It’s definitely not
+<span class="strike">SyncThing</span>, even though the abbreviation <code class="docutils literal notranslate"><span class="pre">st</span></code> is used in some
+circumstances and file names.</p>
+</section>
+<section id="what-things-are-synced">
+<h3>What things are synced?<a class="headerlink" href="#what-things-are-synced" title="Permalink to this headline">¶</a></h3>
+<p>The following things are <em>always</em> synchronized:</p>
+<ul class="simple">
+<li><p>File contents</p></li>
+<li><p>File modification times</p></li>
+</ul>
+<p>The following may be synchronized or not, depending:</p>
+<ul class="simple">
+<li><p>File permissions (when supported by file system; on Windows only the
+read only bit is synchronized)</p></li>
+<li><p>Symbolic links (synced, except on Windows, but never followed)</p></li>
+<li><p>File or directory owners and groups (when enabled)</p></li>
+<li><p>Extended attributes (when enabled)</p></li>
+<li><p>POSIX or NFS ACLs (as part of extended attributes)</p></li>
+</ul>
+<p>The following are <em>not</em> synchronized;</p>
+<ul class="simple">
+<li><p>Directory modification times (not preserved)</p></li>
+<li><p>Hard links (followed, not preserved)</p></li>
+<li><p>Windows junctions (synced as ordinary directories; require enabling in
+<a class="reference internal" href="config.html#config-option-folder.junctionsasdirs" title="config-option-folder.junctionsasdirs"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">the</span> <span class="pre">configuration</span></code></a> on a per-folder
+basis)</p></li>
+<li><p>Resource forks (not preserved)</p></li>
+<li><p>Windows ACLs (not preserved)</p></li>
+<li><p>Devices, FIFOs, and other specials (ignored)</p></li>
+<li><p>Sparse file sparseness (will become sparse, when supported by the OS &amp; filesystem)</p></li>
+<li><p>Syncthing internal files and folders (e.g. <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code>, <code class="docutils literal notranslate"><span class="pre">.stignore</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.stversions</span></code>, <a class="reference internal" href="syncing.html#temporary-files"><span class="std std-ref">temporary files</span></a>, etc.)</p></li>
+</ul>
+</section>
+<section id="is-synchronization-fast">
+<h3>Is synchronization fast?<a class="headerlink" href="#is-synchronization-fast" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing segments files into pieces, called blocks, to transfer data from one
+device to another. Therefore, multiple devices can share the synchronization
+load, in a similar way to the torrent protocol. The more devices you have online,
+the faster an additional device will receive the data
+because small blocks will be fetched from all devices in parallel.</p>
+<p>Syncthing handles renaming files and updating their metadata in an efficient
+manner. This means that renaming a file will not cause a retransmission of
+that file. Additionally, appending data to existing files should be handled
+efficiently as well.</p>
+<p><a class="reference internal" href="syncing.html#temporary-files"><span class="std std-ref">Temporary files</span></a> are used to store partial data
+downloaded from other devices. They are automatically removed whenever a file
+transfer has been completed or after the configured amount of time which is set
+in the configuration file (24 hours by default).</p>
+</section>
+<section id="how-does-syncthing-differ-from-bittorrent-resilio-sync">
+<h3>How does Syncthing differ from BitTorrent/Resilio Sync?<a class="headerlink" href="#how-does-syncthing-differ-from-bittorrent-resilio-sync" title="Permalink to this headline">¶</a></h3>
+<p>The two are different and not related. Syncthing and BitTorrent/Resilio Sync accomplish
+some of the same things, namely syncing files between two or more computers.</p>
+<p>BitTorrent Sync, now called Resilio Sync, is a proprietary peer-to-peer file
+synchronization tool available for Windows, Mac, Linux, Android, iOS, Windows
+Phone, Amazon Kindle Fire and BSD. <a class="footnote-reference brackets" href="#resiliosync" id="id2">1</a> Syncthing is an open source file
+synchronization tool.</p>
+<p>Syncthing uses an open and documented protocol, and likewise the security
+mechanisms in use are well defined and visible in the source code. Resilio
+Sync uses an undocumented, closed protocol with unknown security properties.</p>
+<dl class="footnote brackets">
+<dt class="label" id="resiliosync"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Resilio_Sync">https://en.wikipedia.org/wiki/Resilio_Sync</a></p>
+</dd>
+</dl>
+</section>
+<section id="is-there-an-ios-client">
+<h3>Is there an iOS client?<a class="headerlink" href="#is-there-an-ios-client" title="Permalink to this headline">¶</a></h3>
+<p>There are no plans by the current Syncthing team to officially support iOS in the foreseeable future.</p>
+<p>iOS has significant restrictions on background processing that make it very hard to
+run Syncthing reliably and integrate it into the system.</p>
+<p>However, there is a commercial packaging of Syncthing for iOS that attempts to work within these limitations. <a class="footnote-reference brackets" href="#mobiussync" id="id3">2</a></p>
+<dl class="footnote brackets">
+<dt class="label" id="mobiussync"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference external" href="https://www.mobiussync.com">https://www.mobiussync.com</a></p>
+</dd>
+</dl>
+</section>
+<section id="should-i-keep-my-device-ids-secret">
+<h3>Should I keep my device IDs secret?<a class="headerlink" href="#should-i-keep-my-device-ids-secret" title="Permalink to this headline">¶</a></h3>
+<p>No. The IDs are not sensitive. Given a device ID it’s possible to find the IP
+address for that device, if global discovery is enabled on it. Knowing the device
+ID doesn’t help you actually establish a connection to that device or get a list
+of files, etc.</p>
+<p>For a connection to be established, both devices need to know about the other’s
+device ID. It’s not possible (in practice) to forge a device ID. (To forge a
+device ID you need to create a TLS certificate with that specific SHA-256 hash.
+If you can do that, you can spoof any TLS certificate. The world is your
+oyster!)</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../dev/device-ids.html#device-ids"><span class="std std-ref">Understanding Device IDs</span></a></p>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<section id="where-are-the-syncthing-logs">
+<h3>Where are the Syncthing logs?<a class="headerlink" href="#where-are-the-syncthing-logs" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing logs to stdout by default. On Windows Syncthing by default also
+creates <code class="docutils literal notranslate"><span class="pre">syncthing.log</span></code> in Syncthing’s home directory (run <code class="docutils literal notranslate"><span class="pre">syncthing</span>
+<span class="pre">--paths</span></code> to see where that is). The command line option <code class="docutils literal notranslate"><span class="pre">--logfile</span></code> can be
+used to specify a user-defined logfile.  If you only have access to a running
+instance’s GUI, check under the <cite>Actions</cite> - <cite>About</cite> menu item to see the used
+paths.</p>
+<p>If you’re running a process manager like systemd, check there. If you’re
+using a GUI wrapper integration, it may keep the logs for you.</p>
+</section>
+<section id="why-is-the-sync-so-slow">
+<h3>Why is the sync so slow?<a class="headerlink" href="#why-is-the-sync-so-slow" title="Permalink to this headline">¶</a></h3>
+<p>When troubleshooting a slow sync, there are a number of things to check.</p>
+<p>First of all, verify that you are not connected via a relay. In the “Remote
+Devices” list on the right side of the GUI, double check that you see
+“Address: &lt;some address&gt;” and <em>not</em> “Relay: &lt;some address&gt;”.</p>
+<img alt="../_images/address.png" src="../_images/address.png" />
+<p>If you are connected via a relay, this is because a direct connection could
+not be established. Double check and follow the suggestions in
+<a class="reference internal" href="firewall.html#firewall-setup"><span class="std std-ref">Firewall Setup</span></a> to enable direct connections.</p>
+<p>Second, if one of the devices is a very low powered machine (a Raspberry Pi,
+or a phone, or a NAS, or similar) you are likely constrained by the CPU on
+that device. See the next question for reasons Syncthing likes a faster CPU.</p>
+<p>Third, verify that the network connection is OK. Tools such as iperf or just
+an Internet speed test can be used to verify the performance here.</p>
+</section>
+<section id="why-does-it-use-so-much-cpu">
+<h3>Why does it use so much CPU?<a class="headerlink" href="#why-does-it-use-so-much-cpu" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>When new or changed files are detected, or Syncthing starts for the
+first time, your files are hashed using SHA-256.</p></li>
+<li><p>Data that is sent over the network is compressed (optionally) and
+encrypted (always). When receiving data it must be decrypted and then (if
+compressed) decompressed.</p></li>
+<li><p>There is a certain amount of housekeeping that must be done to track the
+current and available versions of each file in the index database.</p></li>
+<li><p>By default Syncthing uses periodic scanning every hour when watching for
+changes or every minute if that’s disabled to detect
+file changes. This means checking every file’s modification time and
+comparing it to the database. This can cause spikes of CPU usage for large
+folders.</p></li>
+</ol>
+<p>Hashing, compression and encryption cost CPU time. Also, using the GUI
+causes a certain amount of extra CPU usage to calculate the summary data it
+presents. Note however that once things are <em>in sync</em> CPU usage should be
+negligible.</p>
+<p>To minimize the impact of this, Syncthing attempts to <a class="reference internal" href="config.html#config-option-options.setlowpriority" title="config-option-options.setlowpriority"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">lower</span> <span class="pre">the</span>
+<span class="pre">process</span> <span class="pre">priority</span></code></a> when starting up.</p>
+<p>To further limit the amount of CPU used when syncing and scanning, set the
+environment variable <code class="docutils literal notranslate"><span class="pre">GOMAXPROCS</span></code> to the maximum number of CPU cores
+Syncthing should use at any given moment. For example, <code class="docutils literal notranslate"><span class="pre">GOMAXPROCS=2</span></code> on a
+machine with four cores will limit Syncthing to no more than half the
+system’s CPU power.</p>
+</section>
+<section id="why-is-the-setup-more-complicated-than-bittorrent-resilio-sync">
+<h3>Why is the setup more complicated than BitTorrent/Resilio Sync?<a class="headerlink" href="#why-is-the-setup-more-complicated-than-bittorrent-resilio-sync" title="Permalink to this headline">¶</a></h3>
+<p>Security over convenience. In Syncthing you have to setup both sides to
+connect two devices. An attacker can’t do much with a stolen device ID, because
+you have to add the device on the other side too. You have better control
+where your files are transferred.</p>
+<p>This is an area that we are working to improve in the long term.</p>
+</section>
+<section id="why-do-i-get-host-check-error-in-the-gui-api">
+<h3>Why do I get “Host check error” in the GUI/API?<a class="headerlink" href="#why-do-i-get-host-check-error-in-the-gui-api" title="Permalink to this headline">¶</a></h3>
+<p>Since version 0.14.6 Syncthing does an extra security check when the GUI/API
+is bound to localhost - namely that the browser is talking to localhost.
+This protects against most forms of <a class="reference external" href="https://en.wikipedia.org/wiki/DNS_rebinding">DNS rebinding attack</a> against the GUI.</p>
+<p>To pass this test, ensure that you are accessing the GUI using an URL that
+begins with <code class="docutils literal notranslate"><span class="pre">http://localhost</span></code>, <code class="docutils literal notranslate"><span class="pre">http://127.0.0.1</span></code> or <code class="docutils literal notranslate"><span class="pre">http://[::1]</span></code>. HTTPS
+is fine too, of course.</p>
+<p>If you are using a proxy in front of Syncthing you may need to disable this
+check, after ensuring that the proxy provides sufficient authentication to
+protect against unauthorized access. Either:</p>
+<ul class="simple">
+<li><p>Make sure the proxy sets a <code class="docutils literal notranslate"><span class="pre">Host</span></code> header containing <code class="docutils literal notranslate"><span class="pre">localhost</span></code>, or</p></li>
+<li><p>Set <a class="reference internal" href="config.html#config-option-gui.insecureskiphostcheck" title="config-option-gui.insecureskiphostcheck"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">gui.insecureSkipHostcheck</span></code></a> in the advanced settings, or</p></li>
+<li><p>Bind the GUI/API to a non-localhost listen port.</p></li>
+</ul>
+<p>In all cases, username/password authentication and HTTPS should be used.</p>
+</section>
+<section id="my-syncthing-database-is-corrupt">
+<h3>My Syncthing database is corrupt<a class="headerlink" href="#my-syncthing-database-is-corrupt" title="Permalink to this headline">¶</a></h3>
+<p>This is almost always a result of bad RAM, storage device or other hardware.
+When the index database is found to be corrupt Syncthing cannot operate and will
+note this in the logs and exit. To overcome this delete the <a class="reference internal" href="config.html#config-locations"><span class="std std-ref">database
+folder</span></a> inside Syncthing’s data directory and re-start
+Syncthing. It will then need to perform a full re-hashing of all shared
+folders. You should check your system in case the underlying cause is indeed
+faulty hardware which may put the system at risk of further data loss.</p>
+</section>
+<section id="why-do-i-see-syncthing-twice-in-task-manager">
+<h3>Why do I see Syncthing twice in task manager?<a class="headerlink" href="#why-do-i-see-syncthing-twice-in-task-manager" title="Permalink to this headline">¶</a></h3>
+<p>One process manages the other, to capture logs and manage restarts. This
+makes it easier to handle upgrades from within Syncthing itself, and also
+ensures that we get a nice log file to help us narrow down the cause for
+crashes and other bugs.</p>
+</section>
+<section id="how-can-i-view-the-history-of-changes">
+<h3>How can I view the history of changes?<a class="headerlink" href="#how-can-i-view-the-history-of-changes" title="Permalink to this headline">¶</a></h3>
+<p>The web GUI contains a <code class="docutils literal notranslate"><span class="pre">Recent</span> <span class="pre">Changes</span></code> button under the device list which
+displays changes since the last (re)start of Syncthing. With the <code class="docutils literal notranslate"><span class="pre">--audit</span></code>
+option you can enable a persistent, detailed log of changes and most
+activities, which contains a <code class="docutils literal notranslate"><span class="pre">JSON</span></code> formatted  sequence of events in the
+<code class="docutils literal notranslate"><span class="pre">~/.config/syncthing/audit-_date_-_time_.log</span></code> file.</p>
+</section>
+<section id="does-the-audit-log-contain-every-change">
+<h3>Does the audit log contain every change?<a class="headerlink" href="#does-the-audit-log-contain-every-change" title="Permalink to this headline">¶</a></h3>
+<p>The audit log (and the <code class="docutils literal notranslate"><span class="pre">Recent</span> <span class="pre">Changes</span></code> window) sees the changes that your
+Syncthing sees. When Syncthing is continuously connected it usually sees every change
+happening immediately and thus knows which node initiated the change.
+When topology gets complex or when your node reconnects after some time offline,
+Syncthing synchronises with its neighbours: It gets the latest synchronised state
+from the neighbour, which is the <em>result</em> of all the changes between the last
+known state (before disconnect or network delay) and the current state at the
+neighbour, and if there were updates, deletes, creates, conflicts, which were
+overlapping we only see the <em>latest change</em> for a given file or directory (and
+the node where that latest change occurred). When we connect to multiple neighbours
+Syncthing decides which neighbour has the latest state, or if the states conflict
+it initiates the conflict resolution procedure, which in the end results in a consistent
+up-to-date state with all the neighbours.</p>
+</section>
+<section id="why-does-syncthing-connect-to-this-unknown-suspicious-address">
+<h3>Why does Syncthing connect to this unknown/suspicious address?<a class="headerlink" href="#why-does-syncthing-connect-to-this-unknown-suspicious-address" title="Permalink to this headline">¶</a></h3>
+<p>If you see outgoing connections to odd and unexpected addresses these are
+most likely connections to <a class="reference internal" href="relaying.html#relaying"><span class="std std-ref">relay servers</span></a>. Relay servers
+are run by volunteers all over the world. They usually listen on ports 443 or
+22067, though this is controlled by the user running it. You can compare the
+address you are concerned about with <a class="reference external" href="https://relays.syncthing.net">the current list of active relays</a>. Relays do not and can not see the data
+transmitted via them.</p>
+</section>
+<section id="i-am-seeing-the-error-message-folder-marker-missing-what-do-i-do">
+<h3>I am seeing the error message “folder marker missing”. What do I do?<a class="headerlink" href="#i-am-seeing-the-error-message-folder-marker-missing-what-do-i-do" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing uses a specific marker usually called <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> to determine whether
+a folder is healthy. This is a safety check to ensure that your folder is properly
+readable and present on disk. For example, if you remove a USB drive from your computer
+or unmount a filesystem, then syncthing must know whether you have really deleted <strong>all</strong> of
+your files. Therefore, syncthing always checks that the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> is present.</p>
+<p>When this error appears, syncthing assumes that the folder has encountered some type of error
+and will stop syncing it until the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> reappears. Once that happens, all changes made
+to the folder locally will be synced (i.e. missing files will be considered deletions).</p>
+<ul>
+<li><p>If you get this error message, check the folder in question on your storage. If you have
+unmounted the folder (or a parent of it), you must remount it for syncthing to resume syncing
+this folder.</p></li>
+<li><p>If you have moved the folder, you must either move it back to its original location, or remove the
+folder from within the syncthing UI and re-add it at its new location.</p></li>
+<li><p>If the folder is present on disk, with all of its children files and directories, but the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code>
+is still missing:</p>
+<p>It is possible that a file cleaning software has removed the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code>. Some software
+removes empty folders, and the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> is often empty. This happens particularly often on Android.
+To remediate, recreate the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> and add a dummy file in it, or add an exception to your
+cleaning software.</p>
+</li>
+</ul>
+<p>If you are still unsure what has happened, you can remove the folder from within the syncthing UI and re-add it
+at the same location. This causes syncthing to attempt an automatic re-creation of the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code>. Next,
+it will also reset the database state of this folder. It will be considered a “new” folder, meaning that its files
+will be merged with files from remote devices.</p>
+<p>Also see the <a class="reference internal" href="#marker-faq"><span class="std std-ref">marker FAQ</span></a> for more information about the folder marker.</p>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<section id="what-if-there-is-a-conflict">
+<h3>What if there is a conflict?<a class="headerlink" href="#what-if-there-is-a-conflict" title="Permalink to this headline">¶</a></h3>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="syncing.html#conflict-handling"><span class="std std-ref">Conflicting Changes</span></a></p>
+</div>
+</section>
+<section id="how-do-i-serve-a-folder-from-a-read-only-filesystem">
+<span id="marker-faq"></span><h3>How do I serve a folder from a read only filesystem?<a class="headerlink" href="#how-do-i-serve-a-folder-from-a-read-only-filesystem" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing requires a “folder marker” to indicate that the folder is present
+and healthy. By default this is a directory called <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> that is
+created by Syncthing when the folder is added. If this folder can’t be
+created (you are serving files from a CD or something) you can instead set
+the advanced config <code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Name</span></code> to the name of some file or folder that
+you know will always exist in the folder.</p>
+</section>
+<section id="i-really-hate-the-stfolder-directory-can-i-remove-it">
+<h3>I really hate the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> directory, can I remove it?<a class="headerlink" href="#i-really-hate-the-stfolder-directory-can-i-remove-it" title="Permalink to this headline">¶</a></h3>
+<p>See the previous question.</p>
+</section>
+<section id="am-i-able-to-nest-shared-folders-in-syncthing">
+<h3>Am I able to nest shared folders in Syncthing?<a class="headerlink" href="#am-i-able-to-nest-shared-folders-in-syncthing" title="Permalink to this headline">¶</a></h3>
+<p>Sharing a folder that is within an already shared folder is possible, but it has
+its caveats. What you must absolutely avoid are circular shares. This is just
+one example, there may be other undesired effects. Nesting shared folders is not
+supported, recommended or coded for, but it can be done successfully when you
+know what you’re doing - you have been warned.</p>
+</section>
+<section id="how-do-i-rename-move-a-synced-folder">
+<h3>How do I rename/move a synced folder?<a class="headerlink" href="#how-do-i-rename-move-a-synced-folder" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing doesn’t have a direct way to do this, as it’s potentially
+dangerous to do so if you’re not careful - it may result in data loss if
+something goes wrong during the move and is synchronized to your other
+devices.</p>
+<p>The easy way to rename or move a synced folder on the local system is to
+remove the folder in the Syncthing UI, move it on disk, then re-add it using
+the new path.</p>
+<p>It’s important to do this when the folder is already in sync between your
+devices, as it is otherwise unpredictable which changes will “win” after the
+move. Changes made on other devices may be overwritten, or changes made
+locally may be overwritten by those on other devices.</p>
+<p>An alternative way is to shut down Syncthing, move the folder on disk (including
+the <code class="docutils literal notranslate"><span class="pre">.stfolder</span></code> marker), edit the path directly in <code class="docutils literal notranslate"><span class="pre">config.xml</span></code> in the
+configuration folder (see <a class="reference internal" href="config.html"><span class="doc">Syncthing Configuration</span></a>) and then start Syncthing again.</p>
+</section>
+<section id="how-do-i-configure-multiple-users-on-a-single-machine">
+<h3>How do I configure multiple users on a single machine?<a class="headerlink" href="#how-do-i-configure-multiple-users-on-a-single-machine" title="Permalink to this headline">¶</a></h3>
+<p>Each user should run their own Syncthing instance. Be aware that you might need
+to configure listening ports such that they do not overlap (see <a class="reference internal" href="config.html"><span class="doc">Syncthing Configuration</span></a>).</p>
+</section>
+<section id="does-syncthing-support-syncing-between-folders-on-the-same-system">
+<h3>Does Syncthing support syncing between folders on the same system?<a class="headerlink" href="#does-syncthing-support-syncing-between-folders-on-the-same-system" title="Permalink to this headline">¶</a></h3>
+<p>No. Syncthing is not designed to sync locally and the overhead involved in
+doing so using Syncthing’s method would be wasteful. There are better
+programs to achieve this such as <a class="reference external" href="https://rsync.samba.org/">rsync</a> or
+<a class="reference external" href="https://www.cis.upenn.edu/~bcpierce/unison">Unison</a>.</p>
+</section>
+<section id="when-i-do-have-two-distinct-syncthing-managed-folders-on-two-hosts-how-does-syncthing-handle-moving-files-between-them">
+<h3>When I do have two distinct Syncthing-managed folders on two hosts, how does Syncthing handle moving files between them?<a class="headerlink" href="#when-i-do-have-two-distinct-syncthing-managed-folders-on-two-hosts-how-does-syncthing-handle-moving-files-between-them" title="Permalink to this headline">¶</a></h3>
+<p>Syncthing does not specially handle this case, and most files will most likely get
+re-downloaded.</p>
+<p>In detail, the behavior depends on the scan order. If you have folders A and B,
+and move files from A to B, if A gets scanned first, it will announce the removal of
+the files to others who will then remove the files. As you rescan B, B will
+announce the addition of new files, and other peers will have nowhere to get
+them from apart from re-downloading them.</p>
+<p>If B gets rescanned first, B will announce additions first, and remote
+peers will then reconstruct the files (not rename, more like copying block by
+block) from A, and then as A gets rescanned, it will remove the files from A.</p>
+<p>A workaround would be to copy first from A to B, rescan B, wait for B to
+copy the files on the remote side, and then delete from A.</p>
+</section>
+<section id="can-i-help-initial-sync-by-copying-files-manually">
+<h3>Can I help initial sync by copying files manually?<a class="headerlink" href="#can-i-help-initial-sync-by-copying-files-manually" title="Permalink to this headline">¶</a></h3>
+<p>If you have a large folder that you want to keep in sync over a not-so-fast network, and you have the possibility to move all files to the remote device in a faster manner, here is a procedure to follow:</p>
+<ul class="simple">
+<li><p>Create the folder on the local device, but don’t share it with the remote device yet.</p></li>
+<li><p>Copy the files from the local device to the remote device using regular file copy. If this takes a long time (perhaps requiring travelling there physically), it may be a good idea to make sure that the files on the local device are not updated while you are doing this.</p></li>
+<li><p>Create the folder on the remote device, and copy the Folder ID from the folder on the local device, as we want the folders to be considered the same. Then wait until scanning the folder is done.</p></li>
+<li><p>Now share the folder with the other device, on both sides. Syncthing will exchange file information, updating the database, but existing files will not be transferred. This may still take a while initially, be patient and wait until it settled.</p></li>
+</ul>
+</section>
+<section id="is-syncthing-my-ideal-backup-application">
+<h3>Is Syncthing my ideal backup application?<a class="headerlink" href="#is-syncthing-my-ideal-backup-application" title="Permalink to this headline">¶</a></h3>
+<p>No. Syncthing is not a great backup application because all changes to your
+files (modifications, deletions, etc.) will be propagated to all your
+devices. You can enable versioning, but we encourage you to use other tools
+to keep your data safe from your (or our) mistakes.</p>
+</section>
+<section id="how-can-i-exclude-files-with-brackets-in-the-name">
+<h3>How can I exclude files with brackets (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) in the name?<a class="headerlink" href="#how-can-i-exclude-files-with-brackets-in-the-name" title="Permalink to this headline">¶</a></h3>
+<p>The patterns in .stignore are glob patterns, where brackets are used to
+denote character ranges. That is, the pattern <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> will match the
+files <code class="docutils literal notranslate"><span class="pre">qax</span></code>, <code class="docutils literal notranslate"><span class="pre">qbx</span></code> and <code class="docutils literal notranslate"><span class="pre">qcx</span></code>.</p>
+<p>To match an actual file <em>called</em> <code class="docutils literal notranslate"><span class="pre">q[abc]x</span></code> the pattern needs to “escape”
+the brackets, like so: <code class="docutils literal notranslate"><span class="pre">q\[abc\]x</span></code>.</p>
+<p>On Windows, escaping special characters is not supported as the <code class="docutils literal notranslate"><span class="pre">\</span></code>
+character is used as a path separator.</p>
+</section>
+<section id="how-do-i-access-the-web-gui-from-another-computer">
+<h3>How do I access the web GUI from another computer?<a class="headerlink" href="#how-do-i-access-the-web-gui-from-another-computer" title="Permalink to this headline">¶</a></h3>
+<p>The default listening address is 127.0.0.1:8384, so you can only access the
+GUI from the same machine. This is for security reasons. To access the web
+GUI from another computer, change the <code class="docutils literal notranslate"><span class="pre">GUI</span> <span class="pre">listen</span> <span class="pre">address</span></code> through the web
+UI from <code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code> to
+<code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code> or change the config.xml:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;address&gt;</span>127.0.0.1:8384<span class="nt">&lt;/address&gt;</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gui</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">tls=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;address&gt;</span>0.0.0.0:8384<span class="nt">&lt;/address&gt;</span>
+</pre></div>
+</div>
+<p>Then the GUI is accessible from everywhere. You should set a password and
+enable HTTPS with this configuration. You can do this from inside the GUI.</p>
+<p>If both your computers are Unix-like (Linux, Mac, etc.) you can also leave the
+GUI settings at default and use an ssh port forward to access it. For
+example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ssh -L <span class="m">9090</span>:127.0.0.1:8384 user@othercomputer.example.com
+</pre></div>
+</div>
+<p>will log you into othercomputer.example.com, and present the <em>remote</em>
+Syncthing GUI on <a class="reference external" href="http://localhost:9090">http://localhost:9090</a> on your <em>local</em> computer.</p>
+<p>If you only want to access the remote gui and don’t want the terminal
+session, use this example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ssh -N -L <span class="m">9090</span>:127.0.0.1:8384 user@othercomputer.example.com
+</pre></div>
+</div>
+<p>If only your remote computer is Unix-like,
+you can still access it with ssh from Windows.</p>
+<p>Under Windows 10 or later (64-bit only) you can use the same ssh command
+if you install the <a class="reference external" href="https://docs.microsoft.com/windows/wsl/install">Windows Subsystem for Linux</a>.</p>
+<p>Another Windows way to run ssh is to install <a class="reference external" href="https://github.com/bmatzelle/gow">gow (Gnu On Windows)</a>. The easiest way to install gow is with the <a class="reference external" href="https://chocolatey.org/">chocolatey</a> package manager.</p>
+</section>
+<section id="i-don-t-like-the-gui-or-the-theme-can-it-be-changed">
+<h3>I don’t like the GUI or the theme. Can it be changed?<a class="headerlink" href="#i-don-t-like-the-gui-or-the-theme-can-it-be-changed" title="Permalink to this headline">¶</a></h3>
+<p>You can change the theme in the settings. Syncthing ships with other themes
+than the default.</p>
+<p>If you want a custom theme or a completely different GUI, you can add your
+own.
+By default, Syncthing will look for a directory <code class="docutils literal notranslate"><span class="pre">gui</span></code> inside the Syncthing
+home folder. To change the directory to look for themes, you need to set the
+STGUIASSETS environment variable. To get the concrete directory, run
+syncthing with the <code class="docutils literal notranslate"><span class="pre">--paths</span></code> parameter. It will print all the relevant paths,
+including the “GUI override directory”.</p>
+<p>To add e.g. a red theme, you can create the file <code class="docutils literal notranslate"><span class="pre">red/assets/css/theme.css</span></code>
+inside the GUI override directory to override the default CSS styles.</p>
+<p>To create a whole new GUI, you should checkout the files at
+<a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/gui/default">https://github.com/syncthing/syncthing/tree/main/gui/default</a>
+to get an idea how to do that.</p>
+</section>
+<section id="how-do-i-upgrade-syncthing">
+<h3>How do I upgrade Syncthing?<a class="headerlink" href="#how-do-i-upgrade-syncthing" title="Permalink to this headline">¶</a></h3>
+<p>If you use a package manager such as Debian’s apt-get, you should upgrade
+using the package manager. If you use the binary packages linked from
+Syncthing.net, you can use Syncthing’s built-in automatic upgrade functionality.</p>
+<ul class="simple">
+<li><p>If automatic upgrades is enabled (which is the default), Syncthing will
+upgrade itself automatically within 24 hours of a new release.</p></li>
+<li><p>The upgrade button appears in the web GUI when a new version has been
+released. Pressing it will perform an upgrade.</p></li>
+<li><p>To force an upgrade from the command line, run <code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">--upgrade</span></code>.</p></li>
+</ul>
+<p>Note that your system should have CA certificates installed which allows a
+secure connection to GitHub (e.g. FreeBSD requires <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pkg</span> <span class="pre">install</span>
+<span class="pre">ca_root_nss</span></code>). If <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code> works with normal HTTPS sites, then
+so should Syncthing.</p>
+</section>
+<section id="where-do-i-find-the-latest-release">
+<h3>Where do I find the latest release?<a class="headerlink" href="#where-do-i-find-the-latest-release" title="Permalink to this headline">¶</a></h3>
+<p>We release new versions through GitHub. The latest release is always found
+<a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">on the release page</a>. Unfortunately
+GitHub does not provide a single URL to automatically download the latest
+version. We suggest to use the <a class="reference external" href="https://api.github.com/repos/syncthing/syncthing/releases/latest">GitHub API</a> and parsing
+the JSON response.</p>
+</section>
+<section id="how-do-i-run-syncthing-as-a-daemon-process-on-linux">
+<h3>How do I run Syncthing as a daemon process on Linux?<a class="headerlink" href="#how-do-i-run-syncthing-as-a-daemon-process-on-linux" title="Permalink to this headline">¶</a></h3>
+<p>If you’re using systemd, runit, or upstart, we ship <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/etc">example configurations</a>.</p>
+<p>If however you’re not using one of these tools, you have a couple of options.
+If your system has a tool called <code class="docutils literal notranslate"><span class="pre">start-stop-daemon</span></code> installed (that’s the name
+of the command, not the package), look into the local documentation for that, it
+will almost certainly cover 100% of what you want to do.  If you don’t have
+<code class="docutils literal notranslate"><span class="pre">start-stop-daemon</span></code>, there are a bunch of other software packages you could use
+to do this.  The most well known is called daemontools, and can be found in the
+standard package repositories for almost every modern Linux distribution.
+Other popular tools with similar functionality include S6 and the aforementioned
+runit.</p>
+</section>
+<section id="how-do-i-increase-the-inotify-limit-to-get-my-filesystem-watcher-to-work">
+<span id="inotify-limits"></span><h3>How do I increase the inotify limit to get my filesystem watcher to work?<a class="headerlink" href="#how-do-i-increase-the-inotify-limit-to-get-my-filesystem-watcher-to-work" title="Permalink to this headline">¶</a></h3>
+<p>You are probably reading this because you encountered the following error with
+the filesystem watcher on linux:</p>
+<blockquote>
+<div><p>Failed to start filesystem watcher for folder yourLabel (yourID): failed to
+setup inotify handler. Please increase inotify limits, see <a class="reference external" href="https://docs.syncthing.net/users/faq.html#inotify-limits">https://docs.syncthing.net/users/faq.html#inotify-limits</a></p>
+</div></blockquote>
+<p>Linux typically restricts the amount of watches per user (usually 8192). When
+you have more directories you need to adjust that number.</p>
+<p>On many Linux distributions you can run the following to fix it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;fs.inotify.max_user_watches=204800&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">-</span><span class="n">a</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sysctl</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>On Arch Linux and potentially others it is preferred to write this line into a
+separate file, i.e. you should run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;fs.inotify.max_user_watches=204800&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">-</span><span class="n">a</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sysctl</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="mi">90</span><span class="o">-</span><span class="n">override</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>This only takes effect after a reboot. To adjust the limit immediately, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="mi">204800</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">fs</span><span class="o">/</span><span class="n">inotify</span><span class="o">/</span><span class="n">max_user_watches</span>
+</pre></div>
+</div>
+</section>
+<section id="how-do-i-reset-the-gui-password">
+<h3>How do I reset the GUI password?<a class="headerlink" href="#how-do-i-reset-the-gui-password" title="Permalink to this headline">¶</a></h3>
+<p>If you’ve forgotten / lost the GUI password, you can reset it using the
+<a class="reference internal" href="syncthing.html#cmdoption-gui-password"><code class="xref std std-option docutils literal notranslate"><span class="pre">--gui-password</span></code></a> (and possibly <a class="reference internal" href="syncthing.html#cmdoption-gui-user"><code class="xref std std-option docutils literal notranslate"><span class="pre">--gui-user</span></code></a>) options to the
+<code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">generate</span></code> subcommand.  This should be done while Syncthing is not
+running.</p>
+<ol class="arabic simple">
+<li><p>Stop Syncthing: <code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">cli</span> <span class="pre">operations</span> <span class="pre">shutdown</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">syncthing</span> <span class="pre">generate</span> <span class="pre">--gui-password=myNewPassword</span> <span class="pre">--gui-user=newUserName</span></code></p></li>
+<li><p>Restart Syncthing as usual.</p></li>
+</ol>
+<p><em>Alternatively, in step 2</em>, you can manually delete the <a class="reference internal" href="config.html#config-option-gui.user" title="config-option-gui.user"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code></a> and <a class="reference internal" href="config.html#config-option-gui.password" title="config-option-gui.password"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">&lt;password&gt;</span></code></a> XML tags from the
+<code class="docutils literal notranslate"><span class="pre">&lt;gui&gt;</span></code> block in file <code class="docutils literal notranslate"><span class="pre">config.xml</span></code>.  The location of the file depends on the
+OS and is described in the <a class="reference internal" href="config.html"><span class="doc">configuration documentation</span></a>.</p>
+<p>For example, the two emphasized lines below would be removed from the file.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;gui enabled=&quot;true&quot; tls=&quot;false&quot; debugging=&quot;false&quot;&gt;
+   &lt;address&gt;127.0.0.1:8384&lt;/address&gt;
+<span class="hll">   &lt;user&gt;syncguy&lt;/user&gt;
+</span><span class="hll">   &lt;password&gt;$2a$10$s9wWHOQe...Cq7GPye69&lt;/password&gt;
+</span>   &lt;apikey&gt;9RCKohqCAyrj5RjpyZdR2wXmQ9PyQFeN&lt;/apikey&gt;
+   &lt;theme&gt;default&lt;/theme&gt;
+&lt;/gui&gt;
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/faq.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.23.6-0-g6d93f3a</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.23.6</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html">Configuration Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="syncthing.html" title="previous chapter">Syncthing</a></li>
+      <li>Next: <a href="releases.html" title="next chapter">Versions &amp; Releases</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
