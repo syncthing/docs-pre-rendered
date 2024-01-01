@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>File Versioning &#8212; Syncthing v1.27.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=2c5e4dc3" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=a6fd5558"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Syncthing Discovery Server" href="stdiscosrv.html" />
+    <link rel="prev" title="Ignoring Files" href="ignoring.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="file-versioning">
+<h1>File Versioning<a class="headerlink" href="#file-versioning" title="Permalink to this heading">¶</a></h1>
+<p>Syncthing supports archiving the old version of a file when it is deleted or
+replaced with a newer version from the cluster. This is called “file
+versioning” and uses one of the available <em>versioning strategies</em> described
+below. File versioning is configured per folder, on a per-device basis, and
+defaults to “no file versioning”, i.e. no old copies of files are kept.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Versioning applies to changes received <em>from other devices</em>. That is, if
+Alice has versioning turned on and Bob changes a file, the old version
+will be archived on Alice’s computer when that change is synced from
+Bob. If Alice changes a file locally on her own computer Syncthing will
+not and can not archive the old version.</p>
+</div>
+<p>The applicable configuration options for each versioning strategy are described
+below.  For most of them it’s possible to specify where the versions are stored,
+with the default being the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder inside the shared folder path.
+If you set a custom version path, please ensure that it’s on the same partition
+or filesystem as the regular folder path, as moving files there may otherwise
+fail.</p>
+<section id="trash-can-file-versioning">
+<h2>Trash Can File Versioning<a class="headerlink" href="#trash-can-file-versioning" title="Permalink to this heading">¶</a></h2>
+<p>This versioning strategy emulates the common “trash can” approach. When a file
+is deleted or replaced due to a change on a remote device, it is moved to
+the trash can in the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder. If a file with the same name was
+already in the trash can it is replaced.</p>
+<p>A <a class="reference internal" href="#config-option-folder.versioning.params.cleanoutdays" title="config-option-folder.versioning.params.cleanoutdays"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">configuration</span> <span class="pre">option</span></code></a> is
+available to clean the trash can from files older than a specified number of
+days.  If this is set to a positive number of days, files will be removed when
+they have been in the trash can that long.  Setting this to zero prevents any
+files from being removed from the trash can automatically.</p>
+</section>
+<section id="simple-file-versioning">
+<h2>Simple File Versioning<a class="headerlink" href="#simple-file-versioning" title="Permalink to this heading">¶</a></h2>
+<p>With “Simple File Versioning” files are moved to the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder when
+replaced or deleted on a remote device.  In addition to the
+<a class="reference internal" href="#config-option-folder.versioning.params.cleanoutdays" title="config-option-folder.versioning.params.cleanoutdays"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">cleanoutDays</span></code></a> option, this strategy also takes a
+value in an input titled “Keep Versions” which tells Syncthing how many old
+versions of the file it should <a class="reference internal" href="#config-option-folder.versioning.params.keep" title="config-option-folder.versioning.params.keep"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">keep</span></code></a>.  For
+example, if you set this value to 5, if a file is replaced 5 times on a remote
+device, you will see 5 time-stamped versions on that file in the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code>
+folder on the other devices sharing the same folder.</p>
+</section>
+<section id="staggered-file-versioning">
+<h2>Staggered File Versioning<a class="headerlink" href="#staggered-file-versioning" title="Permalink to this heading">¶</a></h2>
+<p>With “Staggered File Versioning” files are also moved to the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code>
+folder when replaced or deleted on a remote device (just like “Simple File
+Versioning”), however, versions are automatically deleted if they are older than
+the maximum age or exceed the number of files allowed in an interval.</p>
+<p>The following intervals are used and they each have a maximum number of files
+that will be kept for each.</p>
+<dl class="simple">
+<dt>1 Hour</dt><dd><p>For the first hour, the oldest version in every 30-seconds interval is
+kept.</p>
+</dd>
+<dt>1 Day</dt><dd><p>For the first day, the oldest version in every hour is kept.</p>
+</dd>
+<dt>30 Days</dt><dd><p>For the first 30 days, the oldest version in every day is kept.</p>
+</dd>
+<dt>Until Maximum Age</dt><dd><p>Until maximum age, the oldest version in every week is kept.</p>
+</dd>
+<dt>Maximum Age</dt><dd><p>The maximum time to keep a version in days. For example, to keep replaced or
+deleted files in the <code class="docutils literal notranslate"><span class="pre">.stversions</span></code> folder for an entire year, use 365. If
+only for 10 days, use 10.  Corresponds to the
+<a class="reference internal" href="#config-option-folder.versioning.params.maxage" title="config-option-folder.versioning.params.maxage"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">maxAge</span></code></a> option.
+<strong>Note: Set to 0 to keep versions forever.</strong></p>
+</dd>
+</dl>
+<p>This means that there is only one version in each interval and as files age they
+will be deleted unless when the interval they are entering is empty. By keeping
+the oldest versions this versioning scheme preserves the file if it is
+overwritten.</p>
+<p>For more info, check the <a class="reference external" href="https://github.com/syncthing/syncthing/blob/main/lib/versioner/staggered_test.go#L32">unit test file</a>
+that shows which versions are deleted for a specific run.</p>
+</section>
+<section id="external-file-versioning">
+<h2>External File Versioning<a class="headerlink" href="#external-file-versioning" title="Permalink to this heading">¶</a></h2>
+<p>This versioning strategy delegates the decision on what to do to an
+<a class="reference internal" href="#config-option-folder.versioning.params.command" title="config-option-folder.versioning.params.command"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">external</span> <span class="pre">command</span></code></a> (e.g. a program or a
+command line script).  Just prior to a file being replaced, the command will be
+executed.  The file needs to be removed from the folder in the process, or
+otherwise Syncthing will report an error.  The command can use the following
+templated arguments:</p>
+<dl class="simple">
+<dt>%FOLDER_PATH%</dt><dd><p>Path to the folder</p>
+</dd>
+<dt>%FILE_PATH%</dt><dd><p>Path to the file within the folder</p>
+</dd>
+</dl>
+<p>Note that the former expands to the path of the actual Syncthing folder,
+and the latter to the path inside that folder. For instance, if you use
+the default <code class="docutils literal notranslate"><span class="pre">Sync</span></code> folder in Windows, and the full path to the file is
+<code class="docutils literal notranslate"><span class="pre">C:\Users\User\Sync\Family</span> <span class="pre">photos\IMG_2021-03-01.jpg</span></code>, then the
+<code class="docutils literal notranslate"><span class="pre">%FOLDER_PATH%</span></code> will be <code class="docutils literal notranslate"><span class="pre">C:\Users\User\Sync</span></code>, and the
+<code class="docutils literal notranslate"><span class="pre">%FILE_PATH%</span></code> will be <code class="docutils literal notranslate"><span class="pre">Family</span> <span class="pre">photos\IMG_2021-03-01.jpg</span></code>.</p>
+<section id="example-for-unixes">
+<h3>Example for Unixes<a class="headerlink" href="#example-for-unixes" title="Permalink to this heading">¶</a></h3>
+<p>Let’s say I want to keep the latest version of each file as they are replaced
+or removed; essentially I want a “trash can”-like behavior. For this, I create
+the following script and store it as <code class="docutils literal notranslate"><span class="pre">/Users/jb/bin/onlylatest.sh</span></code> (i.e. the
+<code class="docutils literal notranslate"><span class="pre">bin</span></code> directory in my home directory):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">set</span><span class="w"> </span>-eu
+
+<span class="c1"># Where I want my versions stored</span>
+<span class="nv">versionspath</span><span class="o">=</span>~/.trashcan
+
+<span class="c1"># The parameters we get from Syncthing</span>
+<span class="nv">folderpath</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nv">filepath</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+
+<span class="c1"># First ensure the dir where we need to store the file exists</span>
+<span class="nv">outpath</span><span class="o">=</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$versionspath</span><span class="s2">/</span><span class="nv">$filepath</span><span class="s2">&quot;</span><span class="k">)</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$outpath</span><span class="s2">&quot;</span>
+<span class="c1"># Then move the file there</span>
+mv<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$folderpath</span><span class="s2">/</span><span class="nv">$filepath</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$versionspath</span><span class="s2">/</span><span class="nv">$filepath</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>I must ensure that the script has execute permissions (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">755</span>
+<span class="pre">onlylatest.sh</span></code>), then configure Syncthing with command <code class="docutils literal notranslate"><span class="pre">/Users/jb/bin/onlylatest.sh</span> <span class="pre">%FOLDER_PATH%</span> <span class="pre">%FILE_PATH%</span></code></p>
+<p>Let’s assume I have a folder “default” in ~/Sync, and that within that folder
+there is a file <code class="docutils literal notranslate"><span class="pre">docs/letter.txt</span></code> that is being replaced or deleted. The
+script will be called as if I ran this from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ /Users/jb/bin/onlylatest.sh /Users/jb/Sync docs/letter.txt
+</pre></div>
+</div>
+<p>The script will then move the file in question to
+<code class="docutils literal notranslate"><span class="pre">~/.trashcan/docs/letter.txt</span></code>, replacing any previous version of that letter
+that may already have been there.</p>
+</section>
+<section id="examples-for-windows">
+<h3>Examples for Windows<a class="headerlink" href="#examples-for-windows" title="Permalink to this heading">¶</a></h3>
+<section id="move-to-a-given-folder-using-the-command-prompt-cmd">
+<h4>Move to a given folder using the command prompt (<abbr>CMD</abbr>)<a class="headerlink" href="#move-to-a-given-folder-using-the-command-prompt-cmd" title="Permalink to this heading">¶</a></h4>
+<p>On Windows we can use a batch script to perform the same “trash can”-like
+behavior as mentioned above. I created the following script and saved it as
+<code class="docutils literal notranslate"><span class="pre">C:\Users\mfrnd\Scripts\onlylatest.bat</span></code>.</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">@</span><span class="k">echo</span> off
+
+<span class="c1">rem Enable UTF-8 encoding to deal with multilingual folder and file names</span>
+chcp 65001
+
+<span class="c1">rem We need command extensions for md to create intermediate folders in one go</span>
+<span class="k">setlocal</span> enableextensions
+
+<span class="c1">rem Where I want my versions stored</span>
+<span class="k">set</span> <span class="s2">&quot;versions_path=</span><span class="nv">%USERPROFILE%</span><span class="s2">\.trashcan&quot;</span>
+
+<span class="c1">rem The parameters we get from Syncthing, &#39;~&#39; removes quotes if any</span>
+<span class="k">set</span> <span class="s2">&quot;folder_path=</span><span class="nv">%~1</span><span class="s2">&quot;</span>
+<span class="k">set</span> <span class="s2">&quot;file_path=</span><span class="nv">%~2</span><span class="s2">&quot;</span>
+
+<span class="c1">rem First ensure the dir where we need to store the file exists</span>
+<span class="k">for</span> <span class="se">%%</span>f <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%versions_path%</span><span class="s2">\</span><span class="nv">%file_path%</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="s2">&quot;output_path=</span><span class="se">%%</span><span class="s2">~dpf&quot;</span>
+<span class="k">if</span> <span class="k">not</span> <span class="k">exist</span> <span class="s2">&quot;</span><span class="nv">%output_path%</span><span class="s2">&quot;</span> <span class="k">md</span> <span class="s2">&quot;</span><span class="nv">%output_path%</span><span class="s2">&quot;</span> <span class="p">||</span> <span class="k">exit</span> /b
+
+<span class="c1">rem Finally move the file, overwrite existing file if any</span>
+<span class="k">move</span> /y <span class="s2">&quot;</span><span class="nv">%folder_path%</span><span class="s2">\</span><span class="nv">%file_path%</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">%versions_path%</span><span class="s2">\</span><span class="nv">%file_path%</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Finally, I set <code class="docutils literal notranslate"><span class="pre">&quot;C:\Users\mfrnd\Scripts\onlylatest.bat&quot;</span> <span class="pre">&quot;%FOLDER_PATH%&quot;</span>
+<span class="pre">&quot;%FILE_PATH%&quot;</span></code> as the command name in Syncthing.</p>
+</section>
+<section id="move-to-the-recycle-bin-using-powershell">
+<h4>Move to the Recycle Bin using PowerShell<a class="headerlink" href="#move-to-the-recycle-bin-using-powershell" title="Permalink to this heading">¶</a></h4>
+<p>We can use PowerShell to send files directly to the Recycle Bin, which
+mimics the behaviour of deleting them using the Windows Explorer.
+Firstly, create the following script and save it in your preferred
+location, e.g. <code class="docutils literal notranslate"><span class="pre">C:\Users\User\Scripts\SendToRecycleBin.ps1</span></code>.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># PowerShell has no native method to recycle files, so we use Visual</span>
+<span class="c"># Basic to perform the operation. If succeeded, we also include the</span>
+<span class="c"># recycled file in the Syncthing&#39;s DEBUG output.</span>
+<span class="nb">Add-Type</span> <span class="n">-AssemblyName</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">VisualBasic</span>
+<span class="no">[Microsoft.VisualBasic.FileIO.FileSystem]</span><span class="p">::</span><span class="n">DeleteFile</span><span class="p">(</span><span class="nv">$args</span><span class="p">,</span><span class="s1">&#39;OnlyErrorDialogs&#39;</span><span class="p">,</span><span class="s1">&#39;SendToRecycleBin&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">($?)</span> <span class="p">{</span>
+  <span class="nb">Write-Output</span> <span class="p">(</span><span class="s2">&quot;Recycled &quot;</span> <span class="p">+</span> <span class="nv">$args</span> <span class="p">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Alternatively, the script can be expanded to send only deleted files to
+the Recycle Bin, and permanently delete modified ones, which makes it
+more consistent with how the Explorer works.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># PowerShell has no native method to recycle files, so we use Visual</span>
+<span class="c"># Basic to perform the operation.</span>
+<span class="nb">Add-Type</span> <span class="n">-AssemblyName</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">VisualBasic</span>
+
+<span class="c"># We need to test if a Syncthing .tmp file exists. If it does, we assume</span>
+<span class="c"># a modification and delete the existing file. If if does not, we assume</span>
+<span class="c"># a deletion and recycle the current file. If succeeded, we also include</span>
+<span class="c"># the deleted/recycled file in the Syncthing&#39;s DEBUG output.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="n">-LiteralPath</span> <span class="p">((</span><span class="nb">Split-Path</span> <span class="n">-Path</span> <span class="nv">$args</span><span class="p">)</span> <span class="p">+</span> <span class="s2">&quot;\~syncthing~&quot;</span> <span class="p">+</span> <span class="p">(</span><span class="nb">Split-Path</span> <span class="n">-Path</span> <span class="nv">$args</span> <span class="n">-Leaf</span><span class="p">)</span> <span class="p">+</span> <span class="s2">&quot;.tmp&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="no">[Microsoft.VisualBasic.FileIO.FileSystem]</span><span class="p">::</span><span class="n">DeleteFile</span><span class="p">(</span><span class="nv">$args</span><span class="p">,</span><span class="s1">&#39;OnlyErrorDialogs&#39;</span><span class="p">,</span><span class="s1">&#39;DeletePermanently&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">($?)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="p">(</span><span class="s2">&quot;Deleted &quot;</span> <span class="p">+</span> <span class="nv">$args</span> <span class="p">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="no">[Microsoft.VisualBasic.FileIO.FileSystem]</span><span class="p">::</span><span class="n">DeleteFile</span><span class="p">(</span><span class="nv">$args</span><span class="p">,</span><span class="s1">&#39;OnlyErrorDialogs&#39;</span><span class="p">,</span><span class="s1">&#39;SendToRecycleBin&#39;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">($?)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="p">(</span><span class="s2">&quot;Recycled &quot;</span> <span class="p">+</span> <span class="nv">$args</span> <span class="p">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, we set the command name in Syncthing to <code class="docutils literal notranslate"><span class="pre">powershell.exe</span>
+<span class="pre">-ExecutionPolicy</span> <span class="pre">Bypass</span> <span class="pre">-File</span> <span class="pre">&quot;C:\Users\User\Scripts\SendToRecycleBin.ps1&quot;</span>
+<span class="pre">&quot;%FOLDER_PATH%\%FILE_PATH%&quot;</span></code>.</p>
+<p>The only caveat that you should be aware of is that if your Syncthing
+folder is located on a portable storage, such as a USB stick, or if you
+have the Recycle Bin disabled, then the script will end up deleting all
+files permanently.</p>
+</section>
+</section>
+</section>
+<section id="configuration-parameter-reference">
+<h2>Configuration Parameter Reference<a class="headerlink" href="#configuration-parameter-reference" title="Permalink to this heading">¶</a></h2>
+<p>The versioning settings are grouped into their own section of each folder in the
+<a class="reference internal" href="config.html#config-option-folder.versioning" title="config-option-folder.versioning"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">configuration</span> <span class="pre">file</span></code></a>.  The following shows an
+example of such a section in the XML:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;folder</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;...&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;versioning</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;simple&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;cleanupIntervalS&gt;</span>3600<span class="nt">&lt;/cleanupIntervalS&gt;</span>
+<span class="w">        </span><span class="nt">&lt;fsPath&gt;&lt;/fsPath&gt;</span>
+<span class="w">        </span><span class="nt">&lt;fsType&gt;</span>basic<span class="nt">&lt;/fsType&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;cleanoutDays&quot;</span><span class="w"> </span><span class="na">val=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;&lt;/param&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">key=</span><span class="s">&quot;keep&quot;</span><span class="w"> </span><span class="na">val=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/versioning&gt;</span>
+<span class="nt">&lt;/folder&gt;</span>
+</pre></div>
+</div>
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.type">
+<span class="sig-name descname"><span class="pre">versioning.type</span></span><a class="headerlink" href="#config-option-folder.versioning.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects one of the versioning strategies: <code class="docutils literal notranslate"><span class="pre">trashcan</span></code>, <code class="docutils literal notranslate"><span class="pre">simple</span></code>,
+<code class="docutils literal notranslate"><span class="pre">staggered</span></code>, <code class="docutils literal notranslate"><span class="pre">external</span></code> or leave empty to disable versioning completely.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.fspath">
+<span class="sig-name descname"><span class="pre">versioning.fsPath</span></span><a class="headerlink" href="#config-option-folder.versioning.fspath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides the path where old versions of files are stored and defaults to
+<code class="docutils literal notranslate"><span class="pre">.stversions</span></code> if left empty.  An absolute or relative path can be
+specified.  The latter is interpreted relative to the shared folder path, if
+the <a class="reference internal" href="#config-option-folder.versioning.fstype" title="config-option-folder.versioning.fstype"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">fsType</span></code></a> is configured as <code class="docutils literal notranslate"><span class="pre">basic</span></code>.  Ignored
+for the <code class="docutils literal notranslate"><span class="pre">external</span></code> versioning strategy.</p>
+<p>This option used to be stored under the keys <code class="docutils literal notranslate"><span class="pre">fsPath</span></code> or <code class="docutils literal notranslate"><span class="pre">versionsPath</span></code>
+in the <a class="reference internal" href="#config-option-folder.versioning.params" title="config-option-folder.versioning.params"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">params</span></code></a> element.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.fstype">
+<span class="sig-name descname"><span class="pre">versioning.fsType</span></span><a class="headerlink" href="#config-option-folder.versioning.fstype" title="Permalink to this definition">¶</a></dt>
+<dd><p>The internal file system implementation used to access this versions folder.
+Only applies if <a class="reference internal" href="#config-option-folder.versioning.fspath" title="config-option-folder.versioning.fspath"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">fsPath</span></code></a> is also set non-empty,
+otherwise the <a class="reference internal" href="config.html#config-option-folder.filesystemtype" title="config-option-folder.filesystemtype"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">filesystemType</span></code></a> from the folder element is used
+instead.  Refer to that option description for possible values.  Ignored for
+the <code class="docutils literal notranslate"><span class="pre">external</span></code> versioning strategy.</p>
+<p>This option used to be stored under the key <code class="docutils literal notranslate"><span class="pre">fsType</span></code> in the
+<a class="reference internal" href="#config-option-folder.versioning.params" title="config-option-folder.versioning.params"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">params</span></code></a> element.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.cleanupintervals">
+<span class="sig-name descname"><span class="pre">versioning.cleanupIntervalS</span></span><a class="headerlink" href="#config-option-folder.versioning.cleanupintervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>The interval, in seconds, for running cleanup in the versions folder.  Zero
+to disable periodic cleaning.  Limited to one year (31536000 seconds).
+Ignored for the <code class="docutils literal notranslate"><span class="pre">external</span></code> versioning strategy.</p>
+<p>This option used to be stored under the key <code class="docutils literal notranslate"><span class="pre">cleanInterval</span></code> in the
+<a class="reference internal" href="#config-option-folder.versioning.params" title="config-option-folder.versioning.params"><code class="xref stconf stconf-opt docutils literal notranslate"><span class="pre">params</span></code></a> element.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.params">
+<span class="sig-name descname"><span class="pre">versioning.params</span></span><a class="headerlink" href="#config-option-folder.versioning.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each versioning strategy can have configuration parameters specific to its
+implementation under this element.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.params.cleanoutdays">
+<span class="sig-name descname"><span class="pre">versioning.params.cleanoutDays</span></span><a class="headerlink" href="#config-option-folder.versioning.params.cleanoutdays" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of days to keep files in the versions folder.  Zero means to keep
+forever.  Older elements encountered during cleanup are removed.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.params.keep">
+<span class="sig-name descname"><span class="pre">versioning.params.keep</span></span><a class="headerlink" href="#config-option-folder.versioning.params.keep" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of old versions to keep, per file.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.params.maxage">
+<span class="sig-name descname"><span class="pre">versioning.params.maxAge</span></span><a class="headerlink" href="#config-option-folder.versioning.params.maxage" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum time to keep a version, in seconds.  Zero means to keep forever.</p>
+</dd></dl>
+
+<dl class="stconf option">
+<dt class="sig sig-object stconf" id="config-option-folder.versioning.params.command">
+<span class="sig-name descname"><span class="pre">versioning.params.command</span></span><a class="headerlink" href="#config-option-folder.versioning.params.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>External command to execute for storing a file version about to be replaced
+or deleted.  If the path to the application contains spaces, it should be
+quoted.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/versioning.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.2-0-g96d311c</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.2</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html">Configuration Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Prometheus-Style Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="ignoring.html" title="previous chapter">Ignoring Files</a></li>
+      <li>Next: <a href="stdiscosrv.html" title="next chapter">Syncthing Discovery Server</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
