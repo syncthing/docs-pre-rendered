@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Untrusted Device Encryption &#8212; Syncthing v1.27.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=2c5e4dc3" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=d6b72fea"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Relay Protocol v1" href="relay-v1.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature should still be considered beta / testing only.</p>
+</div>
+<section id="untrusted-device-encryption">
+<span id="untrusted"></span><h1>Untrusted Device Encryption<a class="headerlink" href="#untrusted-device-encryption" title="Permalink to this heading">¶</a></h1>
+<section id="threat-model-primary-goals">
+<h2>Threat Model / Primary Goals<a class="headerlink" href="#threat-model-primary-goals" title="Permalink to this heading">¶</a></h2>
+<p>An “untrusted” device can participate in a Syncthing cluster with the
+following assumptions and limitations;</p>
+<p>The untrusted device can <em>not</em> observe:</p>
+<ul class="simple">
+<li><p>File data</p></li>
+<li><p>File or directory names, symlink names, symlink targets</p></li>
+<li><p>File modification time, permissions, or modification history (version
+vectors)</p></li>
+</ul>
+<p>The untrusted device <em>will</em> be able to observe:</p>
+<ul class="simple">
+<li><p>File sizes <a class="footnote-reference brackets" href="#sizes" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
+<li><p>Which parts of files are changed by the other devices and when</p></li>
+</ul>
+<p>The last point is required by the syncing mechanism, in order to avoid
+transferring all unchanged file data when a file block changes. Blocks and
+block hashes are encrypted with a per-file key and depends on the block
+offset, so correlation is not possible between blocks at different offsets
+or different files.</p>
+<p>In addition the untrusted device <em>must not</em> be able to modify, remove or
+introduce data by itself without detection.</p>
+</section>
+<section id="primitives-used">
+<h2>Primitives Used<a class="headerlink" href="#primitives-used" title="Permalink to this heading">¶</a></h2>
+<p>The user input to the system is the <em>folder ID</em>, which is a short string
+identifying a given folder between devices, and the <em>password</em>. From this we
+generate a <em>folder key</em> (32 bytes) using <code class="docutils literal notranslate"><span class="pre">scrypt</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">folderKey</span> <span class="o">=</span> <span class="n">scrypt</span><span class="o">.</span><span class="n">Key</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="s2">&quot;syncthing&quot;</span> <span class="o">+</span> <span class="n">folderID</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The string “syncthing” with the folder ID concatenated make up the salt. The
+folder key is used to encrypt file names using AES-SIV without nonce:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">encryptedFilename</span> <span class="o">=</span> <span class="n">AES</span><span class="o">-</span><span class="n">SIV</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">folderKey</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Given the key length of 32 bytes the algorithm in use will be AES-128
+(“AES-SIV-256”). To make the encrypted file name usable again as a file
+name, we encode it using base32 and add slashes at strategic places.</p>
+<p>From the folder key and the plaintext file name we derive the <em>file key</em> by
+HKDF of the folder key and the plaintext file name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fileKey</span> <span class="o">=</span> <span class="n">HKDF</span><span class="p">(</span><span class="n">SHA256</span><span class="p">,</span> <span class="n">folderKey</span><span class="o">+</span><span class="n">filename</span><span class="p">,</span> <span class="n">salt</span><span class="p">:</span> <span class="s2">&quot;syncthing&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">nil</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This file key is used for all other encryption, specifically file block
+hashes and data blocks. In file metadata, block hashes are encrypted using
+AES-SIV with the file key:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">encryptedBlockHash</span> <span class="o">=</span> <span class="n">AES</span><span class="o">-</span><span class="n">SIV</span><span class="p">(</span><span class="n">blockHash</span><span class="p">,</span> <span class="n">fileKey</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Data blocks are encrypted using XChaCha20-Poly1305 with random nonces and
+appended to the nonce itself:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">encryptedBlock</span> <span class="o">=</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">XChaCha20</span><span class="o">-</span><span class="n">Poly1305</span><span class="o">.</span><span class="n">Seal</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">fileKey</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The original file metadata descriptor is encrypted in the same manner and
+attached to the encrypted-file metadata.</p>
+<p>Devices sharing a folder need to use the same password.
+To ensure that a <em>password token</em> in the form of an arbitrary, but commonly
+known string encrypted using AES-SIV with the folder key is sent in the
+<a class="reference internal" href="bep-v1.html#cluster-config"><span class="std std-ref">Cluster Config</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">passwordToken</span> <span class="o">=</span> <span class="n">AES</span><span class="o">-</span><span class="n">SIV</span><span class="p">(</span><span class="s2">&quot;syncthing&quot;</span> <span class="o">+</span> <span class="n">folderID</span><span class="p">,</span> <span class="n">folderKey</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Thus an encrypted device can verify all its connected devices use the same
+password comparing the encrypted token, without knowing the password itself.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Syncthing a file is made up of a number of equal size data blocks,
+followed by a usually shorter last data block. The full size data blocks
+are at minimum 128 KiB, ranging up to 16 MiB in multiples of two. The
+last data block can in principle be as small as one byte. For untrusted
+folders the size of the last data block is padded up to a kilobyte if it
+was shorter to begin with. The untrusted device isn’t allowed to request
+less than a kilobyte of data.</p>
+<p>I don’t actually know if this block padding serves a purpose. It was
+added to address a worry that something might break or leak if an
+attacker is allowed to repeatedly request single-byte data blocks of
+their choosing. If there is nothing to worry about here we can remove
+the padding. //jb</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While a well behaved implementation is expected to request data blocks
+precisely as announced in the file metadata there is no enforcement of
+this. This means that an attacker on the untrusted side can repeatedly
+request arbitrary ranges of a file and receive the encrypted result.
+With the restriction above, the minimum block size that can be requested
+in 1024 bytes.</p>
+</div>
+</section>
+<section id="implementation-details">
+<h2>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this heading">¶</a></h2>
+<section id="metadata-encryption">
+<h3>Metadata Encryption<a class="headerlink" href="#metadata-encryption" title="Permalink to this heading">¶</a></h3>
+<p>The Syncthing protocol is essentially two-phase:</p>
+<ul class="simple">
+<li><p>A device sends file metadata (a <code class="docutils literal notranslate"><span class="pre">FileInfo</span></code> structure) for a new or changed file</p></li>
+<li><p>The other side determines which blocks it needs to construct the new file, and requests these blocks</p></li>
+</ul>
+<p>For untrusted devices a fake FileInfo is constructed, with an encrypted
+name and block list and other metadata such as modification time and
+permissions set to static values.</p>
+<p>An original file metadata structure looks something like this:</p>
+<div class="graphviz"><object data="../_images/graphviz-3a02cacd338627ef7b77ca3956f4d42d1929c340.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph g {
+    graph [
+        rankdir = &quot;LR&quot;
+    ]
+    &quot;fileinfo&quot; [
+        label = &quot;name | type | size | modified | ... | &lt;b&gt; blocks | block size&quot;
+        shape = &quot;record&quot;
+    ]
+    &quot;blocks&quot; [
+        label = &quot;{ &lt;a&gt; offset | size | hash } | { offset | size | hash } | ...&quot;
+        shape = &quot;record&quot;
+    ]
+    fileinfo:b -&gt; blocks:a
+}</p></object></div>
+<p>The fake FileInfo encrypts and adjusts a couple of attributes:</p>
+<ul class="simple">
+<li><p>The name is encrypted (with the folder key), base32 encoded, and slashes
+are inserted after the first and third characters, and then every 200
+characters.</p></li>
+<li><p>The file size is adjusted for the per block overhead, and rounded up so that
+the last block is a multiple of 1024 bytes.</p></li>
+<li><p>The block size is adjusted for block overhead.</p></li>
+</ul>
+<p>Other file attributes are set to static values, for example the modification
+time is set to UNIX epoch time 1234567890 and permissions are set to 0644.</p>
+<p>The block list is encrypted and adjusted:</p>
+<ul class="simple">
+<li><p>The offset and size are adjusted to account for block overhead</p></li>
+<li><p>The hash is encrypted using AES-SIV (with the file key)</p></li>
+</ul>
+<p>The resulting encrypted hash can’t be used for data verification by the
+untrusted device, but it can be used as a form of “token” referring to a
+given data block for reuse purposes.</p>
+<p>Finally, the whole original FileInfo (in protobuf form) is encrypted using
+XChaCha20-Poly1305 with the file key and attached to the fake FileInfo. This
+is retained on the untrusted side and passed along to trusted devices, where
+it will be used in place of the fake FileInfo.</p>
+<div class="graphviz"><object data="../_images/graphviz-d49bab26eb35b40d1776fbbcbede6931225b3e5d.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph g {
+    graph [
+        rankdir = &quot;LR&quot;
+    ]
+    &quot;fileinfo&quot; [
+        label = &quot;encrypted name | ... | adjusted size | ... | &lt;b&gt; encrypted blocks | adjusted block size | encrypted metadata&quot;
+        shape = &quot;record&quot;
+    ]
+    &quot;blocks&quot; [
+        label = &quot;{ &lt;a&gt; offset + n * overhead | size + overhead | encrypted hash } | { &lt;a&gt; offset + n * overhead | size + overhead | encrypted hash } | ...&quot;
+        shape = &quot;record&quot;
+    ]
+    fileinfo:b -&gt; blocks:a
+}</p></object></div>
+</section>
+<section id="incoming-metadata">
+<h3>Incoming Metadata<a class="headerlink" href="#incoming-metadata" title="Permalink to this heading">¶</a></h3>
+<p>File metadata sent from the untrusted device is always decrypted. This means
+the original FileInfo is discarded and the attached encrypted FileInfo is
+decrypted and used instead. If the FileInfo does not decrypt it’s considered
+a protocol error and the connection is dropped. This means only file
+metadata created by a trusted device is accepted.</p>
+</section>
+<section id="data-encryption">
+<h3>Data Encryption<a class="headerlink" href="#data-encryption" title="Permalink to this heading">¶</a></h3>
+<p>When an untrusted device makes a request for a data block, the trusted
+device:</p>
+<ol class="arabic simple">
+<li><p>decrypts the given filename,</p></li>
+<li><p>reads the corresponding plaintext data block,</p></li>
+<li><p>pads the block with random data if the read returned less than 1024 bytes,</p></li>
+<li><p>encrypts it using the file encryption key and a random nonce, and</p></li>
+<li><p>responds with the result.</p></li>
+</ol>
+<div class="graphviz"><object data="../_images/graphviz-fa00ff83e4a2a4d155b0febbb7ab80036d51be20.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph g {
+    graph [
+        rankdir = &quot;LR&quot;
+    ]
+    &quot;u&quot; [
+        label = &quot;&lt;h&gt; plaintext (variable)&quot;
+        shape = &quot;record&quot;
+    ]
+    &quot;e&quot; [
+        label = &quot;nonce (24 B) | &lt;h&gt; ciphertext (variable) | tag (16 B)&quot;
+        shape = &quot;record&quot;
+    ]
+    u:h -&gt; e:h [ label = &quot;XChaCha20-Poly1305&quot; ]
+}</p></object></div>
+<p>This is repeated for all required blocks. At the end, the untrusted device
+appends the fake FileInfo (which includes the original, encrypted, FileInfo)
+to the file. This serves no purpose during normal operations, but enables
+offline decryption of an encrypted folder without database access and, in
+principle, scanning an encrypted folder to populate the database should it
+be lost or corrupted.</p>
+<div class="graphviz"><object data="../_images/graphviz-a9df1da6601a9272cfd1fd7409d304fa2c501e96.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph g {
+    graph [
+        rankdir = &quot;LR&quot;
+    ]
+    &quot;u&quot; [
+        label = &quot;&lt;b0&gt; plaintext block | &lt;b1&gt; plaintext block | ...&quot;
+        shape = &quot;record&quot;
+    ]
+    &quot;e&quot; [
+        label = &quot;&lt;b0&gt; encrypted block | &lt;b1&gt; encrypted block | ... | FileInfo (variable) | len(FileInfo) (uint32)&quot;
+        shape = &quot;record&quot;
+    ]
+    u:b0 -&gt; e:b0 [ label = &quot;encryption&quot; ]
+    u:b1 -&gt; e:b1
+}</p></object></div>
+</section>
+<section id="incoming-data">
+<h3>Incoming Data<a class="headerlink" href="#incoming-data" title="Permalink to this heading">¶</a></h3>
+<p>Making a request to an untrusted device is mostly the reverse of the above.
+The file name is encrypted and the block offset and size adjusted. The
+resulting data is decrypted and thereby also authenticated, meaning it must
+have originated on a trusted device. Contrary to the usual case we cannot
+simply make arbitrary range requests – only the precise blocks that were
+encrypted to begin with will decrypt properly.</p>
+<p>—</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="sizes" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Although files grow slightly due to block
+overhead, and some files are padded up to an even kilobyte, file sizes
+can be determined at least to the closest kilobyte.</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/specs/untrusted.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.3-0-ga98837d</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.3</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Specifications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bep-v1.html">Block Exchange Protocol v1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="globaldisco-v3.html">Global Discovery v3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localdisco-v4.html">Local Discovery Protocol v4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relay-v1.html">Relay Protocol v1</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Untrusted Device Encryption</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Specifications</a><ul>
+      <li>Previous: <a href="relay-v1.html" title="previous chapter">Relay Protocol v1</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

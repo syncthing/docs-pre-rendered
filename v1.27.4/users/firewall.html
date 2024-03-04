@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Firewall Setup &#8212; Syncthing v1.27.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=2c5e4dc3" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=d6b72fea"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Relaying" href="relaying.html" />
+    <link rel="prev" title="Untrusted (Encrypted) Devices" href="untrusted.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="firewall-setup">
+<span id="id1"></span><h1>Firewall Setup<a class="headerlink" href="#firewall-setup" title="Permalink to this heading">¶</a></h1>
+<section id="router-setup">
+<h2>Router Setup<a class="headerlink" href="#router-setup" title="Permalink to this heading">¶</a></h2>
+<section id="port-forwards">
+<h3>Port Forwards<a class="headerlink" href="#port-forwards" title="Permalink to this heading">¶</a></h3>
+<p>If you have a NAT router which supports UPnP, the easiest way to get a working
+port forward is to make sure UPnP setting is enabled on both Syncthing and the
+router – Syncthing will try to handle the rest. If it succeeds you will see a
+message in the console saying:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">UPnP</span> <span class="n">port</span> <span class="n">mapping</span> <span class="k">for</span> <span class="n">external</span> <span class="n">port</span> <span class="n">XXXXX</span> <span class="n">on</span> <span class="n">UPnP</span> <span class="n">device</span> <span class="n">YYYYY</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>If this is not possible or desirable, you should set up a port forwarding for ports
+<strong>22000/TCP</strong> and <strong>22000/UDP</strong> (or whichever port is set in the <em>Sync Protocol Listen Address</em> setting).
+The external forwarded ports and the internal destination ports have to be the same
+(e.g. 22000/TCP).</p>
+<p>Communication in Syncthing works both ways. Therefore if you set up port
+forwards for one device, other devices will be able to connect to it even when
+they are behind a NAT network or firewall.</p>
+<p>In the absence of port forwarding, <a class="reference internal" href="relaying.html#relaying"><span class="std std-ref">Relaying</span></a> may work well enough to get
+devices connected and synced, but will perform poorly in comparison to a
+direct connection.</p>
+</section>
+<section id="local-discovery">
+<h3>Local Discovery<a class="headerlink" href="#local-discovery" title="Permalink to this heading">¶</a></h3>
+<p>The router needs to allow/forward broad-/multicasts for local discovery to work.
+Usually these are allowed by default in a single local subnet, but may be
+blocked between different subnets or even between a bridged Wi-Fi and LAN.</p>
+<p>If you are unable to set up your router thus or your firewall as shown below,
+and your devices have static IP addresses, you can specify them directly by
+changing the default <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> setting for <em>Addresses</em> to something like:
+<code class="docutils literal notranslate"><span class="pre">tcp://192.168.1.xxx:22000,</span> <span class="pre">dynamic</span></code>.</p>
+</section>
+</section>
+<section id="local-firewall">
+<h2>Local Firewall<a class="headerlink" href="#local-firewall" title="Permalink to this heading">¶</a></h2>
+<p>If your PC has a local firewall, you will need to open the following ports for
+incoming and outgoing traffic:</p>
+<ul class="simple">
+<li><p>Port <strong>22000/TCP</strong>: TCP based sync protocol traffic</p></li>
+<li><p>Port <strong>22000/UDP</strong>: QUIC based sync protocol traffic</p></li>
+<li><p>Port <strong>21027/UDP</strong>: for discovery broadcasts on IPv4 and multicasts on IPv6</p></li>
+</ul>
+<p>If you configured a custom port in the <em>Sync Protocol Listen Address</em> setting,
+you have to adapt the firewall rules accordingly.</p>
+<section id="uncomplicated-firewall-ufw">
+<h3>Uncomplicated Firewall (ufw)<a class="headerlink" href="#uncomplicated-firewall-ufw" title="Permalink to this heading">¶</a></h3>
+<p>If you’re using <code class="docutils literal notranslate"><span class="pre">ufw</span></code> on Linux and have installed the <a class="reference external" href="https://apt.syncthing.net/">Syncthing package</a>, you can allow the necessary ports by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="n">syncthing</span>
+</pre></div>
+</div>
+<p>If you also want to allow external access to the Syncthing web GUI, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="n">syncthing</span><span class="o">-</span><span class="n">gui</span>
+</pre></div>
+</div>
+<p>Allowing external access is <strong>not</strong>  necessary for a typical installation.</p>
+<p>You can then verify that the ports mentioned above are allowed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">status</span> <span class="n">verbose</span>
+</pre></div>
+</div>
+<p>In case you installed Syncthing manually you can follow the <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/etc/firewall-ufw">instructions to manually add the syncthing preset</a> to ufw.</p>
+</section>
+<section id="firewalld">
+<h3>Firewalld<a class="headerlink" href="#firewalld" title="Permalink to this heading">¶</a></h3>
+<p>If you are using <a class="reference external" href="https://firewalld.org/">Firewalld</a> it has included
+support for syncthing (since version 0.5.0, January 2018), and you can enable
+it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">zone</span><span class="o">=</span><span class="n">public</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">service</span><span class="o">=</span><span class="n">syncthing</span> <span class="o">--</span><span class="n">permanent</span>
+<span class="n">sudo</span> <span class="n">firewall</span><span class="o">-</span><span class="n">cmd</span> <span class="o">--</span><span class="n">reload</span>
+</pre></div>
+</div>
+<p>Similarly there is also a <code class="docutils literal notranslate"><span class="pre">syncthing-gui</span></code> service.</p>
+</section>
+</section>
+<section id="remote-web-gui">
+<h2>Remote Web GUI<a class="headerlink" href="#remote-web-gui" title="Permalink to this heading">¶</a></h2>
+<p>To be able to access the web GUI from other computers, you need to change the
+<em>GUI Listen Address</em> setting from the default <code class="docutils literal notranslate"><span class="pre">127.0.0.1:8384</span></code> to
+<code class="docutils literal notranslate"><span class="pre">0.0.0.0:8384</span></code>. You also need to open the port in your local firewall if you
+have one.</p>
+<section id="tunneling-via-ssh">
+<h3>Tunneling via SSH<a class="headerlink" href="#tunneling-via-ssh" title="Permalink to this heading">¶</a></h3>
+<p>If you have SSH access to the machine running Syncthing but would rather not
+open the web GUI port to the outside world, you can access it through a SSH
+tunnel instead. You can start a tunnel with a command like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">L</span> <span class="mi">9999</span><span class="p">:</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8384</span> <span class="n">machine</span>
+</pre></div>
+</div>
+<p>This will bind to your local port 9999 and forward all connections from there to
+port 8384 on the target machine. This still works even if Syncthing is bound to
+listen on localhost only.</p>
+</section>
+</section>
+<section id="via-a-proxy">
+<h2>Via a Proxy<a class="headerlink" href="#via-a-proxy" title="Permalink to this heading">¶</a></h2>
+<p>Syncthing can use a SOCKS5 proxy for outbound connections. Please see <a class="reference internal" href="proxying.html#proxying"><span class="std std-ref">Using Proxies</span></a>.</p>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/firewall.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.3-0-ga98837d</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.3</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html">Configuration Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Prometheus-Style Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="untrusted.html" title="previous chapter">Untrusted (Encrypted) Devices</a></li>
+      <li>Next: <a href="relaying.html" title="next chapter">Relaying</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
