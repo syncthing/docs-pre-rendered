@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LDAP Authentication &#8212; Syncthing v1.27.10 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <script src="../_static/documentation_options.js?v=61f49be8"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Tuning" href="tuning.html" />
+    <link rel="prev" title="The GUI Listen Address" href="guilisten.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="ldap-authentication">
+<h1>LDAP Authentication<a class="headerlink" href="#ldap-authentication" title="Link to this heading">¶</a></h1>
+<p>Syncthing can be configured to delegate authentication to an external LDAP
+source. Typical examples include Microsoft Active Directory and OpenLDAP /
+OpenDirectory servers.</p>
+<p>To enable LDAP authentication some configuration options must be set in the
+advanced config editor. Under “Actions &gt; Advanced”, select and expand the LDAP tab.
+The following options are available:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Address</span></code></dt><dd><p>Set to the address of the LDAP server, with hostname and port. For
+example, <code class="docutils literal notranslate"><span class="pre">dc1.example.com:389</span></code> for standard LDAP, or
+<code class="docutils literal notranslate"><span class="pre">dc1.example.com:636</span></code> for LDAPS. (See also <code class="docutils literal notranslate"><span class="pre">Transport</span></code>)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Bind</span> <span class="pre">DN</span></code></dt><dd><p>This is the pattern for the bind user. The special token <code class="docutils literal notranslate"><span class="pre">%s</span></code> must be
+inserted to represent the username entered by the user at the login
+prompt. Typical examples are <code class="docutils literal notranslate"><span class="pre">%s&#64;ad.example.com</span></code> for Active Directory
+or something like <code class="docutils literal notranslate"><span class="pre">CN=%s,CN=Users,DC=example,DC=com</span></code> for standard LDAP
+servers.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Insecure</span> <span class="pre">Skip</span> <span class="pre">Verify</span></code></dt><dd><p>When set, this option disables all certificate verification for LDAPS.
+Use with care and only when absolutely necessary.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">Base</span> <span class="pre">DN</span></code></dt><dd><p>Optional, base DN to use for user searches. See <a class="reference internal" href="#groupmembership"><span class="std std-ref">Enforcing Group Membership</span></a>
+below.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">Filter</span></code></dt><dd><p>Optional, search filter to use for user searches. See
+<a class="reference internal" href="#groupmembership"><span class="std std-ref">Enforcing Group Membership</span></a> below.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Transport</span></code></dt><dd><p>Set to <code class="docutils literal notranslate"><span class="pre">plain</span></code> for unencrypted LDAP (port 389), <code class="docutils literal notranslate"><span class="pre">tls</span></code> for LDAPS
+(port 636), or <code class="docutils literal notranslate"><span class="pre">starttls</span></code> for Start TLS (port 389 typically).</p>
+</dd>
+</dl>
+<p>A simple setup might look like this:</p>
+<img alt="../_images/advanced-ldap.png" src="../_images/advanced-ldap.png" />
+<p>Once these settings are correct, LDAP authentication must be <strong>enabled</strong> by
+setting the authentication mode to <code class="docutils literal notranslate"><span class="pre">ldap</span></code> in the advanced GUI
+configuration:</p>
+<img alt="../_images/advanced-gui-ldap.png" src="../_images/advanced-gui-ldap.png" />
+<section id="enforcing-group-membership">
+<span id="groupmembership"></span><h2>Enforcing Group Membership<a class="headerlink" href="#enforcing-group-membership" title="Link to this heading">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.5.0.</span></p>
+</div>
+<p>In some cases it may be desirable to restrict login to members of a certain
+group. We do this by using a custom search filter that matches users who
+belong to the group only.</p>
+<p>We need to know three things to specify the required search:</p>
+<ol class="arabic simple">
+<li><p>The base DN under which users are stored. This can be something like
+<code class="docutils literal notranslate"><span class="pre">CN=Users,DC=example,DC=com</span></code> for AD, or it can be a specific OU for a
+subset of users.</p></li>
+<li><p>The DN for the group we need to match, and the user attribute that stores
+group memberships. This varies depending on the LDAP schema and layout, for
+AD the membership attribute is <code class="docutils literal notranslate"><span class="pre">memberOf</span></code>.</p></li>
+<li><p>The attribute that stores the user ID that the user enters at the login
+prompt. Again this varies, and it can be either <code class="docutils literal notranslate"><span class="pre">CN</span></code>, <code class="docutils literal notranslate"><span class="pre">UID</span></code>, or
+something else. For AD it is <code class="docutils literal notranslate"><span class="pre">sAMAccountName</span></code>.</p></li>
+</ol>
+<p>With these at hand we can enter the base DN in the <code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">Base</span> <span class="pre">DN</span></code>
+configuration option, and build our search filter. The search filter needs
+to match both the user ID and the group membership. For an AD setup with a
+group <code class="docutils literal notranslate"><span class="pre">Syncthing</span></code> in the standard location, a valid search filter is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">&amp;</span>
+  <span class="p">(</span><span class="n">sAMAccountName</span><span class="o">=%</span><span class="n">s</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">memberOf</span><span class="o">=</span><span class="n">CN</span><span class="o">=</span><span class="n">Syncthing</span><span class="p">,</span><span class="n">CN</span><span class="o">=</span><span class="n">Users</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">example</span><span class="p">,</span><span class="n">DC</span><span class="o">=</span><span class="n">com</span><span class="p">)</span>
+  <span class="p">)</span>
+</pre></div>
+</div>
+<p>Line breaks for clarity only. We enter this as one long string. For example,
+like this:</p>
+<img alt="../_images/advanced-ldap-groups.png" src="../_images/advanced-ldap-groups.png" />
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/ldap.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.10-0-g820cc3c</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.10</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html">Configuration Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Prometheus-Style Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autostart.html">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="guilisten.html" title="previous chapter">The GUI Listen Address</a></li>
+      <li>Next: <a href="tuning.html" title="next chapter">Configuration Tuning</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

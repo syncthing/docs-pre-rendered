@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GET /rest/system/log &#8212; Syncthing v1.27.10 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <script src="../_static/documentation_options.js?v=61f49be8"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GET /rest/system/paths" href="system-paths-get.html" />
+    <link rel="prev" title="POST /rest/system/error" href="system-error-post.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="get-rest-system-log">
+<h1>GET /rest/system/log<a class="headerlink" href="#get-rest-system-log" title="Link to this heading">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 0.12.0.</span></p>
+</div>
+<p>Returns the list of recent log entries.  The optional <code class="docutils literal notranslate"><span class="pre">since</span></code> parameter limits
+the results to message newer than the given timestamp in <span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc3339.html"><strong>RFC 3339</strong></a> format.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;when&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2014-09-18T12:59:26.549953186+02:00&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is a log entry&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-rest-system-log-txt">
+<h1>GET /rest/system/log.txt<a class="headerlink" href="#get-rest-system-log-txt" title="Link to this heading">¶</a></h1>
+<p>Returns the same information, formatted as a text log instead of a JSON object.</p>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/rest/system-log-get.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.10-0-g820cc3c</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.10</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">Release Signing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../dev/index.html">Development</a><ul>
+  <li><a href="../dev/rest.html">REST API</a><ul>
+      <li>Previous: <a href="system-error-post.html" title="previous chapter">POST /rest/system/error</a></li>
+      <li>Next: <a href="system-paths-get.html" title="next chapter">GET /rest/system/paths</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

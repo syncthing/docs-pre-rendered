@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>REST API &#8212; Syncthing v1.27.10 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <script src="../_static/documentation_options.js?v=61f49be8"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GET /rest/system/browse" href="../rest/system-browse-get.html" />
+    <link rel="prev" title="Release Signing" href="release-signing.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="rest-api">
+<h1>REST API<a class="headerlink" href="#rest-api" title="Link to this heading">¶</a></h1>
+<p>Syncthing exposes a REST interface over HTTP on the GUI port. This is used by
+the GUI (from Javascript) and can be used by other processes wishing to control
+Syncthing. In most cases both the input and output data is in JSON format. The
+interface is subject to change.</p>
+<section id="api-key">
+<h2>API Key<a class="headerlink" href="#api-key" title="Link to this heading">¶</a></h2>
+<p>To use the REST API an API key must be set and used. The API key can be
+generated in the GUI, or set in the <code class="docutils literal notranslate"><span class="pre">configuration/gui/apikey</span></code> element in
+the configuration file. To use an API key, set the request header
+<code class="docutils literal notranslate"><span class="pre">X-API-Key</span></code> to the API key value, or set it as a <code class="docutils literal notranslate"><span class="pre">Bearer</span></code> token in the
+<code class="docutils literal notranslate"><span class="pre">Authorization</span></code> header. For example, <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-H</span> <span class="pre">&quot;X-API-Key:</span> <span class="pre">abc123&quot;</span>
+<span class="pre">http://localhost:8384/rest/...</span></code> or <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-H</span> <span class="pre">&quot;Authorization:</span> <span class="pre">Bearer</span>
+<span class="pre">abc123&quot;</span> <span class="pre">http://localhost:8384/rest/...</span></code> can be used to invoke with <code class="docutils literal notranslate"><span class="pre">curl</span></code>
+(add <code class="docutils literal notranslate"><span class="pre">-k</span></code> flag when using HTTPS with a Syncthing generated or self signed
+certificate).</p>
+<p>One exception to this requirement is <code class="docutils literal notranslate"><span class="pre">/rest/noauth</span></code>, you do not need an API
+key to use those endpoints. This way third-party devices and services can do
+simple calls that don’t expose sensitive information without having to expose
+your API key.</p>
+</section>
+<section id="result-pagination">
+<span id="rest-pagination"></span><h2>Result Pagination<a class="headerlink" href="#result-pagination" title="Link to this heading">¶</a></h2>
+<p>Some <cite>GET</cite> endpoints take optional <code class="docutils literal notranslate"><span class="pre">page</span></code> and <code class="docutils literal notranslate"><span class="pre">perpage</span></code> arguments for
+pagination.  No more than <code class="docutils literal notranslate"><span class="pre">perpage</span></code> (defaults to 65536 if not given) result
+entries are returned in an array.  To access further entries, passing the
+<code class="docutils literal notranslate"><span class="pre">page</span></code> parameter will advance in the results by that many pages.  The actually
+used parameters are always returned as attributes in the response object.</p>
+</section>
+<section id="system-endpoints">
+<h2>System Endpoints<a class="headerlink" href="#system-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-browse-get.html">GET /rest/system/browse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-config-get.html">GET /rest/system/config (DEPRECATED)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-config-insync-get.html">GET /rest/system/config/insync (DEPRECATED)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-config-post.html">POST /rest/system/config (DEPRECATED)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-connections-get.html">GET /rest/system/connections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-debug-get.html">GET /rest/system/debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-debug-post.html">POST /rest/system/debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-discovery-get.html">GET /rest/system/discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-discovery-post.html">POST /rest/system/discovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-error-clear-post.html">POST /rest/system/error/clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-error-get.html">GET /rest/system/error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-error-post.html">POST /rest/system/error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-log-get.html">GET /rest/system/log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-log-get.html#get-rest-system-log-txt">GET /rest/system/log.txt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-paths-get.html">GET /rest/system/paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-pause-post.html">POST /rest/system/pause</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-ping-get.html">GET /rest/system/ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-ping-post.html">POST /rest/system/ping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-reset-post.html">POST /rest/system/reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-restart-post.html">POST /rest/system/restart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-resume-post.html">POST /rest/system/resume</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-shutdown-post.html">POST /rest/system/shutdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-status-get.html">GET /rest/system/status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-upgrade-get.html">GET /rest/system/upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-upgrade-post.html">POST /rest/system/upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/system-version-get.html">GET /rest/system/version</a></li>
+</ul>
+</div>
+</section>
+<section id="config-endpoints">
+<h2>Config Endpoints<a class="headerlink" href="#config-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/config.html">/rest/config/...</a></li>
+</ul>
+</div>
+</section>
+<section id="cluster-endpoints">
+<h2>Cluster Endpoints<a class="headerlink" href="#cluster-endpoints" title="Link to this heading">¶</a></h2>
+<p>Concerns the mesh network structure.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/cluster-pending-devices-delete.html">DELETE /rest/cluster/pending/devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/cluster-pending-devices-get.html">GET /rest/cluster/pending/devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/cluster-pending-folders-delete.html">DELETE /rest/cluster/pending/folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/cluster-pending-folders-get.html">GET /rest/cluster/pending/folders</a></li>
+</ul>
+</div>
+</section>
+<section id="folder-endpoints">
+<h2>Folder Endpoints<a class="headerlink" href="#folder-endpoints" title="Link to this heading">¶</a></h2>
+<p>Runtime state of the individual shared folders.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/folder-errors-get.html">GET /rest/folder/errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/folder-pullerrors-get.html">GET /rest/folder/pullerrors (DEPRECATED)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/folder-versions-get.html">GET /rest/folder/versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/folder-versions-post.html">POST /rest/folder/versions</a></li>
+</ul>
+</div>
+</section>
+<section id="database-endpoints">
+<h2>Database Endpoints<a class="headerlink" href="#database-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-browse-get.html">GET /rest/db/browse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-completion-get.html">GET /rest/db/completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-file-get.html">GET /rest/db/file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-ignores-get.html">GET /rest/db/ignores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-ignores-post.html">POST /rest/db/ignores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-localchanged-get.html">GET /rest/db/localchanged</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-need-get.html">GET /rest/db/need</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-override-post.html">POST /rest/db/override</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-prio-post.html">POST /rest/db/prio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-remoteneed-get.html">GET /rest/db/remoteneed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-revert-post.html">POST /rest/db/revert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-scan-post.html">POST /rest/db/scan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/db-status-get.html">GET /rest/db/status</a></li>
+</ul>
+</div>
+</section>
+<section id="event-endpoints">
+<h2>Event Endpoints<a class="headerlink" href="#event-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/events-get.html">GET /rest/events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/events-get.html#get-rest-events-disk">GET /rest/events/disk</a></li>
+</ul>
+</div>
+</section>
+<section id="statistics-endpoints">
+<h2>Statistics Endpoints<a class="headerlink" href="#statistics-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/stats-device-get.html">GET /rest/stats/device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/stats-folder-get.html">GET /rest/stats/folder</a></li>
+</ul>
+</div>
+</section>
+<section id="misc-services-endpoints">
+<h2>Misc Services Endpoints<a class="headerlink" href="#misc-services-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/svc-deviceid-get.html">GET /rest/svc/deviceid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/svc-lang-get.html">GET /rest/svc/lang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/svc-random-string-get.html">GET /rest/svc/random/string</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest/svc-report-get.html">GET /rest/svc/report</a></li>
+</ul>
+</div>
+</section>
+<section id="debug-endpoints">
+<h2>Debug Endpoints<a class="headerlink" href="#debug-endpoints" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/debug.html">/rest/debug/...</a></li>
+</ul>
+</div>
+</section>
+<section id="noauth-endpoints">
+<h2>Noauth Endpoints<a class="headerlink" href="#noauth-endpoints" title="Link to this heading">¶</a></h2>
+<p>Calls that do not require authentication.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rest/noauth-health-get.html">GET /rest/noauth/health</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/rest.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.10-0-g820cc3c</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.10</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="release-signing.html" title="previous chapter">Release Signing</a></li>
+      <li>Next: <a href="../rest/system-browse-get.html" title="next chapter">GET /rest/system/browse</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
