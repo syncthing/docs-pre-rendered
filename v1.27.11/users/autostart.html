@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Starting Syncthing Automatically &#8212; Syncthing v1.27.11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <script src="../_static/documentation_options.js?v=48ef9b64"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Community Contributions" href="contrib.html" />
+    <link rel="prev" title="Custom Upgrade Server" href="custom-upgrades.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="starting-syncthing-automatically">
+<h1>Starting Syncthing Automatically<a class="headerlink" href="#starting-syncthing-automatically" title="Link to this heading">¶</a></h1>
+<p>Jump to configuration for your system:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#windows">Windows</a></p></li>
+<li><p><a class="reference internal" href="#macos">macOS</a></p></li>
+<li><p><a class="reference internal" href="#linux">Linux</a></p></li>
+</ul>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Link to this heading">¶</a></h2>
+<p>There is currently no official installer available for Windows. However,
+there are a number of easy solutions.</p>
+<p>Built-in solutions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#autostart-windows-taskschd"><span class="std std-ref">Run at user log on or at system startup using Task Scheduler</span></a></p></li>
+<li><p><a class="reference internal" href="#autostart-windows-startup"><span class="std std-ref">Run at user log on using the Startup folder</span></a></p></li>
+</ul>
+<p>Other solutions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#autostart-windows-tools"><span class="std std-ref">Install and run using third-party tools</span></a></p></li>
+<li><p><a class="reference internal" href="#autostart-windows-service"><span class="std std-ref">Run as a service independent of user log on</span></a></p></li>
+</ul>
+<section id="run-at-user-log-on-or-at-system-startup-using-task-scheduler">
+<span id="autostart-windows-taskschd"></span><h3>Run at user log on or at system startup using Task Scheduler<a class="headerlink" href="#run-at-user-log-on-or-at-system-startup-using-task-scheduler" title="Link to this heading">¶</a></h3>
+<p>Task Scheduler is a built-in administrative tool, which can be used to
+start Syncthing automatically either at user log on, or at system
+startup. In both cases, Syncthing will open and stay invisible in
+background.</p>
+<p>For technical information about Task Scheduler visit
+<a class="reference external" href="https://docs.microsoft.com/windows/win32/taskschd">https://docs.microsoft.com/windows/win32/taskschd</a>.</p>
+<ol class="arabic">
+<li><p>Start the Task Scheduler either by going to <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Menu</span> <span class="pre">&gt;</span> <span class="pre">Windows</span>
+<span class="pre">Administrative</span> <span class="pre">Tools</span></code> and clicking on <code class="docutils literal notranslate"><span class="pre">Task</span> <span class="pre">Scheduler</span></code>, or by
+opening <code class="docutils literal notranslate"><span class="pre">taskschd.msc</span></code> from the Run command (<code class="docutils literal notranslate"><span class="pre">Win+R</span></code>).</p></li>
+<li><p>Create a new Task (“Actions” sidebar &gt; “Create Task…”).</p>
+<p><img alt="Windows Task Scheduler Create Task Screenshot" src="../_images/windows-taskschd-createtask.png" /></p>
+</li>
+<li><p>General tab:</p>
+<ol class="arabic simple">
+<li><p>Name the task (for example “Syncthing”).</p></li>
+<li><p>Select “Run whether user is logged on or not”.</p></li>
+</ol>
+<p><img alt="Windows Task Scheduler General Screenshot" src="../_images/windows-taskschd-general.png" /></p>
+</li>
+<li><p>Triggers tab:</p>
+<p>Syncthing can be set up to start either at user log on, or at system
+startup. Pick your preferred method and follow the instructions
+below. If unsure, read the explanations underneath each of the two
+options.</p>
+<ul>
+<li><p>Run at user log on</p>
+<p>Choose this option if you intend to use Syncthing only when being
+logged on to your Windows user account.</p>
+<ol class="arabic simple">
+<li><p>Click “New…”.</p></li>
+<li><p>Set “Begin the task:” to “At log on”.</p></li>
+<li><p>Select “Specific user:”</p></li>
+<li><p>Click “OK”.</p></li>
+</ol>
+<p><img alt="Windows Task Scheduler Triggers Logon Screenshot" src="../_images/windows-taskschd-triggers-logon.png" /></p>
+</li>
+<li><p>Run at system startup</p>
+<p>Choose this option if you want Syncthing to open in background as
+soon as Windows starts, and even when not being logged on to your
+user account. Do not use this method if your Syncthing folders are
+stored on a non-system partition protected by BitLocker, as they
+will be inaccessible before user log on.</p>
+<ol class="arabic simple">
+<li><p>Click “New…”.</p></li>
+<li><p>Set “Begin the task:” to “At startup”.</p></li>
+<li><p>Click “OK”.</p></li>
+</ol>
+<p><img alt="Windows Task Scheduler Triggers Startup Screenshot" src="../_images/windows-taskschd-triggers-startup.png" /></p>
+</li>
+</ul>
+</li>
+<li><p>Actions tab:</p>
+<ol class="arabic simple">
+<li><p>Click “New…”.</p></li>
+<li><p>Enter the path to <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> in “Program/script:” (for
+example <code class="docutils literal notranslate"><span class="pre">C:\syncthing\syncthing.exe</span></code>).</p></li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">--no-console</span> <span class="pre">--no-browser</span></code> in “Add arguments (optional):”</p></li>
+<li><p>Click “OK”.</p></li>
+</ol>
+<p><img alt="Windows Task Scheduler Actions Screenshot" src="../_images/windows-taskschd-actions.png" /></p>
+</li>
+<li><p>Settings tab:</p>
+<ol class="arabic simple">
+<li><p>Uncheck “Stop task if it runs longer than:”.</p></li>
+<li><p>Click OK.</p></li>
+<li><p>Enter password for the user.</p></li>
+</ol>
+<p><img alt="Windows Task Scheduler Settings Screenshot" src="../_images/windows-taskschd-settingstab.png" /></p>
+</li>
+</ol>
+<section id="additional-configuration-in-task-scheduler">
+<h4>Additional configuration in Task Scheduler<a class="headerlink" href="#additional-configuration-in-task-scheduler" title="Link to this heading">¶</a></h4>
+<p>The following settings are optional. They are not required for Syncthing
+to run properly, but can offer additional functionality. Feel free to
+make selective use of them depending on your needs.</p>
+<ol class="arabic">
+<li><p>Conditions Tab:</p>
+<ul class="simple">
+<li><p>Uncheck “Stop if the computer switches to battery power”. Note that
+unchecking “Start the task only if the computer is on AC power”
+does not disable this option. Even if greyed out, it still applies,
+and has to be unchecked separately.</p></li>
+<li><p>Uncheck “Start the task only if the computer is on AC power”.</p></li>
+<li><p>Check “Start only if the following network connection is available”
+and set to “Network”. Use this option on a laptop, when you want
+Syncthing to start only on a wired Internet connection, and not on
+Wi-Fi. Note that once started, Syncthing will not stop running if
+the connection changes or becomes unavailable later.</p></li>
+</ul>
+<p><img alt="Windows Task Scheduler Additional Conditions Screenshot" src="../_images/windows-taskschd-additional-conditions.png" /></p>
+</li>
+<li><p>Actions Tab:</p>
+<ol class="arabic simple">
+<li><p>Select the previously created action and click “Edit…”.</p></li>
+<li><p>Enter the path to the parent folder of <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> in “Start
+in (optional)”. This will allow you to use paths relative to this
+folder in Syncthing.</p></li>
+<li><p>Click “OK”.</p></li>
+</ol>
+<p><img alt="Windows Task Scheduler Additional Actions Screenshot" src="../_images/windows-taskschd-additional-actions.png" /></p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Due to technical limitations, ending the task in Task Scheduler
+terminates only the monitor process of Syncthing. In order to actually
+exit Syncthing, open the Web GUI and press the “Shutdown” button under
+the “Actions” dropdown menu.</p>
+</div>
+</section>
+</section>
+<section id="run-at-user-log-on-using-the-startup-folder">
+<span id="autostart-windows-startup"></span><h3>Run at user log on using the Startup folder<a class="headerlink" href="#run-at-user-log-on-using-the-startup-folder" title="Link to this heading">¶</a></h3>
+<p>Starting Syncthing at user log on, without a console window or browser
+opening on start, is relatively easy.</p>
+<ol class="arabic">
+<li><p>Copy and paste <code class="docutils literal notranslate"><span class="pre">%APPDATA%\Microsoft\Windows\Start</span> <span class="pre">Menu\Programs\Startup</span></code>
+into the Address Bar in Windows Explorer, and press Enter.</p>
+<p><img alt="Windows Startup Folder Address Bar Screenshot" src="../_images/windows-startup-addressbar.png" /></p>
+<p>Alternatively, in newer versions of Windows, open <code class="docutils literal notranslate"><span class="pre">shell:startup</span></code>
+from the Run command (<code class="docutils literal notranslate"><span class="pre">Win+R</span></code>).</p>
+</li>
+<li><p>Right-click empty space in the folder and choose “New”, and then
+“Shortcut”.</p>
+<p><img alt="Windows Startup Folder New Shortcut Screenshot" src="../_images/windows-startup-newshortcut.png" /></p>
+</li>
+<li><p>Enter the path to <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> in “Type the location of the item:”
+followed by <code class="docutils literal notranslate"><span class="pre">--no-console</span> <span class="pre">--no-browser</span></code> (for example <code class="docutils literal notranslate"><span class="pre">C:\syncthing\syncthing.exe</span>
+<span class="pre">--no-console</span> <span class="pre">--no-browser</span></code>).</p>
+<p><img alt="Windows Startup Folder Create Shortcut Screenshot" src="../_images/windows-startup-createshortcut.png" /></p>
+</li>
+<li><p>Click “Next”.</p></li>
+<li><p>Click “Finish”.</p></li>
+</ol>
+<p>Syncthing will now automatically start the next time you log on to your
+user account in Windows. No console or browser window will pop-up, but
+you can still access the interface by opening <a class="reference external" href="http://localhost:8384">http://localhost:8384</a> in
+a Web browser.</p>
+</section>
+<section id="install-and-run-using-third-party-tools">
+<span id="autostart-windows-tools"></span><h3>Install and run using third-party tools<a class="headerlink" href="#install-and-run-using-third-party-tools" title="Link to this heading">¶</a></h3>
+<p>There are a number of third-party utilities which aim to help install
+and run Syncthing more easily. These typically provide an installer,
+an option to start the program automatically, and a more polished user
+experience (e.g. by behaving as a “proper” Windows application, rather
+than forcing you to start a Web browser to interact with Syncthing).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="contrib.html#contrib-windows"><span class="std std-ref">Windows GUI Wrappers</span></a>, <a class="reference internal" href="contrib.html#contrib-all"><span class="std std-ref">Cross-platform GUI
+Wrappers</span></a>, <a class="reference internal" href="contrib.html#contrib-packages-windows"><span class="std std-ref">Windows Packages</span></a>.</p>
+</div>
+</section>
+<section id="run-as-a-service-independent-of-user-login">
+<span id="autostart-windows-service"></span><h3>Run as a service independent of user login<a class="headerlink" href="#run-as-a-service-independent-of-user-login" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There are important security considerations with this approach. If you do not
+secure Syncthing’s GUI (and REST API), then <strong>any</strong> process running with
+<strong>any</strong> permissions can read/write <strong>any</strong> file on your filesystem, by opening
+a connection with Syncthing.</p>
+<p>Therefore, you <strong>must</strong> ensure that you set a GUI password, or run Syncthing
+as an unprivileged user.</p>
+</div>
+<p>With the above configuration, Syncthing only starts when a user logs on to the machine. This is not optimal on servers where a machine can
+run long times after a reboot without anyone logged in. In this case it
+is best to create a service that runs as soon as Windows starts. This
+can be achieved using NSSM, the “Non-Sucking Service Manager”.</p>
+<p>Note that starting Syncthing on login is the preferred approach for
+almost any end-user scenario. The only scenario where running Syncthing
+as a service makes sense is for (mostly) headless servers, administered
+by a sysadmin who knows enough to understand the security implications.</p>
+<ol class="arabic simple">
+<li><p>Download and extract <a class="reference external" href="http://nssm.cc/download">nssm</a> to a folder where it can stay. The NSSM executable performs administration as well as executing as the Windows service so it will need to be kept in a suitable location.</p></li>
+<li><p>From an administrator Command Prompt, CD to the NSSM folder and run <code class="docutils literal notranslate"><span class="pre">nssm.exe</span> <span class="pre">install</span> <span class="pre">&lt;syncthing</span> <span class="pre">service</span> <span class="pre">name&gt;</span></code></p></li>
+<li><p>Application Tab</p>
+<ul class="simple">
+<li><p>Set <em>Path</em> to your <code class="docutils literal notranslate"><span class="pre">syncthing.exe</span></code> and enter <code class="docutils literal notranslate"><span class="pre">--no-restart</span> <span class="pre">--no-browser</span> <span class="pre">--home=&quot;&lt;path</span> <span class="pre">to</span> <span class="pre">your</span> <span class="pre">Syncthing</span> <span class="pre">folder&gt;&quot;</span></code> as Arguments. Note: Logging is set later on. <code class="docutils literal notranslate"><span class="pre">--logfile</span></code> here will not be applied.</p></li>
+<li><p><img alt="Windows NSSM Configuration Screenshot" src="../_images/windows-nssm-config.png" /></p></li>
+</ul>
+</li>
+<li><p>Details Tab</p>
+<ul class="simple">
+<li><p>Optional: Set <em>Startup type</em> to <em>Automatic (Delayed Start)</em> to delay the start of Syncthing when the system first boots, to improve boot speed.</p></li>
+</ul>
+</li>
+<li><p>Log On Tab</p>
+<ul class="simple">
+<li><p>Enter the user account to run Syncthing as. This user needs to have full access to the Syncthing executable and its parent folder, configuration files / database folder and synced folders. You can leave this as <em>Local System</em> but doing so poses security risks. Setting this to your Windows user account will reduce this; ideally create a dedicated user account with minimal permissions.</p></li>
+</ul>
+</li>
+<li><p>Process Tab</p>
+<ul class="simple">
+<li><p>Optional: Change priority to <em>Low</em> if you want a more responsive system at the cost of somewhat longer sync time when the system is busy.</p></li>
+<li><p>Optional: To enable logging enable “Console window”.</p></li>
+</ul>
+</li>
+<li><p>Shutdown Tab</p>
+<ul class="simple">
+<li><p>To ensure Syncthing is shut down gracefully select all of the checkboxes and set all <em>Timeouts</em> to <em>10000ms</em>.</p></li>
+</ul>
+</li>
+<li><p>Exit Actions Tab</p>
+<ul class="simple">
+<li><p>Set <em>Restart Action</em> to <em>Stop service (oneshot mode)</em>. Specific settings are used later for handling Syncthing exits, restarts and upgrades.</p></li>
+</ul>
+</li>
+<li><p>I/O Tab</p>
+<ul class="simple">
+<li><p>Optional: To enable logging set <em>Output (stdout)</em> to the file desired for logging. The <em>Error</em> field will be automatically set to the same file.</p></li>
+</ul>
+</li>
+<li><p>File Rotation Tab</p>
+<ul class="simple">
+<li><p>Optional: Set the rotation settings to your preferences.</p></li>
+</ul>
+</li>
+<li><p>Click the <em>Install Service</em> Button</p></li>
+<li><p>To ensure that Syncthing exits, restarts and upgrades are handled correctly by the Windows service manager, some final settings are needed. Execute these in the same Command Prompt:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nssm</span> <span class="pre">set</span> <span class="pre">syncthing</span> <span class="pre">AppExit</span> <span class="pre">Default</span> <span class="pre">Exit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nssm</span> <span class="pre">set</span> <span class="pre">syncthing</span> <span class="pre">AppExit</span> <span class="pre">0</span> <span class="pre">Exit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nssm</span> <span class="pre">set</span> <span class="pre">syncthing</span> <span class="pre">AppExit</span> <span class="pre">3</span> <span class="pre">Restart</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nssm</span> <span class="pre">set</span> <span class="pre">syncthing</span> <span class="pre">AppExit</span> <span class="pre">4</span> <span class="pre">Restart</span></code></p></li>
+</ul>
+</li>
+<li><p>Start the service via <code class="docutils literal notranslate"><span class="pre">sc</span> <span class="pre">start</span> <span class="pre">syncthing</span></code> in the Command Prompt.</p></li>
+<li><p>Connect to the Syncthing UI, enable HTTPS, and set a secure username and password.</p></li>
+</ol>
+</section>
+</section>
+<section id="macos">
+<h2>macOS<a class="headerlink" href="#macos" title="Link to this heading">¶</a></h2>
+<section id="using-homebrew">
+<h3>Using <a class="reference external" href="https://brew.sh">homebrew</a><a class="headerlink" href="#using-homebrew" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">syncthing</span></code></p></li>
+<li><p>Follow the information presented by <code class="docutils literal notranslate"><span class="pre">brew</span></code> to autostart Syncthing using launchctl.</p></li>
+</ol>
+</section>
+<section id="without-homebrew">
+<h3>Without homebrew<a class="headerlink" href="#without-homebrew" title="Link to this heading">¶</a></h3>
+<p>Download and extract Syncthing for Mac:
+<a class="reference external" href="https://github.com/syncthing/syncthing/releases/latest">https://github.com/syncthing/syncthing/releases/latest</a>.</p>
+<ol class="arabic simple">
+<li><p>Copy the syncthing binary (the file you would open to launch
+Syncthing) into a directory called <code class="docutils literal notranslate"><span class="pre">bin</span></code> in your home directory i.e. into /Users/&lt;username&gt;/bin. If
+“bin” does not exist, create it.</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">syncthing.plist</span></code> located in /etc/macos-launchd. Replace the four occurrences of /Users/USERNAME with your actual home directory location.</p></li>
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">syncthing.plist</span></code> file to <code class="docutils literal notranslate"><span class="pre">~/Library/LaunchAgents</span></code>. If
+you have trouble finding this location select the “Go” menu in Finder
+and choose “Go to folder…” and then type
+<code class="docutils literal notranslate"><span class="pre">~/Library/LaunchAgents</span></code>. Copying to ~/Library/LaunchAgents will
+require admin password in most cases.</p></li>
+<li><p>Log out and back in again. Or, if you do not want to log out, you can
+run this command in terminal:
+<code class="docutils literal notranslate"><span class="pre">launchctl</span> <span class="pre">load</span> <span class="pre">~/Library/LaunchAgents/syncthing.plist</span></code></p></li>
+</ol>
+<p><strong>Note:</strong> You probably want to turn off “Start Browser” in the web GUI
+settings to avoid it opening a browser window on each login. Then, to
+access the GUI type 127.0.0.1:8384 (by default) into Safari.</p>
+</section>
+</section>
+<section id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Link to this heading">¶</a></h2>
+<section id="using-the-desktop-environment-kde-gnome-xfce-cinnamon">
+<h3>Using the Desktop Environment (KDE, Gnome, Xfce, Cinnamon, …)<a class="headerlink" href="#using-the-desktop-environment-kde-gnome-xfce-cinnamon" title="Link to this heading">¶</a></h3>
+<p>You can make Syncthing start when you log into your desktop environment (DE) in
+two ways.</p>
+<p>Using DE tools:</p>
+<ol class="arabic simple">
+<li><p>Search for and launch a tool related to autostart or startup applications.</p></li>
+<li><p>Add a new autostart application and search for and choose “Start Syncthing”.</p></li>
+</ol>
+<p>If you don’t find “Start Syncthing” in the steps above or just prefer doing it
+manually:</p>
+<ol class="arabic simple">
+<li><p>Find the file <code class="docutils literal notranslate"><span class="pre">syncthing-start.desktop</span></code>: Either from the package you
+downloaded from GitHub in <code class="docutils literal notranslate"><span class="pre">etc/linux-desktop/</span></code>, in
+<code class="docutils literal notranslate"><span class="pre">/usr/share/applications/</span></code> if installed from your package manager
+or <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/etc/linux-desktop">from our repository</a>.</p></li>
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">syncthing-start.desktop</span></code> to <code class="docutils literal notranslate"><span class="pre">~/.config/autostart/</span></code>.</p></li>
+</ol>
+<p>For more information relating to <code class="docutils literal notranslate"><span class="pre">.desktop</span></code> files e.g. for application menus,
+refer to <a class="reference external" href="https://github.com/syncthing/syncthing/tree/main/etc/linux-desktop">https://github.com/syncthing/syncthing/tree/main/etc/linux-desktop</a>.</p>
+</section>
+<section id="using-supervisord">
+<h3>Using Supervisord<a class="headerlink" href="#using-supervisord" title="Link to this heading">¶</a></h3>
+<p>Go to <code class="docutils literal notranslate"><span class="pre">/etc/supervisor/conf.d/</span></code> and create a new file named <code class="docutils literal notranslate"><span class="pre">syncthing.conf</span></code> with the following content (ensure you replaced <code class="docutils literal notranslate"><span class="pre">&lt;USERNAME&gt;</span></code> with valid username):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">program</span><span class="p">:</span><span class="n">syncthing</span><span class="p">]</span>
+<span class="n">autorestart</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/&lt;</span><span class="n">USERNAME</span><span class="o">&gt;/</span>
+<span class="n">user</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">USERNAME</span><span class="o">&gt;</span>
+<span class="n">command</span> <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">syncthing</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">STNORESTART</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">HOME</span><span class="o">=</span><span class="s2">&quot;/home/&lt;USERNAME&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Reload Supervisord:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">supervisorctl</span> <span class="n">reload</span>
+</pre></div>
+</div>
+<p>Then start it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">supervisorctl</span> <span class="n">start</span> <span class="n">syncthing</span>
+</pre></div>
+</div>
+<p>and check it is all working:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">supervisorctl</span> <span class="n">status</span> <span class="n">syncthing</span>
+</pre></div>
+</div>
+<p>In case of troubles check the logs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">supervisorctl</span> <span class="n">tail</span> <span class="n">syncthing</span>
+</pre></div>
+</div>
+</section>
+<section id="using-systemd">
+<h3>Using systemd<a class="headerlink" href="#using-systemd" title="Link to this heading">¶</a></h3>
+<p>systemd is a suite of system management daemons, libraries, and
+utilities designed as a central management and configuration platform
+for the Linux computer operating system. It also offers users the
+ability to manage services under the user’s control with a per-user
+systemd instance, enabling users to start, stop, enable, and disable
+their own units. Service files for systemd are provided by Syncthing,
+either in the <code class="docutils literal notranslate"><span class="pre">etc/linux-systemd</span></code> directory of the downloaded tarball
+or directly installed to the appropriate location on your system when
+installed through <a class="reference external" href="https://apt.syncthing.net">apt.syncthing.net</a>.</p>
+<p>You have two primary options: You can set up Syncthing as a system service, or a
+user service.</p>
+<p>Running Syncthing as a system service ensures that Syncthing is run at startup
+even if the Syncthing user has no active session. Since the system service keeps
+Syncthing running even without an active user session, it is intended to be used
+on a <em>server</em>.</p>
+<p>Running Syncthing as a user service ensures that Syncthing only starts after the
+user has logged into the system (e.g., via the graphical login screen, or ssh).
+Thus, the user service is intended to be used on a <em>(multiuser) desktop
+computer</em>. It avoids unnecessarily running Syncthing instances.</p>
+<p>The official <a class="reference external" href="https://apt.syncthing.net/">Debian/Ubuntu Syncthing repository</a>, and
+several distros (including Arch Linux) ship these service files along with
+the Syncthing package. If your distro provides the systemd service files for
+Syncthing, you can skip step #2 when you’re setting up either the system service
+or the user service, as described below.  If in doubt, try if it works without and
+go back to step #2 only if enabling the service failed.</p>
+<section id="how-to-set-up-a-system-service">
+<h4>How to set up a system service<a class="headerlink" href="#how-to-set-up-a-system-service" title="Link to this heading">¶</a></h4>
+<ol class="arabic">
+<li><p>Create the user who should run the service, or choose an existing one.</p></li>
+<li><p>(Skip if your distribution package already installs these files, see above.)
+From <a class="reference external" href="https://github.com/syncthing/syncthing/raw/main/etc/linux-systemd/system/">git location</a> copy the <code class="docutils literal notranslate"><span class="pre">syncthing&#64;.service</span></code> file into the
+<a class="reference external" href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path">load path of the system instance</a>.</p></li>
+<li><p>Enable and start the service. Replace “myuser” with the actual Syncthing
+user after the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">enable</span> <span class="n">syncthing</span><span class="nd">@myuser</span><span class="o">.</span><span class="n">service</span>
+<span class="n">systemctl</span> <span class="n">start</span> <span class="n">syncthing</span><span class="nd">@myuser</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="how-to-set-up-a-user-service">
+<h4>How to set up a user service<a class="headerlink" href="#how-to-set-up-a-user-service" title="Link to this heading">¶</a></h4>
+<ol class="arabic">
+<li><p>Create the user who should run the service, or choose an existing
+one. <em>Probably this will be your own user account.</em></p></li>
+<li><p>(Skip if your distribution package already installs these files, see above.)
+From <a class="reference external" href="https://github.com/syncthing/syncthing/raw/main/etc/linux-systemd/user/">git location</a> copy the <code class="docutils literal notranslate"><span class="pre">syncthing.service</span></code> file into the <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Unit%20File%20Load%20Path">load path
+of the user instance</a>.
+To do this without root privileges you can just use this folder under your
+home directory: <code class="docutils literal notranslate"><span class="pre">~/.config/systemd/user/</span></code>.</p></li>
+<li><p>Enable and start the service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="o">--</span><span class="n">user</span> <span class="n">enable</span> <span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
+<span class="n">systemctl</span> <span class="o">--</span><span class="n">user</span> <span class="n">start</span> <span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+</li>
+<li><p>If your home directory is encrypted with eCryptfs on Debian/Ubuntu, then you will need to make
+the change described in <a class="reference external" href="https://bugs.launchpad.net/ecryptfs/+bug/1734290">Ubuntu bug 1734290</a>.
+Otherwise the user service will not start, because by default, systemd checks for user
+services before your home directory has been decrypted.</p></li>
+</ol>
+<p>Automatic start-up of systemd user instances at boot (before login) is possible
+through systemd’s “lingering” function, if a system service cannot be used
+instead.  Refer to the <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/loginctl.html#enable-linger%20USER%E2%80%A6">enable-linger</a> command of <code class="docutils literal notranslate"><span class="pre">loginctl</span></code> to allow this
+for a particular user.</p>
+</section>
+<section id="checking-the-service-status">
+<h4>Checking the service status<a class="headerlink" href="#checking-the-service-status" title="Link to this heading">¶</a></h4>
+<p>To check if Syncthing runs properly you can use the <code class="docutils literal notranslate"><span class="pre">status</span></code>
+subcommand. To check the status of a system service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">status</span> <span class="n">syncthing</span><span class="nd">@myuser</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<p>To check the status of a user service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="o">--</span><span class="n">user</span> <span class="n">status</span> <span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+</section>
+<section id="using-the-journal">
+<h4>Using the journal<a class="headerlink" href="#using-the-journal" title="Link to this heading">¶</a></h4>
+<p>Systemd logs everything into the journal, so you can easily access Syncthing log
+messages. In both of the following examples, <code class="docutils literal notranslate"><span class="pre">-e</span></code> tells the pager to jump to
+the very end, so that you see the most recent logs.</p>
+<p>To see the logs for the system service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">journalctl</span> <span class="o">-</span><span class="n">e</span> <span class="o">-</span><span class="n">u</span> <span class="n">syncthing</span><span class="nd">@myuser</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<p>To see the logs for the user service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">journalctl</span> <span class="o">-</span><span class="n">e</span> <span class="o">--</span><span class="n">user</span><span class="o">-</span><span class="n">unit</span><span class="o">=</span><span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+</section>
+<section id="permissions">
+<span id="autostart-systemd-permissions"></span><h4>Permissions<a class="headerlink" href="#permissions" title="Link to this heading">¶</a></h4>
+<p>If you enabled the <code class="docutils literal notranslate"><span class="pre">Ignore</span> <span class="pre">Permissions</span></code> option in the Syncthing client’s
+folder settings, then you will also need to add the line <code class="docutils literal notranslate"><span class="pre">UMask=0002</span></code> (or any
+other <a class="reference external" href="https://www.tech-faq.com/umask.html">umask setting</a> you like) in the
+<code class="docutils literal notranslate"><span class="pre">[Service]</span></code> section of the <code class="docutils literal notranslate"><span class="pre">syncthing&#64;.service</span></code> file.</p>
+<p>For the <a class="reference internal" href="../advanced/folder-sync-ownership.html"><span class="doc">syncOwnership</span></a> option to work, you can
+grant extra capabilities to the service via the systemd unit file.
+Add the following snippet to the service file (commented out in the
+provided template).  To ensure smooth upgrades, keeping it in an
+override file using <code class="docutils literal notranslate"><span class="pre">systemd</span> <span class="pre">edit</span> <span class="pre">...</span></code> is advised:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Service</span><span class="p">]</span>
+<span class="n">AmbientCapabilities</span><span class="o">=</span><span class="n">CAP_CHOWN</span> <span class="n">CAP_FOWNER</span>
+</pre></div>
+</div>
+</section>
+<section id="debugging">
+<h4>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">¶</a></h4>
+<p>If you are asked on the bugtracker to start Syncthing with specific
+environment variables it will not work the normal way. Systemd isolates each
+service and it cannot access global environment variables. The solution is to
+add the variables to the service file instead.</p>
+<p>To edit the system service, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">edit</span> <span class="n">syncthing</span><span class="nd">@myuser</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<p>To edit the user service, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="o">--</span><span class="n">user</span> <span class="n">edit</span> <span class="n">syncthing</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<p>This will create an additional configuration file automatically and you
+can define (or overwrite) further service parameters like e.g.
+<code class="docutils literal notranslate"><span class="pre">Environment=STTRACE=model</span></code>.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/users/autostart.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.27.11-0-g96b2172</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.27.11</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="syncthing.html">Command Line Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="releases.html">Versions &amp; Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html">Advanced Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="foldertypes.html">Folder Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introducer.html">Introducer Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guilisten.html">The GUI Listen Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ldap.html">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html">Configuration Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Prometheus-Style Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syncing.html">Understanding Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="untrusted.html">Untrusted (Encrypted) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html">Firewall Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relaying.html">Relaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxying.html">Using Proxies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html">SSH Tunneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignoring.html">Ignoring Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">File Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stdiscosrv.html">Syncthing Discovery Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strelaysrv.html">Syncthing Relay Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom-upgrades.html">Custom Upgrade Server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Starting Syncthing Automatically</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib.html">Community Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reverseproxy.html">Reverse Proxy Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="custom-upgrades.html" title="previous chapter">Custom Upgrade Server</a></li>
+      <li>Next: <a href="contrib.html" title="next chapter">Community Contributions</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
