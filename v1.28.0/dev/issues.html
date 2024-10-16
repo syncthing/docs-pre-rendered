@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Issue Management &#8212; Syncthing v1.28.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <script src="../_static/documentation_options.js?v=5effd34a"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating a Release" href="release-creation.html" />
+    <link rel="prev" title="Syncthing Infrastructure" href="infrastructure.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="issue-management">
+<h1>Issue Management<a class="headerlink" href="#issue-management" title="Link to this heading">¶</a></h1>
+<p>Bugs, feature requests and other things we need to do are tracked as
+GitHub issues. Issues can be of various types and in various states, and
+also belong to milestones or not. This page is an attempt to document
+the current practice.</p>
+<section id="labels">
+<h2>Labels<a class="headerlink" href="#labels" title="Link to this heading">¶</a></h2>
+<p>Issues without labels are undecided - that is, we don’t yet know if it’s
+a bug, a configuration issue, a feature request or what. Issues that are
+invalid for whatever reason are closed with a short explanation of why.
+Examples include “Duplicate of #123”, “Discovered to be configuration
+error”, “Rendered moot by #123” and so on. We don’t use the “invalid” or
+“wontfix” labels.</p>
+<dl class="simple">
+<dt>api</dt><dd><p>Issues or pull requests that change public APIs (config, REST). Used
+to highlight these specifically in the release notes, and ensure we
+don’t miss to bump the minor version.</p>
+</dd>
+<dt>bug</dt><dd><p>A problem with current functionality, as opposed to missing
+functionality (enhancement).</p>
+</dd>
+<dt>build</dt><dd><p>Issues caused by or requiring changes to the build system (scripts
+or Docker image).</p>
+</dd>
+<dt>dependencies</dt><dd><p>Pull requests that update a dependency file.</p>
+</dd>
+<dt>documentation</dt><dd><p>Issues related to the documentation.</p>
+</dd>
+<dt>enhancement</dt><dd><p>New features or improvements of some kind, as opposed to a problem
+(bug).</p>
+</dd>
+<dt>frozen-due-to-age</dt><dd><p>Set automatically on issues when they have been closed untouched
+for a long time, together with being locked for discussion.</p>
+</dd>
+<dt>good first issue</dt><dd><p>Good starting points for new contributors, contained in scope and
+size, and clear about what is the desired outcome.</p>
+</dd>
+<dt>needs-triage</dt><dd><p>New issues needed to be validated.</p>
+</dd>
+<dt>not-our-bug</dt><dd><p>Rare and temporary label used only when we want to keep an issue
+open for visibility, but the real problem is somewhere else.</p>
+</dd>
+<dt>pr-merged</dt><dd><p>Legacy label used in the past for pull requests merged to the main
+tree.</p>
+</dd>
+<dt>protocol</dt><dd><p>Issues that require a change to the protocol.</p>
+</dd>
+<dt>skip-changelog</dt><dd><p>Set on bugs that have never been in a released stable version, i.e.
+a bug introduced in v1.8.0-rc.1 and fixed in v1.8.0-rc.2, and as
+such excluded from the release notes for v1.8.0.</p>
+</dd>
+<dt>ui</dt><dd><p>Issues related to the graphical user interface.</p>
+</dd>
+<dt>waiting-for-info</dt><dd><p>Issues that require more information from the author on how to
+reproduce.</p>
+</dd>
+</dl>
+</section>
+<section id="milestones">
+<h2>Milestones<a class="headerlink" href="#milestones" title="Link to this heading">¶</a></h2>
+<p>Each released version gets a milestone. Issues that are resolved and will be
+released as that version get added to the milestone. The release notes are
+based on the issues present in the milestone.</p>
+<p>In addition to version specific milestones there are two generic ones:</p>
+<dl class="simple">
+<dt>Planned</dt><dd><p>This issue is being worked on, or will soon be worked on, by someone in
+the core team. Expect action on it within the next few days, weeks or
+months.</p>
+</dd>
+<dt>Unplanned (Contributions Welcome)</dt><dd><p>This issue is not being worked on by the core team, and we don’t plan on
+doing so in the foreseeable future. We still consider it a valid issue
+and welcome contributions towards resolving it.</p>
+</dd>
+</dl>
+<p>Issues lacking a milestone are currently undecided. In practice this is
+similar to Unplanned in that probably no-one is working on it, but we are
+still considering it and it may end up Planned or closed instead.</p>
+</section>
+<section id="assignee">
+<h2>Assignee<a class="headerlink" href="#assignee" title="Link to this heading">¶</a></h2>
+<p>Users can be assigned to issues. We don’t usually do so. Sometimes
+someone assigns themself to an issue to indicate “I’m working on this”
+to avoid others doing so too. It’s not mandatory.</p>
+</section>
+<section id="locking">
+<h2>Locking<a class="headerlink" href="#locking" title="Link to this heading">¶</a></h2>
+<p>We don’t normally lock issues (prevent further discussion on them).
+There are some exceptions though;</p>
+<ul class="simple">
+<li><p>“Popular” issues that attract lots of “me too” and “+1” comments.
+These are noise and annoy people with useless notifications via mail
+and in the GitHub interface. Once the issue is clear and it suffers
+from this symptom I may lock it.</p></li>
+<li><p>Contentious bikeshedding discussions. After two sides in a discussion
+have clarified their points, there is no point arguing endlessly
+about it. As above, this may get closed.</p></li>
+<li><p>Duplicates. Once an issue has been identified as a duplicate of
+another issue, it may be locked to prevent further discussion there.
+The intention is to move the discussion to the other (referenced)
+issue, while someone just doing a search and jumping on the first
+match might otherwise resurrect discussion in the duplicate.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/issues.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.28.0-0-gbf83ede</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.28.0</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="infrastructure.html" title="previous chapter">Syncthing Infrastructure</a></li>
+      <li>Next: <a href="release-creation.html" title="next chapter">Creating a Release</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
