@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a Release &#8212; Syncthing v1.28.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=ad5845fd"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release Signing" href="release-signing.html" />
+    <link rel="prev" title="Issue Management" href="issues.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="creating-a-release">
+<h1>Creating a Release<a class="headerlink" href="#creating-a-release" title="Link to this heading">¶</a></h1>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>About ten minutes to half an hour of free time.</p></li>
+<li><p>The main branch in a clean and buildable state, full of commits you are proud of and know the users will love. This is of course the default state at any given time.</p></li>
+<li><p>A normal computer (real or virtual) that has a command line and can run bash scripts. Macs and Linux boxes are good choices here. If you know what you’re doing I’m sure it’s entirely possible to do it on Windows as well - but then you’re on your own. In a pinch you can use <code class="docutils literal notranslate"><span class="pre">secure.syncthing.net</span></code> as it has all the required tools installed, although you’ll need to add your git config, keys etc.</p></li>
+<li><p>The source repo, Git, Go, and GPG. It doesn’t much matter which version of Go, we are not going to be building the release artifacts with it. If you can build the project you are good to go. If you can’t build it, please don’t attempt to make a release of it.</p></li>
+<li><p>Push access to the repo, being able to bypass the pull request requirements. This means <code class="docutils literal notranslate"><span class="pre">admin</span></code> or <code class="docutils literal notranslate"><span class="pre">maintainers</span></code> group.</p></li>
+<li><p>An account on <code class="docutils literal notranslate"><span class="pre">secure.syncthing.net</span></code> with sudo access.</p></li>
+<li><p>A TeamCity account on <code class="docutils literal notranslate"><span class="pre">build.syncthing.net</span></code> with deploy access.</p></li>
+</ul>
+</section>
+<section id="release-procedure">
+<h2>Release Procedure<a class="headerlink" href="#release-procedure" title="Link to this heading">¶</a></h2>
+<p>The procedure differs slightly depending on whether we’re doing a release candidate or a stable release. Candidate releases require work to prepare the changelog, which will just be reused for the stable release. The stable release on the other hand requires a slightly different release process and is announced more widely.</p>
+<section id="release-candidates-write-a-change-log">
+<h3>Release Candidates - Write a Change Log<a class="headerlink" href="#release-candidates-write-a-change-log" title="Link to this heading">¶</a></h3>
+<p>Most of the change log is machine generated from the closed issues. We do however need to make sure that issues belong to the correct milestone, have the correct labels, and that the issue subject makes sense as a line in the change log. To our help we have the purpose written tool <a class="reference external" href="https://github.com/syncthing/github-release-tool">grt</a>. The grt tool requires your GitHub token to manage milestones and issues; you set the environment variable <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> while you are working on the release (but hopefully not all the time - programs can and do steal environment data).</p>
+<p>To ensure that all closed issues are tagged with the milestone for the release you are doing, use the following command. First, find the commit hash or tag of the last commit on the <em>previous</em> release - changes since this point is what we are going to consider part of this release. If there haven’t been any special releases or branching you can simply use the previous release as the starting point.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grt<span class="w"> </span>milestone<span class="w"> </span>v0.14.50<span class="w"> </span>--from<span class="o">=</span>v0.14.49
+</pre></div>
+</div>
+<p>Visit the milestone in your browser and double check the issue subjects and labels. Remember that only closed issues (not pull requests) will appear in the change log. If there are specific things to note about this release, such as changed APIs or config formats, briefly describe these changes in the notes field. You can preview the change log using grt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grt<span class="w"> </span>changelog<span class="w"> </span>v0.14.50
+Bugfixes:
+
+<span class="w"> </span>-<span class="w"> </span><span class="c1">#5063: panic: cannot start already running folder</span>
+<span class="w"> </span>-<span class="w"> </span><span class="c1">#5073: lib/logger: tests fail due to compilation error with go 1.11</span>
+</pre></div>
+</div>
+<p>In principle the output should be a complete, valid release note for the release in question. Pipe it to a text file. If you’re preparing a release candidate you should specify the full candidate tag (e.g. v0.14.50-rc.1) to the command above to get the correct title on the changelog.</p>
+<p>Add further notes or commentary to taste, if required.</p>
+</section>
+<section id="stable-release-write-a-change-log">
+<h3>Stable Release - Write a Change Log<a class="headerlink" href="#stable-release-write-a-change-log" title="Link to this heading">¶</a></h3>
+<p>Use the change log from the corresponding release candidate, just change the version in the first line and the first sentence that describes the release status.</p>
+</section>
+<section id="prepare-the-release-branch">
+<h3>Prepare the Release Branch<a class="headerlink" href="#prepare-the-release-branch" title="Link to this heading">¶</a></h3>
+<p>Releases come from the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch. If you are making a new candidate release you will want to fast forward <code class="docutils literal notranslate"><span class="pre">release</span></code> to point at current <code class="docutils literal notranslate"><span class="pre">main</span></code> <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>. If you are making a stable release from the latest RC the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch is already in the right place.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>release
+$<span class="w"> </span>git<span class="w"> </span>merge<span class="w"> </span>--ff-only<span class="w"> </span>main
+</pre></div>
+</div>
+<p>If there’s been some funky business with the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch and it can’t be fast forwarded to <code class="docutils literal notranslate"><span class="pre">main</span></code>, 1) the previous release manager screwed up, 2) don’t do a merge, just reset the branch to the right place.</p>
+<p>Don’t push the branch yet, we want to create the tag first.</p>
+</section>
+<section id="create-and-push-the-tag">
+<h3>Create and Push the Tag<a class="headerlink" href="#create-and-push-the-tag" title="Link to this heading">¶</a></h3>
+<p>Make sure you push the tag before the release branch, as the latter
+currently triggers the release job on the CI (and requires the tag already being in place).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>-s<span class="w"> </span>-F<span class="w"> </span>~/changelog.txt<span class="w"> </span>v0.14.50
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>--tags
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>release:release
+</pre></div>
+</div>
+<p>The changelog file is the one you prepared previously.</p>
+<p>You will need your PGP key at hand for this step. It should be your personal PGP key, whatever you would normally use. If you don’t have one you’ll need to create one for the purpose. Keep it around, keep it secure, upload the public part to a key server.</p>
+<p>If your remote spec is nondefault, tailor the push command to suit. We deliberately pushed the tags before the release branch, because the builder may start building the release branch immediately and needs to see the right tags at that point.</p>
+</section>
+<section id="build-the-packages">
+<h3>Build the Packages<a class="headerlink" href="#build-the-packages" title="Link to this heading">¶</a></h3>
+<p>If you are building a release candidate and fast forwarded the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch the build server will already have started building it. If not, jump in on the build server and trigger the Release/Syncthing job, for the <code class="docutils literal notranslate"><span class="pre">release</span></code> branch, while checking the options to rebuild all dependencies in the chain. We need the rebuild for those binaries to pick up the new tag.</p>
+<p>Once the build succeeds, log in on <code class="docutils literal notranslate"><span class="pre">secure.syncthing.net</span></code>. If something failed in the build it’s hopefully “just” a flaky test - redo the build.</p>
+</section>
+<section id="create-the-github-release">
+<h3>Create the GitHub release<a class="headerlink" href="#create-the-github-release" title="Link to this heading">¶</a></h3>
+<p>From this point on we will work on <code class="docutils literal notranslate"><span class="pre">secure.s.n</span></code>, as the <code class="docutils literal notranslate"><span class="pre">release</span></code> user.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jb@laptop$<span class="w"> </span>ssh<span class="w"> </span>secure.syncthing.net
+jb@secure$<span class="w"> </span>sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>release
+release@secure$
+</pre></div>
+</div>
+<p>We will use grt to create the release with the appropriate change log, and possibly close the milestone. If we are doing a candidate release we need to specify the tag including the candidate suffix:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grt<span class="w"> </span>release<span class="w"> </span>v0.14.50-rc.1
+</pre></div>
+</div>
+<p>This will create a v0.14.50-rc.1 release, with the “pre-release” bit set, and leave the v0.14.50 milestone open. For a stable release:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grt<span class="w"> </span>release<span class="w"> </span>v0.14.50
+</pre></div>
+</div>
+<p>The milestone will be closed.</p>
+</section>
+<section id="sign-and-upload-the-archives">
+<h3>Sign and upload the archives<a class="headerlink" href="#sign-and-upload-the-archives" title="Link to this heading">¶</a></h3>
+<p>At this point the build should have completed and the artifacts should have been uploaded to <code class="docutils literal notranslate"><span class="pre">secure.s.n</span></code>. If the build number was 1234 and the version v0.14.50 the files will be in <code class="docutils literal notranslate"><span class="pre">/home/incoming/build-1234-v0.14.50</span></code>. Run the following scripts. None of them should fail, barring connectivity issues - so if they do, you get to fix whatever it is without any guidance from me. Sorry.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sign-upload-debian<span class="w"> </span>/home/incoming/build-1234-v0.14.50
+</pre></div>
+</div>
+<p>Publishes the Debian archives to apt.syncthing.net.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>upload-release<span class="w"> </span>/home/incoming/build-1234-v0.14.50
+</pre></div>
+</div>
+<p>Publishes the regular release archives to GitHub.</p>
+</section>
+<section id="stable-releases-trigger-update-of-the-website">
+<h3>Stable Releases - Trigger update of the website<a class="headerlink" href="#stable-releases-trigger-update-of-the-website" title="Link to this heading">¶</a></h3>
+<p>The main website needs to be redeployed to reflect the new release version on the download page.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./deploy-web
+</pre></div>
+</div>
+</section>
+<section id="stable-releases-create-a-post-on-the-forum">
+<h3>Stable Releases - Create a post on the forum<a class="headerlink" href="#stable-releases-create-a-post-on-the-forum" title="Link to this heading">¶</a></h3>
+<p>In the Announce/Releases category. Use the tag message as the template, make the header a link to the release, make the issue numbers to be links to the corresponding issues. You can use <code class="docutils literal notranslate"><span class="pre">grt</span> <span class="pre">changelog</span> <span class="pre">v0.14.50</span> <span class="pre">--md</span></code> to get the change log with issue links in proper Markdown.</p>
+</section>
+<section id="stable-releases-optionally-tweet-it">
+<h3>Stable Releases - Optionally, tweet it<a class="headerlink" href="#stable-releases-optionally-tweet-it" title="Link to this heading">¶</a></h3>
+<p>If you have the Twitter account and the release isn’t a cake-in-your-face screwup fix that you’d rather no one ever heard about and want to just silently roll out to everyone during the night.</p>
+</section>
+<section id="stable-releases-create-new-milestone">
+<h3>Stable Releases - Create new milestone<a class="headerlink" href="#stable-releases-create-new-milestone" title="Link to this heading">¶</a></h3>
+<p>Create a milestone for the next release, with the due date set to the first
+Tuesday of the next month.
+Which version number to bump depends on what kind of changes are already in main (see <a class="reference internal" href="../users/releases.html#semver"><span class="std std-ref">Major, Minor, or Patch</span></a>).
+This might change in the time until the first candidate is released.</p>
+</section>
+<section id="merge-release-into-main">
+<h3>Merge Release Into Main<a class="headerlink" href="#merge-release-into-main" title="Link to this heading">¶</a></h3>
+<p>If this was a non-first candidate release with cherry picked commits on it, merge <code class="docutils literal notranslate"><span class="pre">release</span></code> back into <code class="docutils literal notranslate"><span class="pre">main</span></code> and push <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/dev/release-creation.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.28.1-0-g92146e7</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.28.1</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues.html">Issue Management</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Development</a><ul>
+      <li>Previous: <a href="issues.html" title="previous chapter">Issue Management</a></li>
+      <li>Next: <a href="release-signing.html" title="next chapter">Release Signing</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

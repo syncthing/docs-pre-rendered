@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FolderSummary &#8212; Syncthing v1.28.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=ad5845fd"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FolderWatchStateChanged" href="folderwatchstatechanged.html" />
+    <link rel="prev" title="FolderScanProgress" href="folderscanprogress.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="foldersummary">
+<h1>FolderSummary<a class="headerlink" href="#foldersummary" title="Link to this heading">¶</a></h1>
+<p>The FolderSummary event is emitted when folder contents have changed
+locally. This can be used to calculate the current local completion
+state.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FolderSummary&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-31T08:27:30.777875+01:00&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;folder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;errors&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;globalBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;globalDeleted&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18664</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;globalDirectories&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;globalFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;globalSymlinks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;globalTotalItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18665</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ignorePatterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;inSyncBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;inSyncFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;invalid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;localBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;localDeleted&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18664</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;localDirectories&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;localFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;localSymlinks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;localTotalItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18665</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;needBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;needDeletes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;needDirectories&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;needFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;needSymlinks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;needTotalItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;pullErrors&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;receiveOnlyChangedBytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;receiveOnlyChangedDeletes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;receiveOnlyChangedDirectories&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;receiveOnlyChangedFiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;receiveOnlyChangedSymlinks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;receiveOnlyTotalItems&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;remoteSequence&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;MRIW7OK-NETT3M4-N6SBWME-N25O76W-YJKVXPH-FUMQJ3S-P57B74J-GBITBAC&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">37329</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;sequence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">37329</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;idle&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;stateChanged&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-01-31T08:27:24+01:00&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">37329</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;watchError&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/events/foldersummary.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v1.28.1-0-g92146e7</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v1.28.1</p>
+<hr /><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../dev/index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/web.html">Working on the Web GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/building.html">Building Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/debugging.html">Debugging Syncthing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/crashrep.html">Automatic Crash Reporting for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/device-ids.html">Understanding Device IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/infrastructure.html">Syncthing Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/issues.html">Issue Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-creation.html">Creating a Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/release-signing.html">Release Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/rest.html">REST API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../dev/events.html">Event API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/http-services.html">HTTP Utility Services API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../dev/index.html">Development</a><ul>
+  <li><a href="../dev/events.html">Event API</a><ul>
+      <li>Previous: <a href="folderscanprogress.html" title="previous chapter">FolderScanProgress</a></li>
+      <li>Next: <a href="folderwatchstatechanged.html" title="next chapter">FolderWatchStateChanged</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
