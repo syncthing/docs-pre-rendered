@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Syncthing v2.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=dea5b834" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=8422aa77"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/jquery-3.7.1.min.js?v=94f7166b"></script>
+    <script src="../_static/version_redirect.js?v=39302caa"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <dl>
+<dt>STTRACE</dt><dd><p>Used to increase the debugging verbosity in specific facilities,
+generally mapping to a Go package. Enter a comma-separated string of
+facilities to trace: <code class="docutils literal notranslate"><span class="pre">api,beacon</span></code>. Optionally, a log level can be
+given per facility to specify something other than DEBUG:
+<code class="docutils literal notranslate"><span class="pre">api:WARN,beacon:ERROR</span></code>, potentially overriding a global <code class="docutils literal notranslate"><span class="pre">--log-level</span></code>
+adjustment.</p>
+<p>The valid facility strings are listed below; additionally, <code class="docutils literal notranslate"><span class="pre">syncthing</span>
+<span class="pre">serve</span> <span class="pre">--help</span></code> always outputs the most up-to-date list.</p>
+<dl class="simple">
+<dt>api</dt><dd><p>REST API</p>
+</dd>
+<dt>beacon</dt><dd><p>Multicast and broadcast discovery</p>
+</dd>
+<dt>config</dt><dd><p>Configuration loading and saving</p>
+</dd>
+<dt>connections</dt><dd><p>Connection handling</p>
+</dd>
+<dt>db/sqlite</dt><dd><p>SQLite database</p>
+</dd>
+<dt>dialer</dt><dd><p>Dialing connections</p>
+</dd>
+<dt>discover</dt><dd><p>Remote device discovery</p>
+</dd>
+<dt>events</dt><dd><p>Event generation and logging</p>
+</dd>
+<dt>fs</dt><dd><p>Filesystem access</p>
+</dd>
+<dt>main</dt><dd><p>Main package</p>
+</dd>
+<dt>model</dt><dd><p>The root hub</p>
+</dd>
+<dt>nat</dt><dd><p>NAT discovery and port mapping</p>
+</dd>
+<dt>pmp</dt><dd><p>NAT-PMP discovery and port mapping</p>
+</dd>
+<dt>protocol</dt><dd><p>The BEP protocol</p>
+</dd>
+<dt>relay/client</dt><dd><p>Relay client</p>
+</dd>
+<dt>scanner</dt><dd><p>File change detection and hashing</p>
+</dd>
+<dt>stun</dt><dd><p>STUN functionality</p>
+</dd>
+<dt>syncthing</dt><dd><p>Main run facility</p>
+</dd>
+<dt>upgrade</dt><dd><p>Binary upgrades</p>
+</dd>
+<dt>upnp</dt><dd><p>UPnP discovery and port mapping</p>
+</dd>
+<dt>ur</dt><dd><p>Usage reporting</p>
+</dd>
+<dt>versioner</dt><dd><p>File versioning</p>
+</dd>
+<dt>watchaggregator</dt><dd><p>Filesystem event watcher</p>
+</dd>
+</dl>
+</dd>
+<dt>STLOCKTHRESHOLD</dt><dd><p>Used for debugging internal deadlocks; sets debug sensitivity. Use only
+under direction of a developer.</p>
+</dd>
+<dt>STVERSIONEXTRA</dt><dd><p>Add extra information to the version string in logs and the version line
+in the GUI. Can be set to the name of a wrapper or tool controlling
+syncthing to communicate this to the end user.</p>
+</dd>
+<dt>GOMAXPROCS</dt><dd><p>Set the maximum number of CPU cores to use. Defaults to all available CPU
+cores.</p>
+</dd>
+<dt>GOGC</dt><dd><p>Percentage of heap growth at which to trigger GC. Default is 100. Lower
+numbers keep peak memory usage down, at the price of CPU usage
+(i.e. performance).</p>
+</dd>
+<dt>LOGGER_DISCARD</dt><dd><p>Hack to completely disable logging, for example when running benchmarks.
+Set to any nonempty value to use it.</p>
+</dd>
+</dl>
+
+
+          </div>
+<div class="body footer-body" role="footer">
+    <a class="reference external" href="https://github.com/syncthing/docs/edit/main/includes/env-vars.rst" rel="nofollow">Edit this page on GitHub</a>
+    <br />
+    <small>Version: v2.1.0-0-gb7ce2d6</small>
+</div>
+
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo-horizontal.svg" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=syncthing&repo=syncthing&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<p>Written for v2.1.0</p>
+<hr /><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users/index.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specs/index.html">Specifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+<h3 class="donation">Donate/support</h3>
+
+
+
+<p>
+<a class="badge" href="https://syncthing.net/donations/">
+<img src="https://img.shields.io/badge/donate-%E2%9D%A4%C2%A0-ff69b4.svg?style=flat" alt="Donate">
+</a>
+</p>
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
